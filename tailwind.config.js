@@ -11,8 +11,23 @@ module.exports = {
       display: ['"DM Sans"', "sans-serif"],
       body: ['"DM Sans"', "sans-serif"],
     },
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#26c6da"
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities(
+        {
+          '.break-words': {
+            wordBreak: 'break-all',
+            hyphens: 'manual',
+          },
+        }
+      )
+    }
+  ],
 }
 
