@@ -45,7 +45,7 @@ const SmeDoubtChatScreen = () => {
 
     const getUserDetail = () => {
         smeCustomRequest(`/secure/sme/sme-user-detail?userId=${params.userid}`, "GET").then((res) => {
-            setUserDetail(res)
+            setUserDetail(res);
         })
     }
 
@@ -102,11 +102,11 @@ const SmeDoubtChatScreen = () => {
                                                                     <SmeReceiveBubble key={index} doubt={doubt} user={userDetail} message={doubt.request} doubtImage={index === 0 ? smeDoubtChatSession.value === null ? null : smeDoubtChatSession.value.doubtImageUrl : null} />
                                                             }
                                                             {
-                                                                doubt.response === undefined || doubt.response === null || doubt.response === ""
-                                                                    ?
-                                                                    null
-                                                                    :
-                                                                    <SendBubble key={doubt.id} id={doubt.id} doubt={doubt} message={doubt.response} />
+                                                                // doubt.response === undefined || doubt.response === null || doubt.response === ""
+                                                                //     ?
+                                                                //     null
+                                                                //     :
+                                                                <SendBubble key={doubt.id} id={doubt.id} doubt={doubt} message={doubt.response} />
                                                             }
                                                         </div>
                                                     )
@@ -251,13 +251,10 @@ const SendBubble = ({ doubt, message }) => {
                             ?
                             <div className='flex flex-col'>
                                 <p className='mb-1'>{doubt.optionResponse[0].title}</p>
-                                <video id="my-video" className="video-js" controls preload="auto" height="290" width="320" muted>
-                                    <source id="video-source" src={doubt.optionResponse[0].contentUrl}
-                                        type="application/x-mpegURL" />
-                                </video>
+                                <video controls height="290" width="100%" src={doubt.optionResponse[0].contentUrl}></video>
 
-                                <a href={doubt.optionResponse[0].contentUrl} target='_blank' className="px-2 py-1 rounded bg-primary text-white my-2 mr-auto">Open In New Tab</a>
-                                <p className='pt-1' dangerouslySetInnerHTML={{ __html: doubt.response.replace("(bold)<b>", "</b>") }}></p>
+                                <a href={doubt.optionResponse[0].contentUrl} target='_blank' className="px-2 py-1 rounded bg-primary text-white my-2 ml-auto">Open In New Tab</a>
+                                <p className='pt-1' dangerouslySetInnerHTML={{ __html: doubt.response == null ? "" : doubt.response.replace("(bold)<b>", "</b>") }}></p>
                             </div>
                             :
                             <div className="flex flex-col">

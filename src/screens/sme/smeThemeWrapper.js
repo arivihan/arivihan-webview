@@ -16,9 +16,12 @@ const SMEThemeWrapper = ({ children }) => {
     const getLoggedInUserDetail = () => {
         if (loggedInUser.value === null) {
             smeCustomRequest(`/secure/metrics/users/me?token=${localStorage.getItem("token")}`, "GET").then((res) => {
-                localStorage.setItem("username", res.username)
-                localStorage.setItem("role", res.role.join(","))
-                loggedInUser.value = res;
+                if(res !== undefined){
+                    console.log(res)
+                    localStorage.setItem("username", res.username)
+                    localStorage.setItem("role", res.role.join(","))
+                    loggedInUser.value = res;
+                }
             })
         }
     }

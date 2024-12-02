@@ -21,20 +21,20 @@ const SMESidebar = ({ onCreateNewChat }) => {
     const navigate = useNavigate();
 
 
-    const getUser = () => {
-        if (localStorage.getItem("token")) {
+    // const getUser = () => {
+    //     if (localStorage.getItem("token")) {
 
-            customFetchRequest('login').then((res) => {
-                loggedInUser.value = res.body;
-                isGuestUser.value = false;
-                subscriptionActive.value = res.body.subscriptionActive;
-                localStorage.setItem('id', res.body.id)
-            })
-        }
-        customFetchRequest(`chat-sessions`, 'GET').then((res) => {
-            chatSessions.value = res;
-        })
-    }
+    //         customFetchRequest('login').then((res) => {
+    //             loggedInUser.value = res.body;
+    //             isGuestUser.value = false;
+    //             subscriptionActive.value = res.body.subscriptionActive;
+    //             localStorage.setItem('id', res.body.id)
+    //         })
+    //     }
+    //     customFetchRequest(`chat-sessions`, 'GET').then((res) => {
+    //         chatSessions.value = res;
+    //     })
+    // }
 
     const handleLogout = () => {
         isGuestUser.value = true;
@@ -44,9 +44,9 @@ const SMESidebar = ({ onCreateNewChat }) => {
         navigate("/login")
     }
 
-    useEffect(() => {
-        getUser()
-    }, [])
+    // useEffect(() => {
+    //     getUser()
+    // }, [])
 
 
     return (

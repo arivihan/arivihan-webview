@@ -4,6 +4,7 @@ import { Circles, CirclesWithBar, ThreeDots } from 'react-loader-spinner';
 import { effect, signal, useSignal } from '@preact/signals-react';
 import { useSignals } from '@preact/signals-react/runtime';
 import { chatIsWaitingForResponse, chatLoadingMessageId, chatReceiveChatMessage } from '../state/chatState';
+import { MathJax, MathJaxContext } from 'better-react-mathjax';
 
 
 export const ReceiveBubble = (props) => {
@@ -33,13 +34,13 @@ export const ReceiveBubble = (props) => {
     }, [counter])
 
     useEffect(() => {
-        if(props.id === "notloading"){
+        if (props.id === "notloading") {
             setText(props.message);
             setIsLoading(false);
-            setTimeout(()=>{
+            setTimeout(() => {
                 document.getElementById("message_container").scrollBy({ top: 6000, behavior: "smooth" });
-            },200)
-        }else{
+            }, 200)
+        } else {
             if (chatReceiveChatMessage.value !== null) {
                 setTimeout(() => {
                     setCounter(responseMessage.length);
@@ -72,9 +73,12 @@ export const ReceiveBubble = (props) => {
                     </div>
                     :
                     <div className={`ml-12 text-gray-800 text-start word`} id="typer">
-                        <pre className='text-wrap whitespace-break-spaces text-sm'>
-                            {text}
-                        </pre>
+                        <MathJaxContext>
+                            <MathJax>
+                                <div className='text-wrap whitespace-break-spaces text-sm' dangerouslySetInnerHTML={{ __html: text.replaceAll("\n", "") }}>
+                                </div>
+                            </MathJax>
+                        </MathJaxContext>
                     </div>
 
             }

@@ -82,6 +82,7 @@ export default function DoubtListScreen() {
                                 <th className='border text-start px-2 py-1'>S.No.</th>
                                 <th className='border text-start px-2 py-1'>Title</th>
                                 <th className='border text-start px-2 py-1'>Subject</th>
+                                <th className='border text-start px-2 py-1'>Language</th>
                                 <th className='border text-start px-2 py-1'>Resolved</th>
                                 <th className='border text-start px-2 py-1'>Date</th>
                                 <th className='border text-start px-2 py-1'>Actions</th>
@@ -117,6 +118,7 @@ export default function DoubtListScreen() {
                                                         <td className="border px-2 py-1">{index + 1}</td>
                                                         <td className="border px-2 py-1 max-w-72 break-all hyphen">{doubt.title}</td>
                                                         <td className="border px-2 py-1">{doubt.selectedSubject}</td>
+                                                        <td className="border px-2 py-1">{doubt.language.toString().toLowerCase()}</td>
                                                         <td className="border px-2 py-1">{doubt.resolved ? "Yes" : "No"}</td>
                                                         <td className="border px-2 py-1 text-sm">{moment(doubt.createdAt).format("h:m a DD-MM-YY")}</td>
                                                         <td className="border-t px-2 py-1 flex items-center">

@@ -5,7 +5,8 @@ function smeCustomRequest(path, method = "POST", body = {}) {
         "token": localStorage.getItem("token") ?? "",
         "userId": localStorage.getItem('id') ?? "",
         "content-Type": "application/json",
-        "Authorization": "Bearer " + localStorage.getItem("token") ?? ""
+        "Authorization": "Bearer " + localStorage.getItem("token") ?? "",
+        "token":  localStorage.getItem("token") ?? ""
     }
 
     let options = {
@@ -17,7 +18,7 @@ function smeCustomRequest(path, method = "POST", body = {}) {
         options['body'] = JSON.stringify(body)
     }
 
-    return fetch(`/internal-metrics${path}`, options)
+    return fetch(`https://platform-dev.arivihan.com/internal-metrics${path}`, options)
         .then(res => {
             if (res.status === 200) {
                 return res.json()

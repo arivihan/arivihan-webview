@@ -3,6 +3,7 @@ import { CgGoogle } from 'react-icons/cg';
 import { FaGoogle } from 'react-icons/fa';
 import { smeCustomRequest } from '../utils/smeCustomRequest';
 import { useNavigate } from 'react-router-dom';
+import Cookies from 'js-cookie';
 
 
 export default function LoginScreen() {
@@ -19,6 +20,7 @@ export default function LoginScreen() {
         smeCustomRequest("/auth/authenticate", "POST", { username: username, password: password }).then((res) => {
             if (res.success) {
                 localStorage.setItem("token", res.data.accessToken);
+                Cookies.set("avToken", res.data.accessToken);
                 navigate("/sme-home")
             } else {
                 alert(res.message)
