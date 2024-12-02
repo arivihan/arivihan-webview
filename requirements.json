@@ -1,0 +1,29 @@
+// from app
+
+{
+    "userId":"",
+    "subject":"",
+    "origin":"",
+    "board":"",
+    "chatSessionid":"",
+    "language":"",
+    // for cq/nq
+    "question":"",
+    "answer":""
+}
+
+
+//from react app
+
+{
+    "requestType":"",
+    "doubt":"",
+    "optionClicked":"",
+    "userId":"",
+    "chatSessionId":"",
+    "board":"",
+    "language":"",
+    "origin":"",
+    "subject":"",
+    ""
+}
