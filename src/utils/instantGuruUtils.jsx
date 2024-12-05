@@ -1,11 +1,16 @@
 import {
   chatHistory,
   chatSessionId,
+  chatType,
+  isFirstDoubt,
   lastUserQuestion,
+  showChatLoadShimmer,
   showDoubtChatLoader,
+  showWhatsappBottomSheet,
 } from "../state/instantGuruState";
 
 export const getChatHistory = () => {
+  showChatLoadShimmer.value = true;
   const urlParams = new URLSearchParams(window.location.search);
   let onGoingChatSessionId = urlParams.get("chatSessionId");
   if (
@@ -19,6 +24,7 @@ export const getChatHistory = () => {
   const userId = urlParams.get("userId");
   const langauge = urlParams.get("language");
   //   chatSessionId = "3e724503-39b9-410b-b183-60763cd17380";
+
 
   fetch(
     `https://platform-dev.arivihan.com:443/arivihan-platform/webview/doubt/resume?chatSessionId=${chatSessionId.value}`,
@@ -37,9 +43,11 @@ export const getChatHistory = () => {
 
       // setChatHistory(data);
       if (chatSessionId.value === null || chatSessionId.value === "null") {
+        isFirstDoubt.value = true;
         postNewChat("");
       } else {
         chatHistory.value = data;
+        showChatLoadShimmer.value = false
       }
     })
     .catch((error) => {
@@ -60,7 +68,9 @@ export const postNewChat = (
   const langauge = urlParams.get("language");
   const subject = urlParams.get("subject");
 
-  showDoubtChatLoader.value = true;
+  if (showChatLoadShimmer.value !== true) {
+    showDoubtChatLoader.value = true;
+  }
 
   fetch(
     "https://platform-dev.arivihan.com:443/arivihan-platform/webview/doubt/chat",
@@ -76,8 +86,8 @@ export const postNewChat = (
         answer: "string",
         chatSessionId: chatSessionId.value,
         doubtImageUrl: doubtImageUrl,
-        firstDoubt: chatHistory.value.length === 3 ? true : false,
-        giveOption: chatHistory.value.length === 3 ? true : false,
+        firstDoubt: isFirstDoubt.value,
+        giveOption: isFirstDoubt.value,
         mockTestDoubt: false,
         question: "string",
         requestType: requestType,
@@ -94,6 +104,7 @@ export const postNewChat = (
       chatHistory.value = [...chatHistory.value, ...data.data];
       console.log(data);
       showDoubtChatLoader.value = false;
+      showChatLoadShimmer.value = false;
     })
     .catch((error) => {
       showDoubtChatLoader.value = false;
@@ -199,9 +210,22 @@ export const chatRequestVideo = (responseId) => {
     });
 };
 
+const base64ToFile = (base64String, fileName) => {
+  const byteString = atob(base64String.split(',')[1]);
+  const arrayBuffer = new ArrayBuffer(byteString.length);
+  const uint8Array = new Uint8Array(arrayBuffer);
+
+  for (let i = 0; i < byteString.length; i++) {
+    uint8Array[i] = byteString.charCodeAt(i);
+  }
+
+  const blob = new Blob([uint8Array], { type: 'image/jpeg' });
+  return new File([blob], fileName, { type: 'image/jpeg' });
+};
+
 export const chatImageRequest = (imageFile) => {
   let formData = new FormData();
-  formData.append("file", imageFile);
+  formData.append("file", base64ToFile(imageFile, Math.random() + ".jpg"));
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get("userId");
   const board = urlParams.get("board");
@@ -232,3 +256,91 @@ export const chatImageRequest = (imageFile) => {
     })
     .catch((error) => console.error("Error:", error));
 };
+
+export function chatClassifier(message) {
+
+  showDoubtChatLoader.value = true;
+  const url = 'https://platform-dev.arivihan.com:443/arivihan-platform/webview/doubt/chat-classifier?doubt=' + message;
+
+  const headers = {
+    'accept': 'application/json',
+    'Content-Type': 'application/json',
+  };
+
+  fetch(url, {
+    method: 'GET',
+    headers: headers,
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      chatType.value = data.result;
+      showDoubtChatLoader.value = false;
+      if (data.result === "guidance_based") {
+        showWhatsappBottomSheet.value = true;
+      } else if (data.result !== "subject_based") {
+        postNewChatConversation(message);
+      } else if (data.result === "subject_based") {
+        isFirstDoubt.value = true;
+        postNewChat(message);
+      }
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+export function postNewChatConversation(userDoubt) {
+  showDoubtChatLoader.value = true;
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get("userId");
+
+  const url = `https://platform-dev.arivihan.com:443/arivihan-platform/webview/doubt/chat-conversation?chatSessionId=${chatSessionId.value}&doubt=${userDoubt}`;
+
+  const headers = {
+    'accept': '*/*',
+    'userId': userId
+  };
+
+  fetch(url, {
+    method: 'GET',
+    headers: headers
+  })
+    .then(response => response.json())
+    .then(data => {
+      chatHistory.value = [...chatHistory.value, ...data];
+      showDoubtChatLoader.value = false;
+    })
+    .catch(error => console.error('Error:', error));
+}
+
+
+export function showToast(message) {
+  if (typeof AndroidInterface !== 'undefined') {
+    window.AndroidInterface.showToast(message)
+  } else {
+    alert(message);
+  }
+}
+
+export function openDrawer() {
+  if (typeof AndroidInterface !== 'undefined') {
+    window.AndroidInterface.openDrawer();
+  } else {
+    alert("AndroidInterface is not defined for drawer");
+  }
+}
+
+export function openVideo(videoUrl, startPosition, endPosition, chatSesisonId, responseId) {
+  if (typeof AndroidInterface !== 'undefined') {
+    window.AndroidInterface.openVideo(videoUrl, startPosition, endPosition, chatSesisonId, responseId);
+  } else {
+    alert("AndroidInterface is not defined for drawer");
+  }
+}
+
+export function openWhatsapp() {
+  if (typeof AndroidInterface !== 'undefined') {
+    window.AndroidInterface.openWhatsapp();
+  } else {
+    alert("AndroidInterface is not defined for drawer");
+  }
+}

@@ -62,7 +62,7 @@ const Sidebar = ({ onCreateNewChat }) => {
 
 
     return (
-        <div className={`bg-[#F6F6F6] shadow w-60 fixed sm:relative flex-col z-10 ${showSidebarMobile.value ? "flex" : "hidden"}`} style={{ height: "calc(100vh - 64px)" }}>
+        <div className={`bg-[#F6F6F6] shadow w-[240px] fixed sm:relative flex-col z-10 ${showSidebarMobile.value ? "flex" : "hidden"}`} style={{ height: "calc(100vh - 64px)" }}>
             <div className="p-4 ">
                 {/* <div className='flex items-center hover:bg-white/20 rounded-lg p-2 cursor-pointer' onClick={handleCreateNewChat}>
                     <img className='w-11 h-11 object-contain bg-white rounded-full' src={require("../assets/logo.png")} alt="" />

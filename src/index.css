@@ -3,23 +3,43 @@
 @tailwind utilities;
 
 
-::-webkit-scrollbar{
+::-webkit-scrollbar {
     background-color: transparent;
     width: 5px;
     border-radius: 5px;
 }
 
-::-webkit-scrollbar-track{
-    background-color: rgba(0,0,0,0.1);
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
     width: 3px;
     border-radius: 5px;
     height: 60px;
 }
 
-::-webkit-scrollbar-thumb{
-    background-color: rgba(255,255,255,0.6);
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.6);
     border-radius: 5px;
     max-width: 3px;
 }
 
 
+.katex-display,
+.MathJax {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    padding-right: 30px;
+}
+
+.receiveBubble p{
+    width: 100%;
+}
+
+.react-crop {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.crop-img{
+    max-height: 400px !important;
+}

@@ -5,14 +5,29 @@ module.exports = {
   ],
   theme: {
     fontFamily: {
-      serif: ['"DM Sans"', "sans-serif"],
-      sans: ['"DM Sans"', "sans-serif"],
-      mono: ['"DM Sans"', "sans-serif"],
-      display: ['"DM Sans"', "sans-serif"],
-      body: ['"DM Sans"', "sans-serif"],
+      serif: ['"Urbanist"', "sans-serif"],
+      sans: ['"Urbanist"', "sans-serif"],
+      mono: ['"Urbanist"', "sans-serif"],
+      display: ['"Urbanist"', "sans-serif"],
+      body: ['"Urbanist"', "sans-serif"],
     },
-    extend: {},
+    extend: {
+      colors: {
+        primary: "#26c6da"
+      }
+    },
   },
-  plugins: [],
+  plugins: [
+    function ({ addUtilities }) {
+      addUtilities(
+        {
+          '.break-words': {
+            wordBreak: 'break-all',
+            hyphens: 'manual',
+          },
+        }
+      )
+    }
+  ],
 }
 

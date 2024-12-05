@@ -21,11 +21,11 @@ const ChatScreen = () => {
 
     const handleSendMessage = () => {
 
-        // if (isGuestUser.value && userChatsCount.value >= 10 && !subscriptionActive.value) {
-        //     setIsShowExhaustCard(true);
-        //     setIsShowWelcomeMessage(false);
-        //     return;
-        // }
+        if (isGuestUser.value && userChatsCount.value >= 10 && !subscriptionActive.value) {
+            setIsShowExhaustCard(true);
+            setIsShowWelcomeMessage(false);
+            return;
+        }
 
         if (inputText.trim() !== '' && !chatIsWaitingForResponse.value) {
 
@@ -177,8 +177,8 @@ const ChatScreen = () => {
                                         ?
                                         <div className="w-full flex flex-col items-center justify-center">
 
-                                            <div className="h-10 w-10 bg-[#26c6da] rounded-full">
-                                                <img src={require("../assets/logo.png")} alt="" className='h-10 w-10 object-contain invert brightness-0' />
+                                            <div className="h-[60px] w-[60px] bg-[#26c6da] rounded-full">
+                                                <img src={require("../assets/logo.png")} alt="" className='h-full w-full object-contain invert brightness-0' />
                                             </div>
                                             <p className='mt-4'>How <b>can I help</b> you <b>today?</b></p>
                                             <div className="relative flex flex-col sm:flex-row items-center justify-between w-full my-12">
