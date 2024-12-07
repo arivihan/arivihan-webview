@@ -8,6 +8,7 @@ import {
   doubtText,
   imageViewUrl,
   isFirstDoubt,
+  isStepWiseSolution,
   lastUserQuestion,
   showChatLoadShimmer,
   showDoubtChatLoader,
@@ -23,6 +24,7 @@ import {
   chatResponseFeedback,
   getChatHistory,
   openDrawer,
+  openNewChat,
   openVideo,
   postNewChat,
   showToast,
@@ -35,6 +37,7 @@ import { ChatLoadShimmer } from "../components/chatLoadShimmer";
 import MicListeningUI from "../components/micListeningUi";
 import { ImageViewModal } from "../components/imageViewModal";
 import OpenWhatsAppSheet from "../components/openWhatsappSheet";
+import { useTranslation } from "react-i18next";
 // import Latex from "react-latex-next";
 
 const InstantGuruUI = () => {
@@ -42,11 +45,11 @@ const InstantGuruUI = () => {
   const [listening, setListening] = useState(false);
   const [imageFile, setImageFile] = useState(null);
   const location = useLocation();
-
   const [selectedImage, setSelectedImage] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
   const [croppedImage, setCroppedImage] = useState(null);
   const recognition = new window.webkitSpeechRecognition();
+  const { i18n, t } = useTranslation();
 
   const handleImageIconClick = (e) => {
     if (showDoubtChatLoader.value === true) {
@@ -87,13 +90,20 @@ const InstantGuruUI = () => {
       chatContainer.scrollTop = chatContainer.scrollHeight;
 
       setTimeout(() => {
+        isFirstDoubt.value = true;
+        chatType.value = "subject_based"
+
         chatImageRequest(file);
       }, 200)
     }
     setModalOpen(false);
   };
 
+  
   useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    let language = urlParams.get("language");
+    i18n.changeLanguage(language)
     getChatHistory();
   }, []);
 
@@ -151,7 +161,7 @@ const InstantGuruUI = () => {
       showToast("Waiting for response");
       return;
     }
-    if (doubtText.value.split(" ").length > 2) {
+    if (doubtText.value.split(" ").length > 2 || isStepWiseSolution.value === true) {
       chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#f6f6f6] ml-auto text-sm rounded'><p>${doubtText}</p></div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
       if (chatType.value === null || chatType.value !== "subject_based") {
@@ -161,12 +171,13 @@ const InstantGuruUI = () => {
       }
       lastUserQuestion.value = doubtText.value;
       doubtText.value = "";
-      isFirstDoubt.value = false;
+    } else {
+      showToast("Write your doubt in detail...")
     }
   };
 
   const handleNewChat = () => {
-    window.location.reload(); 
+    openNewChat();
   }
 
   useEffect(() => {
@@ -181,7 +192,7 @@ const InstantGuruUI = () => {
         <img src={require("../assets/icons/icon_menu_home.png")} className="w-7" onClick={() => { openDrawer() }} />
         <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
         <button className="ml-auto bg-[#f6f6f6] text-sm px-4 py-1 rounded border border-[#e8e9eb]" onClick={handleNewChat}>
-          New Chat
+          {t("newChat")}
         </button>
       </div>
 
@@ -207,8 +218,16 @@ const InstantGuruUI = () => {
           if (chat.waitingForResponse) {
             waitingForResponse.value = true;
           }
+          if (chat.stepWiseSolution) {
+            isStepWiseSolution.value = true;
+          }
+
+          if (chat.userQuery !== undefined && chat.userQuery !== null && chat.userQuery !== "") {
+            isFirstDoubt.value = false;
+          }
+
           return (
-            <div className="flex flex-col gap-4 w-full">
+            <div className="flex flex-col gap-4 w-full" key={hIndex}>
               {chat.userQuery !== undefined &&
                 chat.userQuery !== null &&
                 chat.userQuery !== "" ? (
@@ -254,10 +273,10 @@ const InstantGuruUI = () => {
                     />
                     {/* )}  */}
                     <div class="px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full">
-                      <p>Apko apke doubt ka solution kaisa chahiye?</p>
+                      <p>{t("chooseTypeOfSolution")}</p>
                       {chat.optionResponse.map((option, index) => {
                         return (
-                          <div
+                          <div key={index}
                             class="px-3 py-2 bg-white ml-auto text-sm rounded-xl my-2"
                             onClick={hIndex !== chatHistory.value.length - 1 ? null : () => {
                               if (option.title.includes("Video")) {
@@ -288,8 +307,8 @@ const InstantGuruUI = () => {
                         src={require("../assets/icons/icon_chat_avatar.png")}
                         className={
                           chat.needFeedback
-                            ? "h-11 w-11 object-contain mr-2 mb-6"
-                            : "h-11 w-11 object-contain mr-2 mb-0"
+                            ? "h-[40px] w-[40px] object-contain mr-2 mb-6"
+                            : "h-[40px] w-[40px] object-contain mr-2 mb-0"
                         }
                       />
                       <div className="flex flex-col w-[calc(100vw-80px)] overflow-x-hidden">
@@ -301,8 +320,8 @@ const InstantGuruUI = () => {
                         {chat.needFeedback && hIndex == chatHistory.value.length - 1 ? (
                           <div className="flex items-center ml-auto mt-1">
                             <p className="text-[9px] text-gray-500 mr-2">
-                              Was this helpful?{" "}
-                            </p>{" "}
+                              {t("was_this_helpful")}
+                            </p>
                             <img
                               src={require("../assets/icons/icon_thumbs_up.png")}
                               className="h-4 mr-2"
@@ -354,7 +373,7 @@ const InstantGuruUI = () => {
           <input
             type="text"
             className="outline-none p-3 w-full text-sm"
-            placeholder="Ask anything..."
+            placeholder={t("ask_anything")}
             value={doubtText.value}
             onChange={(e) => {
               doubtText.value = e.target.value;

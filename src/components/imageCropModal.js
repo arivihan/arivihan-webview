@@ -113,7 +113,7 @@ const ImageCropModal = ({ imageSrc, onClose, onSave }) => {
             className="bg-primary text-white px-4 py-2 rounded-lg"
             disabled={!completedCrop}
           >
-            Save Crop
+            Crop
           </button>
         </div>
       </div>

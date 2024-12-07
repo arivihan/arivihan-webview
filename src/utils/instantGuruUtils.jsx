@@ -2,6 +2,7 @@ import {
   chatHistory,
   chatSessionId,
   chatType,
+  giveResponseOption,
   isFirstDoubt,
   lastUserQuestion,
   showChatLoadShimmer,
@@ -21,10 +22,9 @@ export const getChatHistory = () => {
   ) {
     chatSessionId.value = onGoingChatSessionId;
   }
+
   const userId = urlParams.get("userId");
   const langauge = urlParams.get("language");
-  //   chatSessionId = "3e724503-39b9-410b-b183-60763cd17380";
-
 
   fetch(
     `https://platform-dev.arivihan.com:443/arivihan-platform/webview/doubt/resume?chatSessionId=${chatSessionId.value}`,
@@ -42,10 +42,10 @@ export const getChatHistory = () => {
       console.log(data);
 
       // setChatHistory(data);
-      if (chatSessionId.value === null || chatSessionId.value === "null") {
-        isFirstDoubt.value = true;
+      if (chatSessionId.value === undefined || chatSessionId.value === null || chatSessionId.value === "null" || chatSessionId.value === "") {
         postNewChat("");
       } else {
+        isFirstDoubt.value = false;
         chatHistory.value = data;
         showChatLoadShimmer.value = false
       }
@@ -60,13 +60,15 @@ export const getChatHistory = () => {
 export const postNewChat = (
   userQuery,
   requestType = "HTML",
-  doubtImageUrl = ""
+  doubtImageUrl = "",
 ) => {
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get("userId");
   const board = urlParams.get("board");
   const langauge = urlParams.get("language");
   const subject = urlParams.get("subject");
+  const answer = urlParams.get("answer");
+  const question = urlParams.get("question");
 
   if (showChatLoadShimmer.value !== true) {
     showDoubtChatLoader.value = true;
@@ -81,15 +83,16 @@ export const postNewChat = (
         userId: userId,
         board: board === "true" ? true : false,
         "Content-Type": "application/json",
+        "Accept-Language": langauge,
       },
       body: JSON.stringify({
-        answer: "string",
+        answer: answer,
         chatSessionId: chatSessionId.value,
         doubtImageUrl: doubtImageUrl,
         firstDoubt: isFirstDoubt.value,
-        giveOption: isFirstDoubt.value,
+        giveOption: isFirstDoubt.value && requestType !== "IMAGE_HTML",
         mockTestDoubt: false,
-        question: "string",
+        question: question,
         requestType: requestType,
         selectedSubjectName: subject,
         userQuery: userQuery,
@@ -98,11 +101,13 @@ export const postNewChat = (
   )
     .then((response) => response.json())
     .then((data) => {
-      if (chatSessionId.value === null) {
+      isFirstDoubt.value = false;
+
+      if (chatSessionId.value === null || chatSessionId.value === "") {
         chatSessionId.value = data.data[data.data.length - 1].chatSesssionId;
+        isFirstDoubt.value = true;
       }
       chatHistory.value = [...chatHistory.value, ...data.data];
-      console.log(data);
       showDoubtChatLoader.value = false;
       showChatLoadShimmer.value = false;
     })
@@ -135,8 +140,8 @@ export const chatOptionClicked = (chatMessageId, option) => {
   )
     .then((response) => response.json())
     .then((data) => {
+      isFirstDoubt.value = false;
       chatHistory.value = [...chatHistory.value, ...data.data];
-      console.log(data);
       showDoubtChatLoader.value = false;
     })
     .catch((error) => {
@@ -249,7 +254,6 @@ export const chatImageRequest = (imageFile) => {
     .then((response) => response.json())
     .then((data) => {
       showDoubtChatLoader.value = false;
-
       postNewChat(data.message, "IMAGE_HTML", data.message);
       console.log(data);
 
@@ -276,10 +280,10 @@ export function chatClassifier(message) {
       console.log(data);
       chatType.value = data.result;
       showDoubtChatLoader.value = false;
-      if (data.result === "guidance_based") {
-        showWhatsappBottomSheet.value = true;
-      } else if (data.result !== "subject_based") {
+      if (data.result === "conversation_based") {
         postNewChatConversation(message);
+      } else if (data.result !== "subject_based") {
+        showWhatsappBottomSheet.value = true;
       } else if (data.result === "subject_based") {
         isFirstDoubt.value = true;
         postNewChat(message);
@@ -342,5 +346,13 @@ export function openWhatsapp() {
     window.AndroidInterface.openWhatsapp();
   } else {
     alert("AndroidInterface is not defined for drawer");
+  }
+}
+
+export function openNewChat() {
+  if (typeof AndroidInterface !== 'undefined') {
+    window.AndroidInterface.openNewChat();
+  } else {
+    alert("AndroidInterface is not defined for NewChat");
   }
 }

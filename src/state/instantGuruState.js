@@ -1,7 +1,7 @@
 import { signal } from "@preact/signals-react";
 
 
-export const chatSessionId = signal(null);
+export const chatSessionId = signal("");
 export const doubtText = signal("");
 export const showMicListentingUI = signal(false);
 export const showChatLoadShimmer = signal(true);
@@ -14,4 +14,5 @@ export const isFirstDoubt = signal(false);
 export const imageViewUrl = signal(null);
 export const chatType = signal(null);
 export const showWhatsappBottomSheet = signal(false);
+export const isStepWiseSolution = signal(false);
 

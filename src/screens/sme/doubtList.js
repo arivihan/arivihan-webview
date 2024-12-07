@@ -15,22 +15,28 @@ export default function DoubtListScreen() {
     const [doubts, setDoubts] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchText, setSearchText] = useState("");
+    const [startDate, setStartDate] = useState(new Date());
+    const [endDate, setEndDate] = useState(new Date());
     const navigate = useNavigate();
     const params = useParams();
 
-    const handleSearch = (e) => {
+    const onInputChange = (e) => {
         if (e.key === "Enter") {
-            smeCustomRequest(`/secure/sme/doubts-search?search=${searchText}`, "GET").then((res) => {
-                setDoubts(res)
-            })
+            handleSearch()
         }
+    }
+
+    const handleSearch = () => {
+        smeCustomRequest(`/secure/sme/doubts-search?search=${searchText}&startDate=${moment(startDate).format("yy-MM-DD")}&endDate=${moment(endDate).format("yy-MM-DD")}`, "GET").then((res) => {
+            setDoubts(res)
+        })
     }
 
 
     const getDoubts = () => {
         setIsLoading(true);
         if (params.userid === "latest") {
-            smeCustomRequest(`/secure/sme/doubts-search?search=${searchText}`, "GET").then((res) => {
+            smeCustomRequest(`/secure/sme/doubts-search?search=${searchText}&startDate=${moment(startDate).format("yy-MM-DD")}&endDate=${moment(endDate).format("yy-MM-DD")}`, "GET").then((res) => {
                 setDoubts(res);
                 setIsLoading(false);
             })
@@ -70,9 +76,22 @@ export default function DoubtListScreen() {
                             :
                             <h2 className='font-bold'>{smeDoubtListUserName.value}'s Doubts</h2>
                     }
-                    <div className="ml-auto flex items-center">
-                        <input type="text" className='border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-72' placeholder='Search by name, phone number...' onInput={(e) => setSearchText(e.target.value)} onKeyDown={handleSearch} />
-                        <div className="px-2 py-2 bg-primary/10 border border-primary ml-2 rounded cursor-pointer text-primary active:bg-primary active:text-white" onClick={handleSearch}><BiSearch /></div>
+                    <div className="ml-auto flex items-end gap-2">
+                        <div className="flex flex-col w-40">
+                            <label htmlFor="start_date" className='text-[9px] text-gray-400'>Start Date</label>
+                            <input type="date" name="start_date" value={startDate.toISOString().split('T')[0]} className='border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-full' onChange={(e) => {
+                                setStartDate(new Date(e.target.value));
+                            }} />
+                        </div>
+                        <div className="flex flex-col w-40">
+                            <label htmlFor="end_date" className='text-[9px] text-gray-400'>End Date</label>
+                            <input type="date" name="end_date" value={endDate.toISOString().split('T')[0]} className='border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-full' onChange={(e) => { setEndDate(new Date(e.target.value)) }} />
+                        </div>
+                        <div className="flex flex-col w-72">
+                            <label htmlFor="end_date" className='text-[9px] text-gray-400'>Search By doubt text</label>
+                            <input type="text" className='border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-full' placeholder='Search by doubt text...' onInput={(e) => setSearchText(e.target.value)} onKeyDown={onInputChange} />
+                        </div>
+                        <div className="px-2 py-2 bg-primary/10 border border-primary rounded cursor-pointer text-primary active:bg-primary active:text-white" onClick={handleSearch}><BiSearch /></div>
                     </div>
                 </div>
                 <div className="h-5/6 mt-2">
