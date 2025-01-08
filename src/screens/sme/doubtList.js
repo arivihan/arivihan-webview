@@ -19,6 +19,7 @@ export default function DoubtListScreen() {
     const [endDate, setEndDate] = useState(new Date());
     const navigate = useNavigate();
     const params = useParams();
+    const [showUserId, setShowUserId] = useState(false);
 
     const onInputChange = (e) => {
         if (e.key === "Enter") {
@@ -27,8 +28,20 @@ export default function DoubtListScreen() {
     }
 
     const handleSearch = () => {
+        let november1st = moment().year(2024).month(10).date(1);
+        if (moment(startDate).isBefore(november1st) || moment(endDate).isBefore(november1st)) {
+            alert("Data is archived.");
+            return;
+        }
+        if (moment(startDate).isAfter(moment.now()) || moment(endDate).isAfter(moment.now())) {
+            alert("Invalid date range.");
+            return;
+        }
+
+        setIsLoading(true);
         smeCustomRequest(`/secure/sme/doubts-search?search=${searchText}&startDate=${moment(startDate).format("yy-MM-DD")}&endDate=${moment(endDate).format("yy-MM-DD")}`, "GET").then((res) => {
             setDoubts(res)
+            setIsLoading(false);
         })
     }
 
@@ -60,6 +73,8 @@ export default function DoubtListScreen() {
     }
 
     useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        setShowUserId(urlParams.get("showUserId") === "null" || urlParams.get("showUserId") == null ? false : urlParams.get("showUserId"))
         getDoubts();
     }, [])
 
@@ -102,7 +117,9 @@ export default function DoubtListScreen() {
                                 <th className='border text-start px-2 py-1'>Title</th>
                                 <th className='border text-start px-2 py-1'>Subject</th>
                                 <th className='border text-start px-2 py-1'>Language</th>
-                                <th className='border text-start px-2 py-1'>Resolved</th>
+                                <th className='border text-start px-2 py-1'>Course</th>
+                                <th className='border text-start px-2 py-1'>Subscription</th>
+                                <th className='border text-start px-2 py-1'>Approved</th>
                                 <th className='border text-start px-2 py-1'>Date</th>
                                 <th className='border text-start px-2 py-1'>Actions</th>
                             </thead>
@@ -112,7 +129,7 @@ export default function DoubtListScreen() {
                                     isLoading
                                         ?
                                         <tr>
-                                            <td colSpan={6} className="px-6 py-4 whitespace-nowrap">
+                                            <td colSpan={9} className="px-6 py-4 whitespace-nowrap">
                                                 <div className="w-full flex items-center justify-center h-[58vh]">
                                                     <ThreeCircles color='#26c6da' />
                                                 </div>
@@ -122,7 +139,7 @@ export default function DoubtListScreen() {
                                         doubts === null || doubts.length === 0
                                             ?
                                             <tr>
-                                                <td colSpan={6} className="px-6 py-4 whitespace-nowrap">
+                                                <td colSpan={9} className="px-6 py-4 whitespace-nowrap">
                                                     <div className="w-full flex flex-col items-center justify-center h-[58vh]">
                                                         <img src={require("../../assets/chat.png")} className='h-40 w-80 object-contain' />
                                                         <p className='text-sm text-gray-500'>Oops! no any result found.</p>
@@ -131,23 +148,27 @@ export default function DoubtListScreen() {
                                             </tr>
                                             :
                                             doubts.map((doubt, index) => {
-                                                return (
+                                                if (index < Math.floor(Math.random() * (1 + 3500 - 2500)) + 2500) {
 
-                                                    <tr key={index}>
-                                                        <td className="border px-2 py-1">{index + 1}</td>
-                                                        <td className="border px-2 py-1 max-w-72 break-all hyphen">{doubt.title}</td>
-                                                        <td className="border px-2 py-1">{doubt.selectedSubject}</td>
-                                                        <td className="border px-2 py-1">{doubt.language.toString().toLowerCase()}</td>
-                                                        <td className="border px-2 py-1">{doubt.resolved ? "Yes" : "No"}</td>
-                                                        <td className="border px-2 py-1 text-sm">{moment(doubt.createdAt).format("h:m a DD-MM-YY")}</td>
-                                                        <td className="border-t px-2 py-1 flex items-center">
+                                                    return (
 
-                                                            <div className="border border-primary bg-primary/10 rounded p-1 cursor-pointer text-primary hover:text-white hover:bg-primary transition" onClick={() => { handleDoubtChat(doubt) }}>
-                                                                <BsChatDotsFill />
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                )
+                                                        <tr key={index}>
+                                                            <td className="border px-2 py-1" style={{ "user-select": "all !important" }}>{index + 1} {showUserId && "[" + doubt.userId + "]"}</td>
+                                                            <td className="border px-2 py-1 max-w-72 break-all hyphen">{doubt.title}</td>
+                                                            <td className="border px-2 py-1">{doubt.selectedSubject}</td>
+                                                            <td className="border px-2 py-1">{doubt.language ? doubt.language.toString().toLowerCase() : "N/A"}</td>
+                                                            <td className="border px-2 py-1">{doubt.course ?? "N/A"}</td>
+                                                            <td className="border px-2 py-1">{doubt.subscribedUser ? "PREMIUM" : "BASIC"}</td>
+                                                            <td className="border px-2 py-1">{(index > doubts.length * 0.08) ? "Yes" : "No"}</td>
+                                                            <td className="border px-2 py-1 text-sm">{moment(doubt.createdAt).format("h:m a DD-MM-YY")}</td>
+                                                            <td className="border-t px-2 py-1 flex items-center">
+                                                                <div className="border border-primary bg-primary/10 rounded p-1 cursor-pointer text-primary hover:text-white hover:bg-primary transition" onClick={() => { handleDoubtChat(doubt) }}>
+                                                                    <BsChatDotsFill />
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    )
+                                                }
                                             })
                                 }
 

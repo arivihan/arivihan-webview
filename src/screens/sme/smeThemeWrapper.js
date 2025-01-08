@@ -4,10 +4,21 @@ import SMESidebar from '../../components/smeSidebar';
 import { BiUser } from 'react-icons/bi';
 import { smeCustomRequest } from '../../utils/smeCustomRequest';
 import { useSignals } from '@preact/signals-react/runtime';
+import Cookies from 'js-cookie';
+import { useNavigate } from 'react-router-dom';
 
 
 
 const SMEThemeWrapper = ({ children }) => {
+
+    const isLoggedIn = Cookies.get('avToken') != null;
+    const navigate = useNavigate();
+  
+    useEffect(()=>{
+      if(!isLoggedIn){
+        navigate('/login')
+      }
+    },[])
 
     let handleShowSidebarMobile = () => {
         showSidebarMobile.value = !showSidebarMobile.value;
@@ -59,7 +70,7 @@ const SMEThemeWrapper = ({ children }) => {
                     </ul>
                 </nav> */}
 
-                <div className="flex items-center ml-auto">
+                {/* <div className="flex items-center ml-auto">
                     <div className="rounded-full bg-gray-200 p-2">
                         <BiUser className='text-xl' />
                     </div>
@@ -78,7 +89,7 @@ const SMEThemeWrapper = ({ children }) => {
                             </div>
                     }
 
-                </div>
+                </div> */}
 
 
             </div>

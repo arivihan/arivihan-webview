@@ -34,12 +34,17 @@
     width: 100%;
 }
 
+::selection{
+    user-select: none;
+    -webkit-user-select: none;
+}
+
 .react-crop {
     display: block;
     width: 100%;
     height: auto;
 }
-
+/* 
 .crop-img{
     max-height: 400px !important;
-}
+} */

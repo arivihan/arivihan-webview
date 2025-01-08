@@ -11,8 +11,11 @@ export const lastUserQuestion = signal("");
 export const videoResponseRequested = signal(false);
 export const waitingForResponse = signal(false);
 export const isFirstDoubt = signal(false);
+export const callClassifier = signal(true);
 export const imageViewUrl = signal(null);
 export const chatType = signal(null);
 export const showWhatsappBottomSheet = signal(false);
 export const isStepWiseSolution = signal(false);
+export const indexOfOptionSelection = signal(-2)
+export const showOptionSelection = signal(false);
 

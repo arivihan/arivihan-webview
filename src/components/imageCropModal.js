@@ -4,7 +4,7 @@ import 'react-image-crop/dist/ReactCrop.css';
 import { MdClose } from 'react-icons/md'
 
 const ImageCropModal = ({ imageSrc, onClose, onSave }) => {
-  const [crop, setCrop] = useState({ unit: '%', width: 30, height: 30, x: 10, y: 10 });
+  const [crop, setCrop] = useState({ unit: '%', width: 50, height: 20, x: 10, y: 10 });
   const [completedCrop, setCompletedCrop] = useState(null);
   const [croppedImageUrl, setCroppedImageUrl] = useState(null);
   const imgRef = useRef(null);
@@ -70,15 +70,23 @@ const ImageCropModal = ({ imageSrc, onClose, onSave }) => {
 
   return (
     <div className="fixed inset-0 z-50 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-4 rounded-lg shadow-lg relative w-[90%] max-h-[80vh]">
-        <div className="flex items-center justify-between mb-6">
-          <h2 className="text-center text-xl">Crop Image</h2>
+      <div className="bg-white p-4 shadow-lg relative w-screen h-screen">
+        <div className="flex items-center justify-between mb-4 ">
           <button
             onClick={onClose}
             className="text-2xl text-gray-700"
           >
             <MdClose />
           </button>
+          <div className="flex justify-between items-center">
+            <button
+              onClick={handleSave}
+              className="bg-primary text-white px-4 py-2 rounded-lg"
+              disabled={!completedCrop}
+            >
+              Crop
+            </button>
+          </div>
         </div>
 
         {imageSrc && (
@@ -95,27 +103,11 @@ const ImageCropModal = ({ imageSrc, onClose, onSave }) => {
               src={imageSrc}
               alt="To be cropped"
               ref={imgRef}
-              className='crop-img'
+              className='crop-img h-screen w-screen object-contain'
               onLoad={(e) => handleImageLoaded(e.target)}
             />
           </ReactCrop>
         )}
-
-        <div className="flex justify-between items-center mt-4">
-          <button
-            onClick={onClose}
-            className="bg-gray-500 text-white px-4 py-2 rounded-lg"
-          >
-            Cancel
-          </button>
-          <button
-            onClick={handleSave}
-            className="bg-primary text-white px-4 py-2 rounded-lg"
-            disabled={!completedCrop}
-          >
-            Crop
-          </button>
-        </div>
       </div>
     </div>
   );

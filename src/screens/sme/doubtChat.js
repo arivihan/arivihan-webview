@@ -11,6 +11,7 @@ import moment from 'moment';
 import SMEThemeWrapper from './smeThemeWrapper';
 import { useParams } from 'react-router-dom';
 import { MdDelete, MdEdit, MdMoreVert } from 'react-icons/md';
+import { MathJax } from 'better-react-mathjax';
 
 
 
@@ -258,7 +259,7 @@ const SendBubble = ({ doubt, message }) => {
                             </div>
                             :
                             <div className="flex flex-col">
-                                <p contentEditable={editChat} id={`responseText_` + doubt.id} className={`${editChat ? "bg-white p-3" : ""}`} dangerouslySetInnerHTML={{ __html: doubt.response.replace("(bold)", "").replace(/(\*\*)([^*]*?)(\*\*)/g, '<br/><br/><b>$2</b><br/>') }}></p>
+                                <MathJax contentEditable={editChat} id={`responseText_` + doubt.id} className={`${editChat ? "bg-white p-3" : ""}`} dangerouslySetInnerHTML={{ __html:doubt.response ?  doubt.response.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>") : "" }}></MathJax>
                                 {
                                     editChat
                                         ?
@@ -276,7 +277,7 @@ const SendBubble = ({ doubt, message }) => {
             </div>
 
             <div className="flex items-center justify-end mt-2">
-                <span className="text-xs text-gray-400">{moment(doubt.createdAt).format("h:m a DD/MM/YY")}</span>
+                {/* <span className="text-xs text-gray-400">{moment(doubt.createdAt).format("h:m a DD/MM/YY")}</span> */}
                 {
                     doubt.thumbsUp
                         ?
@@ -318,7 +319,7 @@ const SmeReceiveBubble = ({ doubt, message, doubtImage, user }) => {
                     <p dangerouslySetInnerHTML={{ __html: message.replace("(bold)<b>", "</b>") }} className='break-words'></p>
                 </pre>
             </div>
-            <span className="text-xs text-gray-400">{moment(doubt.createdAt).format("h:m a DD/MM/YY")}</span>
+            {/* <span className="text-xs text-gray-400">{moment(doubt.createdAt).format("h:m a DD/MM/YY")}</span> */}
         </div>
     )
 }
