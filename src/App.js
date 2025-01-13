@@ -13,6 +13,7 @@ import AppMetricesScreen from "./screens/analytics/appMetrices";
 import LectureMetricesScreen from "./screens/analytics/lectureMetrices";
 import UserActivityScreen from "./screens/analytics/userActivity";
 import TodoListScreen from "./screens/analytics/todoList";
+import InstantGuruUIDev from "./screens/instantGuruDev";
 
 const DataContext = createContext();
 
@@ -44,6 +45,7 @@ function App() {
           <Route path="/app-metrices/:type" Component={AppMetricesScreen} />
 
           <Route path="/instant-guru" element={<InstantGuruUI />} />
+          <Route path="/instant-guru-dev" element={<InstantGuruUIDev />} />
 
         </Routes>
       </Router>

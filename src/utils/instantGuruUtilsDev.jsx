@@ -29,7 +29,12 @@ export const getChatHistory = () => {
   const langauge = urlParams.get("language");
   const token = urlParams.get("token");
   const env = urlParams.get("env");
-  
+
+  if (chatSessionId.value === undefined || chatSessionId.value === null || chatSessionId.value === "null" || chatSessionId.value === "") {
+    postNewChat("");
+    return;
+  } 
+
   fetch(
     `https://platform-${env}.arivihan.com:443/arivihan-platform/webview/doubt/resume?chatSessionId=${chatSessionId.value}`,
     {
