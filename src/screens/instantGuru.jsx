@@ -32,7 +32,7 @@ import {
   openVideo,
   postNewChat,
   showToast,
-} from "../utils/instantGuruUtilsDev";
+} from "../utils/instantGuruUtils";
 import { useSignals } from "@preact/signals-react/runtime";
 import { PulseLoader } from "react-spinners";
 import { MathJax } from "better-react-mathjax";
@@ -85,7 +85,9 @@ const InstantGuruUIDev = () => {
   }
 
   window.reloadHistoryForNewResponse = () => {
-    getChatHistory();
+    setTimeout(() => {
+      getChatHistory();
+    }, 2500)
   }
 
 
@@ -189,16 +191,16 @@ const InstantGuruUIDev = () => {
                 chat.userQuery !== "" ? (
                 chat.requestType === "IMAGE_HTML" ||
                   chat.requestType === "IMAGE" ? (
-                  <div class="p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px] max-w-[64%]">
+                  <div className="p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px] max-w-[64%]">
                     <img
                       src={chat.userQuery}
                       alt="Uploaded"
-                      class="rounded-lg object-contain"
+                      className="rounded-lg object-contain"
                       onClick={() => { imageViewUrl.value = chat.userQuery }}
                     />
                   </div>
                 ) : (
-                  <div class="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%]">
+                  <div className="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%]">
                     <p className="text-sm">{chat.userQuery}</p>
                   </div>
                 )
@@ -211,14 +213,14 @@ const InstantGuruUIDev = () => {
                       src={require("../assets/icons/icon_chat_avatar.png")}
                       className="h-11 w-11 object-contain mr-2"
                     />
-                    <div class="px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full" onClick={() => { openVideo(chat.optionResponse[0].contentUrl, chat.optionResponse[0].startPosition, chat.optionResponse[0].endPosition, chatSessionId.value, chat.responseId) }}>
+                    <div className="px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full" onClick={() => { openVideo(chat.optionResponse[0].contentUrl, chat.optionResponse[0].startPosition, chat.optionResponse[0].endPosition, chatSessionId.value, chat.responseId) }}>
                       <img src={require("../assets/mock_test_video_player_image.png")} className="w-full object-cover rounded-lg" />
                     </div>
                   </div>
                   :
                   null
               }
-              {chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" ? (
+              {chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && (subject.toLowerCase() === "mathematics" || showOptionSelection.value === true) ? (
                 <div className="flex items-end">
                   {chat.showAvatar || chat.showBotAvatar ? (
                     <img
@@ -226,18 +228,20 @@ const InstantGuruUIDev = () => {
                       className="h-[40px] w-[40px] object-contain mr-2"
                     />
                   ) : <div className="h-11 w-11 mr-2"></div>}
-                  <div class="flex flex-col px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full">
+                  <div className="flex flex-col px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full">
                     <p className="mb-1">{t("chooseTypeOfSolution")}</p>
                     <div className="flex flex-col mr-auto">
                       {chat.optionResponse.map((option, index) => {
                         return (
                           <div key={index}
-                            class="px-3 py-2 bg-white text-sm rounded-[8px] my-1"
+                            className="px-3 py-2 bg-white text-sm rounded-[8px] my-1"
                             onClick={hIndex !== chatHistory.value.length - 1 ? null : () => {
-                              if (option.title.includes("Video") || option.title.includes("वीडियो")) {
-                                chatRequestVideo(chat.responseId);
-                              } else {
-                                chatOptionClicked(chat.responseId, option.title);
+                              if (waitingForResponse.value === false && showDoubtChatLoader.value === false && showChatLoadShimmer.value === false) {
+                                if (option.title.includes("Video") || option.title.includes("वीडियो")) {
+                                  chatRequestVideo(chat.responseId);
+                                } else {
+                                  chatOptionClicked(chat.responseId, option.title);
+                                }
                               }
                             }}
                           >
@@ -274,7 +278,7 @@ const InstantGuruUIDev = () => {
                       />
                     ) : <div className="h-11 w-11 mr-2"></div>}
                     <div className="flex flex-col w-[calc(100vw-80px)] overflow-x-hidden">
-                      <div class="px-3 py-2 bg-[#f6f6f6] text-sm rounded-xl flex-1 receiveBubble">
+                      <div className="px-3 py-2 bg-[#f6f6f6] text-sm rounded-xl flex-1 receiveBubble">
                         <MathJax className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>") }}>
                         </MathJax>
                       </div>

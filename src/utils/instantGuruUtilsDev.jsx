@@ -32,6 +32,7 @@ export const getChatHistory = () => {
 
   if (chatSessionId.value === undefined || chatSessionId.value === null || chatSessionId.value === "null" || chatSessionId.value === "") {
     postNewChat("");
+    showChatLoadShimmer.value = false;
     return;
   } 
 

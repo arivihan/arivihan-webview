@@ -29,7 +29,13 @@ export const getChatHistory = () => {
   const langauge = urlParams.get("language");
   const token = urlParams.get("token");
   const env = urlParams.get("env");
-  
+
+  if (chatSessionId.value === undefined || chatSessionId.value === null || chatSessionId.value === "null" || chatSessionId.value === "") {
+    postNewChat("");
+    showChatLoadShimmer.value = false;
+    return;
+  }
+
   fetch(
     `https://platform-${env}.arivihan.com:443/arivihan-platform/webview/doubt/resume?chatSessionId=${chatSessionId.value}`,
     {
@@ -143,13 +149,18 @@ export const postNewChat = (
         subject = "Physics";
       }
 
-      // if (data.data[0].responseType === "TEXT_OPTION" && subject.toLowerCase() !== 'mathematics' && !showOptions) {
-      //   chatOptionClicked(data.data[0].responseId, data.data[0].optionResponse[0].title)
-      // }else{
-      // }
+      console.log("=================================================");
+      
+      console.log(data.data[0].responseType === "TEXT_OPTION" && subject.toLowerCase() !== 'mathematics' && !showOptions);
+      
+
+      if (data.data[0].responseType === "TEXT_OPTION" && subject.toLowerCase() !== 'mathematics' && !showOptions) {
+        chatOptionClicked(data.data[0].responseId, data.data[0].optionResponse[0].title)
+      } else {
+        showDoubtChatLoader.value = false;
+      }
 
       showChatLoadShimmer.value = false;
-      showDoubtChatLoader.value = false;
     })
     .catch((error) => {
       showDoubtChatLoader.value = false;

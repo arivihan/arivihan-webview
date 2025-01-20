@@ -85,7 +85,7 @@ const InstantGuruUIDev = () => {
   }
 
   window.reloadHistoryForNewResponse = () => {
-    getChatHistory();
+    window.location = window.location.href.replace("chatSessionId=null", "chatSessionId=" + chatSessionId.value);
   }
 
 
@@ -234,10 +234,12 @@ const InstantGuruUIDev = () => {
                           <div key={index}
                             class="px-3 py-2 bg-white text-sm rounded-[8px] my-1"
                             onClick={hIndex !== chatHistory.value.length - 1 ? null : () => {
-                              if (option.title.includes("Video") || option.title.includes("वीडियो")) {
-                                chatRequestVideo(chat.responseId);
-                              } else {
-                                chatOptionClicked(chat.responseId, option.title);
+                              if (waitingForResponse.value === false && showDoubtChatLoader.value === false && showChatLoadShimmer.value === false) {
+                                if (option.title.includes("Video") || option.title.includes("वीडियो")) {
+                                  chatRequestVideo(chat.responseId);
+                                } else {
+                                  chatOptionClicked(chat.responseId, option.title);
+                                }
                               }
                             }}
                           >
