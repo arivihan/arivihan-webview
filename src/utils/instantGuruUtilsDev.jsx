@@ -460,3 +460,11 @@ export function openMicInput() {
     alert("AndroidInterface is not defined for Mic Input");
   }
 }
+
+export function openChapterList(subjectName, subjectId, subjectCode) {
+  if (typeof AndroidInterface !== 'undefined') {
+    window.AndroidInterface.openChapterList(subjectName, subjectId, subjectCode);
+  } else {
+    alert("AndroidInterface is not defined for opening Chapter List");
+  }
+}

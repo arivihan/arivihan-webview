@@ -80,6 +80,22 @@ const InstantGuruUIDev = () => {
     }
   }
 
+  window.processCroppedImageWithQuestion = (base64Image,question) => {
+    if (base64Image) {
+      const chatContainer = document.getElementById("chat-container");
+      chatContainer.innerHTML += `<div class='max-w-[64%] p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px]'>
+      <img src="${"data:image/png;base64," + base64Image}" alt="Uploaded" class="h-full" />
+      <p> ${question} </p>
+      </div>`;
+      chatContainer.scrollTop = chatContainer.scrollHeight;
+      setTimeout(() => {
+        isFirstDoubt.value = true;
+        chatType.value = "subject_based"
+        chatImageRequest("data:image/png;base64," + base64Image);
+      }, 200)
+    }
+  }
+
   window.processMicInput = (input) => {
     doubtText.value = input;
   }
