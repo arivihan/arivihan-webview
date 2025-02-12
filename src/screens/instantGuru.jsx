@@ -43,7 +43,7 @@ import { ImageViewModal } from "../components/imageViewModal";
 import OpenWhatsAppSheet from "../components/openWhatsappSheet";
 import { useTranslation } from "react-i18next";
 
-const InstantGuruUIDev = () => {
+const InstantGuruUI = () => {
   useSignals();
   const [listening, setListening] = useState(false);
   const location = useLocation();
@@ -180,7 +180,7 @@ const InstantGuruUIDev = () => {
             isFirstDoubt.value = false;
           }
 
-          if (chat.responseType === "TEXT_OPTION") {
+          if (chat.responseType === "TEXT_OPTION" && indexOfOptionSelection.value != -2) {
             indexOfOptionSelection.value = hIndex
           }
 
@@ -371,4 +371,4 @@ const InstantGuruUIDev = () => {
   );
 };
 
-export default InstantGuruUIDev;
+export default InstantGuruUI;

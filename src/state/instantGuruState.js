@@ -18,4 +18,7 @@ export const showWhatsappBottomSheet = signal(false);
 export const isStepWiseSolution = signal(false);
 export const indexOfOptionSelection = signal(-2)
 export const showOptionSelection = signal(false);
+export const suggestionAdded = signal(false);
+export const suggestedDoubtAsked = signal(false);
+export const bottomSuggestedQuestion = signal([]);
 

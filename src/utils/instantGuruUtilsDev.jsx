@@ -1,4 +1,5 @@
 import {
+  bottomSuggestedQuestion,
   callClassifier,
   chatHistory,
   chatSessionId,
@@ -10,7 +11,11 @@ import {
   showDoubtChatLoader,
   showOptionSelection,
   showWhatsappBottomSheet,
+  suggestionAdded,
 } from "../state/instantGuruState";
+import suggestedQuestions from "../assets/suggested_question.json";
+import { useTranslation } from "react-i18next";
+
 
 export const getChatHistory = () => {
   showChatLoadShimmer.value = true;
@@ -34,7 +39,7 @@ export const getChatHistory = () => {
     postNewChat("");
     showChatLoadShimmer.value = false;
     return;
-  } 
+  }
 
   fetch(
     `https://platform-${env}.arivihan.com:443/arivihan-platform/webview/doubt/resume?chatSessionId=${chatSessionId.value}`,
@@ -131,9 +136,16 @@ export const postNewChat = (
       if (chatSessionId.value === null || chatSessionId.value === "") {
         chatSessionId.value = data.data[data.data.length - 1].chatSesssionId;
         isFirstDoubt.value = true;
+        data.data.forEach((chat) => {
+          setTimeout(() => {
+            chatHistory.value = [...chatHistory.value, chat];
+          }, 200)
+        })
+      } else {
+        chatHistory.value = [...chatHistory.value, ...data.data];
       }
 
-      if ((data.data[data.data.length - 1] && data.data[data.data.length - 1].markSeen) || (subject === "Mathematics" && !data.data[data.data.length - 1].waitingForResponse)) {
+      if ((data.data[data.data.length - 1] && data.data[data.data.length - 1].markSeen && requestType === "HTML") || (subject === "Mathematics" && !data.data[data.data.length - 1].waitingForResponse)) {
         updateDoubtStatus("SOLVED_SEEN");
       }
 
@@ -141,9 +153,6 @@ export const postNewChat = (
         data.data[data.data.length - 1]['showBotAvatar'] = true;
       }
 
-      chatHistory.value = [...chatHistory.value, ...data.data];
-
-      console.log(data.data[0].responseType);
 
       if (subject === null || subject === "null") {
         subject = "Physics";
@@ -380,6 +389,44 @@ export function postNewChatConversation(userDoubt) {
     .catch(error => console.error('Error:', error));
 }
 
+
+export function saveDoubtChat(userDoubt, botResponse) {
+  const urlParams = new URLSearchParams(window.location.search);
+  const userId = urlParams.get("userId");
+  const token = urlParams.get("token");
+  const env = urlParams.get("env");
+  let uLanguage = urlParams.get("language");
+  let uSubject = urlParams.get("subject");
+
+  const url = `https://platform-${env}.arivihan.com:443/arivihan-platform/webview/doubt/save-doubt-chat`;
+
+  const headers = {
+    'accept': '*/*',
+    'userId': userId,
+    token: token,
+    'Content-Type': 'application/json',
+  };
+
+  const requestBody = {
+    "chatSessionId": chatSessionId.value,
+    "userQuery": userDoubt,
+    "botResponse": botResponse,
+    "language": uLanguage,
+    "subjectName": uSubject
+  }
+
+  fetch(url, {
+    method: 'POST',
+    headers: headers,
+    body: JSON.stringify(requestBody)
+  })
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+    })
+    .catch(error => console.error('Error:', error));
+}
+
 export function updateDoubtStatus(status) {
   const urlParams = new URLSearchParams(window.location.search);
   const userId = urlParams.get("userId");
@@ -403,6 +450,57 @@ export function updateDoubtStatus(status) {
     });
 }
 
+export function loadSuggestedQuestions(addInChatHistory = false) {
+
+  const urlParams = new URLSearchParams(window.location.search);
+  let uLanguage = urlParams.get("language");
+  let uCourseId = urlParams.get("courseId");
+  let uSubject = urlParams.get("subject");
+  let uClassId = urlParams.get("classId");
+
+  let courseNameMapping = {
+    "1": "jee",
+    "2": "board",
+    "3": "jee"
+  }
+
+  let classNameMapping = {
+    "1": "11th",
+    "2": "12th",
+    "3": "dropper",
+    "4": "foundation"
+  };
+
+  if (uLanguage && uCourseId && uSubject && uClassId) {
+    if (suggestedQuestions && suggestedQuestions.length > 0) {
+      let options = suggestedQuestions
+        .filter((question) => question.subject === uSubject.toLowerCase() && question.language === uLanguage.toLowerCase() && question.course === courseNameMapping[uCourseId] && question.class === classNameMapping[uClassId])
+        .map((question) => {
+          return {
+            "title": question['question'],
+            "suggested_question": true,
+          }
+        })
+
+      if (options.length > 0 && suggestionAdded.value === false) {
+        bottomSuggestedQuestion.value = options;
+        console.log(options);
+        
+        if (addInChatHistory) {
+          suggestionAdded.value = true;
+          return options;
+        }
+      }
+    }
+  }
+}
+
+export function scrollToBottom() {
+  setTimeout(()=>{
+    const chatContainer = document.getElementById("chat-container");
+    chatContainer.scrollTop = chatContainer.scrollHeight;
+  },200)
+}
 
 export function showToast(message) {
   if (typeof AndroidInterface !== 'undefined') {
@@ -458,5 +556,43 @@ export function openMicInput() {
     window.AndroidInterface.openMicInput();
   } else {
     alert("AndroidInterface is not defined for Mic Input");
+  }
+}
+
+export function setChatSessionIdInActivity() {
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      window.AndroidInterface.setChatSessionId(chatSessionId.value);
+    } catch (error) {
+
+    }
+  } else {
+    // alert("AndroidInterface is not defined chat session id");
+  }
+}
+
+
+export function changeSelectedCourse() {
+  console.log("testafasd")
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      window.AndroidInterface.changeCourse();
+    } catch (error) {
+
+    }
+  } else {
+    alert("AndroidInterface is not defined for change selected course");
+  }
+}
+
+export function watchLectureNowTextClickAction() {
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      window.AndroidInterface.watchLectureNow();
+    } catch (error) {
+
+    }
+  } else {
+    alert("AndroidInterface is not defined for watchLectureNowTextClickAction");
   }
 }

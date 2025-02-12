@@ -41,7 +41,7 @@ import {
   setChatSessionIdInActivity,
   showToast,
   watchLectureNowTextClickAction,
-} from "../utils/instantGuruUtilsDev";
+} from "../utils/instantGuruUtilsProdTest";
 import { useSignals } from "@preact/signals-react/runtime";
 import { PulseLoader } from "react-spinners";
 import { MathJax } from "better-react-mathjax";
@@ -57,7 +57,7 @@ import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru
 import suggestedQuestions from "../assets/suggested_question.json";
 
 
-const InstantGuruUIDev = () => {
+const InstantGuruUIProdTest = () => {
   useSignals();
   const [listening, setListening] = useState(false);
   const location = useLocation();
@@ -99,11 +99,13 @@ const InstantGuruUIDev = () => {
 
   window.processCroppedImageWithQuestion = (base64Image, question = "") => {
     if (base64Image) {
+      console.log(base64Image);
+      
       suggestedDoubtAsked.value = true;
       const chatContainer = document.getElementById("chat-container");
-      chatContainer.innerHTML += `<div className='max-w-[64%] p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px]'>
-      <img src="${"data:image/png;base64," + base64Image}" alt="Uploaded" class="w-full" />
-      <p className="mt-1 text-sm">${question}</p>
+      chatContainer.innerHTML += `<div class='max-w-[64%] p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px]'>
+      <img src="${'data:image/png;base64,' + base64Image}" alt="Uploaded" class="w-full" />
+      <p class="mt-1 text-sm">${question}</p>
       </div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
       setTimeout(() => {
@@ -128,7 +130,7 @@ const InstantGuruUIDev = () => {
 
   window.showSuggestion = () => {
     setTimeout(() => {
-      if(!suggestionAdded){
+      if (suggestionAdded.value === false) {
         let options = loadSuggestedQuestions(true);
         chatHistory.value = [...chatHistory.value, {
           "botResponse": t("suggested_question"),
@@ -136,8 +138,9 @@ const InstantGuruUIDev = () => {
           "responseType": "TEXT_OPTION",
           "showBotAvatar": true,
         }]
+        suggestionAdded.value = true;
       }
-    }, 1000)
+    }, 2500)
   }
 
   useEffect(() => {
@@ -269,7 +272,7 @@ const InstantGuruUIDev = () => {
       }
 
       <div
-        className={`p-4 overflow-y-auto  ${suggestedDoubtAsked.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]' }  flex flex-col scroll-smooth gap-4`}
+        className={`p-4 overflow-y-auto  ${suggestedDoubtAsked.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'}  flex flex-col scroll-smooth gap-4`}
         id="chat-container"
       >
 
@@ -377,7 +380,7 @@ const InstantGuruUIDev = () => {
                   saveDoubtChat(item.title, question.answer);
                 }}
                   key={index} className="white-space-nowrap border border-primary bg-primary/5 p-2 rounded rounded-lg mx-1 flex-shrink-0">
-                  <p>{item.title}</p>
+                  <p className="text-sm">{item.title}</p>
                 </div>
               )
             })
@@ -438,4 +441,4 @@ const InstantGuruUIDev = () => {
   );
 };
 
-export default InstantGuruUIDev;
+export default InstantGuruUIProdTest;

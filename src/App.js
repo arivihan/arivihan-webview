@@ -14,6 +14,7 @@ import LectureMetricesScreen from "./screens/analytics/lectureMetrices";
 import UserActivityScreen from "./screens/analytics/userActivity";
 import TodoListScreen from "./screens/analytics/todoList";
 import InstantGuruUIDev from "./screens/instantGuruDev";
+import InstantGuruUIProdTest from "./screens/instantGuruProdTest";
 
 const DataContext = createContext();
 
@@ -26,14 +27,23 @@ function App() {
 
 
   return (
-    <MathJaxContext>
+    <MathJaxContext 
+    // config={{
+    //   loader: { load: ["[tex]/mhchem"] },
+    //   tex: {
+    //     macros: {
+    //       degree: "\\text{°}"
+    //     },
+    //   }
+    // }}
+    >
 
-    
+
       <Router>
         <Routes>
           <Route path="/" Component={ChatScreen} />
           <Route path="/login" Component={LoginScreen} />
-        
+
           <Route path="/sme-dashboard" Component={SMEDashboardScreen} />
           <Route path="/sme-student-list" Component={StudentListScreen} />
           <Route path="/sme-home" Component={SmeHomeScreen} />
@@ -44,7 +54,7 @@ function App() {
           <Route path="/app-metrices/todo-list" Component={TodoListScreen} />
           <Route path="/app-metrices/:type" Component={AppMetricesScreen} />
 
-          <Route path="/instant-guru" element={<InstantGuruUI />} />
+          <Route path="/instant-guru" element={<InstantGuruUIProdTest />} />
           <Route path="/instant-guru-dev" element={<InstantGuruUIDev />} />
 
         </Routes>

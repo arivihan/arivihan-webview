@@ -10,22 +10,30 @@ i18n.use(initReactI18next).init({
     resources: {
         en: {
             translation: {
-                newChat: "New Chat",
+                newChat: "New Question",
                 chooseTypeOfSolution: "Apko apke doubt ka solution kaisa chahiye?",
                 was_this_helpful: "Was this helpful?",
                 ask_anything: "Ask Anything...",
                 open_whatsapp: "Open Whatsapp",
-                open_whatsapp_msg:"Aapke sawalo ke behtar jawabo ke liye humare teachers se whatsapp pe connect karein."
+                open_whatsapp_msg: "Aapke sawalo ke behtar jawabo ke liye humare teachers se whatsapp pe connect karein.",
+                type_your_question: "Apna sawal type karein!",
+                ask_question_using_image:"Ya apne sawal ki photo click karein!",
+                click_here_for_old_questions:"Purane sawal aur solutions ke liye yahan click karein!",
+                suggested_question:"Suggested Questions",
             },
         },
         hi: {
             translation: {
-                newChat: "नई चैट",
+                newChat: "नई प्रश्न",
                 chooseTypeOfSolution: "आपको आपके डाउट का समाधान कैसा चाहिए?",
                 was_this_helpful: "पसंद आया?",
                 ask_anything: "कुछ भी पूछें",
                 open_whatsapp: "व्हाट्सएप खोलें",
-                open_whatsapp_msg:"आपके सवालों के बेहतर जवाबों के लिए हमारे टीचर्स से व्हाट्सएप पर जुड़ें।"
+                open_whatsapp_msg: "आपके सवालों के बेहतर जवाबों के लिए हमारे टीचर्स से व्हाट्सएप पर जुड़ें।",
+                type_your_question: "अपना सवाल टाइप करें!",
+                ask_question_using_image:"या अपने सवाल की फोटो क्लिक करें!",
+                click_here_for_old_questions:"पुराने सवाल और सॉल्यूशंस के लिए यहां क्लिक करें!",
+                suggested_question:"प्रश्न सुझाव",
             },
         },
     },

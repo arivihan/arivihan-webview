@@ -120,6 +120,7 @@ export default function DoubtListScreen() {
                                 <th className='border text-start px-2 py-1'>Course</th>
                                 <th className='border text-start px-2 py-1'>Subscription</th>
                                 <th className='border text-start px-2 py-1'>Approved</th>
+                                <th className='border text-start px-2 py-1'>User Feedback</th>
                                 <th className='border text-start px-2 py-1'>Date</th>
                                 <th className='border text-start px-2 py-1'>Actions</th>
                             </thead>
@@ -160,6 +161,8 @@ export default function DoubtListScreen() {
                                                             <td className="border px-2 py-1">{doubt.course ?? "N/A"}</td>
                                                             <td className="border px-2 py-1">{doubt.subscribedUser ? "PREMIUM" : "BASIC"}</td>
                                                             <td className="border px-2 py-1">{(index > doubts.length * 0.08) ? "Yes" : "No"}</td>
+                                                            <td className="border px-2 py-1">{doubt.liked === undefined || doubt.liked === null ? "N/A" : doubt.liked ? "Liked" : "Disliked"}</td>
+
                                                             <td className="border px-2 py-1 text-sm">{moment(doubt.createdAt).format("h:m a DD-MM-YY")}</td>
                                                             <td className="border-t px-2 py-1 flex items-center">
                                                                 <div className="border border-primary bg-primary/10 rounded p-1 cursor-pointer text-primary hover:text-white hover:bg-primary transition" onClick={() => { handleDoubtChat(doubt) }}>

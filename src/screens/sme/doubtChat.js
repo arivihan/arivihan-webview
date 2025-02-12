@@ -107,7 +107,7 @@ const SmeDoubtChatScreen = () => {
                                                                 //     ?
                                                                 //     null
                                                                 //     :
-                                                                <SendBubble key={doubt.id} id={doubt.id} doubt={doubt} message={doubt.response} />
+                                                                <SendBubble key={doubt.id} id={doubt.id} doubt={doubt} message={doubt.response} userId={params.userid}/>
                                                             }
                                                         </div>
                                                     )
@@ -169,7 +169,7 @@ const SmeDoubtChatScreen = () => {
 
 }
 
-const SendBubble = ({ doubt, message }) => {
+const SendBubble = ({ doubt, message ,userId}) => {
 
     const [showDropdown, setShowDropdown] = useState(false);
     const [editChat, setEditChat] = useState(false);
@@ -180,10 +180,10 @@ const SendBubble = ({ doubt, message }) => {
         })
     }
 
-    const handleSaveResponse = () => {
+    const handleSaveResponse = (notify) => {
         let obj = doubt;
         obj['response'] = document.getElementById("responseText_" + doubt.id).innerText;
-        smeCustomRequest(`/secure/sme/doubt-chat-new-response`, "POST", obj).then((res) => {
+        smeCustomRequest(`/secure/sme/doubt-chat-new-response?userId=${userId}&sendNotification=${notify}`, "POST", obj).then((res) => {
             setEditChat(false);
         })
     }
@@ -265,7 +265,9 @@ const SendBubble = ({ doubt, message }) => {
                                         ?
                                         <div className="flex items-center my-2 ml-auto">
                                             <div className="px-2 py-1 text-xs rounded-lg bg-red-500/10 text-red-500 cursor-pointer" onClick={handleCancelEdit}>Cancel</div>
-                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={handleSaveResponse}>Save</div>
+                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={()=>handleSaveResponse(false)}>Save</div>
+                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={()=>handleSaveResponse(true)}>Save & Notify</div>
+
                                         </div>
                                         :
                                         null
