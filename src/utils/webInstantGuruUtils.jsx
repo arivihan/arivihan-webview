@@ -15,30 +15,48 @@ import {
   suggestionAdded,
 } from "../state/instantGuruState";
 import suggestedQuestions from "../assets/suggested_question.json";
+import { chatHistoryLoading, chatLimits, chatSessions, showAuthModal, subscriptionActive } from "../state/chatState";
+import Cookies from 'js-cookie';
 
+const env = "prod";
 
+const customWebRequest = (baseUrl, method = "GET", requestBody = null, fullUrl = false) => {
+  const cookieUser = Cookies.get("user");
+  if (cookieUser === undefined || cookieUser === null) {
+    // return;
+    // throw new Error("Please login to check");
+    return null;
+  }
 
-const customAppRequest = (baseUrl, method = "GET", requestBody = null) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const userId = urlParams.get("userId");
-  const langauge = urlParams.get("language");
-  const token = urlParams.get("token");
-  const env = urlParams.get("env");
-  const board = urlParams.get("board");
+  let userDetails = JSON.parse(Cookies.get("user"));
+  const userId = userDetails.userId;
+  const langauge = "en";
+  const board = "false";
 
-  return fetch(`https://platform-${env}.arivihan.com:443/arivihan-platform/secure/webview/doubt/${baseUrl}`, {
+  return fetch(fullUrl ? baseUrl : `https://platform-${env}.arivihan.com:443/arivihan-platform/secure/webview/doubt/${baseUrl}`, {
     method: method,
     body: requestBody,
     headers: {
-      "token": token,
+      "token": Cookies.get('token'),
       "accept": "*/*",
       "Accept-Language": langauge === "hi" ? "HINDI" : "ENGLISH",
       "userId": userId,
       "board": board === "true" ? true : false,
       "Content-Type": "application/json",
-    },
+    }
   })
-    .then(res => res.json())
+    .then(res => {
+      if (res.status === 200) {
+        return res.json();
+      } else if (res.status === 401) {
+        showAuthModal.value = true;
+        return;
+      } else {
+        console.log('Oops! something went wrong.')
+        return;
+      }
+
+    })
     .then((res) => {
       return res;
     })
@@ -48,19 +66,33 @@ const customAppRequest = (baseUrl, method = "GET", requestBody = null) => {
     })
 }
 
+export const checkUserSubscrition = () => {
+  showChatLoadShimmer.value = true;
+  return customWebRequest(`https://platform-${env}.arivihan.com:443/arivihan-platform/secure/bot/doubt/check/subscription`, 'GET', null, true).then((data) => {
+    if (data) {
+      subscriptionActive.value = data.subscriptionStatus;
+      chatLimits.value = data;
+      showChatLoadShimmer.value = false;
+
+    }
+  })
+}
+
+export const getUserChatSessions = () => {
+  chatHistoryLoading.value = true;
+  return customWebRequest('list/v2')
+    .then((data) => {
+      chatSessions.value = data;
+      chatHistoryLoading.value = false;
+    })
+    .catch((error) => {
+      chatHistoryLoading.value = false;
+      alert(error);
+    })
+}
 
 export const getChatHistory = () => {
   showChatLoadShimmer.value = true;
-  const urlParams = new URLSearchParams(window.location.search);
-  let onGoingChatSessionId = urlParams.get("chatSessionId");
-  if (
-    onGoingChatSessionId !== undefined &&
-    onGoingChatSessionId !== null &&
-    onGoingChatSessionId !== "null" &&
-    onGoingChatSessionId !== ""
-  ) {
-    chatSessionId.value = onGoingChatSessionId;
-  }
 
   if (chatSessionId.value === undefined || chatSessionId.value === null || chatSessionId.value === "null" || chatSessionId.value === "") {
     postNewChat("");
@@ -68,8 +100,8 @@ export const getChatHistory = () => {
     return;
   }
 
-  customAppRequest(`resume?chatSessionId=${chatSessionId.value}`)
-    .then(data => {
+  customWebRequest(`resume?chatSessionId=${chatSessionId.value}`)
+    .then((data) => {
       if (chatSessionId.value === undefined || chatSessionId.value === null || chatSessionId.value === "null" || chatSessionId.value === "") {
         postNewChat("");
       } else {
@@ -85,15 +117,16 @@ export const getChatHistory = () => {
           updateDoubtStatus("SOLVED_SEEN");
         }
 
+
         if (data.length > 0 && data[0].responseType === "TEXT_OPTION") {
           lastUserQuestion.value = data[0].userQuery
         }
         showChatLoadShimmer.value = false
       }
     })
-    .catch(error => {
+    .catch((err) => {
       chatHistory.value = [];
-      console.error("Error:", error);
+      console.error("Error:", err);
     })
 };
 
@@ -104,39 +137,30 @@ export const postNewChat = (
   showOptions = false,
   imageQuery = "",
 ) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const userId = urlParams.get("userId");
-  const board = urlParams.get("board");
-  const langauge = urlParams.get("language");
-  let subject = urlParams.get("subject");
-  const answer = urlParams.get("answer");
-  const question = urlParams.get("question");
-  const mockQuestion = urlParams.get("mockQuestion");
-  const token = urlParams.get("token");
-  const env = urlParams.get("env");
-
+  let subject = "physics";
 
   if (showChatLoadShimmer.value !== true) {
     showDoubtChatLoader.value = true;
   }
 
-  let requestBody = JSON.stringify({
-    answer: answer,
+  let data = JSON.stringify({
+    answer: "",
     chatSessionId: chatSessionId.value,
     doubtImageUrl: doubtImageUrl,
     firstDoubt: isFirstDoubt.value,
     giveOption: isFirstDoubt.value && requestType !== "IMAGE_HTML",
-    mockTestDoubt: mockQuestion === "true" ? true : false,
-    question: question,
+    mockTestDoubt: false,
+    question: "",
     requestType: requestType,
     selectedSubjectName: subject,
     userQuery: userQuery,
     imageQuery: imageQuery,
-  });
-  customAppRequest('chat', 'POST', requestBody)
-    .then(data => {
-      isFirstDoubt.value = false;
+  })
 
+
+  customWebRequest('chat', 'POST', data)
+    .then((data) => {
+      isFirstDoubt.value = false;
       if (chatSessionId.value !== null && chatSessionId.value !== "" && data.data[data.data.length - 1] && !data.data[data.data.length - 1].waitingForResponse) {
         updateDoubtStatus("SOLVED_SEEN");
       }
@@ -144,7 +168,6 @@ export const postNewChat = (
       if (data.data[data.data.length - 1].showBotAvatar === false) {
         data.data[data.data.length - 1]['showBotAvatar'] = true;
       }
-
 
       if (subject === null || subject === "null") {
         subject = "Physics";
@@ -160,74 +183,71 @@ export const postNewChat = (
           isFirstDoubt.value = true;
           data.data.forEach((chat) => {
             setTimeout(() => {
-              chatHistory.value = [...chatHistory.value, chat];
+              if (Array.isArray(chatHistory.value)) {
+                chatHistory.value = [...chatHistory.value, chat];
+              } else {
+                chatHistory.value = [chat];
+              }
+              // chatHistory.value = [...chatHistory.value, chat];
             }, 200)
           })
         } else {
-          chatHistory.value = [...chatHistory.value, ...data.data];
+          if (Array.isArray(chatHistory.value)) {
+            chatHistory.value = [...chatHistory.value, ...data.data];
+          } else {
+            chatHistory.value = data.data;
+          }
         }
       }
-
       showChatLoadShimmer.value = false;
     })
-    .catch(error => {
+    .catch((err) => {
       showDoubtChatLoader.value = false;
-      console.error("Error:", error);
+      console.error("Error:", err);
     })
 };
 
 export const chatOptionClicked = (chatMessageId, option) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const subject = urlParams.get("subject");
+  const subject = "physics";
 
   showDoubtChatLoader.value = true;
-
-  customAppRequest(`option/click/v4?chatMessageId=${chatMessageId}&chatSessionId=${chatSessionId.value}&selectedOption=${option}&selectedSubjectName=${subject}&requestPromptDetail=false&requestType=HTML&userDoubtText=${encodeURI(lastUserQuestion.value)}`)
-    .then(data => {
+  customWebRequest(`option/click/v4?chatMessageId=${chatMessageId}&chatSessionId=${chatSessionId.value}&selectedOption=${option}&selectedSubjectName=${subject}&requestPromptDetail=false&requestType=HTML&userDoubtText=${encodeURI(lastUserQuestion.value)}`)
+    .then((data) => {
       isFirstDoubt.value = false;
       chatHistory.value = [...chatHistory.value, ...data.data];
       showDoubtChatLoader.value = false;
     })
-    .catch(error => {
+    .catch((error) => {
       showDoubtChatLoader.value = false;
       console.error("Error:", error);
     })
 };
 
 export const chatResponseFeedback = (chatMessageId, thumbsUp) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const subject = urlParams.get("subject");
+  const subject = "physics";
 
   showDoubtChatLoader.value = true;
-
-  customAppRequest(`feedback/v2?responseId=${chatMessageId}&chatSessionId=${chatSessionId}&thumbsUp=${thumbsUp}&videoFeedback=false&selectedSubjectName=${subject}`)
-    .then(data => {
+  customWebRequest(`feedback/v2?responseId=${chatMessageId}&chatSessionId=${chatSessionId}&thumbsUp=${thumbsUp}&videoFeedback=false&selectedSubjectName=${subject}`)
+    .then((data) => {
       chatHistory.value = [...chatHistory.value, ...data.data];
       showDoubtChatLoader.value = false;
     })
-    .catch(error => {
+    .catch((error) => {
       showDoubtChatLoader.value = false;
       console.error("Error:", error);
     })
 };
 
 export const chatRequestVideo = (responseId) => {
-  const urlParams = new URLSearchParams(window.location.search);
-  const userId = urlParams.get("userId");
-  const board = urlParams.get("board");
-  const langauge = urlParams.get("language");
-  const subject = urlParams.get("subject");
-  const token = urlParams.get("token");
-  const env = urlParams.get("env");
+  const subject = "physics";
 
   showDoubtChatLoader.value = true;
-
-  customAppRequest(`request-video?chatMessageId=${responseId}&chatSessionId=${chatSessionId.value}&subject=${subject}&createNewSessionRecord=false&doubt=${lastUserQuestion.value}`)
-    .then(data => {
+  customWebRequest(`request-video?chatMessageId=${responseId}&chatSessionId=${chatSessionId.value}&subject=${subject}&createNewSessionRecord=false&doubt=${lastUserQuestion.value}`)
+    .then((data) => {
       chatHistory.value = [...chatHistory.value, ...data];
       showDoubtChatLoader.value = false;
     })
-    .catch(error => {
+    .catch((error) => {
       showDoubtChatLoader.value = false;
       console.error("Error:", error);
     })
@@ -249,13 +269,10 @@ const base64ToFile = (base64String, fileName) => {
 export const chatImageRequest = (imageFile, userQuery = "") => {
   let formData = new FormData();
   formData.append("file", base64ToFile(imageFile, Math.random() + ".jpg"));
-  const urlParams = new URLSearchParams(window.location.search);
-  const userId = urlParams.get("userId");
-  const board = urlParams.get("board");
-  const langauge = urlParams.get("language");
-  const subject = urlParams.get("subject");
-  const token = urlParams.get("token");
-  const env = urlParams.get("env");
+
+  let userDetails = JSON.parse(Cookies.get("user"));
+  const userId = userDetails.userId;
+  const token = Cookies.get("token");
 
   showOptionSelection.value = true;
 
@@ -268,8 +285,6 @@ export const chatImageRequest = (imageFile, userQuery = "") => {
         Accept: "*/*",
         userId: userId,
         token: token,
-        // "Content-Type": "multipart/form-data",
-        // "Content-Type": "application/json",
       },
       body: formData,
     }
@@ -285,8 +300,8 @@ export const chatImageRequest = (imageFile, userQuery = "") => {
 export function chatClassifier(message) {
   showDoubtChatLoader.value = true;
 
-  customAppRequest(`chat-classifier?doubt=` + encodeURI(message))
-    .then(data => {
+  customWebRequest(`chat-classifier?doubt=` + encodeURI(message))
+    .then((data) => {
       chatType.value = data.result;
       showDoubtChatLoader.value = false;
       if (data.result === "conversation_based") {
@@ -298,32 +313,28 @@ export function chatClassifier(message) {
         postNewChat(message);
       }
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('Error:', error)
     })
-
-
 }
 
 export function postNewChatConversation(userDoubt) {
   showDoubtChatLoader.value = true;
 
-  customAppRequest(`chat-conversation?chatSessionId=${chatSessionId.value}&doubt=${userDoubt}`)
-    .then(data => {
+  customWebRequest(`chat-conversation?chatSessionId=${chatSessionId.value}&doubt=${userDoubt}`)
+    .then((data) => {
       chatHistory.value = [...chatHistory.value, ...data];
       showDoubtChatLoader.value = false;
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('Error:', error)
     })
 }
 
 
 export function saveDoubtChat(userDoubt, botResponse) {
-  const urlParams = new URLSearchParams(window.location.search);
-  let uLanguage = urlParams.get("language");
-  let uSubject = urlParams.get("subject");
-
+  let uLanguage = "en";
+  let uSubject = "physics";
 
   const requestBody = JSON.stringify({
     "chatSessionId": chatSessionId.value,
@@ -333,33 +344,34 @@ export function saveDoubtChat(userDoubt, botResponse) {
     "subjectName": uSubject
   })
 
-  customAppRequest('save-doubt-chat', 'POST', requestBody)
-    .then(data => {
+  customWebRequest('save-doubt-chat', 'POST', requestBody)
+    .then((data) => {
       chatHistory.value = [...chatHistory.value, ...data]
       console.log(data);
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('Error:', error)
     })
 }
 
 export function updateDoubtStatus(status) {
-  customAppRequest(`update/doubt/status?chatSessionId=${chatSessionId.value}&status=${status}`)
-    .then(data => {
+  customWebRequest(`update/doubt/status?chatSessionId=${chatSessionId.value}&status=${status}`)
+    .then((data) => {
       console.log(data);
     })
-    .catch(error => {
+    .catch((error) => {
       console.error('Error:', error);
     })
 }
 
 export function loadSuggestedQuestions(addInChatHistory = false) {
 
-  const urlParams = new URLSearchParams(window.location.search);
-  let uLanguage = urlParams.get("language");
-  let uCourseId = urlParams.get("courseId");
-  let uSubject = urlParams.get("subject");
-  let uClassId = urlParams.get("classId");
+  let userDetails = JSON.parse(Cookies.get("user"));
+
+  let uLanguage = "en";
+  let uCourseId = userDetails.courseId;
+  let uSubject = "physics";
+  let uClassId = userDetails.classId;
 
   let courseNameMapping = {
     "1": "jee",
@@ -453,14 +465,6 @@ export function openFilePicker() {
   }
 }
 
-export function openMicInput() {
-  if (typeof AndroidInterface !== 'undefined') {
-    window.AndroidInterface.openMicInput();
-  } else {
-    alert("AndroidInterface is not defined for Mic Input");
-  }
-}
-
 export function setChatSessionIdInActivity() {
   if (typeof AndroidInterface !== 'undefined') {
     try {
@@ -496,17 +500,5 @@ export function watchLectureNowTextClickAction() {
     }
   } else {
     alert("AndroidInterface is not defined for watchLectureNowTextClickAction");
-  }
-}
-
-export function showDoubtSubscriptionDialog() {
-  if (typeof AndroidInterface !== 'undefined') {
-    try {
-      window.AndroidInterface.showSubscriptionDialog();
-    } catch (error) {
-
-    }
-  } else {
-    alert("AndroidInterface is not defined for showSubscriptionDialog");
   }
 }

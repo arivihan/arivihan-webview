@@ -6,6 +6,7 @@
 ::-webkit-scrollbar {
     background-color: transparent;
     width: 5px;
+    max-height: 5px;
     border-radius: 5px;
 }
 
@@ -30,11 +31,11 @@
     padding-right: 30px;
 }
 
-.receiveBubble p{
+.receiveBubble p {
     width: 100%;
 }
 
-::selection{
+::selection {
     user-select: none;
     -webkit-user-select: none;
 }
@@ -44,7 +45,26 @@
     width: 100%;
     height: auto;
 }
+
 /* 
 .crop-img{
     max-height: 400px !important;
 } */
+
+
+
+
+@keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.animate-shimmer {
+    animation: shimmer 8s infinite linear;
+    background-size: 200% 100%;
+}

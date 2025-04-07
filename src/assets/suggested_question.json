@@ -72,7 +72,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Insulin</h2><div class=\"concept\"><p><b>Insulin</b> is a hormone that helps the body use sugar for energy. It regulates blood sugar levels and helps store glucose in cells for later use.</p><h3 style=\"color: #14c8cf;\">Functions of Insulin</h3><ul style=\"list-style-type: disc; padding-left: 20px;\"><li><b>Lowers Blood Sugar</b> - Moves glucose from blood into cells, reducing blood sugar levels</li><li><b>Stores Glucose</b> - Helps store glucose as glycogen in muscles and triglycerides in fat cells</li><li><b>Regulates Metabolism</b> - Controls the rate of glucose transport into cells</li><li><b>Prevents Diabetes</b> - Maintains healthy blood sugar levels to prevent diabetes</li></ul></div><div style=\"margin-top: 20px;\"><img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/9ebbbceb-164a-42ed-a20a-edeb93d2af18/INSULIN.png\" alt=\"Insulin Image\" style=\"width: 100%; max-width: 400px; display: block; margin: 20px auto;\"></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "11th",
@@ -80,7 +80,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Distance Formula</h2><div class=\"concept\"><p>The distance <b>d</b> between two points:</p><ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Point A (<b>x₁, y₁</b>)</li><li>Point B (<b>x₂, y₂</b>)</li></ul>\n<p><span style=\"color: #14c8cf;\">Formula:</span><br><b>d = √[(x₂ - x₁)² + (y₂ - y₁)²]</b></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "11th",
@@ -88,7 +88,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Solution</h2><div class=\"concept\"><p><b>Given Expression:</b></p><p style=\"padding-left: 20px;\">√3/sin20° - 1/cos20°</p>\n\n<p><b>Steps:</b></p><p style=\"padding-left: 20px;\">= (√3cos20° - sin20°)/sin20°cos20°<br>\n= 4[{(√3/2)cos20° - (1/2)sin20°}/2sin20°cos20°]<br>\n= 4[(sin60°cos20° - cos60°sin20°)/sin40°]<br>\n= 4[sin(60° - 20°)/sin40°]<br>\n<span style=\"color: #14c8cf;\"><b>= 4</b></span></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "11th",
@@ -144,7 +144,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Fittig Reaction</h2><p>A method for preparing aryl hydrocarbons through coupling of aryl halides using sodium metal.</p>\n<p><b>General Reaction:</b></p><p style=\"padding-left: 20px;\">2Ar-X + 2Na → Ar-Ar + 2NaX<br>\nwhere: Ar = aryl group, X = halogen</p>\n<p><b>Example:</b></p><p style=\"padding-left: 20px;\">2C₆H₅Br + 2Na → C₆H₅-C₆H₅ + 2NaBr<br>\n(Bromobenzene + Sodium → Biphenyl + Sodium bromide)</p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "12th",
@@ -152,7 +152,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><p><b>Given:</b></p><p style=\"padding-left: 20px;\">sin(sin⁻¹(1/5) + cos⁻¹(x)) = 1</p>\n<p><b>Solution:</b></p><p style=\"padding-left: 20px;\">sin(sin⁻¹(1/5) + cos⁻¹(x)) = sin(π/2)<br>\nsin⁻¹(1/5) + cos⁻¹(x) = π/2<br>\nsin⁻¹(1/5) = π/2 - cos⁻¹(x)<br>\nsin⁻¹(1/5) = sin⁻¹(x)</p>\n<p style=\"padding-left: 20px;\"><span style=\"color: #14c8cf;\"><b>∴ x = 1/5</b></span></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "12th",
@@ -160,7 +160,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><p><b>Given:</b></p><p style=\"padding-left: 20px;\">Let I = ∫cos²x dx</p>\n<p><b>Using Identity:</b></p><p style=\"padding-left: 20px;\">cos 2x = 2cos²x - 1<br>\n∴ cos²x = (1 + cos 2x)/2</p>\n<p><b>Solution:</b></p><p style=\"padding-left: 20px;\">I = ∫cos²x dx<br>\n= 1/2∫(1 + cos 2x)dx<br>\n= 1/2∫dx + 1/2∫cos 2x dx<br>\n<span style=\"color: #14c8cf;\"><b>= x/2 + (1/4)sin 2x + C</b></span></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "12th",
@@ -240,7 +240,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><h2 style=\"color: #14c8cf; font-weight: bold;\">E2 Elimination Mechanism</h2><div class=\"concept\"><p>The E2 elimination reaction converts an alkyl halide to an alkene through a single-step mechanism:</p><p><b>Overall Reaction:</b><br>CH₃-CHBr-CH₃ + OH⁻ → CH₃-CH=CH₂ + Br⁻ + H₂O</p><div class=\"mechanism\" style=\"margin-top: 15px;\"><h3 style=\"color: #14c8cf;\">Mechanism Steps</h3><ul style=\"list-style-type: disc; padding-left: 20px;\"><li><b>Base Attack:</b> The base (OH⁻) removes a hydrogen (H⁺) from the beta carbon, forming C-H bond electrons</li><li><b>Bond Breaking:</b> As the base pulls off H⁺, the Br⁻ leaves simultaneously with its electron pair</li><li><b>Double Bond Formation:</b> The electrons from the broken C-H bond form a new π bond between the carbons</li></ul></div><div class=\"characteristics\" style=\"margin-top: 15px;\"><h3 style=\"color: #14c8cf;\">Important Features</h3><ul style=\"list-style-type: disc; padding-left: 20px;\"><li><b>Geometry Requirement:</b> H and Br must be in antiperiplanar arrangement (180° angle) for effective elimination</li><li><b>Base Preference:</b> Strong bases like OH⁻ and RO⁻ favor this reaction pathway</li><li><b>Reaction Competition:</b> Often competes with SN2 substitution reaction</li><li><b>Product Formation:</b> Following Zaitsev's rule, forms the more stable (more substituted) alkene</li></ul></div></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "11th",
@@ -248,7 +248,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Asymptote</h2><div class=\"concept\"><p>An <b>asymptote</b> is a straight line that a curve approaches infinitely closely without ever reaching it. Think of it as an invisible boundary that the curve gets closer and closer to, but can never quite touch.</p><ul style=\"list-style-type: disc; padding-left: 20px;\"><li><b>Example Function:</b> f(x) = 1/x<ul style=\"padding-left: 20px; margin-top: 5px;\"><li><span style=\"color: #14c8cf;\">Vertical asymptote (x = 0):</span> As x gets very close to 0 from either side, y values grow infinitely large (positive or negative)</li><li><span style=\"color: #14c8cf;\">Horizontal asymptote (y = 0):</span> As x becomes very large (positive or negative), y values get closer and closer to 0</li></ul></li><li><b>Key Behaviors:</b><ul style=\"padding-left: 20px; margin-top: 5px;\"><li>The function never actually crosses these lines</li><li>The distance between curve and asymptote becomes smaller than any positive number</li><li>Helps us understand function behavior at extreme values</li></ul></li></ul></div><div style=\"margin-top: 20px;\"><img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/0cf53aa8-ed55-4138-b111-0ee6947445a0/18.png\" alt=\"Asymptote Graph\" style=\"width: 100%; max-width: 400px; display: block; margin: 20px auto;\"></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "11th",
@@ -256,7 +256,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><p>To solve the factorial equation:</p><p><b>Given:</b></p><p style=\"padding-left: 20px;\"><b>(n+2)(n+1)n!</b> / n! = 6</p>\n\n<p><b>Solution:</b></p><p style=\"padding-left: 20px;\">(n+2)(n+1) = 6<br>\n<span style=\"color: #14c8cf;\">Expand:</span> n<sup>2</sup> + 3n + 2 = 6<br>\n<span style=\"color: #14c8cf;\">Rearrange:</span> n<sup>2</sup> + 3n - 4 = 0<br>\nn<sup>2</sup> + 4n - n - 4 = 0<br>\nn(n+4) - 1(n+4) = 0<br>\n<b>Factorize:</b> (n+4)(n-1) = 0<br>\n<b>Solve:</b> n = -4 or n = 1</p>\n\n<p style=\"padding-left: 20px;\"><b>Since n cannot be negative,<br>\n<span style=\"color: #14c8cf;\">∴ n = 1</span></b></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "11th",
@@ -312,7 +312,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">d-d Transitions</h2>\n<p>These are electronic transitions that occur in transition metal compounds:</p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Involves electron movement between d orbitals</li><li>Results in colored compounds</li><li>Energy corresponds to visible light spectrum</li></ul>\n<p><b>Occurs when:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>d orbitals are split by ligand field</li><li>Electron moves from lower to higher energy d orbital</li></ul>\n<p><img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/ab7f6a0a-63d1-4d2b-8212-1eb7df5a563b/08.png\" alt=\"d-d Transitions\" style=\"max-width: 100%; height: auto; margin-top: 10px;\"></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "12th",
@@ -320,7 +320,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Inequality Problem</h2>\n<p><b>Step 1:</b></p>\n<p style=\"padding-left: 20px;\">x²/(1+x²) = 1-1/(1+x²) < 1</p>\n<p><b>Step 2:</b></p>\n<p style=\"padding-left: 20px;\">0 ≤ x²/(1+x²) < 1</p>\n<p><b>Step 3:</b></p>\n<p style=\"padding-left: 20px;\">0 ≤ sin⁻¹(x²/(1+x²)) < π/2</p>\n<p><b>Step 4:</b></p>\n<p style=\"padding-left: 20px;\">0 ≤ 4sin⁻¹(x²/(1+x²)) < 2π</p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "12th",
@@ -328,7 +328,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Function Derivative Problem</h2>\n<p><b>Given:</b></p>\n<p style=\"padding-left: 20px;\">f(x) = x³+x²⋅f'(1)+x⋅f^''(2)+f'''(3)<br>\nf'(x) = 3x²+2xf'(1)+f''(2)<br>\nf''(x) = 6x+2f'(1)<br>\nf'''(x) = 6</p>\n<p><b>Known values:</b></p>\n<p style=\"padding-left: 20px;\">f'(1) = -5<br>\nf''(2) = 2<br>\nf'''(3) = 6</p>\n<p><b>Substituting:</b></p>\n<p style=\"padding-left: 20px;\">f(x) = x³+x²⋅(-5)+x⋅(2)+6<br>\nf'(x) = 3x²-10x+2<br>\nf'(10) = 300-100+2<br>\n= <b style=\"color: #14c8cf;\">202</b></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "12th",
@@ -552,7 +552,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Inverted Pyramid of Biomass</h2>\n<p>Small organisms support larger ones in terms of biomass</p>\n<p><b>Most common in aquatic ecosystems where:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Producers (phytoplankton) have rapid turnover</li><li>Small biomass but high productivity</li><li>Support larger consumer biomass</li></ul>\n<p><b>Example: Marine ecosystem</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Phytoplankton (producers) → Small fish → Large fish</li></ul>\n<p><b>Characteristic features:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Producers have least biomass</li><li>Consumers have more biomass than producers</li><li>Shape appears inverted unlike normal ecological pyramid</li></ul></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "foundation",
@@ -560,7 +560,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><p>To find the derivative of the given function, first simplify the expression, then use power rule and term-by-term differentiation.</p><p><b>Given:</b></p><p style=\"padding-left: 20px;\">Let y = x⁵(3 - 6x⁻⁹)<br>\ny = 3x⁵ - 6x⁻⁴</p>\n<p><b>Differentiate with respect to x:</b></p><p style=\"padding-left: 20px;\">dy/dx = 3.5x⁵⁻¹ - (-4)6x⁻⁴⁻¹<br>\n<span style=\"color: #14c8cf;\"><b>dy/dx = 15x⁴ + 24x⁻⁵</b></span></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "foundation",
@@ -568,7 +568,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><p><b>Given:</b></p><p style=\"padding-left: 20px;\">sin(sin⁻¹(1/5) + cos⁻¹(x)) = 1</p>\n<p><b>Solution:</b></p><p style=\"padding-left: 20px;\">sin(sin⁻¹(1/5) + cos⁻¹(x)) = sin(π/2)<br>\nsin⁻¹(1/5) + cos⁻¹(x) = π/2<br>\nsin⁻¹(1/5) = π/2 - cos⁻¹(x)<br>\nsin⁻¹(1/5) = sin⁻¹(x)</p>\n<p style=\"padding-left: 20px;\"><span style=\"color: #14c8cf;\"><b>∴ x = 1/5</b></span></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "foundation",
@@ -624,7 +624,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">d-d Transitions</h2>\n<p>These are electronic transitions that occur in transition metal compounds:</p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Involves electron movement between d orbitals</li><li>Results in colored compounds</li><li>Energy corresponds to visible light spectrum</li></ul>\n<p><b>Occurs when:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>d orbitals are split by ligand field</li><li>Electron moves from lower to higher energy d orbital</li></ul>\n<p><img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/ab7f6a0a-63d1-4d2b-8212-1eb7df5a563b/08.png\" alt=\"d-d Transitions\" style=\"max-width: 100%; height: auto; margin-top: 10px;\"></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "foundation",
@@ -632,7 +632,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Asymptote</h2><div class=\"concept\"><p>An <b>asymptote</b> is a straight line that a curve approaches infinitely closely without ever reaching it. Think of it as an invisible boundary that the curve gets closer and closer to, but can never quite touch.</p><ul style=\"list-style-type: disc; padding-left: 20px;\"><li><b>Example Function:</b> f(x) = 1/x<ul style=\"padding-left: 20px; margin-top: 5px;\"><li><span style=\"color: #14c8cf;\">Vertical asymptote (x = 0):</span> As x gets very close to 0 from either side, y values grow infinitely large (positive or negative)</li><li><span style=\"color: #14c8cf;\">Horizontal asymptote (y = 0):</span> As x becomes very large (positive or negative), y values get closer and closer to 0</li></ul></li><li><b>Key Behaviors:</b><ul style=\"padding-left: 20px; margin-top: 5px;\"><li>The function never actually crosses these lines</li><li>The distance between curve and asymptote becomes smaller than any positive number</li><li>Helps us understand function behavior at extreme values</li></ul></li></ul></div><div style=\"margin-top: 20px;\"><img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/0cf53aa8-ed55-4138-b111-0ee6947445a0/18.png\" alt=\"Asymptote Graph\" style=\"width: 100%; max-width: 400px; display: block; margin: 20px auto;\"></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "foundation",
@@ -640,7 +640,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><p>To find the multiplicative inverse of a complex number z:</p><p><b>Given:</b></p><p style=\"padding-left: 20px;\">Let z = 4 - 3i<br>\nConjugate of z = 4 + 3i</p>\n\n<p><b>Solution:</b></p><p style=\"padding-left: 20px;\">z<sup>-1</sup> = 1/(4 - 3i)<br>\n<span style=\"color: #14c8cf;\">Rationalize:</span> z<sup>-1</sup> = 1·(4 + 3i)/(4 - 3i)(4 + 3i)<br>\n= (4 + 3i)/(16 - 9i<sup>2</sup>)<br>\n= (4 + 3i)/(16 + 9)<br>\n= (4 + 3i)/25</p>\n\n<p style=\"padding-left: 20px;\"><b><span style=\"color: #14c8cf;\">∴ z<sup>-1</sup> = 4/25 + 3i/25</span></b></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "foundation",
@@ -792,7 +792,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Inverted Pyramid of Biomass</h2>\n<p>Small organisms support larger ones in terms of biomass</p>\n<p><b>Most common in aquatic ecosystems where:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Producers (phytoplankton) have rapid turnover</li><li>Small biomass but high productivity</li><li>Support larger consumer biomass</li></ul>\n<p><b>Example: Marine ecosystem</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Phytoplankton (producers) → Small fish → Large fish</li></ul>\n<p><b>Characteristic features:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Producers have least biomass</li><li>Consumers have more biomass than producers</li><li>Shape appears inverted unlike normal ecological pyramid</li></ul></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "dropper",
@@ -800,7 +800,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><p>To find the derivative of the given function, first simplify the expression, then use power rule and term-by-term differentiation.</p><p><b>Given:</b></p><p style=\"padding-left: 20px;\">Let y = x⁵(3 - 6x⁻⁹)<br>\ny = 3x⁵ - 6x⁻⁴</p>\n<p><b>Differentiate with respect to x:</b></p><p style=\"padding-left: 20px;\">dy/dx = 3.5x⁵⁻¹ - (-4)6x⁻⁴⁻¹<br>\n<span style=\"color: #14c8cf;\"><b>dy/dx = 15x⁴ + 24x⁻⁵</b></span></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "dropper",
@@ -808,7 +808,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><p><b>Given:</b></p><p style=\"padding-left: 20px;\">sin(sin⁻¹(1/5) + cos⁻¹(x)) = 1</p>\n<p><b>Solution:</b></p><p style=\"padding-left: 20px;\">sin(sin⁻¹(1/5) + cos⁻¹(x)) = sin(π/2)<br>\nsin⁻¹(1/5) + cos⁻¹(x) = π/2<br>\nsin⁻¹(1/5) = π/2 - cos⁻¹(x)<br>\nsin⁻¹(1/5) = sin⁻¹(x)</p>\n<p style=\"padding-left: 20px;\"><span style=\"color: #14c8cf;\"><b>∴ x = 1/5</b></span></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "en",
         "class": "dropper",
@@ -864,7 +864,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">d-d Transitions</h2>\n<p>These are electronic transitions that occur in transition metal compounds:</p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>Involves electron movement between d orbitals</li><li>Results in colored compounds</li><li>Energy corresponds to visible light spectrum</li></ul>\n<p><b>Occurs when:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>d orbitals are split by ligand field</li><li>Electron moves from lower to higher energy d orbital</li></ul>\n<p><img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/ab7f6a0a-63d1-4d2b-8212-1eb7df5a563b/08.png\" alt=\"d-d Transitions\" style=\"max-width: 100%; height: auto; margin-top: 10px;\"></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "dropper",
@@ -872,7 +872,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><h2 style=\"color: #14c8cf; font-weight: bold;\">Asymptote</h2><div class=\"concept\"><p>An <b>asymptote</b> is a straight line that a curve approaches infinitely closely without ever reaching it. Think of it as an invisible boundary that the curve gets closer and closer to, but can never quite touch.</p><ul style=\"list-style-type: disc; padding-left: 20px;\"><li><b>Example Function:</b> f(x) = 1/x<ul style=\"padding-left: 20px; margin-top: 5px;\"><li><span style=\"color: #14c8cf;\">Vertical asymptote (x = 0):</span> As x gets very close to 0 from either side, y values grow infinitely large (positive or negative)</li><li><span style=\"color: #14c8cf;\">Horizontal asymptote (y = 0):</span> As x becomes very large (positive or negative), y values get closer and closer to 0</li></ul></li><li><b>Key Behaviors:</b><ul style=\"padding-left: 20px; margin-top: 5px;\"><li>The function never actually crosses these lines</li><li>The distance between curve and asymptote becomes smaller than any positive number</li><li>Helps us understand function behavior at extreme values</li></ul></li></ul></div><div style=\"margin-top: 20px;\"><img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/0cf53aa8-ed55-4138-b111-0ee6947445a0/18.png\" alt=\"Asymptote Graph\" style=\"width: 100%; max-width: 400px; display: block; margin: 20px auto;\"></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "dropper",
@@ -880,7 +880,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><p>To find the multiplicative inverse of a complex number z:</p><p><b>Given:</b></p><p style=\"padding-left: 20px;\">Let z = 4 - 3i<br>\nConjugate of z = 4 + 3i</p>\n\n<p><b>Solution:</b></p><p style=\"padding-left: 20px;\">z<sup>-1</sup> = 1/(4 - 3i)<br>\n<span style=\"color: #14c8cf;\">Rationalize:</span> z<sup>-1</sup> = 1·(4 + 3i)/(4 - 3i)(4 + 3i)<br>\n= (4 + 3i)/(16 - 9i<sup>2</sup>)<br>\n= (4 + 3i)/(16 + 9)<br>\n= (4 + 3i)/25</p>\n\n<p style=\"padding-left: 20px;\"><b><span style=\"color: #14c8cf;\">∴ z<sup>-1</sup> = 4/25 + 3i/25</span></b></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "en",
         "class": "dropper",
@@ -1032,7 +1032,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\">\n<h2 style=\"font-weight: bold;\">इंसुलिन</h2>\n<div class=\"concept\">\n<p><b>इंसुलिन</b> एक हार्मोन है जो शरीर को ऊर्जा के लिए शर्करा का उपयोग करने में मदद करता है। यह रक्त शर्करा स्तर को नियंत्रित करता है और ग्लूकोज को कोशिकाओं में संग्रहीत करने में सहायता करता है।</p>\n<h3 style=\"font-weight: bold;\">इंसुलिन के कार्य</h3>\n<ul style=\"list-style-type: disc; padding-left: 20px;\">\n<li><b>रक्त शर्करा कम करना</b> - रक्त से ग्लूकोज को कोशिकाओं में ले जाता है, जिससे रक्त शर्करा स्तर घटता है</li>\n<li><b>ग्लूकोज संग्रहण</b> - ग्लूकोज को ग्लाइकोजन के रूप में मांसपेशियों और ट्राइग्लिसराइड के रूप में वसा कोशिकाओं में संग्रहित करता है</li>\n<li><b>चयापचय नियंत्रण</b> - कोशिकाओं में ग्लूकोज परिवहन की दर को नियंत्रित करता है</li>\n<li><b>मधुमेह रोकथाम</b> - <span style=\"color: #14c8cf;\">स्वस्थ रक्त शर्करा स्तर बनाए रखकर मधुमेह को रोकता है</span></li>\n</ul>\n</div>\n<div style=\"margin-top: 20px;\">\n<img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/9ebbbceb-164a-42ed-a20a-edeb93d2af18/INSULIN.png\" alt=\"इंसुलिन चित्र\" style=\"width: 100%; max-width: 400px; display: block; margin: 20px auto;\">\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "11th",
@@ -1040,7 +1040,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\">\n<h2 style=\"color: #14c8cf; font-weight: bold;\">दूरी का सूत्र</h2>\n<div class=\"concept\">\n<p>दो बिंदुओं के बीच की दूरी <b>d</b>:</p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\">\n<li>बिंदु A (<b>x₁, y₁</b>)</li>\n<li>बिंदु B (<b>x₂, y₂</b>)</li>\n</ul>\n<p><span style=\"color: #14c8cf;\">सूत्र:</span><br><b>d = √[(x₂ - x₁)² + (y₂ - y₁)²]</b></p>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "11th",
@@ -1048,7 +1048,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\">  \n<h2 style=\"color: #14c8cf; font-weight: bold;\">हल</h2>  \n<div class=\"concept\">  \n<p><b>दिया गया व्यंजक:</b></p>  \n<p style=\"padding-left: 20px;\">√3/sin20° - 1/cos20°</p>  \n\n<p><b>चरण:</b></p>  \n<p style=\"padding-left: 20px;\">  \n= (√3cos20° - sin20°)/sin20°cos20°<br>  \n= 4[{(√3/2)cos20° - (1/2)sin20°}/2sin20°cos20°]<br>  \n= 4[(sin60°cos20° - cos60°sin20°)/sin40°]<br>  \n= 4[sin(60° - 20°)/sin40°]<br>  \n<span style=\"color: #14c8cf;\"><b>= 4</b></span>  \n</p>  \n</div>  \n</div>  \n"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "11th",
@@ -1104,7 +1104,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<h2 style=\"font-weight: bold;\">डैनियल सेल</h2>\n<p><b>अवयव:</b></p>\n<p style=\"padding-left: 20px;\">\n- ZnSO₄ विलयन में जस्ता इलेक्ट्रोड (एनोड)<br>\n- CuSO₄ विलयन में ताँबा इलेक्ट्रोड (कैथोड)<br>\n- दोनों विलयनों को जोड़ने वाला लवण सेतु\n</p>\n<p style=\"margin-top: 20px;\"><b>सेल अभिक्रियाएँ:</b></p>\n<p style=\"padding-left: 20px;\">\nएनोड: Zn → Zn²⁺ + 2e⁻<br><br>\nकैथोड: Cu²⁺ + 2e⁻ → Cu<br><br>\n<span style=\"color: #14c8cf;\">कुल अभिक्रिया: Zn + Cu²⁺ → Zn²⁺ + Cu</span><br><br>\nविद्युत वाहक बल (EMF) = 1.1 V\n</p>\n<p style=\"margin-top: 20px;\"><b>लवण सेतु के कार्य:</b></p>\n<p style=\"padding-left: 20px;\">\n- विद्युत परिपथ को पूरा करता है<br>\n- विद्युतीय उदासीनता बनाए रखता है<br>\n- आयनों की गति को संभव बनाता है\n</p>\n<div style=\"margin: 25px 0;\">\n<img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/cabe7ff3-7887-4043-8179-ba63b50ac987/CELL.png\" alt=\"डैनियल सेल\" style=\"width: 100%; max-width: 400px; display: block; margin: 0 auto;\">\n</div>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "12th",
@@ -1112,7 +1112,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<p><b>दिया गया:</b></p>\n<p style=\"padding-left: 20px; margin-bottom: 20px;\">\nsin(sin⁻¹(1/5) + cos⁻¹(x)) = 1\n</p>\n<p><b>हल:</b></p>\n<p style=\"padding-left: 20px; line-height: 2.2;\">\nsin(sin⁻¹(1/5) + cos⁻¹(x)) = sin(π/2)<br>\nsin⁻¹(1/5) + cos⁻¹(x) = π/2<br>\nsin⁻¹(1/5) = π/2 - cos⁻¹(x)<br>\nsin⁻¹(1/5) = sin⁻¹(x)\n</p>\n<p style=\"padding-left: 20px; margin-top: 20px;\">\n<span style=\"color: #14c8cf;\"><b>∴ x = 1/5</b></span>\n</p>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "12th",
@@ -1120,7 +1120,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<p><b>दिया गया:</b></p>\n<p style=\"padding-left: 20px; margin-bottom: 20px;\">\nमाना I = ∫cos²x dx\n</p>\n<p><b>सर्वसमिका का उपयोग:</b></p>\n<p style=\"padding-left: 20px; margin-bottom: 20px; line-height: 2;\">\ncos 2x = 2cos²x - 1<br>\n∴ cos²x = (1 + cos 2x)/2\n</p>\n<p><b>हल:</b></p>\n<p style=\"padding-left: 20px; line-height: 2.2;\">\nI = ∫cos²x dx<br>\n= 1/2∫(1 + cos 2x)dx<br>\n= 1/2∫dx + 1/2∫cos 2x dx<br>\n<span style=\"color: #14c8cf;\"><b>= x/2 + (1/4)sin 2x + C</b></span>\n</p>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "12th",
@@ -1200,7 +1200,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><h2 style=\"color: #14c8cf; font-weight: bold;\">E2 निष्कासन तंत्र</h2><div class=\"concept\"><p>E2 निष्कासन अभिक्रिया एकल-चरण तंत्र द्वारा ऐल्किल हैलाइड को ऐल्कीन में परिवर्तित करती है:</p><p><b>समग्र अभिक्रिया:</b><br>CH₃-CHBr-CH₃ + OH⁻ → CH₃-CH=CH₂ + Br⁻ + H₂O</p><div class=\"mechanism\" style=\"margin-top: 15px;\"><h3 style=\"color: #14c8cf;\">तंत्र के चरण</h3><ul style=\"list-style-type: disc; padding-left: 20px;\"><li><b>क्षारक आक्रमण:</b> क्षारक (OH⁻) बीटा कार्बन से हाइड्रोजन (H⁺) को हटाता है, जिससे C-H बंध के इलेक्ट्रॉन बनते हैं</li><li><b>बंधन टूटना:</b> जैसे ही क्षारक H⁺ को खींचता है, Br⁻ अपने इलेक्ट्रॉन युग्म के साथ समकालिक रूप से पृथक हो जाता है</li><li><b>द्विबंध निर्माण:</b> टूटे हुए C-H बंध के इलेक्ट्रॉन कार्बन परमाणुओं के बीच एक नया π बंध बनाते हैं</li></ul></div><div class=\"characteristics\" style=\"margin-top: 15px;\"><h3 style=\"color: #14c8cf;\">महत्वपूर्ण विशेषताएँ</h3><ul style=\"list-style-type: disc; padding-left: 20px;\"><li><b>ज्यामिति आवश्यकता:</b> प्रभावी निष्कासन के लिए H और Br को एंटीपेरिप्लानर व्यवस्था (180° कोण) में होना चाहिए</li><li><b>क्षारक प्राथमिकता:</b> OH⁻ और RO⁻ जैसे प्रबल क्षारक इस अभिक्रिया मार्ग को प्राथमिकता देते हैं</li><li><b>अभिक्रिया प्रतिस्पर्धा:</b> यह अक्सर SN2 प्रतिस्थापन अभिक्रिया के साथ प्रतिस्पर्धा करती है</li><li><b>उत्पाद निर्माण:</b> ज़ैतसेव के नियम का पालन करते हुए, अधिक स्थायी (अधिक प्रतिस्थापित) ऐल्कीन बनाता है</li></ul></div></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "11th",
@@ -1208,7 +1208,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\"><div class=\"concept\"><p>क्रमगुणित समीकरण को हल करने के लिए:</p><p><b>दिया गया:</b></p><p style=\"padding-left: 20px; margin-bottom: 15px;\"><b>(n+2)(n+1)n!</b> / n! = 6</p><p><b>हल:</b></p><p style=\"padding-left: 20px; line-height: 2;\">(n+2)(n+1) = 6<span style=\"color: #14c8cf;\">विस्तार करें:</span> n<sup>2</sup> + 3n + 2 = 6<span style=\"color: #14c8cf;\">पुनः व्यवस्थित करें:</span> n<sup>2</sup> + 3n - 4 = 0n<sup>2</sup> + 4n - n - 4 = 0n(n+4) - 1(n+4) = 0<b>गुणनखंड करें:</b> (n+4)(n-1) = 0<b>हल करें:</b> n = -4 या n = 1</p><p style=\"padding-left: 20px; margin-top: 25px;\"><b>चूँकि n ऋणात्मक नहीं हो सकता,<br><br><span style=\"color: #14c8cf;\">∴ n = 1</span></b></p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "11th",
@@ -1216,7 +1216,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<p>एक सम्मिश्र संख्या z का गुणात्मक प्रतिलोम ज्ञात करने के लिए:</p>\n<p><b>दिया गया:</b></p>\n<p style=\"padding-left: 20px; margin-bottom: 15px;\">\nz = 4 - 3i<br>\nz का संयुग्म = 4 + 3i\n</p>\n<p><b>हल:</b></p>\n<p style=\"padding-left: 20px; line-height: 2;\">\nz<sup>-1</sup> = 1/(4 - 3i)\n<span style=\"color: #14c8cf;\">परिमेयकरण करें:</span>\nz<sup>-1</sup> = 1·(4 + 3i)/(4 - 3i)(4 + 3i)\n= (4 + 3i)/(16 - 9i<sup>2</sup>)\n= (4 + 3i)/(16 + 9)\n= (4 + 3i)/25\n</p>\n<p style=\"padding-left: 20px; margin-top: 25px;\">\n<b><span style=\"color: #14c8cf;\">∴ z<sup>-1</sup> = 4/25 + 3i/25</span></b>\n</p>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "11th",
@@ -1272,7 +1272,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<h2 style=\"font-weight: bold;\">डी-डी इलेक्ट्रॉनिक संक्रमण</h2>\n<p style=\"margin-bottom: 15px;\">ये इलेक्ट्रॉनिक संक्रमण हैं जो संक्रमण धातु यौगिकों में होते हैं:</p>\n<ul style=\"list-style-type: disc; padding-left: 20px; margin-bottom: 20px;\">\n<li>डी कक्षकों के बीच इलेक्ट्रॉन गति को शामिल करता है</li>\n<li>रंगीन यौगिकों का निर्माण करता है</li>\n<li><span style=\"color: #14c8cf;\">ऊर्जा दृश्यमान प्रकाश स्पेक्ट्रम से मेल खाती है</span></li>\n</ul>\n<p style=\"margin: 20px 0;\"><b>तब होता है जब:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px; margin-bottom: 25px;\">\n<li>लिगैंड क्षेत्र द्वारा डी कक्षक विभाजित होते हैं</li>\n<li>इलेक्ट्रॉन निम्न ऊर्जा डी कक्षक से उच्च ऊर्जा डी कक्षक में जाता है</li>\n</ul>\n<div style=\"margin: 25px 0; text-align: center;\">\n<img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/ab7f6a0a-63d1-4d2b-8212-1eb7df5a563b/08.png\" alt=\"डी-डी संक्रमण\" style=\"max-width: 100%; height: auto; border-radius: 8px;\">\n</div>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "12th",
@@ -1280,7 +1280,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">असमानता समस्या</h2>\n<p><b>चरण 1:</b></p>\n<p style=\"padding-left: 20px;\">x²/(1+x²) = 1-1/(1+x²) < 1</p>\n<p><b>चरण 2:</b></p>\n<p style=\"padding-left: 20px;\">0 ≤ x²/(1+x²) < 1</p>\n<p><b>चरण 3:</b></p>\n<p style=\"padding-left: 20px;\">0 ≤ sin⁻¹(x²/(1+x²)) < π/2</p>\n<p><b>चरण 4:</b></p>\n<p style=\"padding-left: 20px;\">0 ≤ 4sin⁻¹(x²/(1+x²)) < 2π</p></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "12th",
@@ -1288,7 +1288,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">फलन अवकलज समस्या</h2>\n<p><b>दिया गया:</b></p>\n<p style=\"padding-left: 20px;\">f(x) = x³+x²⋅f'(1)+x⋅f^''(2)+f'''(3)<br>\nf'(x) = 3x²+2xf'(1)+f''(2)<br>\nf''(x) = 6x+2f'(1)<br>\nf'''(x) = 6</p>\n<p><b>ज्ञात मान:</b></p>\n<p style=\"padding-left: 20px;\">f'(1) = -5<br>\nf''(2) = 2<br>\nf'''(3) = 6</p>\n<p><b>प्रतिस्थापित करने पर:</b></p>\n<p style=\"padding-left: 20px;\">f(x) = x³+x²⋅(-5)+x⋅(2)+6<br>\nf'(x) = 3x²-10x+2<br>\nf'(10) = 300-100+2<br>\n= <b style=\"color: #14c8cf;\">202</b></p></div></div>\n"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "12th",
@@ -1512,7 +1512,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">जैवभार का उल्टा पिरामिड</h2>\n<p>जैवभार के संदर्भ में छोटे जीव बड़े जीवों को आधार प्रदान करते हैं</p>\n<p><b>जलीय पारिस्थितिकी तंत्र में सबसे आम, जहाँ:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>उत्पादक (फाइटोप्लैंकटन) का तेजी से नवीनीकरण होता है</li><li>कम जैवभार पर उच्च उत्पादकता</li><li>बड़े उपभोक्ता जैवभार को आधार प्रदान करते हैं</li></ul>\n<p><b>उदाहरण: समुद्री पारिस्थितिकी तंत्र</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>फाइटोप्लैंकटन (उत्पादक) → छोटी मछलियाँ → बड़ी मछलियाँ</li></ul>\n<p><b>विशिष्ट लक्षण:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>उत्पादकों का जैवभार न्यूनतम होता है</li><li>उपभोक्ताओं का जैवभार उत्पादकों से अधिक होता है</li><li>आकार सामान्य पारिस्थितिक पिरामिड के विपरीत उल्टा प्रतीत होता है</li></ul></div></div>\n"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "foundation",
@@ -1520,7 +1520,7 @@
         "answer": "<div style=\"\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"\"> <div class=\"\"concept\"\"> <p>दिए गए फलन का अवकलज ज्ञात करने के लिए, पहले व्यंजक को सरल करें, फिर घात नियम और पद-दर-पद अवकलन का उपयोग करें।</p> <p><b>दिया गया:</b></p> <p style=\"\"padding-left: 20px;\"\"> माना y = x⁵(3 - 6x⁻⁹)<br> y = 3x⁵ - 6x⁻⁴ </p> <p><b>x के सापेक्ष अवकलन करें:</b></p> <p style=\"\"padding-left: 20px;\"\"> dy/dx = 3.5x⁵⁻¹ - (-4)6x⁻⁴⁻¹<br> <span style=\"\"color: #14c8cf;\"\"><b>dy/dx = 15x⁴ + 24x⁻⁵</b></span> </p> </div> </div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "foundation",
@@ -1528,7 +1528,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<p><b>दिया गया:</b></p>\n<p style=\"padding-left: 20px; margin-bottom: 20px;\">\nsin(sin⁻¹(1/5) + cos⁻¹(x)) = 1\n</p>\n<p><b>हल:</b></p>\n<p style=\"padding-left: 20px; line-height: 2.2;\">\nsin(sin⁻¹(1/5) + cos⁻¹(x)) = sin(π/2)<br>\nsin⁻¹(1/5) + cos⁻¹(x) = π/2<br>\nsin⁻¹(1/5) = π/2 - cos⁻¹(x)<br>\nsin⁻¹(1/5) = sin⁻¹(x)\n</p>\n<p style=\"padding-left: 20px; margin-top: 20px;\">\n<span style=\"color: #14c8cf;\"><b>∴ x = 1/5</b></span>\n</p>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "foundation",
@@ -1584,7 +1584,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<h2 style=\"font-weight: bold;\">डी-डी इलेक्ट्रॉनिक संक्रमण</h2>\n<p style=\"margin-bottom: 15px;\">ये इलेक्ट्रॉनिक संक्रमण हैं जो संक्रमण धातु यौगिकों में होते हैं:</p>\n<ul style=\"list-style-type: disc; padding-left: 20px; margin-bottom: 20px;\">\n<li>डी कक्षकों के बीच इलेक्ट्रॉन गति को शामिल करता है</li>\n<li>रंगीन यौगिकों का निर्माण करता है</li>\n<li><span style=\"color: #14c8cf;\">ऊर्जा दृश्यमान प्रकाश स्पेक्ट्रम से मेल खाती है</span></li>\n</ul>\n<p style=\"margin: 20px 0;\"><b>तब होता है जब:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px; margin-bottom: 25px;\">\n<li>लिगैंड क्षेत्र द्वारा डी कक्षक विभाजित होते हैं</li>\n<li>इलेक्ट्रॉन निम्न ऊर्जा डी कक्षक से उच्च ऊर्जा डी कक्षक में जाता है</li>\n</ul>\n<div style=\"margin: 25px 0; text-align: center;\">\n<img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/ab7f6a0a-63d1-4d2b-8212-1eb7df5a563b/08.png\" alt=\"डी-डी संक्रमण\" style=\"max-width: 100%; height: auto; border-radius: 8px;\">\n</div>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "foundation",
@@ -1592,7 +1592,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><h2 style=\"color: #14c8cf; font-weight: bold;\">अनंतस्पर्शी</h2><div class=\"concept\"><p>एक <b>अनंतस्पर्शी</b> एक सीधी रेखा होती है जिसे कोई वक्र अनंत तक पहुंचता है पर कभी छूता नहीं। इसे एक अदृश्य सीमा के रूप में समझें जिसके करीब वक्र बिना स्पर्श किए लगातार पहुंचता रहता है।</p><ul style=\"list-style-type: disc; padding-left: 20px;\"><li><b>उदाहरण फलन:</b> f(x) = 1/x<ul style=\"padding-left: 20px; margin-top: 5px;\"><li><span style=\"color: #14c8cf;\">ऊर्ध्वाधर अनंतस्पर्शी (x = 0):</span> जब x दोनों ओर से 0 के बहुत करीब पहुंचता है, y के मान अनंत तक बढ़ जाते हैं (धनात्मक या ऋणात्मक)</li><li><span style=\"color: #14c8cf;\">क्षैतिज अनंतस्पर्शी (y = 0):</span> जब x बहुत बड़ा हो जाता है (धनात्मक/ऋणात्मक), y के मान 0 के निकटतम पहुंचते जाते हैं</li></ul></li><li><b>मुख्य व्यवहार:</b><ul style=\"padding-left: 20px; margin-top: 5px;\"><li>फलन वास्तव में इन रेखाओं को कभी नहीं काटता</li><li>वक्र और अनंतस्पर्शी के बीच की दूरी किसी भी धनात्मक संख्या से छोटी हो जाती है</li><li>चरम मानों पर फलन के व्यवहार को समझने में सहायक</li></ul></li></ul></div><div style=\"margin-top: 20px;\"><img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/0cf53aa8-ed55-4138-b111-0ee6947445a0/18.png\" alt=\"अनंतस्पर्शी ग्राफ़\" style=\"width: 100%; max-width: 400px; display: block; margin: 20px auto;\"></div></div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "foundation",
@@ -1600,7 +1600,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<p>एक सम्मिश्र संख्या z का गुणात्मक प्रतिलोम ज्ञात करने के लिए:</p>\n<p><b>दिया गया:</b></p>\n<p style=\"padding-left: 20px; margin-bottom: 15px;\">\nz = 4 - 3i<br>\nz का संयुग्म = 4 + 3i\n</p>\n<p><b>हल:</b></p>\n<p style=\"padding-left: 20px; line-height: 2;\">\nz<sup>-1</sup> = 1/(4 - 3i)\n<span style=\"color: #14c8cf;\">परिमेयकरण करें:</span>\nz<sup>-1</sup> = 1·(4 + 3i)/(4 - 3i)(4 + 3i)\n= (4 + 3i)/(16 - 9i<sup>2</sup>)\n= (4 + 3i)/(16 + 9)\n= (4 + 3i)/25\n</p>\n<p style=\"padding-left: 20px; margin-top: 25px;\">\n<b><span style=\"color: #14c8cf;\">∴ z<sup>-1</sup> = 4/25 + 3i/25</span></b>\n</p>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "foundation",
@@ -1752,7 +1752,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\"><div class=\"concept\"><h2 style=\"color: #14c8cf; font-weight: bold;\">जैवभार का उल्टा पिरामिड</h2>\n<p>जैवभार के संदर्भ में छोटे जीव बड़े जीवों को आधार प्रदान करते हैं</p>\n<p><b>जलीय पारिस्थितिकी तंत्र में सबसे आम, जहाँ:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>उत्पादक (फाइटोप्लैंकटन) का तेजी से नवीनीकरण होता है</li><li>कम जैवभार पर उच्च उत्पादकता</li><li>बड़े उपभोक्ता जैवभार को आधार प्रदान करते हैं</li></ul>\n<p><b>उदाहरण: समुद्री पारिस्थितिकी तंत्र</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>फाइटोप्लैंकटन (उत्पादक) → छोटी मछलियाँ → बड़ी मछलियाँ</li></ul>\n<p><b>विशिष्ट लक्षण:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\"><li>उत्पादकों का जैवभार न्यूनतम होता है</li><li>उपभोक्ताओं का जैवभार उत्पादकों से अधिक होता है</li><li>आकार सामान्य पारिस्थितिक पिरामिड के विपरीत उल्टा प्रतीत होता है</li></ul></div></div>\n"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "dropper",
@@ -1760,7 +1760,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\">  \n<div class=\"concept\">  \n<p>दिए गए फलन का अवकलज ज्ञात करने के लिए, पहले व्यंजक को सरल करें, फिर घात नियम और पद-दर-पद अवकलन का उपयोग करें।</p>  \n<p><b>दिया गया:</b></p>  \n<p style=\"padding-left: 20px;\">  \nमाना y = x⁵(3 - 6x⁻⁹)<br>  \ny = 3x⁵ - 6x⁻⁴  \n</p>  \n<p><b>x के सापेक्ष अवकलन करें:</b></p>  \n<p style=\"padding-left: 20px;\">  \ndy/dx = 3.5x⁵⁻¹ - (-4)6x⁻⁴⁻¹<br>  \n<span style=\"color: #14c8cf;\"><b>dy/dx = 15x⁴ + 24x⁻⁵</b></span>  \n</p>  \n</div>  \n</div>  \n"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "dropper",
@@ -1768,7 +1768,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<p><b>दिया गया:</b></p>\n<p style=\"padding-left: 20px; margin-bottom: 20px;\">\nsin(sin⁻¹(1/5) + cos⁻¹(x)) = 1\n</p>\n<p><b>हल:</b></p>\n<p style=\"padding-left: 20px; line-height: 2.2;\">\nsin(sin⁻¹(1/5) + cos⁻¹(x)) = sin(π/2)<br>\nsin⁻¹(1/5) + cos⁻¹(x) = π/2<br>\nsin⁻¹(1/5) = π/2 - cos⁻¹(x)<br>\nsin⁻¹(1/5) = sin⁻¹(x)\n</p>\n<p style=\"padding-left: 20px; margin-top: 20px;\">\n<span style=\"color: #14c8cf;\"><b>∴ x = 1/5</b></span>\n</p>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "board",
         "language": "hi",
         "class": "dropper",
@@ -1824,7 +1824,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<h2 style=\"font-weight: bold;\">डी-डी इलेक्ट्रॉनिक संक्रमण</h2>\n<p style=\"margin-bottom: 15px;\">ये इलेक्ट्रॉनिक संक्रमण हैं जो संक्रमण धातु यौगिकों में होते हैं:</p>\n<ul style=\"list-style-type: disc; padding-left: 20px; margin-bottom: 20px;\">\n<li>डी कक्षकों के बीच इलेक्ट्रॉन गति को शामिल करता है</li>\n<li>रंगीन यौगिकों का निर्माण करता है</li>\n<li><span style=\"color: #14c8cf;\">ऊर्जा दृश्यमान प्रकाश स्पेक्ट्रम से मेल खाती है</span></li>\n</ul>\n<p style=\"margin: 20px 0;\"><b>तब होता है जब:</b></p>\n<ul style=\"list-style-type: disc; padding-left: 20px; margin-bottom: 25px;\">\n<li>लिगैंड क्षेत्र द्वारा डी कक्षक विभाजित होते हैं</li>\n<li>इलेक्ट्रॉन निम्न ऊर्जा डी कक्षक से उच्च ऊर्जा डी कक्षक में जाता है</li>\n</ul>\n<div style=\"margin: 25px 0; text-align: center;\">\n<img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/ab7f6a0a-63d1-4d2b-8212-1eb7df5a563b/08.png\" alt=\"डी-डी संक्रमण\" style=\"max-width: 100%; height: auto; border-radius: 8px;\">\n</div>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "dropper",
@@ -1832,7 +1832,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.6;\">\n<h2 style=\"color: #14c8cf; font-weight: bold;\">अनंतस्पर्शी</h2>\n<div class=\"concept\">\n<p>एक <b>अनंतस्पर्शी</b> एक सीधी रेखा होती है जिसे कोई वक्र अनंत तक पहुंचता है पर कभी छूता नहीं। इसे एक अदृश्य सीमा के रूप में समझें जिसके करीब वक्र बिना स्पर्श किए लगातार पहुंचता रहता है।</p>\n<ul style=\"list-style-type: disc; padding-left: 20px;\">\n<li><b>उदाहरण फलन:</b> f(x) = 1/x\n<ul style=\"padding-left: 20px; margin-top: 5px;\">\n<li><span style=\"color: #14c8cf;\">ऊर्ध्वाधर अनंतस्पर्शी (x = 0):</span> जब x दोनों ओर से 0 के बहुत करीब पहुंचता है, y के मान अनंत तक बढ़ जाते हैं (धनात्मक या ऋणात्मक)</li>\n<li><span style=\"color: #14c8cf;\">क्षैतिज अनंतस्पर्शी (y = 0):</span> जब x बहुत बड़ा हो जाता है (धनात्मक/ऋणात्मक), y के मान 0 के निकटतम पहुंचते जाते हैं</li>\n</ul>\n</li>\n<li><b>मुख्य व्यवहार:</b>\n<ul style=\"padding-left: 20px; margin-top: 5px;\">\n<li>फलन वास्तव में इन रेखाओं को कभी नहीं काटता</li>\n<li>वक्र और अनंतस्पर्शी के बीच की दूरी किसी भी धनात्मक संख्या से छोटी हो जाती है</li>\n<li>चरम मानों पर फलन के व्यवहार को समझने में सहायक</li>\n</ul>\n</li>\n</ul>\n</div>\n<div style=\"margin-top: 20px;\">\n<img src=\"https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/0cf53aa8-ed55-4138-b111-0ee6947445a0/18.png\" alt=\"अनंतस्पर्शी ग्राफ़\" style=\"width: 100%; max-width: 400px; display: block; margin: 20px auto;\">\n</div>\n</div>\n"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "dropper",
@@ -1840,7 +1840,7 @@
         "answer": "<div style=\"font-family: Arial, sans-serif; padding: 20px; line-height: 1.8;\">\n<div class=\"concept\">\n<p>एक सम्मिश्र संख्या z का गुणात्मक प्रतिलोम ज्ञात करने के लिए:</p>\n<p><b>दिया गया:</b></p>\n<p style=\"padding-left: 20px; margin-bottom: 15px;\">\nz = 4 - 3i<br>\nz का संयुग्म = 4 + 3i\n</p>\n<p><b>हल:</b></p>\n<p style=\"padding-left: 20px; line-height: 2;\">\nz<sup>-1</sup> = 1/(4 - 3i)\n<span style=\"color: #14c8cf;\">परिमेयकरण करें:</span>\nz<sup>-1</sup> = 1·(4 + 3i)/(4 - 3i)(4 + 3i)\n= (4 + 3i)/(16 - 9i<sup>2</sup>)\n= (4 + 3i)/(16 + 9)\n= (4 + 3i)/25\n</p>\n<p style=\"padding-left: 20px; margin-top: 25px;\">\n<b><span style=\"color: #14c8cf;\">∴ z<sup>-1</sup> = 4/25 + 3i/25</span></b>\n</p>\n</div>\n</div>"
     },
     {
-        "subject": "maths",
+        "subject": "mathematics",
         "course": "jee",
         "language": "hi",
         "class": "dropper",

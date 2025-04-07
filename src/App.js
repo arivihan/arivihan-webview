@@ -15,6 +15,7 @@ import UserActivityScreen from "./screens/analytics/userActivity";
 import TodoListScreen from "./screens/analytics/todoList";
 import InstantGuruUIDev from "./screens/instantGuruDev";
 import InstantGuruUIProdTest from "./screens/instantGuruProdTest";
+import WebInstantGuru from "./screens/web-instant-guru/webInstantGuru";
 
 const DataContext = createContext();
 
@@ -41,7 +42,7 @@ function App() {
 
       <Router>
         <Routes>
-          <Route path="/" Component={ChatScreen} />
+          <Route path="/" Component={WebInstantGuru} />
           <Route path="/login" Component={LoginScreen} />
 
           <Route path="/sme-dashboard" Component={SMEDashboardScreen} />
@@ -54,8 +55,10 @@ function App() {
           <Route path="/app-metrices/todo-list" Component={TodoListScreen} />
           <Route path="/app-metrices/:type" Component={AppMetricesScreen} />
 
-          <Route path="/instant-guru" element={<InstantGuruUIProdTest />} />
-          <Route path="/instant-guru-dev" element={<InstantGuruUIDev />} />
+          <Route path="/instant-guru" element={<InstantGuruUI />} />
+          <Route path="/instant-guru-dev" element={<InstantGuruUIProdTest />} />
+
+          {/* <Route path="/web-instant-guru" element={<WebInstantGuru />} /> */}
 
         </Routes>
       </Router>

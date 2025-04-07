@@ -20,11 +20,13 @@ i18n.use(initReactI18next).init({
                 ask_question_using_image:"Ya apne sawal ki photo click karein!",
                 click_here_for_old_questions:"Purane sawal aur solutions ke liye yahan click karein!",
                 suggested_question:"Suggested Questions",
+                waiting_for_response:"Waiting for response",
+                write_doubt_in_detail:"Write your doubt in detail...",
             },
         },
         hi: {
             translation: {
-                newChat: "नई प्रश्न",
+                newChat: "नया प्रश्न",
                 chooseTypeOfSolution: "आपको आपके डाउट का समाधान कैसा चाहिए?",
                 was_this_helpful: "पसंद आया?",
                 ask_anything: "कुछ भी पूछें",
@@ -34,6 +36,8 @@ i18n.use(initReactI18next).init({
                 ask_question_using_image:"या अपने सवाल की फोटो क्लिक करें!",
                 click_here_for_old_questions:"पुराने सवाल और सॉल्यूशंस के लिए यहां क्लिक करें!",
                 suggested_question:"प्रश्न सुझाव",
+                waiting_for_response:"समाधान की प्रतीक्षा है",
+                write_doubt_in_detail:"अपना प्रश्न विस्तार से लिखें...",
             },
         },
     },

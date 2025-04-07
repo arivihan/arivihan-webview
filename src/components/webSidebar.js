@@ -3,50 +3,67 @@ import { useSignals } from '@preact/signals-react/runtime';
 import React, { useEffect, useState } from 'react';
 import { getAuth, COnfirm, signInWithPhoneNumber, RecaptchaVerifier, GoogleAuthProvider, signInWithPopup } from 'firebase/auth';
 import { auth } from '../firebase';
-import { chatClear, chatSessionId, chatSessions, isGuestUser, loggedInUser, showAuthModal, showSidebarMobile, subscriptionActive } from '../state/chatState';
+import { alertDialogContent, chatClear, chatHistoryLoading, chatSessions, isGuestUser, loggedInUser, showAuthModal, showSidebarMobile, subscriptionActive } from '../state/chatState';
 import { v4 } from 'uuid';
 import { customFetchRequest } from '../utils/customRequest';
+import { checkUserSubscrition, getChatHistory, getUserChatSessions } from '../utils/webInstantGuruUtils';
+import { chatHistory, chatSessionId, showChatLoadShimmer, showDoubtChatLoader, waitingForResponse } from '../state/instantGuruState';
+import Cookies from 'js-cookie';
+import { FadeLoader } from 'react-spinners';
 
 
-
-const Sidebar = ({ onCreateNewChat }) => {
+const WebSidebar = ({ onCreateNewChat }) => {
     useSignals();
     const [newChatTitle, setNewChatTitle] = useState('');
     const [isShowActionsCard, setIsShowActionsCard] = useState(false);
 
     const handleCreateNewChat = () => {
-        chatClear.value = true;
-        chatSessionId.value = v4();
-        if (newChatTitle.trim() !== '') {
-            onCreateNewChat(newChatTitle);
-            setNewChatTitle('');
+        // window.location.reload();
+        chatHistory.value = [];
+        showChatLoadShimmer.value = true;
+        chatSessionId.value = "";
+        waitingForResponse.value = false;
+        showDoubtChatLoader.value = false;
+
+        const cookieUser = Cookies.get("user");
+        
+        if (cookieUser !== undefined && cookieUser !== null) {
+            getChatHistory();
+        }else{
+            alertDialogContent.value = "Please login to ask question!";
         }
+
     };
 
 
     const onSelectChat = (chatId) => {
+        chatHistory.value = [];
+        showChatLoadShimmer.value = true;
         chatSessionId.value = chatId;
+        waitingForResponse.value = false;
+        showDoubtChatLoader.value = false;
+        getChatHistory();
     }
 
     const getUser = () => {
-        if (localStorage.getItem("token")) {
-
-            customFetchRequest('login').then((res) => {
-                loggedInUser.value = res.body;
-                isGuestUser.value = false;
-                subscriptionActive.value = res.body.subscriptionActive;
-                localStorage.setItem('id', res.body.id)
-            })
+        if (Cookies.get("token")) {
+            // customFetchRequest('login').then((res) => {
+            loggedInUser.value = JSON.parse(Cookies.get("user"));
+            isGuestUser.value = false;
+            // subscriptionActive.value = res.body.subscriptionActive;
+            // localStorage.setItem('id', res.body.id)
+            // })
+            getUserChatSessions();
+            checkUserSubscrition();
         }
-        customFetchRequest(`chat-sessions`, 'GET').then((res) => {
-            chatSessions.value = res;
-        })
     }
 
     const handleLogout = () => {
         isGuestUser.value = true;
         loggedInUser.value = null;
         setIsShowActionsCard(!isShowActionsCard);
+        Cookies.remove('token');
+        Cookies.remove("user");
         localStorage.clear();
         window.location.reload();
     }
@@ -63,6 +80,7 @@ const Sidebar = ({ onCreateNewChat }) => {
 
     return (
         <div className={`bg-[#F6F6F6] shadow w-[240px] fixed sm:relative flex-col z-10 ${showSidebarMobile.value ? "flex" : "hidden"}`} style={{ height: "calc(100vh - 64px)" }}>
+
             <div className="p-4 ">
                 {/* <div className='flex items-center hover:bg-white/20 rounded-lg p-2 cursor-pointer' onClick={handleCreateNewChat}>
                     <img className='w-11 h-11 object-contain bg-white rounded-full' src={require("../assets/logo.png")} alt="" />
@@ -86,15 +104,26 @@ const Sidebar = ({ onCreateNewChat }) => {
                 <div className="mt-0">
                     <h1 className="text-sm p-2 font-bold">Chats</h1>
                     <hr />
-                    <div className="flex flex-col overflow-y-auto  max-h-[50vh] sm:max-h-[52vh] mt-2">
+                    <div className="flex flex-col overflow-y-auto  max-h-[69vh] sm:max-h-[60vh] mt-2 bg">
+
                         {
-                            chatSessions.value === null
+                            chatHistoryLoading.value === true
+                            &&
+                            <div className="w-full h-[69vh] sm:h-[60vh] flex flex-col items-center justify-center">
+                                <FadeLoader color='#26c6da' />
+                            </div>
+                        }
+
+
+
+                        {
+                            chatSessions.value === null || chatSessions.value === undefined || !chatSessions.value.hasOwnProperty("list")
                                 ?
                                 null
                                 :
-                                Object.keys(chatSessions.value).map((key, index) => (
-                                    <div key={index} className="hover:bg-white/90 rounded p-2 cursor-pointer flex items-center" onClick={() => onSelectChat(key)}>
-                                        <span className="text-black text-xs">{chatSessions.value[key]}</span>
+                                chatSessions.value.list.map((session, index) => (
+                                    <div key={index} className={`${session.sessionId === chatSessionId.value ? 'bg-white/90' : ''} hover:bg-white/90 rounded p-2 cursor-pointer flex items-center`} onClick={() => onSelectChat(session.sessionId)}>
+                                        <span className="text-black text-xs break-all">{session.title}</span>
                                         {/* <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 ml-auto">
                                             <path strokeLinecap="round" strokeLinejoin="round" d="M6.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM12.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0ZM18.75 12a.75.75 0 1 1-1.5 0 .75.75 0 0 1 1.5 0Z" />
                                         </svg> */}
@@ -117,7 +146,7 @@ const Sidebar = ({ onCreateNewChat }) => {
                     {
                         isGuestUser.value
                             ?
-                            <div className="flex flex-row items-center py-2 cursor-pointer" onClick={() => { showAuthModal.value = true }}>
+                            <div className="flex flex-row items-center py-2 cursor-pointer" onClick={() => { showAuthModal.value = true; }}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 stroke-black rotate-180">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
                                 </svg>
@@ -145,7 +174,7 @@ const Sidebar = ({ onCreateNewChat }) => {
                 </div>
             </div>
             <div className="flex items-center justify-center bg-white border py-2 rounded-lg mt-auto my-4 mx-4 cursor-pointer" onClick={handleCreateNewChat}>
-                <h5 className='text-sm'>New Chat</h5>
+                <h5 className='text-sm'>New Question</h5>
             </div>
             <div className="flex items-center bg-white/20 p-4" onClick={() => { setIsShowActionsCard(!isShowActionsCard) }}>
 
@@ -164,4 +193,4 @@ const Sidebar = ({ onCreateNewChat }) => {
     );
 };
 
-export default Sidebar;
+export default WebSidebar;

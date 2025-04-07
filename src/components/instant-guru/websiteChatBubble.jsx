@@ -1,7 +1,7 @@
 import React from "react";
 import { useTranslation } from "react-i18next";
 import { chatHistory, chatType, isFirstDoubt, showChatLoadShimmer, showDoubtChatLoader, suggestedDoubtAsked, waitingForResponse } from "../../state/instantGuruState";
-import { chatOptionClicked, chatRequestVideo, chatResponseFeedback, openNewChat, saveDoubtChat, scrollToBottom } from "../../utils/instantGuruUtilsProdTest";
+import { chatOptionClicked, chatRequestVideo, chatResponseFeedback, openNewChat, saveDoubtChat, scrollToBottom } from "../../utils/webInstantGuruUtils";
 import { MathJax } from "better-react-mathjax";
 import suggestedQuestions from "../../assets/suggested_question.json";
 
@@ -16,7 +16,7 @@ export const TextOptionBubble = ({ chat, chatIndex,fullWidth = true }) => {
                     className="h-[40px] w-[40px] object-contain mr-2"
                 />
             ) : <div className="h-[40px] w-[40px] mr-2"></div>}
-            <div class={`flex flex-col px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg ${fullWidth ? 'w-full' : 'w-1/2'}`}>
+            <div class={`flex flex-col px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full sm:w-1/2`}>
                 <p className="mb-1" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>") ?? t("chooseTypeOfSolution") }}></p>
                 <div className="flex flex-col mr-auto">
                     {chat.optionResponse.map((option, index) => {
@@ -87,7 +87,7 @@ export const HTMLResponseBubble = ({ chat, chatIndex , fullWidth = true}) => {
                     />
                 ) : <div className="h-[40px] w-[40px] mr-2"></div>}
                 {/* w-[calc(100vw-80px)] */}
-                <div className={`flex flex-col  ${fullWidth ? 'w-[calc(100vw-80px)]' : 'w-1/2'}  overflow-x-hidden`}>
+                <div className={`flex flex-col w-[calc(100vw-80px)] sm:w-1/2  overflow-x-hidden`}>
                     <div class="px-3 py-2 bg-[#f6f6f6] text-sm rounded-lg flex-1 receiveBubble">
                         <MathJax className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>") }}>
                         </MathJax>

@@ -5,6 +5,7 @@ import { ThreeDots } from 'react-loader-spinner';
 import { showAuthModal } from '../state/chatState';
 import { effect } from '@preact/signals-react';
 import { customFetchRequest } from '../utils/customRequest';
+import Cookies from 'js-cookie';
 
 
 export default function AuthDialog() {
@@ -16,51 +17,42 @@ export default function AuthDialog() {
 
     const handlePhoneLogin = () => {
         setIsLoading(true);
-        setErr("");
-        window.appVerifier = new RecaptchaVerifier(
-            auth,
-            "recaptcha_placeholder",
-            {
-                size: "invisible"
-            }
-        );
 
-        const appVerifier = window.appVerifier;
-
-        if (appVerifier) {
-
-            signInWithPhoneNumber(auth, "+91" + phoneNumber, appVerifier)
-                .then(function (confirmationResult) {
-                    console.log("Success");
-                    window.confirmationResult = confirmationResult;
-                    setIsLoading(false);
-                    setIsOTPSent(true);
-                    setErr("");
-                })
-                .catch(function (error) {
-                    console.log("Error:" + error);
-                    setErr(error)
-                    setIsLoading(false)
-                });
-        }
-
+        fetch(`https://platform-prod.arivihan.com:443/arivihan-platform/secure/user/generate/otp?phone=${phoneNumber}&accessKey=4Ae9BRq4AoTvD2y%2FF33Zhg%3D%3D`)
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                setIsLoading(false);
+                setIsOTPSent(true);
+                setErr("");
+            })
+            .catch((error) => {
+                console.log("Error:" + error);
+                setErr(error)
+                setIsLoading(false)
+            })
     };
 
     const confirmVerificationCode = () => {
         setIsLoading(true);
-        window.confirmationResult.confirm(otp).then((result) => {
-            const user = result.user;
-            console.log(user);
-            setIsLoading(false);
-            localStorage.setItem("token", result.user.accessToken)
-            setErr("");
-            getUser();
-        }).catch((error) => {
-            setIsLoading(false);
-            console.log("ERROR :: " + error);
-            setErr(error);
-            localStorage.clear();
-        });
+
+        fetch(`https://platform-prod.arivihan.com:443/arivihan-platform/secure/user/website-user-login?phone=${phoneNumber}&otp=${otp}&accessKey=4Ae9BRq4AoTvD2y%2FF33Zhg%3D%3D`)
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                Cookies.set("token", res.token, { expires: 1, path: '' });
+                Cookies.set("user", JSON.stringify(res.user), { expires: 1, path: '' })
+                setIsLoading(false);
+                setErr("");
+                showAuthModal.value = false;
+                window.location.reload();
+            })
+            .catch((error) => {
+                console.log("Error:" + error);
+                setErr(error);
+                setIsLoading(false);
+                localStorage.clear();
+            })
     }
 
     const getUser = () => {
@@ -84,14 +76,16 @@ export default function AuthDialog() {
         showAuthModal.value = false;
     }
 
-    if (!showAuthModal.value) {
-        return <></>
-    }
+    // if (showAuthModal.value === false) {
+    //     return <></>
+    // }
 
 
 
     return (
-        <div className={`fixed inset-x-0 inset-y-0 right-0 bottom-0 z-10 bg-black/80`}>
+
+
+        <div className={`${showAuthModal.value === false ? "hidden" : "fixed"}  inset-x-0 inset-y-0 right-0 bottom-0 z-10 bg-black/80`}>
 
 
             <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-lg w-2/6">

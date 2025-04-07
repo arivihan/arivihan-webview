@@ -39,6 +39,7 @@ import {
   saveDoubtChat,
   scrollToBottom,
   setChatSessionIdInActivity,
+  showDoubtSubscriptionDialog,
   showToast,
   watchLectureNowTextClickAction,
 } from "../utils/instantGuruUtilsProdTest";
@@ -68,8 +69,15 @@ const InstantGuruUIProdTest = () => {
   const [language, setLanguage] = useState("en");
   const [showTooltips, setShowTooltips] = useState(false);
   const [showTooltipNumber, setShowTooltipNumber] = useState(0);
+  const [subscriptionExpired, setSubscriptionExpired] = useState(false);
 
   const handleImageIconClick = (e) => {
+
+    if (subscriptionExpired) {
+      showDoubtSubscriptionDialog();
+      return;
+    }
+
     if (waitingForResponse.value === true || showDoubtChatLoader.value === true || showChatLoadShimmer.value === true) {
       showToast('Waiting for response')
       return;
@@ -100,7 +108,7 @@ const InstantGuruUIProdTest = () => {
   window.processCroppedImageWithQuestion = (base64Image, question = "") => {
     if (base64Image) {
       console.log(base64Image);
-      
+
       suggestedDoubtAsked.value = true;
       const chatContainer = document.getElementById("chat-container");
       chatContainer.innerHTML += `<div class='max-w-[64%] p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px]'>
@@ -111,9 +119,13 @@ const InstantGuruUIProdTest = () => {
       setTimeout(() => {
         isFirstDoubt.value = true;
         chatType.value = "subject_based"
-        chatImageRequest("data:image/png;base64," + base64Image);
+        chatImageRequest("data:image/png;base64," + base64Image, question);
       }, 200)
     }
+  }
+
+  window.showDoubtSubscriptionDialog = () => {
+    setSubscriptionExpired(true);
   }
 
   window.processMicInput = (input) => {
@@ -164,9 +176,15 @@ const InstantGuruUIProdTest = () => {
   }, [showMicListentingUI.value])
 
   const newQuestion = () => {
+
+    if (subscriptionExpired) {
+      showDoubtSubscriptionDialog();
+      return;
+    }
+
     const chatContainer = document.getElementById("chat-container");
     if (waitingForResponse.value === true || showDoubtChatLoader.value === true || showChatLoadShimmer.value === true) {
-      showToast("Waiting for response");
+      showToast(t("waiting_for_response"));
       return;
     }
     if (doubtText.value.split(" ").length > 2 || isStepWiseSolution.value === true) {
@@ -181,13 +199,22 @@ const InstantGuruUIProdTest = () => {
       lastUserQuestion.value = doubtText.value;
       doubtText.value = "";
     } else {
-      showToast("Write your doubt in detail...")
+      showToast(t("write_doubt_in_detail"))
     }
+  };
+
+  const handleMicIconClick = () => {
+    if (subscriptionExpired) {
+      showDoubtSubscriptionDialog();
+      return;
+    }
+    openMicInput();
   };
 
   const handleNewChat = () => {
     openNewChat();
   }
+
 
   useEffect(() => {
     if (showTooltips) {
@@ -232,7 +259,7 @@ const InstantGuruUIProdTest = () => {
 
 
   return (
-    <div className="font-sans h-screen overflow-hidden">
+    <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
       <div className="flex items-center px-4 py-2 h-[64px]">
         <Tooltip
           content={t("click_here_for_old_questions")}
@@ -244,13 +271,22 @@ const InstantGuruUIProdTest = () => {
         <img id="open-drawer-btn" src={require("../assets/icons/icon_menu_home.png")} className="w-7" onClick={() => { openDrawer() }} />
         <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
-          <Lottie
+          {/* <Lottie
             loop
             className="shadow rounded-[10px] overflow-hidden"
             animationData={require("../assets/lottie/new_chat_shimmer.json")}
             play
             style={{ width: 100, height: 32 }}
-          />
+          /> */}
+          <div class="w-[120px] h-[32px] rounded-[10px] animate-pulse overflow-hidden bg-white shadow">
+            {
+              isFirstDoubt.value === false
+                ?
+                <div class="absolute rounded-[10px] inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-shimmer">
+                </div>
+                : null
+            }
+          </div>
           <span className="absolute text-sm">{t("newChat")}</span>
         </div>
         {/* <button className="ml-auto bg-[#f6f6f6] text-sm px-4 py-1 rounded-[8px] border border-[#e8e9eb]">
@@ -266,13 +302,12 @@ const InstantGuruUIProdTest = () => {
         imageViewUrl.value !== null && <ImageViewModal />
       }
 
-
       {
         showMicListentingUI.value === true && <MicListeningUI />
       }
 
       <div
-        className={`p-4 overflow-y-auto  ${suggestedDoubtAsked.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'}  flex flex-col scroll-smooth gap-4`}
+        className={`p-4 overflow-y-auto  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
         id="chat-container"
       >
 
@@ -359,13 +394,18 @@ const InstantGuruUIProdTest = () => {
       </div>
 
       {
-        suggestedDoubtAsked.value === false
+        (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
         <div className="flex flex-row items-center p-2 overflow-x-auto h-[64px]">
           {
             bottomSuggestedQuestion.value.map((item, index) => {
               return (
                 <div onClick={() => {
+                  if (subscriptionExpired) {
+                    showDoubtSubscriptionDialog();
+                    return;
+                  }
+
                   let question = suggestedQuestions.filter((question) => question.question === item.title)[0];
                   chatHistory.value = [...chatHistory.value, {
                     "botResponse": question.answer,
@@ -379,7 +419,7 @@ const InstantGuruUIProdTest = () => {
                   scrollToBottom();
                   saveDoubtChat(item.title, question.answer);
                 }}
-                  key={index} className="white-space-nowrap border border-primary bg-primary/5 p-2 rounded rounded-lg mx-1 flex-shrink-0">
+                  key={index} className="white-space-nowrap bg-primary/5 p-2 rounded rounded-lg mx-1 flex-shrink-0">
                   <p className="text-sm">{item.title}</p>
                 </div>
               )
@@ -404,10 +444,16 @@ const InstantGuruUIProdTest = () => {
             placeholder={t("ask_anything")}
             value={doubtText.value}
             onChange={(e) => {
+              if (subscriptionExpired) {
+                showDoubtSubscriptionDialog();
+                return;
+              }
+
               doubtText.value = e.target.value;
+              suggestedDoubtAsked.value = e.target.value.length > 0;
             }}
           />
-          <button onClick={openMicInput} className="mr-3">
+          <button onClick={handleMicIconClick} className="mr-3">
             <img
               src={require("../assets/icons/icon_mic_black.png")}
               className={`h-9 object-contain ${listening ? "animate-pulse" : ""
