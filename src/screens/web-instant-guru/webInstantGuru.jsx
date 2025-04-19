@@ -105,6 +105,20 @@ const WebInstantGuru = () => {
     };
 
     const handleImageInput = (e) => {
+
+        if (subscriptionActive.value === false && chatSessions.value.list.length >= chatLimits.value.sessionsLimitPerUser) {
+            alertDialogContent.value = "You don't have any active subscription please download app and subscribe.";
+            return;
+        }
+
+
+        let userChatCount = chatHistory.value.filter(item => item.userQuery).length;
+        if ((subscriptionActive.value === false && userChatCount >= chatLimits.value.messageLimitPerSession) || (subscriptionActive.value === true && userChatCount >= chatLimits.value.messageLimitPerSessionForSubscribedUser)) {
+            alertDialogContent.value = "Message limit reached";
+            return;
+        }
+
+
         let file = e.target.files[0];
         if (file) {
             let reader = new FileReader();

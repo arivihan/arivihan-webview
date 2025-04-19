@@ -6,7 +6,7 @@ import { MathJax } from "better-react-mathjax";
 import suggestedQuestions from "../../assets/suggested_question.json";
 
 
-export const TextOptionBubble = ({ chat, chatIndex,fullWidth = true }) => {
+export const TextOptionBubble = ({ chat, chatIndex, fullWidth = true }) => {
     const { i18n, t } = useTranslation();
     return chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && chat.optionResponse !== undefined && chat.optionResponse !== null ? (
         <div key="box" className="flex items-end">
@@ -68,7 +68,7 @@ export const TextOptionBubble = ({ chat, chatIndex,fullWidth = true }) => {
 
 
 
-export const HTMLResponseBubble = ({ chat, chatIndex , fullWidth = true}) => {
+export const HTMLResponseBubble = ({ chat, chatIndex, fullWidth = true }) => {
 
     const { i18n, t } = useTranslation();
 
@@ -89,7 +89,7 @@ export const HTMLResponseBubble = ({ chat, chatIndex , fullWidth = true}) => {
                 {/* w-[calc(100vw-80px)] */}
                 <div className={`flex flex-col  ${fullWidth ? 'w-[calc(100vw-80px)]' : 'w-1/2'}  overflow-x-hidden`}>
                     <div class="px-3 py-2 bg-[#f6f6f6] text-sm rounded-lg flex-1 receiveBubble">
-                        <MathJax className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>") }}>
+                        <MathJax className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>").replaceAll("**", "") }}>
                         </MathJax>
                     </div>
                     {chat.needFeedback && chatIndex == chatHistory.value.length - 1 ? (

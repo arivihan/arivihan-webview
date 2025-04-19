@@ -371,7 +371,8 @@ export function loadSuggestedQuestions(addInChatHistory = false) {
     "1": "11th",
     "2": "12th",
     "3": "dropper",
-    "4": "foundation"
+    "4": "foundation",
+    "5": "12th",
   };
 
   if (uLanguage && uCourseId && uSubject && uClassId) {
