@@ -20,6 +20,8 @@ import Cookies from 'js-cookie';
 
 const env = "prod";
 
+let lastAbortController = null;
+
 const customWebRequest = (baseUrl, method = "GET", requestBody = null, fullUrl = false) => {
   const cookieUser = Cookies.get("user");
   if (cookieUser === undefined || cookieUser === null) {
@@ -27,6 +29,13 @@ const customWebRequest = (baseUrl, method = "GET", requestBody = null, fullUrl =
     // throw new Error("Please login to check");
     return null;
   }
+
+  if (lastAbortController && baseUrl.includes("resume?chatSessionId")) {
+    lastAbortController.abort();
+  }
+
+  lastAbortController = new AbortController();
+  const signal = lastAbortController.signal;
 
   let userDetails = JSON.parse(Cookies.get("user"));
   const userId = userDetails.userId;
@@ -36,6 +45,7 @@ const customWebRequest = (baseUrl, method = "GET", requestBody = null, fullUrl =
   return fetch(fullUrl ? baseUrl : `https://platform-${env}.arivihan.com:443/arivihan-platform/secure/webview/doubt/${baseUrl}`, {
     method: method,
     body: requestBody,
+    signal: signal,
     headers: {
       "token": Cookies.get('token'),
       "accept": "*/*",
@@ -100,7 +110,9 @@ export const getChatHistory = () => {
     return;
   }
 
-  customWebRequest(`resume?chatSessionId=${chatSessionId.value}`)
+  const fetchingChatHistorySessionId = chatSessionId.value;
+
+  customWebRequest(`resume?chatSessionId=${fetchingChatHistorySessionId}`)
     .then((data) => {
       if (chatSessionId.value === undefined || chatSessionId.value === null || chatSessionId.value === "null" || chatSessionId.value === "") {
         postNewChat("");
@@ -108,7 +120,10 @@ export const getChatHistory = () => {
         suggestedDoubtAsked.value = true;
         suggestionAdded.value = true;
         isFirstDoubt.value = false;
-        chatHistory.value = data;
+
+        if (chatSessionId.value === fetchingChatHistorySessionId) {
+          chatHistory.value = data;
+        }
 
         callClassifier.value = false;
         chatType.value = 'subject_based';

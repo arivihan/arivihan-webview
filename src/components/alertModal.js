@@ -20,7 +20,7 @@ export default function AlertDialog() {
         <div className={`${alertDialogContent.value == "" ? "hidden" : "fixed"}  inset-x-0 inset-y-0 right-0 bottom-0 z-10 bg-black/80`}>
 
 
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-lg w-2/6">
+            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 bg-white p-4 rounded-lg w-[76%] sm:w-2/6">
                 <div className="absolute top-0 right-[-44px] bg-white rounded-full p-2 cursor-pointer" onClick={handleCloseAuthModal}>
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="black" className="w-6 h-6">
                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18 18 6M6 6l12 12" />

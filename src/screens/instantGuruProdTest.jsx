@@ -56,6 +56,7 @@ import Lottie from "react-lottie-player";
 import { Tooltip } from 'react-tooltip';
 import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubble";
 import suggestedQuestions from "../assets/suggested_question.json";
+import { set } from "firebase/database";
 
 
 const InstantGuruUIProdTest = () => {
@@ -69,6 +70,7 @@ const InstantGuruUIProdTest = () => {
   const [language, setLanguage] = useState("en");
   const [showTooltips, setShowTooltips] = useState(false);
   const [showTooltipNumber, setShowTooltipNumber] = useState(0);
+  const [tooltipTimeout, setTooltipTimeout] = useState(null);
   const [subscriptionExpired, setSubscriptionExpired] = useState(false);
 
   const handleImageIconClick = (e) => {
@@ -217,19 +219,16 @@ const InstantGuruUIProdTest = () => {
 
 
   useEffect(() => {
-    if (showTooltips) {
-      const tooltipInterval = setInterval(() => {
-        setShowTooltipNumber((prev) => {
-          if (prev === 4) {
-            clearInterval(tooltipInterval);
-          }
-          return prev <= 4 ? prev + 1 : 0
-        })
-      }, 3000)
-    } else {
-      setShowTooltipNumber(0);
+    if(tooltipTimeout != null){
+      clearTimeout(tooltipTimeout);
     }
-  }, [showTooltips])
+    if (showTooltips && showTooltipNumber < 4) {
+      setTooltipTimeout(
+        setTimeout(() => {
+          setShowTooltipNumber(showTooltipNumber + 1);
+        }, 3000))
+    }
+  }, [showTooltips, showTooltipNumber])
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -259,7 +258,7 @@ const InstantGuruUIProdTest = () => {
 
 
   return (
-    <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
+    <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
       <div className="flex items-center px-4 py-2 h-[64px]">
         <Tooltip
           content={t("click_here_for_old_questions")}

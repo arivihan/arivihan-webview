@@ -74,7 +74,10 @@ const WebSidebar = ({ onCreateNewChat }) => {
 
 
     useEffect(() => {
-        getUser()
+        getUser();
+        if (window.innerWidth < 640) {
+            showSidebarMobile.value = false;
+        }
     }, [])
 
 
