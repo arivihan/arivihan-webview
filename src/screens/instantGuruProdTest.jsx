@@ -154,7 +154,7 @@ const InstantGuruUIProdTest = () => {
         }]
         suggestionAdded.value = true;
       }
-    }, 2500)
+    }, 1000)
   }
 
   useEffect(() => {
