@@ -6,15 +6,22 @@ import {
   chatType,
   giveResponseOption,
   isFirstDoubt,
+  isFirstRequestLoaded,
   lastUserQuestion,
   showChatLoadShimmer,
   showDoubtChatLoader,
   showOptionSelection,
+  showSuggestions,
   showWhatsappBottomSheet,
   suggestedDoubtAsked,
   suggestionAdded,
 } from "../state/instantGuruState";
 import suggestedQuestions from "../assets/suggested_question.json";
+import { analytics } from "../firebase";
+import { logEvent } from "firebase/analytics"
+import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
+import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
+
 
 
 
@@ -169,6 +176,8 @@ export const postNewChat = (
       }
 
       showChatLoadShimmer.value = false;
+      isFirstRequestLoaded.value = true;
+
     })
     .catch(error => {
       showDoubtChatLoader.value = false;
@@ -284,11 +293,34 @@ export const chatImageRequest = (imageFile, userQuery = "") => {
 
 export function chatClassifier(message) {
   showDoubtChatLoader.value = true;
+  const startTime = performance.now();
 
   customAppRequest(`chat-classifier?doubt=` + encodeURI(message))
     .then(data => {
       chatType.value = data.result;
       showDoubtChatLoader.value = false;
+
+
+      try {
+        const firebaseEventData = {
+          event: "chat_classifier_response",
+          result: data.result,
+          timestamp: Date.now(),
+          timeTakenMs: performance.now() - startTime,
+          doubt: message
+        };
+        if (analytics) {
+          logEvent(
+            analytics,
+            "chat_classifier_response",
+            firebaseEventData
+          )
+        }
+
+      } catch (error) {
+        console.error("failed to push event :: " + error)
+      }
+
       if (data.result === "conversation_based") {
         postNewChatConversation(message);
       } else if (data.result !== "subject_based") {

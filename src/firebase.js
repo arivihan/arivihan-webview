@@ -1,6 +1,7 @@
 import { initializeApp } from "firebase/app";
-import { getAuth,browserSessionPersistence,browserPopupRedirectResolver } from "firebase/auth";
+import { getAuth, browserSessionPersistence, browserPopupRedirectResolver } from "firebase/auth";
 import { getDatabase } from "firebase/database";
+import { getAnalytics } from 'firebase/analytics';
 
 // const firebaseConfig = {
 //   apiKey: "AIzaSyAQHRxInJIv2j6tTUDHajtgz8wygTCOW4o",
@@ -31,3 +32,5 @@ export const db = getDatabase(app);
 
 export const auth = getAuth(app);
 export default app;
+
+export const analytics = getAnalytics(app);

@@ -10,12 +10,14 @@ import {
   imageViewUrl,
   indexOfOptionSelection,
   isFirstDoubt,
+  isFirstRequestLoaded,
   isStepWiseSolution,
   lastUserQuestion,
   showChatLoadShimmer,
   showDoubtChatLoader,
   showMicListentingUI,
   showOptionSelection,
+  showSuggestions,
   showWhatsappBottomSheet,
   suggestedDoubtAsked,
   suggestionAdded,
@@ -42,7 +44,7 @@ import {
   showDoubtSubscriptionDialog,
   showToast,
   watchLectureNowTextClickAction,
-} from "../utils/instantGuruUtilsProdTest";
+} from "../utils/instantGuruUtilsProd";
 import { useSignals } from "@preact/signals-react/runtime";
 import { PulseLoader } from "react-spinners";
 import { MathJax } from "better-react-mathjax";
@@ -59,7 +61,7 @@ import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
 
 
-const InstantGuruUIProdTest = () => {
+const InstantGuruUIProd = () => {
   useSignals();
   const [listening, setListening] = useState(false);
   const location = useLocation();
@@ -86,7 +88,7 @@ const InstantGuruUIProdTest = () => {
     }
 
     if (isFirstDoubt.value !== true) {
-      showToast('Click new chat to ask doubt using image')
+      showToast(t('newChatForImage'))
       return;
     }
     openFilePicker();
@@ -143,8 +145,12 @@ const InstantGuruUIProdTest = () => {
   }
 
   window.showSuggestion = () => {
-    setTimeout(() => {
-      if (suggestionAdded.value === false) {
+    showSuggestions.value = true;
+  }
+
+  useEffect(() => {
+    if (isFirstRequestLoaded.value === true && showSuggestions.value === true && suggestionAdded.value === false) {
+      setTimeout(() => {
         let options = loadSuggestedQuestions(true);
         chatHistory.value = [...chatHistory.value, {
           "botResponse": t("suggested_question"),
@@ -153,9 +159,9 @@ const InstantGuruUIProdTest = () => {
           "showBotAvatar": true,
         }]
         suggestionAdded.value = true;
-      }
-    }, 1000)
-  }
+      }, 200)
+    }
+  }, [showSuggestions.value, isFirstRequestLoaded.value]);
 
   useEffect(() => {
     const urlParams = new URLSearchParams(window.location.search);
@@ -219,7 +225,7 @@ const InstantGuruUIProdTest = () => {
 
 
   useEffect(() => {
-    if(tooltipTimeout != null){
+    if (tooltipTimeout != null) {
       clearTimeout(tooltipTimeout);
     }
     if (showTooltips && showTooltipNumber < 4) {
@@ -486,4 +492,4 @@ const InstantGuruUIProdTest = () => {
   );
 };
 
-export default InstantGuruUIProdTest;
+export default InstantGuruUIProd;

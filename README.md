@@ -37,11 +37,15 @@ npm start
 
 To deploy the chatbot, use the following SCP command:
 ```bash
-scp -i C:\Users\adityasuraj\Desktop\arivihan\ssh\arivihan_website.pem -r build bitnami@3.110.6.13:/home/bitnami/chatbot
+scp -i C:\Users\adityasuraj\Desktop\arivihan\ssh\arivihan_website.pem -r build bitnami@arivihan.com:/home/bitnami/chatbot
 ```
 
 ## Contributing
 
 We welcome contributions to improve the Arivihan Chatbot. Please fork the repository and submit a pull request.
+
+
+Firebase write permission to realtime database
+`auth != null`
 
 

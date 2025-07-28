@@ -24,7 +24,6 @@
 }
 
 
-.katex-display,
 .MathJax {
     overflow-x: auto !important;
     overflow-y: hidden;
@@ -50,6 +49,19 @@
 .crop-img{
     max-height: 400px !important;
 } */
+
+/* Katex changes */
+.pstrut{
+    min-height: 3.1em !important;
+}
+.katex-display{
+    overflow-x: auto !important;
+    padding: 12px !important;
+}
+body{
+    height: 100vh;
+    overflow-y: hidden;
+}
 
 
 

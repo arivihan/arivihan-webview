@@ -1,7 +1,7 @@
 import React from 'react';
 import { MdClose } from 'react-icons/md';
 import { showWhatsappBottomSheet } from '../state/instantGuruState';
-import { openWhatsapp } from '../utils/instantGuruUtils';
+import { openWhatsapp } from '../utils/instantGuruUtilsProd';
 import { useTranslation } from 'react-i18next';
 
 const OpenWhatsAppSheet = () => {

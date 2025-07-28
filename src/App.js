@@ -1,7 +1,5 @@
 import { createContext, useContext, useEffect } from "react";
-import ChatScreen from "./screens/chatScreen";
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import InstantGuruUI from "./screens/instantGuru";
 import { MathJaxContext } from "better-react-mathjax";
 import LoginScreen from "./screens/login";
 import SMEDashboardScreen from "./screens/smeDashboard";
@@ -14,7 +12,7 @@ import LectureMetricesScreen from "./screens/analytics/lectureMetrices";
 import UserActivityScreen from "./screens/analytics/userActivity";
 import TodoListScreen from "./screens/analytics/todoList";
 import InstantGuruUIDev from "./screens/instantGuruDev";
-import InstantGuruUIProdTest from "./screens/instantGuruProdTest";
+import InstantGuruUIProd from "./screens/instantGuruProd";
 import WebInstantGuru from "./screens/web-instant-guru/webInstantGuru";
 
 const DataContext = createContext();
@@ -28,7 +26,7 @@ function App() {
 
 
   return (
-    <MathJaxContext 
+    <MathJaxContext
     // config={{
     //   loader: { load: ["[tex]/mhchem"] },
     //   tex: {
@@ -55,8 +53,8 @@ function App() {
           <Route path="/app-metrices/todo-list" Component={TodoListScreen} />
           <Route path="/app-metrices/:type" Component={AppMetricesScreen} />
 
-          <Route path="/instant-guru" element={<InstantGuruUI />} />
-          <Route path="/instant-guru-dev" element={<InstantGuruUIProdTest />} />
+          <Route path="/instant-guru-prod" element={<InstantGuruUIProd />} />
+          <Route path="/instant-guru-dev" element={<InstantGuruUIDev />} />
 
           {/* <Route path="/web-instant-guru" element={<WebInstantGuru />} /> */}
 
