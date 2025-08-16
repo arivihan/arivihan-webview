@@ -7,6 +7,11 @@ import suggestedQuestions from "../../assets/suggested_question.json";
 import 'katex/dist/katex.min.css';
 import { BlockMath } from "react-katex";
 import renderMathInElement from 'katex/contrib/auto-render';
+import SmilesRenderer from "../smileRenderer";
+import ReactDOM from "react-dom/client";
+
+// import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
+
 
 
 
@@ -89,8 +94,26 @@ export const HTMLResponseBubble = ({ chat, chatIndex, fullWidth = true }) => {
                     { left: "$", right: "$", display: false }
                 ]
             });
+
+            const el = containerRef.current;
+            if (!el) return;
+
+            setTimeout(()=>{
+                const nodes = Array.from(el.querySelectorAll("smiles"));
+                nodes.forEach((node, i) => {
+                    const smiles = (node.textContent || node.getAttribute("value") || "").trim();
+                    const mount = document.createElement("span");
+                    node.replaceWith(mount);
+                    console.log(smiles);
+                    ReactDOM.createRoot(mount).render(<SmilesRenderer key={Math.random()} smiles={smiles} />);
+                });
+
+            },200)
+
         }
-    }, []);
+    }, [chat.botResponse]);
+
+
 
 
     return chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML") ?
@@ -110,10 +133,13 @@ export const HTMLResponseBubble = ({ chat, chatIndex, fullWidth = true }) => {
                 {/* w-[calc(100vw-80px)] */}
                 <div className={`flex flex-col  ${fullWidth ? 'w-[calc(100vw-80px)]' : 'w-1/2'}  overflow-x-hidden`}>
                     <div className="px-3 py-2 bg-[#f6f6f6] text-sm rounded-lg flex-1 receiveBubble">
+
                         <div ref={containerRef}
                             dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll(/(\n){2,}/g, '</br>') }}
-                             style={{ fontFamily: 'Urbanist, sans-serif', fontSize: '14px' }}
-                        ></div>
+                            style={{ fontFamily: 'Urbanist, sans-serif', fontSize: '14px' }}
+                        >
+                        </div>
+                        {/* <SmilesRenderer smiles="CCCN(C)CC"/> */}
                         {/* <MathJax style={{fontFamily:"Noto Sans Devanagari"}} className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>").replaceAll("**", "") }}>
                         </MathJax> */}
                     </div>

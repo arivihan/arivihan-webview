@@ -22,7 +22,7 @@ export const TextOptionBubble = ({ chat, chatIndex,fullWidth = true }) => {
                     {chat.optionResponse.map((option, index) => {
                         return (
                             <div key={index}
-                                class="px-3 py-2 bg-white text-sm rounded-[8px] my-1 cursor-pointer"
+                                className="px-3 py-2 bg-white text-sm rounded-[8px] my-1 cursor-pointer"
                                 onClick={chatIndex !== chatHistory.value.length - 1 ? null : () => {
                                     if (waitingForResponse.value === false && showDoubtChatLoader.value === false && showChatLoadShimmer.value === false) {
                                         if (option.title.includes("Video") || option.title.includes("वीडियो")) {
@@ -88,7 +88,7 @@ export const HTMLResponseBubble = ({ chat, chatIndex , fullWidth = true}) => {
                 ) : <div className="h-[40px] w-[40px] mr-2"></div>}
                 {/* w-[calc(100vw-80px)] */}
                 <div className={`flex flex-col w-[calc(100vw-80px)] sm:w-1/2  overflow-x-hidden`}>
-                    <div class="px-3 py-2 bg-[#f6f6f6] text-sm rounded-lg flex-1 receiveBubble">
+                    <div className="px-3 py-2 bg-[#f6f6f6] text-sm rounded-lg flex-1 receiveBubble">
                         <MathJax className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>") }}>
                         </MathJax>
                     </div>

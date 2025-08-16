@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import {
   bottomSuggestedQuestion,
@@ -61,6 +61,7 @@ import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
 
 
+
 const InstantGuruUIDev = () => {
   useSignals();
   const [listening, setListening] = useState(false);
@@ -98,7 +99,7 @@ const InstantGuruUIDev = () => {
     if (base64Image) {
       const chatContainer = document.getElementById("chat-container");
       chatContainer.innerHTML += `<div class='max-w-[64%] p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px]'>
-      <img src="${"data:image/png;base64," + base64Image}" alt="Uploaded" class="h-full" />
+      <img src="${"data:image/png;base64," + base64Image}" alt="Uploaded" className="h-full" />
       </div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
       setTimeout(() => {
@@ -116,8 +117,8 @@ const InstantGuruUIDev = () => {
       suggestedDoubtAsked.value = true;
       const chatContainer = document.getElementById("chat-container");
       chatContainer.innerHTML += `<div class='max-w-[64%] p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px]'>
-      <img src="${'data:image/png;base64,' + base64Image}" alt="Uploaded" class="w-full" />
-      <p class="mt-1 text-sm">${question}</p>
+      <img src="${'data:image/png;base64,' + base64Image}" alt="Uploaded" className="w-full" />
+      <p className="mt-1 text-sm">${question}</p>
       </div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
       setTimeout(() => {
@@ -263,6 +264,8 @@ const InstantGuruUIDev = () => {
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
 
+ 
+
   return (
     <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
       <div className="flex items-center px-4 py-2 h-[64px]">
@@ -283,11 +286,11 @@ const InstantGuruUIDev = () => {
             play
             style={{ width: 100, height: 32 }}
           /> */}
-          <div class="w-[120px] h-[32px] rounded-[10px] animate-pulse overflow-hidden bg-white shadow">
+          <div className="w-[120px] h-[32px] rounded-[10px] animate-pulse overflow-hidden bg-white shadow">
             {
               isFirstDoubt.value === false
                 ?
-                <div class="absolute rounded-[10px] inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-shimmer">
+                <div className="absolute rounded-[10px] inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-shimmer">
                 </div>
                 : null
             }
@@ -298,6 +301,7 @@ const InstantGuruUIDev = () => {
           {t("newChat")}
         </button> */}
       </div>
+
 
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />
@@ -339,16 +343,16 @@ const InstantGuruUIDev = () => {
                 chat.userQuery !== "" ? (
                 chat.requestType === "IMAGE_HTML" ||
                   chat.requestType === "IMAGE" ? (
-                  <div class="p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px] max-w-[64%]">
+                  <div className="p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px] max-w-[64%]">
                     <img
                       src={chat.userQuery}
                       alt="Uploaded"
-                      class="rounded-lg object-contain"
+                      className="rounded-lg object-contain"
                       onClick={() => { imageViewUrl.value = chat.userQuery }}
                     />
                   </div>
                 ) : (
-                  <div class="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%]">
+                  <div className="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%]">
                     <p className="text-sm">{chat.userQuery}</p>
                   </div>
                 )
@@ -361,7 +365,7 @@ const InstantGuruUIDev = () => {
                       src={require("../assets/icons/icon_chat_avatar.png")}
                       className="h-11 w-11 object-contain mr-2"
                     />
-                    <div class="px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full" onClick={() => { openVideo(chat.optionResponse[0].contentUrl, chat.optionResponse[0].startPosition, chat.optionResponse[0].endPosition, chatSessionId.value, chat.responseId) }}>
+                    <div className="px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full" onClick={() => { openVideo(chat.optionResponse[0].contentUrl, chat.optionResponse[0].startPosition, chat.optionResponse[0].endPosition, chatSessionId.value, chat.responseId) }}>
                       <img src={require("../assets/mock_test_video_player_image.png")} className="w-full object-cover rounded-lg" />
                     </div>
                   </div>

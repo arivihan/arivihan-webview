@@ -32,7 +32,7 @@ export default function LoginScreen() {
         <div className="w-full h-screen flex">
             <div className="w-1/2 h-full bg-primary flex flex-col items-center justify-center">
                 <div className="p-0 bg-white rounded-full h-36 w-36">
-                    <img src={require("../assets/logo.png")} class="" />
+                    <img src={require("../assets/logo.png")} className="" />
                 </div>
 
                 <h2 className='font-bold text-white text-3xl mt-4'>Arivihan SME Login</h2>

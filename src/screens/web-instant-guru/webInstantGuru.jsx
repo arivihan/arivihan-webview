@@ -131,7 +131,7 @@ const WebInstantGuru = () => {
 
                 // const chatContainer = document.getElementById("chat-container");
                 // chatContainer.innerHTML += `<div class='max-w-[44%] p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px]'>
-                // <img src="${base64Image}" alt="Uploaded" class="h-full" />
+                // <img src="${base64Image}" alt="Uploaded" className="h-full" />
                 // </div>`;
                 // chatContainer.scrollTop = chatContainer.scrollHeight;
                 chatImageRequest(base64Image);
@@ -366,16 +366,16 @@ const WebInstantGuru = () => {
                                         chat.userQuery !== "" ? (
                                         chat.requestType === "IMAGE_HTML" ||
                                             chat.requestType === "IMAGE" ? (
-                                            <div class="p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px] max-w-[44%]">
+                                            <div className="p-2 bg-[#d2f8f9] ml-auto text-lg rounded-[12px] max-w-[44%]">
                                                 <img
                                                     src={chat.userQuery}
                                                     alt="Uploaded"
-                                                    class="rounded-lg object-contain"
+                                                    className="rounded-lg object-contain"
                                                     onClick={() => { imageViewUrl.value = chat.userQuery }}
                                                 />
                                             </div>
                                         ) : (
-                                            <div class="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[44%]">
+                                            <div className="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[44%]">
                                                 <p className="text-sm">{chat.userQuery}</p>
                                             </div>
                                         )
@@ -388,7 +388,7 @@ const WebInstantGuru = () => {
                                                     src={require("../../assets/icons/icon_chat_avatar.png")}
                                                     className="h-11 w-11 object-contain mr-2"
                                                 />
-                                                <div class="px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full" onClick={() => { openVideo(chat.optionResponse[0].contentUrl, chat.optionResponse[0].startPosition, chat.optionResponse[0].endPosition, chatSessionId.value, chat.responseId) }}>
+                                                <div className="px-3 py-2 bg-[#f6f6f6] mr-auto text-sm rounded-lg w-full" onClick={() => { openVideo(chat.optionResponse[0].contentUrl, chat.optionResponse[0].startPosition, chat.optionResponse[0].endPosition, chatSessionId.value, chat.responseId) }}>
                                                     <img src={require("../../assets/mock_test_video_player_image.png")} className="w-full object-cover rounded-lg" />
                                                 </div>
                                             </div>

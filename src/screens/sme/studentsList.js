@@ -72,7 +72,7 @@ export default function StudentListScreen() {
                                     ?
 
                                     <tr>
-                                        <td colSpan={6} class="px-6 py-4 whitespace-nowrap">
+                                        <td colSpan={6} className="px-6 py-4 whitespace-nowrap">
                                             <div className="w-full flex items-center justify-center h-[58vh]">
                                                 <ThreeCircles color='#26c6da' />
                                             </div>
@@ -84,7 +84,7 @@ export default function StudentListScreen() {
                                     students === null || students.length === 0
                                         ?
                                         <tr>
-                                            <td colSpan={6} class="px-6 py-4 whitespace-nowrap">
+                                            <td colSpan={6} className="px-6 py-4 whitespace-nowrap">
                                                 <div className="w-full flex flex-col items-center justify-center h-[58vh]">
                                                     <img src={require("../../assets/chat.png")} className='h-40 w-80 object-contain' />
                                                     <p className='text-sm text-gray-500'>Oops! no any result found.</p>
