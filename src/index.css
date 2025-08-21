@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+::-webkit-scrollbar {
+    background-color: transparent;
+    width: 5px;
+    max-height: 5px;
+    border-radius: 5px;
+}
+
+::-webkit-scrollbar-track {
+    background-color: rgba(0, 0, 0, 0.1);
+    width: 3px;
+    border-radius: 5px;
+    height: 60px;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: rgba(255, 255, 255, 0.6);
+    border-radius: 5px;
+    max-width: 3px;
+}
+
+
+.MathJax {
+    overflow-x: auto !important;
+    overflow-y: hidden;
+    padding-right: 30px;
+}
+
+.receiveBubble p {
+    width: 100%;
+}
+
+::selection {
+    user-select: none;
+    -webkit-user-select: none;
+}
+
+.react-crop {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* 
+.crop-img{
+    max-height: 400px !important;
+} */
+
+/* Katex changes */
+.pstrut{
+    min-height: 3.1em !important;
+}
+.katex-display{
+    overflow-x: auto !important;
+    padding: 12px !important;
+}
+body{
+    height: 100vh;
+    overflow-y: hidden;
+}
+
+
+
+
+@keyframes shimmer {
+    0% {
+        background-position: -100% 0;
+    }
+
+    100% {
+        background-position: 100% 0;
+    }
+}
+
+.animate-shimmer {
+    animation: shimmer 8s infinite linear;
+    background-size: 200% 100%;
+}
