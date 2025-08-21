@@ -59,6 +59,41 @@ import { Tooltip } from 'react-tooltip';
 import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubble";
 import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
+import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response";
+import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
+import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response";
+
+const response_data=
+  {
+    "userQuery": "electric potential and capacitor ke lecture chahiye",
+    "cardType": "CardType.FULLCARD",
+    "sectionType": "SectionType.LECTURE",
+    "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+    "displayTitle": "Electric Potential and Capacitance",
+    "displaySubtitle": null,
+    "actionButtonText": "View Lectures",
+    "redirectLink": null,
+    "deepLink": null,
+    "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
+    "clickableElements": {
+      "thumbnail": true,
+      "title": true,
+      "subtitle": false,
+      "link": false
+    },
+    "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
+    "navigationParams": {
+      "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+      "NotesPdfUrl": "https://dm80t6147awlm.cloudfront.net/2025_BOARD/MP_BOARD_2025/HINDI_MEDIUM/PHYSICS/EPC/EPCML1notes_compressed.pdf",
+      "chapterName": "Electric Potential and Capacitance",
+      "chapterId": "PHYIMPHINEPC",
+      "selectedSubject": "Physics"
+    },
+    "pdfLink": null,
+    "subscriptionType": null,
+    "videoLink": null,
+    "position": null
+  }
 
 
 
@@ -278,6 +313,9 @@ const InstantGuruUIDev = () => {
         />
         <img id="open-drawer-btn" src={require("../assets/icons/icon_menu_home.png")} className="w-7" onClick={() => { openDrawer() }} />
         <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
+
+
+        
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
           {/* <Lottie
             loop
@@ -301,8 +339,11 @@ const InstantGuruUIDev = () => {
           {t("newChat")}
         </button> */}
       </div>
-
-
+       {/* THE RESPONSIVE DATA */}
+       {/* <Only_Text_Response   response_data={response_data.value}/> */}
+       <PDF_container_response respose_data={response_data.value} />
+       {/* <Video_Text_response response_data={response_data.value}/> */}
+       {/* THE RESPONSIVE DATA */}
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />
       }
@@ -401,7 +442,7 @@ const InstantGuruUIDev = () => {
         }
 
       </div>
-
+  
       {
         (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
@@ -437,7 +478,7 @@ const InstantGuruUIDev = () => {
         </div>
       }
 
-
+        
       <div className="h-[94px] w-full flex items-center justify-center px-4">
         <div className="border border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip
