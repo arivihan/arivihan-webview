@@ -59,9 +59,9 @@ import { Tooltip } from 'react-tooltip';
 import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubble";
 import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
-import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response";
+import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
 import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
-import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response";
+import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
 
 const response_data=
   {
@@ -74,7 +74,15 @@ const response_data=
     "actionButtonText": "View Lectures",
     "redirectLink": null,
     "deepLink": null,
+    duration:"30s",
     "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
+    "descriptionHtml": `
+            <ul style="list-style-type: disc; margin-left: 20px;">
+              <li><b>Introduction to Newton's Laws</b> – These laws basically tell about motion</li>
+              <li><b>Second Law</b> – Force = mass × acceleration</li>
+              <li><b>Third Law</b> – Every action has an equal and opposite reaction</li>
+            </ul>
+`,
     "clickableElements": {
       "thumbnail": true,
       "title": true,
@@ -91,7 +99,7 @@ const response_data=
     },
     "pdfLink": null,
     "subscriptionType": null,
-    "videoLink": null,
+    "videoLink": "https://youtu.be/LmEsoQEg9Bg?si=cGWA-k6sEUrMKvox",
     "position": null
   }
 
@@ -341,8 +349,8 @@ const InstantGuruUIDev = () => {
       </div>
        {/* THE RESPONSIVE DATA */}
        {/* <Only_Text_Response   response_data={response_data.value}/> */}
-       <PDF_container_response respose_data={response_data.value} />
-       {/* <Video_Text_response response_data={response_data.value}/> */}
+       {/* <PDF_container_response respose_data={response_data.value} /> */}
+       <Video_Text_response response_data={response_data}/>
        {/* THE RESPONSIVE DATA */}
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />

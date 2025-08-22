@@ -14,19 +14,10 @@ const Only_Text_response = ({ response_data = {} }) => {
         <p className='font-bold text-sm text-[#37D3E7]'>Instant Guru</p>
       </div>
       <div className='mt-3'>
-        <p className='text-[14px]'>Aap Physics ke sabhi lectures hamare app ke <span className='font-bold'>{Specific_lecture_name}</span> section me dekh sakte hain. Chaleye, main aapko us page par le chalta hoon.</p>
+        <p className='text-[14px]'>Aap {Specific_lecture_name} ke sabhi lectures hamare app ke <span className='font-bold'>{Specific_lecture_name}</span> section me dekh sakte hain. Chaleye, main aapko us page par le chalta hoon.</p>
       </div>
       <div className='mt-3 border shadow-lg rounded-md p-3'>
-            <div>
-                <Link to={response_data?.redirectLink }>
-                <p className='text-[14px]'> <span className='font-bold'>{Specific_lecture_name}</span> ke saare lectures dekhne ke liye niche diye gaye button par click karein</p>
-                <hr className='mt-1' />
-                <div className='flex items-center mt-1 justify-center gap-2'>
-                    <p className=' text-[#37D3E7]'><b>{response_data?.actionButtonText ||"Lecture Dekhein"} </b></p>
-                    <span className='text-[#37D3E7] font-bold'>< RiShareBoxFill /></span>
-                </div>
-                </Link>
-            </div>
+            
       </div>
     </div>
     </div>
