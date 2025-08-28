@@ -22,7 +22,7 @@ const Global_like_dislike_response = () => {
       <hr className="w-full mt-2 mb-2" />
 
       <div className="flex items-center gap-3">
-        <span>Was this helpful?</span>
+        <span className="text-xs">Was this helpful?</span>
 
         {/* LIKE */}
         <motion.div
@@ -32,7 +32,7 @@ const Global_like_dislike_response = () => {
           onClick={handleLike}
           className="cursor-pointer"
         >
-          <AiOutlineLike size={22} />
+          <AiOutlineLike size={16} />
         </motion.div>
 
         {/* DISLIKE */}
@@ -43,7 +43,7 @@ const Global_like_dislike_response = () => {
           onClick={handleDislike}
           className="cursor-pointer"
         >
-          <AiOutlineDislike size={22} />
+          <AiOutlineDislike size={16} />
         </motion.div>
 
         {/* SHARE */}
@@ -52,7 +52,7 @@ const Global_like_dislike_response = () => {
           transition={{ type: "spring", stiffness: 200 }}
           className="cursor-pointer"
         >
-          <IoShareSocialOutline size={22} />
+          <IoShareSocialOutline size={16} />
         </motion.div>
       </div>
     </div>

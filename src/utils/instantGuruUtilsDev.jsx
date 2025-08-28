@@ -307,11 +307,24 @@ export const chatImageRequest = (imageFile, userQuery = "") => {
 
 export function chatClassifier(message) {
   showDoubtChatLoader.value = true;
+  const urlParams = new URLSearchParams(window.location.search);
   const startTime = performance.now();
 
-  customAppRequest(`chat-classifier?doubt=` + encodeURI(message))
+  customAppRequest(`chat-classifier-new`, "POST", JSON.stringify({
+    "class": "Class 12th",
+    "course": "Board",
+    "language": urlParams.get("language").toLocaleLowerCase() === "en" ? "english" : "hindi",
+    "requestType": "HTML",
+    "subjectName": urlParams.get("subjectName"),
+    "subscriptionStatus": "subscribed",
+    "userName": "aditya",
+    "userQuery": message,
+    "chatSessionId": chatSessionId.value
+  }))
     .then(data => {
-      chatType.value = data.result;
+      console.log(data);
+
+      chatType.value = data[0].sectionType;
       showDoubtChatLoader.value = false;
 
 
@@ -335,14 +348,58 @@ export function chatClassifier(message) {
         console.error("failed to push event :: " + error)
       }
 
-      if (data.result === "conversation_based") {
-        postNewChatConversation(message);
-      } else if (data.result !== "subject_based") {
-        showWhatsappBottomSheet.value = true;
-      } else if (data.result === "subject_based") {
+
+      if (data[0].sectionType === "SectionType.SUBJECT_RELATED") {
         isFirstDoubt.value = true;
         postNewChat(message);
+      } else if (data[0].sectionType === "SectionType.FAQ") {
+        chatHistory.value = [...chatHistory.value, {
+          "botResponse": data[0].bigtext,
+          "responseType": "HTML",
+          "showBotAvatar": true,
+          "userQuery": ""
+        }]
+      } else if (data[0].sectionType === "SectionType.PDF") {
+        data.forEach(res => {
+          chatHistory.value = [...chatHistory.value, {
+            "botResponse": data[0].bigtext,
+            "responseType": "HTML_PDF",
+            "pdfTitle": res.displayTitle,
+            "pdfLink": res.pdfLink,
+            "showBotAvatar": true,
+            "userQuery": ""
+          }]
+        });
+
+      } else if (data[0].sectionType === "SectionType.LECTURE") {
+        chatHistory.value = [...chatHistory.value, {
+          "botResponse": data[0].bigtext,
+          "responseType": "HTML_VIDEO",
+          "thumbnailUrl": data[0].thumbnailUrl,
+          "title": data[0].displayTitle,
+          "cardType": data[0].cardType,
+          "actionButtonText": data[0].actionButtonText,
+          "screenClassName": data[0].screenClassName,
+          "navigationParams": data[0].navigationParams,
+          "videoEndTime": data[0].Video_End_Time,
+          "showBotAvatar": true,
+          "userQuery": ""
+        }]
       }
+      else if (data[0].sectionType === "SectionType.OPEN_WHATSAPP") {
+        showWhatsappBottomSheet.value = true;
+      }
+
+      // callClassifier.value = false;
+
+      // if (data.result === "conversation_based") {
+      //   postNewChatConversation(message);
+      // } else if (data.sectionType !== "SectionType.SUBJECT_RELATED") {
+      //   showWhatsappBottomSheet.value = true;
+      // } else if (data.sectionType === "SectionType.SUBJECT_RELATED") {
+      //   isFirstDoubt.value = true;
+      //   postNewChat(message);
+      // }
     })
     .catch(error => {
       console.error('Error:', error)
@@ -555,5 +612,33 @@ export function showDoubtSubscriptionDialog() {
     }
   } else {
     alert("AndroidInterface is not defined for showSubscriptionDialog");
+  }
+}
+
+
+
+export function openAppActivity(className, activityParams) {
+  console.log("OPEN_PARAMS :: " + JSON.stringify(className));
+
+  console.log("OPEN_PARAMS :: " + JSON.stringify(activityParams));
+
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      window.AndroidInterface.openActivity(className, JSON.stringify(activityParams));
+    } catch (error) {
+    }
+  } else {
+    alert("AndroidInterface is not defined for openActivity");
+  }
+}
+
+export function openPdf(url) {
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      window.AndroidInterface.openPdf(url);
+    } catch (error) {
+    }
+  } else {
+    alert("AndroidInterface is not defined for openActivity");
   }
 }

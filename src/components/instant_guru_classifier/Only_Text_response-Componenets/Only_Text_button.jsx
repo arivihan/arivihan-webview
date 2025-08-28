@@ -1,17 +1,19 @@
 import React from 'react'
+import { RiShareBoxFill } from 'react-icons/ri'
+import Global_like_dislike_response from '../Global_like_dislike_response'
+import { openAppActivity } from '../../../utils/instantGuruUtilsDev'
 
-const Only_Text_button = () => {
+const Only_Text_button = ({ chat }) => {
   return (
-    <div>
-                <Link to={response_data?.redirectLink }>
-                <p className='text-[14px]'> <span className='font-bold'>{Specific_lecture_name}</span> ke saare lectures dekhne ke liye niche diye gaye button par click karein</p>
-                <hr className='mt-1' />
-                <div className='flex items-center mt-1 justify-center gap-2'>
-                    <p className=' text-[#37D3E7]'><b>{response_data?.actionButtonText ||"Lecture Dekhein"} </b></p>
-                    <span className='text-[#37D3E7] font-bold'>< RiShareBoxFill /></span>
-                </div>
-                </Link>
-            </div>
+    <div className='w-full flex flex-col items-start'>
+      <div className='text-[14px]' dangerouslySetInnerHTML={{ __html: chat.botResponse }}></div>
+      <div className='flex items-center my-2 justify-center gap-2 bg-[#37D3E7] px-3 py-2 rounded-full' onClick={() => openAppActivity(chat.screenClassName, chat.navigationParams)}>
+        <p className='text-white'>Lecture Dekhein</p>
+        <span className='text-white font-bold'>< RiShareBoxFill /></span>
+      </div>
+      <hr className='pt-0' />
+      <Global_like_dislike_response />
+    </div>
   )
 }
 

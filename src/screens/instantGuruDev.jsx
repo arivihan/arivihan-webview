@@ -36,6 +36,7 @@ import {
   openFilePicker,
   openMicInput,
   openNewChat,
+  openPdf,
   openVideo,
   postNewChat,
   saveDoubtChat,
@@ -56,52 +57,53 @@ import OpenWhatsAppSheet from "../components/openWhatsappSheet";
 import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie-player";
 import { Tooltip } from 'react-tooltip';
-import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubble";
+import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
 import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
 import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
 import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
 import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
+import Only_Text_button from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_button";
 
-const response_data=
-  {
-    "userQuery": "electric potential and capacitor ke lecture chahiye",
-    "cardType": "CardType.FULLCARD",
-    "sectionType": "SectionType.LECTURE",
-    "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
-    "displayTitle": "Electric Potential and Capacitance",
-    "displaySubtitle": null,
-    "actionButtonText": "View Lectures",
-    "redirectLink": null,
-    "deepLink": null,
-    duration:"30s",
-    "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
-    "descriptionHtml": `
+const response_data =
+{
+  "userQuery": "electric potential and capacitor ke lecture chahiye",
+  "cardType": "CardType.FULLCARD",
+  "sectionType": "SectionType.LECTURE",
+  "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+  "displayTitle": "Electric Potential and Capacitance",
+  "displaySubtitle": null,
+  "actionButtonText": "View Lectures",
+  "redirectLink": null,
+  "deepLink": null,
+  duration: "30s",
+  "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
+  "descriptionHtml": `
             <ul style="list-style-type: disc; margin-left: 20px;">
               <li><b>Introduction to Newton's Laws</b> – These laws basically tell about motion</li>
               <li><b>Second Law</b> – Force = mass × acceleration</li>
               <li><b>Third Law</b> – Every action has an equal and opposite reaction</li>
             </ul>
 `,
-    "clickableElements": {
-      "thumbnail": true,
-      "title": true,
-      "subtitle": false,
-      "link": false
-    },
-    "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
-    "navigationParams": {
-      "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
-      "NotesPdfUrl": "https://dm80t6147awlm.cloudfront.net/2025_BOARD/MP_BOARD_2025/HINDI_MEDIUM/PHYSICS/EPC/EPCML1notes_compressed.pdf",
-      "chapterName": "Electric Potential and Capacitance",
-      "chapterId": "PHYIMPHINEPC",
-      "selectedSubject": "Physics"
-    },
-    "pdfLink": null,
-    "subscriptionType": null,
-    "videoLink": "https://youtu.be/LmEsoQEg9Bg?si=cGWA-k6sEUrMKvox",
-    "position": null
-  }
+  "clickableElements": {
+    "thumbnail": true,
+    "title": true,
+    "subtitle": false,
+    "link": false
+  },
+  "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
+  "navigationParams": {
+    "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+    "NotesPdfUrl": "https://dm80t6147awlm.cloudfront.net/2025_BOARD/MP_BOARD_2025/HINDI_MEDIUM/PHYSICS/EPC/EPCML1notes_compressed.pdf",
+    "chapterName": "Electric Potential and Capacitance",
+    "chapterId": "PHYIMPHINEPC",
+    "selectedSubject": "Physics"
+  },
+  "pdfLink": null,
+  "subscriptionType": null,
+  "videoLink": "https://youtu.be/LmEsoQEg9Bg?si=cGWA-k6sEUrMKvox",
+  "position": null
+}
 
 
 
@@ -243,9 +245,9 @@ const InstantGuruUIDev = () => {
       suggestedDoubtAsked.value = true;
       chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%]'><p>${doubtText}</p></div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
-      if ((chatType.value === null || chatType.value !== "subject_based") && callClassifier.value == true) {
+      if ((chatType.value === null || chatType.value !== "SectionType.SUBJECT_RELATED") && callClassifier.value == true) {
         chatClassifier(doubtText.value);
-      } else if (chatType.value === "subject_based") {
+      } else if (chatType.value === "SectionType.SUBJECT_RELATED") {
         postNewChat(doubtText.value);
       }
       lastUserQuestion.value = doubtText.value;
@@ -307,7 +309,7 @@ const InstantGuruUIDev = () => {
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
 
- 
+
 
   return (
     <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
@@ -323,7 +325,7 @@ const InstantGuruUIDev = () => {
         <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
 
 
-        
+
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
           {/* <Lottie
             loop
@@ -347,11 +349,7 @@ const InstantGuruUIDev = () => {
           {t("newChat")}
         </button> */}
       </div>
-       {/* THE RESPONSIVE DATA */}
-       {/* <Only_Text_Response   response_data={response_data.value}/> */}
-       {/* <PDF_container_response respose_data={response_data.value} /> */}
-       <Video_Text_response response_data={response_data}/>
-       {/* THE RESPONSIVE DATA */}
+
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />
       }
@@ -365,7 +363,7 @@ const InstantGuruUIDev = () => {
       }
 
       <div
-        className={`p-4 overflow-y-auto  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
+        className={`p-4 overflow-y-auto  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col items-start scroll-smooth gap-4`}
         id="chat-container"
       >
 
@@ -386,7 +384,7 @@ const InstantGuruUIDev = () => {
           }
 
           return (
-            <div className="flex flex-col gap-4 w-full" key={hIndex}>
+            <div className="flex flex-col items-start gap-4 w-full" key={hIndex}>
               {(hIndex != indexOfOptionSelection.value + 1) && chat.userQuery !== undefined &&
                 chat.userQuery !== null &&
                 chat.userQuery !== "" ? (
@@ -422,8 +420,46 @@ const InstantGuruUIDev = () => {
                   null
               }
 
-              <TextOptionBubble chat={chat} chatIndex={hIndex} />
-              <HTMLResponseBubble chat={chat} chatIndex={hIndex} />
+              {/* <TextOptionBubble chat={chat} chatIndex={hIndex} />
+<HTMLResponseBubble chat={chat} chatIndex={hIndex} /> */}
+
+              {
+                chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && chat.optionResponse !== undefined && chat.optionResponse !== null
+                &&
+                <TextOptionBubble chat={chat} chatIndex={hIndex} />
+              }
+
+
+              {
+                chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML")
+                &&
+                <Only_Text_Response chat={chat} />
+              }
+              {/* {botResponse: 'Electric Charges And Fields ke toppers notes dekhne ke liye ', responseType: 'HTML_PDF', pdfTitle: "This is test tile", pdfLink: 'https://d26ziiio1s8scf.cloudfront.net/NOTES/ENGLIS…RESSED/CHAPTER-01 Electric Charges and Fields.pdf', showBotAvatar: true, userQuery: ''} */}
+
+              {
+                chat.responseType !== null && chat.responseType !== "" && (chat.responseType === "HTML_PDF")
+                &&
+                <PDF_container_response chat={chat} chatIndex={hIndex} />
+              }
+
+              {
+                chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.ACTIVITY"
+                &&
+                <Only_Text_button chat={chat} />
+              }
+
+
+              {
+                chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.FULLCARD"
+                &&
+                <Video_Text_response chat={chat} chatIndex={hIndex} />
+              }
+
+
+              {/* THE RESPONSIVE DATA */}
+              {/* <PDF_container_response chat={chat} chatIndex={hIndex} /> */}
+              {/* THE RESPONSIVE DATA */}
 
             </div>
           );
@@ -433,12 +469,12 @@ const InstantGuruUIDev = () => {
           <div className="flex items-center mt-6">
             <img
               src={require("../assets/icons/icon_chat_avatar.png")}
-              className="h-[40px] w-[40px] object-contain mr-2"
+              className="h-[32px] w-[32px] object-contain mr-2"
             />
             <PulseLoader
               color="#26c6da"
               loading={true}
-              size={10}
+              size={8}
               aria-label="Loading Spinner"
               data-testid="loader"
             />
@@ -450,7 +486,7 @@ const InstantGuruUIDev = () => {
         }
 
       </div>
-  
+
       {
         (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
@@ -486,7 +522,7 @@ const InstantGuruUIDev = () => {
         </div>
       }
 
-        
+
       <div className="h-[94px] w-full flex items-center justify-center px-4">
         <div className="border border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip

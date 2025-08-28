@@ -1,17 +1,11 @@
 import React from 'react'
 
-const Video_description = ({response_data}) => {
+const Video_description = ({ chat }) => {
   return (
-         <div className="mt-3">
-      <p className="text-sm text-gray-600 mb-2">
-        Here are key highlights of{" "}
-        <span className="font-bold">{response_data?.subject}</span> lecture:
-      </p>
-    
-      {/* Description HTML render  */}
+    <div className="mt-3">
       <div
         className="text-sm text-gray-700"
-        dangerouslySetInnerHTML={{ __html: response_data?.descriptionHtml }}
+        dangerouslySetInnerHTML={{ __html: chat.botResponse }}
       />
     </div>
   )

@@ -10,50 +10,36 @@ import Global_like_dislike_response from "./Global_like_dislike_response";
 // ✅ Worker setup (use public folder, no CDN, no ?url)
 pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdf.worker.min.js`;
 
-const PDF_container_response = () => {
-  const response_data = {
-    title: "Physics imp questions",
-    pdfUrl: "https://www3.nd.edu/~powers/ame.20231/notes.pdf", // 👈 apna link
-    subject: "Physics",
-   "descriptionHtml": `
-<ul>
-  <li><b>Introduction to Newton's Laws</b> - These laws basically tell about the motions</li>
-  <li><b>Law of Inertia</b> - An object will remain at rest or in uniform motion unless acted upon by an external force</li>
-  <li><b>Law of Acceleration</b> - Force equals mass times acceleration (F=ma)</li>
-</ul>
-`
-  };
+const PDF_container_response = ({ chat }) => {
 
-const [fileSize, setFileSize] = useState(null);
-const [numPages, setNumPages] = useState(null);
- function onDocumentLoadSuccess({ numPages }) {
-        setNumPages(numPages);
-      }
+
   // File size nikalna
-  useEffect(() => {
-    if (response_data?.pdfUrl) {
-      fetch(response_data.pdfUrl, { method: "HEAD" })
-        .then((res) => {
-          const bytes = res.headers.get("Content-Length");
-          if (bytes) {
-            const kb = (bytes / 1024).toFixed(1);
-            setFileSize(
-              kb > 1024 ? (kb / 1024).toFixed(1) + " MB" : kb + " KB"
-            );
-          }
-        })
-        .catch(() => setFileSize("Unknown"));
-    }
-  }, [response_data?.pdfUrl]);
+  // useEffect(() => {
+  //   // console.log(chat);
+
+  //   if (response_data?.pdfUrl) {
+  //     fetch(response_data.pdfUrl, { method: "HEAD" })
+  //       .then((res) => {
+  //         const bytes = res.headers.get("Content-Length");
+  //         if (bytes) {
+  //           const kb = (bytes / 1024).toFixed(1);
+  //           setFileSize(
+  //             kb > 1024 ? (kb / 1024).toFixed(1) + " MB" : kb + " KB"
+  //           );
+  //         }
+  //       })
+  //       .catch(() => setFileSize("Unknown"));
+  //   }
+  // }, [chat.pdfLink]);
 
   return (
-    <div className="w-[95vw] max-w-md mb-2 mx-auto bg-white overflow-hidden p-4 rounded-lg ">
+    <div className="mb-2 bg-white rounded-lg ">
       {/* Top Info */}
       <div className="flex items-center gap-2 mb-2">
         <div className="w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden">
           <img
             className="h-full w-full object-cover"
-            src="https://cdn-icons-png.flaticon.com/128/3829/3829933.png"
+            src={require("../../assets/icons/icon_chat_avatar.png")}
             alt="profile"
           />
         </div>
@@ -61,12 +47,12 @@ const [numPages, setNumPages] = useState(null);
       </div>
 
       {/* PDF Preview */}
-      <Only_Text_PDF response_data={response_data} />
+      <Only_Text_PDF chat={chat} />
       {/* Description */}
-     <Only_Text_Discription response_data={response_data}/>
+      <Only_Text_Discription response_data={chat.botResponse} />
 
       {/* Open Button */}
-      <div className="mt-4 w-[45vw]">
+      {/* <div className="mt-4 w-[45vw]">
         <a
           href={response_data?.pdfUrl}
           target="_blank"
@@ -77,16 +63,16 @@ const [numPages, setNumPages] = useState(null);
           Open PDF
           <TbArrowBearRight />
         </a>
-      </div>
+      </div> */}
 
       {/* Hidden Document (sirf pages count nikalne ke liye) */}
-      <div className="hidden">
+      {/* <div className="">
         <Document
-          file={response_data?.pdfUrl}
+          file={chat?.pdfUrl}
           onLoadSuccess={onDocumentLoadSuccess}
         ></Document>
-      </div> 
-      <Global_like_dislike_response/>
+      </div> */}
+      <Global_like_dislike_response />
     </div>
   );
 };
