@@ -360,16 +360,42 @@ export function chatClassifier(message) {
           "userQuery": ""
         }]
       } else if (data[0].sectionType === "SectionType.PDF") {
-        data.forEach(res => {
+
+        if (data[0].cardType === "CardType.ACTIVITY") {
           chatHistory.value = [...chatHistory.value, {
             "botResponse": data[0].bigtext,
-            "responseType": "HTML_PDF",
-            "pdfTitle": res.displayTitle,
-            "pdfLink": res.pdfLink,
+            "responseType": "HTML_VIDEO",
+            "thumbnailUrl": data[0].thumbnailUrl,
+            "title": data[0].displayTitle,
+            "cardType": data[0].cardType,
+            "actionButtonText": data[0].actionButtonText,
+            "screenClassName": data[0].screenClassName,
+            "navigationParams": data[0].navigationParams,
+            "videoEndTime": data[0].Video_End_Time,
+            "subtitle": data[0].displaySubtitle,
             "showBotAvatar": true,
             "userQuery": ""
           }]
-        });
+        } else {
+          let pdfUrls = []
+
+          data.forEach(res => {
+            pdfUrls.push(
+              {
+                "pdfTitle": res.displayTitle,
+                "pdfLink": res.pdfLink,
+              }
+            )
+          });
+
+          chatHistory.value = [...chatHistory.value, {
+            "botResponse": data[0].bigtext,
+            "responseType": "HTML_PDF",
+            "pdfFiles": pdfUrls,
+            "showBotAvatar": true,
+            "userQuery": ""
+          }]
+        }
 
       } else if (data[0].sectionType === "SectionType.LECTURE") {
         chatHistory.value = [...chatHistory.value, {
@@ -382,11 +408,28 @@ export function chatClassifier(message) {
           "screenClassName": data[0].screenClassName,
           "navigationParams": data[0].navigationParams,
           "videoEndTime": data[0].Video_End_Time,
+          "subtitle": data[0].displaySubtitle,
+          "showBotAvatar": true,
+          "userQuery": ""
+        }]
+      } else if (data[0].sectionType === "SectionType.ACTIVITY") {
+        chatHistory.value = [...chatHistory.value, {
+          "botResponse": data[0].bigtext,
+          "responseType": "HTML_VIDEO",
+          "thumbnailUrl": data[0].thumbnailUrl,
+          "title": data[0].displayTitle,
+          "cardType": data[0].cardType,
+          "actionButtonText": data[0].actionButtonText,
+          "screenClassName": data[0].screenClassName,
+          "navigationParams": data[0].navigationParams,
+          "videoEndTime": data[0].Video_End_Time,
+          "subtitle": data[0].displaySubtitle,
           "showBotAvatar": true,
           "userQuery": ""
         }]
       }
-      else if (data[0].sectionType === "SectionType.OPEN_WHATSAPP") {
+      // if (data[0].sectionType === "SectionType.OPEN_WHATSAPP")
+      else {
         showWhatsappBottomSheet.value = true;
       }
 

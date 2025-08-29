@@ -3,6 +3,7 @@ import { FaPlayCircle } from "react-icons/fa";
 import Video_componenet from "./Video_componenet";
 import Video_description from "./Video_description";
 import { openAppActivity } from "../../../utils/instantGuruUtilsDev";
+import { RiShareBoxFill } from "react-icons/ri";
 
 const Video_Text_response = ({ chat }) => {
   const videoRef = useRef(null);
@@ -31,15 +32,24 @@ const Video_Text_response = ({ chat }) => {
       </div>
 
       {/* Video Preview */}
-      <Video_componenet chat={chat} />
+      {
+        chat.thumbnailUrl &&
+        <Video_componenet chat={chat} />
+      }
 
       {/* Description */}
       <Video_description chat={chat} />
 
       {/* Open Button */}
       <div className="mt-4 w-[45vw]">
-        <div className="flex items-center justify-center gap-2 bg-[#26C6DA] text-white px-4 py-2 rounded-lg shadow transition" onClick={handleOpenVideo}>
-          <FaPlayCircle className="text-white" />
+        <div className="flex items-center justify-center gap-2 bg-[#26C6DA] text-white px-2 py-2 rounded-lg shadow transition" onClick={handleOpenVideo}>
+          {
+            chat.thumbnailUrl
+              ?
+              <FaPlayCircle className="text-white" />
+              :
+              <RiShareBoxFill />
+          }
           {chat.actionButtonText}
         </div>
       </div>

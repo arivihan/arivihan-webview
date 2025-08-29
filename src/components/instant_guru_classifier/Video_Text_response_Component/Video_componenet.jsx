@@ -54,8 +54,8 @@ const Video_componenet = ({ chat }) => {
         <b>
           <h1>{chat.title}</h1>
         </b>
-        <p className="mt-2 text-gray-600 text-xs">
-          {chat?.videoEndTime || "00:00"} min • Watch Lecture
+        <p className="mt-2 text-gray-400 text-xs">
+          {chat.videoEndTime ? chat.videoEndTime + " min" : ""} • {chat.subtitle}
         </p>
       </div>
     </div>

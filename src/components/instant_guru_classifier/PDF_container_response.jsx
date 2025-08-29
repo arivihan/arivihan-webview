@@ -47,9 +47,19 @@ const PDF_container_response = ({ chat }) => {
       </div>
 
       {/* PDF Preview */}
-      <Only_Text_PDF chat={chat} />
+
+      <div className="flex flex-col gap-3">
+        {
+          chat.pdfFiles.map(pdfFile => {
+            return (
+              <Only_Text_PDF file={pdfFile} />
+            )
+          })
+        }
+      </div>
+
       {/* Description */}
-      <Only_Text_Discription response_data={chat.botResponse} />
+      <Only_Text_Discription chat={chat} />
 
       {/* Open Button */}
       {/* <div className="mt-4 w-[45vw]">

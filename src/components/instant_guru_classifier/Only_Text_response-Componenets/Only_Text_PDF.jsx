@@ -7,17 +7,14 @@ import { openPdf } from "../../../utils/instantGuruUtilsDev";
 
 
 
-const Only_Text_PDF = ({ chat }) => {
+const Only_Text_PDF = ({ file }) => {
 
   const [numPages, setNumPages] = useState(null);
   const [fileSize, setFileSize] = useState(null);
 
   // Jab PDF load ho jaye tab pages mil jayenge
-  function onDocumentLoadSuccess({ numPages }) {
-    setNumPages(numPages);
-  }
   return (
-    <div className="relative h-[40px] w-full flex-1 h-auto bg-red-100 border rounded overflow-hidden" onClick={() => { openPdf(chat.pdfLink) }}>
+    <div className="relative h-min-[62px] w-full flex-1 h-auto shadow-sm border border-gray-100 rounded-lg overflow-hidden" onClick={() => { openPdf(file.pdfLink) }}>
       {/* <iframe
         src={`${pdfUrl}#page=1&view=FitH`}
         title="PDF Preview"
@@ -27,20 +24,20 @@ const Only_Text_PDF = ({ chat }) => {
       {/* Overlay Info */}
       <div className="max-w-full bg-white text-xs p-2 flex justify-between items-center">
         <div className="flex items-center gap-2" >
-          <FaFilePdf style={{ scrollbar: "none" }} className="text-red-400 text-2xl" />
+          <img src={require("../../../assets/icons/icon_pdf.png")} className="h-8 w-min-8 object-contain" />
           <div>
             <p className="font-bold text-black text-sm">
-              {chat.pdfTitle}
+              {file.pdfTitle}
             </p>
             <p className="text-[11px] text-[#585757]">
-              📄 {numPages || "..."} pages • 📦 {fileSize || "..."}
+              📄 {numPages || "..."} pages •  {fileSize || "..."}
             </p>
           </div>
         </div>
         <a
-          href={chat.pdfUrl}
+          href={file.pdfLink}
           download
-          className="text-[#37D3E7] hover:text-red-400"
+          className="text-gray-400 hover:text-red-400"
         >
           <GrDownload size={18} />
         </a>
