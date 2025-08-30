@@ -57,6 +57,7 @@ const Video_Text_response = ({ response_data }) => {
           Watch Lecture
         </a>
       </div>
+       
     </div>
   );
 };

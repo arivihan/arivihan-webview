@@ -62,6 +62,13 @@ import { set } from "firebase/database";
 import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
 import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
 import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
+import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
+import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
+import Multi_Model_paper_response from "../components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response";
+import Whatsapp from "../components/instant_guru_classifier/Whatsapp_Query/Whatsapp";
+import Subscription_response from "../components/instant_guru_classifier/Subscription_response/Subscription_response";
+import Question_response from "../components/instant_guru_classifier/Question_response/Question_response";
+
 
 const response_data=
   {
@@ -350,7 +357,13 @@ const InstantGuruUIDev = () => {
        {/* THE RESPONSIVE DATA */}
        {/* <Only_Text_Response   response_data={response_data.value}/> */}
        {/* <PDF_container_response respose_data={response_data.value} /> */}
-       <Video_Text_response response_data={response_data}/>
+       {/* <Video_Text_response response_data={response_data}/> */}
+       {/* <Multi_Video_response/> */}
+       {/* <Model_paper_response/> */}
+       {/* <Multi_Model_paper_response/> */}
+       {/* <Whatsapp/> */}
+       {/* <Subscription_response/> */}
+       {/* <Question_response/> */ }
        {/* THE RESPONSIVE DATA */}
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />

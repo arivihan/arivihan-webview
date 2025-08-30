@@ -21,12 +21,12 @@ const Video_componenet = ({response_data}) => {
         }
       };
   return (
-     <div className="relative h-[23vh] p-2 shadow-md rounded overflow-hidden">
+     <div className="relative h-[30vh] p-2 shadow-md rounded overflow-hidden">
         {/* Video */}
         <video
           ref={videoRef}
           src={response_data?.videoLink}
-          className="w-full h-[70%] rounded object-cover"
+          className="w-full h-[80%] rounded object-cover"
           playsInline
           poster={response_data?.thumbnailUrl}
           onWaiting={() => setLoading(true)}
@@ -38,7 +38,7 @@ const Video_componenet = ({response_data}) => {
         {!isPlaying && (
           <div
             onClick={handlePlay}
-            className="absolute left-[50%] translate-x-[-50%] inset-0 h-[65%] w-[95%] top-[35%] rounded translate-y-[-50%] bg-black/50 p-2 flex flex-col items-center justify-center cursor-pointer"
+            className="absolute left-[50%] translate-x-[-50%] inset-0 h-[75%] w-[95%] top-[40%] rounded translate-y-[-50%] bg-black/50 p-2 flex flex-col items-center justify-center cursor-pointer"
           >
             {loading ? (
               <p className="text-white font-bold">Please wait, video is loading...</p>
