@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   bottomSuggestedQuestion,
   callClassifier,
@@ -59,6 +60,59 @@ import { Tooltip } from 'react-tooltip';
 import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubble";
 import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
+import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
+import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
+import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
+import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
+import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
+import Multi_Model_paper_response from "../components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response";
+import Whatsapp from "../components/instant_guru_classifier/Whatsapp_Query/Whatsapp";
+import Subscription_response from "../components/instant_guru_classifier/Subscription_response/Subscription_response";
+import Question_response from "../components/instant_guru_classifier/Question_response/Question_response";
+
+
+ 
+ 
+
+const response_data=
+  {
+    "userQuery": "electric potential and capacitor ke lecture chahiye",
+    "cardType": "CardType.FULLCARD",
+    "sectionType": "SectionType.LECTURE",
+    "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+    "displayTitle": "Electric Potential and Capacitance",
+    "displaySubtitle": null,
+    "actionButtonText": "View Lectures",
+    "redirectLink": null,
+    "deepLink": null,
+    duration:"30s",
+    "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
+    "descriptionHtml": `
+            <ul style="list-style-type: disc; margin-left: 20px;">
+              <li><b>Introduction to Newton's Laws</b> – These laws basically tell about motion</li>
+              <li><b>Second Law</b> – Force = mass × acceleration</li>
+              <li><b>Third Law</b> – Every action has an equal and opposite reaction</li>
+            </ul>
+`,
+    "clickableElements": {
+      "thumbnail": true,
+      "title": true,
+      "subtitle": false,
+      "link": false
+    },
+    "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
+    "navigationParams": {
+      "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+      "NotesPdfUrl": "https://dm80t6147awlm.cloudfront.net/2025_BOARD/MP_BOARD_2025/HINDI_MEDIUM/PHYSICS/EPC/EPCML1notes_compressed.pdf",
+      "chapterName": "Electric Potential and Capacitance",
+      "chapterId": "PHYIMPHINEPC",
+      "selectedSubject": "Physics"
+    },
+    "pdfLink": null,
+    "subscriptionType": null,
+    "videoLink": "https://youtu.be/LmEsoQEg9Bg?si=cGWA-k6sEUrMKvox",
+    "position": null
+  }
 
 
 
@@ -93,7 +147,23 @@ const InstantGuruUIDev = () => {
       return;
     }
     openFilePicker();
-  }
+  } 
+  const messages = [
+"Instant help, easy solutions, and no more Learning Roadblocks.",
+"Clear explanations that save your time during exam prep.",
+"Important questions picked and explained for quick revision.",
+"Get smarter with every swipe — simple and effective learning!",
+];
+  
+const [index, setIndex] = useState(0);
+
+
+useEffect(() => {
+const interval = setInterval(() => {
+setIndex((prev) => (prev + 1) % messages.length);
+}, 4000); // 3 sec hold + 1 sec animation
+return () => clearInterval(interval);
+}, []);
 
   window.processCroppedImage = (base64Image) => {
     if (base64Image) {
@@ -263,8 +333,8 @@ const InstantGuruUIDev = () => {
     chatContainer.scrollTop = chatContainer.scrollHeight + 800;
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
-
- 
+  
+  
 
   return (
     <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
@@ -278,6 +348,9 @@ const InstantGuruUIDev = () => {
         />
         <img id="open-drawer-btn" src={require("../assets/icons/icon_menu_home.png")} className="w-7" onClick={() => { openDrawer() }} />
         <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
+
+
+        
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
           {/* <Lottie
             loop
@@ -301,8 +374,17 @@ const InstantGuruUIDev = () => {
           {t("newChat")}
         </button> */}
       </div>
-
-
+       {/* THE RESPONSIVE DATA */}
+       {/* <Only_Text_Response   response_data={response_data.value}/> */}
+       {/* <PDF_container_response respose_data={response_data.value} /> */}
+       <Video_Text_response response_data={response_data}/>
+       {/* <Multi_Video_response/> */}
+       {/* <Model_paper_response/> */}
+       {/* <Multi_Model_paper_response/> */}
+       {/* <Whatsapp/> */}
+       {/* <Subscription_response/> */}
+       {/* <Question_response/> */ }
+       {/* THE RESPONSIVE DATA */}
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />
       }
@@ -381,19 +463,33 @@ const InstantGuruUIDev = () => {
         })}
 
         {showDoubtChatLoader.value === true ? (
-          <div className="flex items-center mt-6">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center mt-6">
             <img
               src={require("../assets/icons/icon_chat_avatar.png")}
               className="h-[40px] w-[40px] object-contain mr-2"
             />
-            <PulseLoader
+            <p className=" text-[#37D3E7]"><b>Instant Guru</b></p>
+            {/* <PulseLoader
               color="#26c6da"
               loading={true}
               size={10}
               aria-label="Loading Spinner"
               data-testid="loader"
-            />
+            /> */}
+          </div > 
+           <div className="flex gap-2 items-center">
+            <PulseLoader
+              color="#26c6da"
+              loading={true}
+              size={7}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            /> 
+            <p style={{lineHeight:1}} className="text-sm font-semibold">Answer Jaldi aa raha hai, tab tak ye <br /> padhein...</p>
+           </div>
           </div>
+          
         ) : null}
 
         {
@@ -401,7 +497,7 @@ const InstantGuruUIDev = () => {
         }
 
       </div>
-
+  
       {
         (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
@@ -428,16 +524,45 @@ const InstantGuruUIDev = () => {
                   scrollToBottom();
                   saveDoubtChat(item.title, question.answer);
                 }}
-                  key={index} className="white-space-nowrap bg-primary/5 p-2 rounded rounded-lg mx-1 flex-shrink-0">
+                  key={index} className="white-space-nowrap bg-primary/5 p-2 rounded-lg mx-1 flex-shrink-0">
                   <p className="text-sm">{item.title}</p>
                 </div>
               )
             })
           }
         </div>
-      }
+      } 
+
+      {/* the new crousal comtainer  */}
+     {/* <div className="w-[96%] absolute bottom-24 py-2 px-4">
+<p className=" font-bold">Important 1 marks questions</p>
+<div className="border-[#DFE6EC] gap-2 flex justify-center  py-2 px-1 mt-2 border w-full h-[10vh] rounded-xl overflow-hidden"> */}
+{/* Static Image */}
+{/* <div className="w-[5vw] h-[5vw] flex-shrink-0">
+<img className="w-full h-full object-cover" src="/quotes1.png" alt="quote" />
+</div> */}
 
 
+{/* Dynamic Text Carousel */}
+{/* <div className="w-[90%] relative overflow-hidden h-full flex ">
+    <AnimatePresence mode="wait">
+      <motion.p
+      key={index}
+      className="font-semibold text-sm"
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "-100%", opacity: 0 }}
+      transition={{ duration: 1 }}
+      >
+      {messages[index]}
+      </motion.p>
+      </AnimatePresence>
+      </div>
+    </div>
+</div> */}
+      {/* the new crousal comtainer  */}
+
+        
       <div className="h-[94px] w-full flex items-center justify-center px-4">
         <div className="border border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip

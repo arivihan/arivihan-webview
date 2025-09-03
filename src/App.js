@@ -24,6 +24,7 @@ let initialData = {
 function App() {
 
 
+  
 
   return (
     <MathJaxContext
@@ -52,7 +53,8 @@ function App() {
           <Route path="/app-metrices/lecture" Component={LectureMetricesScreen} />
           <Route path="/app-metrices/todo-list" Component={TodoListScreen} />
           <Route path="/app-metrices/:type" Component={AppMetricesScreen} />
-
+          
+           
           <Route path="/instant-guru-prod" element={<InstantGuruUIProd />} />
           <Route path="/instant-guru-dev" element={<InstantGuruUIDev />} />
 
