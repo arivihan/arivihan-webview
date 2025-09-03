@@ -377,7 +377,7 @@ return () => clearInterval(interval);
        {/* THE RESPONSIVE DATA */}
        {/* <Only_Text_Response   response_data={response_data.value}/> */}
        {/* <PDF_container_response respose_data={response_data.value} /> */}
-       {/* <Video_Text_response response_data={response_data}/> */}
+       <Video_Text_response response_data={response_data}/>
        {/* <Multi_Video_response/> */}
        {/* <Model_paper_response/> */}
        {/* <Multi_Model_paper_response/> */}
@@ -534,17 +534,17 @@ return () => clearInterval(interval);
       } 
 
       {/* the new crousal comtainer  */}
-     <div className="w-[96%] absolute bottom-24 py-2 px-4">
+     {/* <div className="w-[96%] absolute bottom-24 py-2 px-4">
 <p className=" font-bold">Important 1 marks questions</p>
-<div className="border-[#DFE6EC] gap-2 flex justify-center  py-2 px-1 mt-2 border w-full h-[10vh] rounded-xl overflow-hidden">
+<div className="border-[#DFE6EC] gap-2 flex justify-center  py-2 px-1 mt-2 border w-full h-[10vh] rounded-xl overflow-hidden"> */}
 {/* Static Image */}
-<div className="w-[5vw] h-[5vw] flex-shrink-0">
+{/* <div className="w-[5vw] h-[5vw] flex-shrink-0">
 <img className="w-full h-full object-cover" src="/quotes1.png" alt="quote" />
-</div>
+</div> */}
 
 
 {/* Dynamic Text Carousel */}
-<div className="w-[90%] relative overflow-hidden h-full flex ">
+{/* <div className="w-[90%] relative overflow-hidden h-full flex ">
     <AnimatePresence mode="wait">
       <motion.p
       key={index}
@@ -559,7 +559,7 @@ return () => clearInterval(interval);
       </AnimatePresence>
       </div>
     </div>
-</div>
+</div> */}
       {/* the new crousal comtainer  */}
 
         
