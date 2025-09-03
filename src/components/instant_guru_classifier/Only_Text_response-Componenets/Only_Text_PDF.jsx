@@ -29,9 +29,9 @@ const Only_Text_PDF = ({ file }) => {
             <p className="font-bold text-black text-sm">
               {file.pdfTitle}
             </p>
-            <p className="text-[11px] text-[#585757]">
+            {/* <p className="text-[11px] text-[#585757]">
               📄 {numPages || "..."} pages •  {fileSize || "..."}
-            </p>
+            </p> */}
           </div>
         </div>
         <a

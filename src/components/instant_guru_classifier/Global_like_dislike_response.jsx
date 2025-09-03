@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
+import { chatResponseFeedback } from "../../utils/instantGuruUtilsDev";
 
-const Global_like_dislike_response = () => {
+const Global_like_dislike_response = ({ chat }) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
 
   const handleLike = () => {
+    chatResponseFeedback(chat.responseId, true)
     setLiked(!liked);
     if (!liked && disliked) setDisliked(false); // agar dislike pehle se active h to remove
   };
 
   const handleDislike = () => {
+    chatResponseFeedback(chat.responseId, false)
+
     setDisliked(!disliked);
     if (!disliked && liked) setLiked(false); // agar like pehle se active h to remove
   };

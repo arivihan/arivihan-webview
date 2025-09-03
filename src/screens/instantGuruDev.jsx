@@ -241,7 +241,7 @@ const InstantGuruUIDev = () => {
       showToast(t("waiting_for_response"));
       return;
     }
-    if (doubtText.value.split(" ").length > 2 || isStepWiseSolution.value === true) {
+    if (doubtText.value.trim().split(" ").length > 2 || isStepWiseSolution.value === true) {
       suggestedDoubtAsked.value = true;
       chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%]'><p>${doubtText}</p></div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
@@ -384,7 +384,7 @@ const InstantGuruUIDev = () => {
           }
 
           return (
-            <div className="flex flex-col items-start gap-4 w-full" key={hIndex}>
+            <div className="flex flex-col items-start gap-4 w-full text-[15px] text font-medium " key={hIndex}>
               {(hIndex != indexOfOptionSelection.value + 1) && chat.userQuery !== undefined &&
                 chat.userQuery !== null &&
                 chat.userQuery !== "" ? (
@@ -400,7 +400,7 @@ const InstantGuruUIDev = () => {
                   </div>
                 ) : (
                   <div className="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%]">
-                    <p className="text-sm">{chat.userQuery}</p>
+                    <p className="text-sm break-all">{chat.userQuery}</p>
                   </div>
                 )
               ) : null}
@@ -429,13 +429,17 @@ const InstantGuruUIDev = () => {
                 <TextOptionBubble chat={chat} chatIndex={hIndex} />
               }
 
-
               {
-                chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML")
+                chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML" || chat.responseType === "HTML_LINKS")
                 &&
                 <Only_Text_Response chat={chat} />
               }
-              {/* {botResponse: 'Electric Charges And Fields ke toppers notes dekhne ke liye ', responseType: 'HTML_PDF', pdfTitle: "This is test tile", pdfLink: 'https://d26ziiio1s8scf.cloudfront.net/NOTES/ENGLIS…RESSED/CHAPTER-01 Electric Charges and Fields.pdf', showBotAvatar: true, userQuery: ''} */}
+
+              {
+                chat.responseType === "HTML_LINKS"
+                &&
+                <Only_Text_Response chat={chat} />
+              }
 
               {
                 chat.responseType !== null && chat.responseType !== "" && (chat.responseType === "HTML_PDF")
@@ -449,17 +453,12 @@ const InstantGuruUIDev = () => {
                 <Only_Text_button chat={chat} />
               }
 
-
               {
                 chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.FULLCARD"
                 &&
                 <Video_Text_response chat={chat} chatIndex={hIndex} />
               }
 
-
-              {/* THE RESPONSIVE DATA */}
-              {/* <PDF_container_response chat={chat} chatIndex={hIndex} /> */}
-              {/* THE RESPONSIVE DATA */}
 
             </div>
           );

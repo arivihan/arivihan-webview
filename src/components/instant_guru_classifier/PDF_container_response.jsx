@@ -82,7 +82,7 @@ const PDF_container_response = ({ chat }) => {
           onLoadSuccess={onDocumentLoadSuccess}
         ></Document>
       </div> */}
-      <Global_like_dislike_response />
+      <Global_like_dislike_response chat={chat} />
     </div>
   );
 };

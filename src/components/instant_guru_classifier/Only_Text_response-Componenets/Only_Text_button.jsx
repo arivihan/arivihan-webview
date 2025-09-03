@@ -9,10 +9,10 @@ const Only_Text_button = ({ chat }) => {
       <div className='text-[14px]' dangerouslySetInnerHTML={{ __html: chat.botResponse }}></div>
       <div className='flex items-center my-2 justify-center gap-2 bg-[#37D3E7] px-3 py-2 rounded-full' onClick={() => openAppActivity(chat.screenClassName, chat.navigationParams)}>
         <p className='text-white'>Lecture Dekhein</p>
-        <span className='text-white font-bold'>< RiShareBoxFill /></span>
+        <span className='text-white font-bold'><RiShareBoxFill /></span>
       </div>
       <hr className='pt-0' />
-      <Global_like_dislike_response />
+      <Global_like_dislike_response chat={chat} />
     </div>
   )
 }

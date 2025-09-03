@@ -317,7 +317,7 @@ export function chatClassifier(message) {
     "requestType": "HTML",
     "subjectName": urlParams.get("subjectName"),
     "subscriptionStatus": "subscribed",
-    "userName": "aditya",
+    "userName": urlParams.get("username"),
     "userQuery": message,
     "chatSessionId": chatSessionId.value
   }))
@@ -352,7 +352,7 @@ export function chatClassifier(message) {
       if (data[0].sectionType === "SectionType.SUBJECT_RELATED") {
         isFirstDoubt.value = true;
         postNewChat(message);
-      } else if (data[0].sectionType === "SectionType.FAQ") {
+      } else if (data[0].sectionType === "SectionType.FAQ" || data[0].sectionType === "SectionType.CONVERSATION_BASED") {
         chatHistory.value = [...chatHistory.value, {
           "botResponse": data[0].bigtext,
           "responseType": "HTML",
@@ -426,6 +426,14 @@ export function chatClassifier(message) {
           "subtitle": data[0].displaySubtitle,
           "showBotAvatar": true,
           "userQuery": ""
+        }]
+      } else if (data[0].sectionType === "SectionType.PYQ") {
+        chatHistory.value = [...chatHistory.value, {
+          "botResponse": data[0].bigtext,
+          "responseType": "HTML_LINKS",
+          "showBotAvatar": true,
+          "userQuery": "",
+          "redirectLink": data[0].redirectLink
         }]
       }
       // if (data[0].sectionType === "SectionType.OPEN_WHATSAPP")

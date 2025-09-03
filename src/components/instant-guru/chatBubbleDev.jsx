@@ -36,7 +36,7 @@ export const TextOptionBubble = ({ chat, chatIndex, fullWidth = true }) => {
                 />
             ) : <div className="h-[40px] w-[40px] mr-2"></div>} */}
             {/*  */}
-            <div className={`flex flex-col py-2  mr-auto text-sm rounded-lg ${fullWidth ? 'w-full' : 'w-1/2'}`}>
+            <div className={`text-[15px] text-medium flex flex-col py-2  mr-auto text-sm rounded-lg ${fullWidth ? 'w-full' : 'w-1/2'}`}>
                 <p className="mb-1" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>") ?? t("chooseTypeOfSolution") }}></p>
                 <div className="flex flex-col mr-auto">
                     {chat.optionResponse.map((option, index) => {
