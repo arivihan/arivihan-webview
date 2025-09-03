@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   bottomSuggestedQuestion,
   callClassifier,
@@ -36,7 +37,6 @@ import {
   openFilePicker,
   openMicInput,
   openNewChat,
-  openPdf,
   openVideo,
   postNewChat,
   saveDoubtChat,
@@ -57,53 +57,62 @@ import OpenWhatsAppSheet from "../components/openWhatsappSheet";
 import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie-player";
 import { Tooltip } from 'react-tooltip';
-import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
+import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubble";
 import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
-import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
-import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
-import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
-import Only_Text_button from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_button";
+// import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
+// import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
+// import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
+// import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
+// import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
+// import Multi_Model_paper_response from "../components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response";
+// import Whatsapp from "../components/instant_guru_classifier/Whatsapp_Query/Whatsapp";
+// import Subscription_response from "../components/instant_guru_classifier/Subscription_response/Subscription_response";
+// import Question_response from "../components/instant_guru_classifier/Question_response/Question_response";
 
-const response_data =
-{
-  "userQuery": "electric potential and capacitor ke lecture chahiye",
-  "cardType": "CardType.FULLCARD",
-  "sectionType": "SectionType.LECTURE",
-  "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
-  "displayTitle": "Electric Potential and Capacitance",
-  "displaySubtitle": null,
-  "actionButtonText": "View Lectures",
-  "redirectLink": null,
-  "deepLink": null,
-  duration: "30s",
-  "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
-  "descriptionHtml": `
+import quotes1 from "../assets/quotes1.png"
+ 
+ 
+
+const response_data=
+  {
+    "userQuery": "electric potential and capacitor ke lecture chahiye",
+    "cardType": "CardType.FULLCARD",
+    "sectionType": "SectionType.LECTURE",
+    "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+    "displayTitle": "Electric Potential and Capacitance",
+    "displaySubtitle": null,
+    "actionButtonText": "View Lectures",
+    "redirectLink": null,
+    "deepLink": null,
+    duration:"30s",
+    "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
+    "descriptionHtml": `
             <ul style="list-style-type: disc; margin-left: 20px;">
               <li><b>Introduction to Newton's Laws</b> – These laws basically tell about motion</li>
               <li><b>Second Law</b> – Force = mass × acceleration</li>
               <li><b>Third Law</b> – Every action has an equal and opposite reaction</li>
             </ul>
 `,
-  "clickableElements": {
-    "thumbnail": true,
-    "title": true,
-    "subtitle": false,
-    "link": false
-  },
-  "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
-  "navigationParams": {
-    "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
-    "NotesPdfUrl": "https://dm80t6147awlm.cloudfront.net/2025_BOARD/MP_BOARD_2025/HINDI_MEDIUM/PHYSICS/EPC/EPCML1notes_compressed.pdf",
-    "chapterName": "Electric Potential and Capacitance",
-    "chapterId": "PHYIMPHINEPC",
-    "selectedSubject": "Physics"
-  },
-  "pdfLink": null,
-  "subscriptionType": null,
-  "videoLink": "https://youtu.be/LmEsoQEg9Bg?si=cGWA-k6sEUrMKvox",
-  "position": null
-}
+    "clickableElements": {
+      "thumbnail": true,
+      "title": true,
+      "subtitle": false,
+      "link": false
+    },
+    "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
+    "navigationParams": {
+      "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+      "NotesPdfUrl": "https://dm80t6147awlm.cloudfront.net/2025_BOARD/MP_BOARD_2025/HINDI_MEDIUM/PHYSICS/EPC/EPCML1notes_compressed.pdf",
+      "chapterName": "Electric Potential and Capacitance",
+      "chapterId": "PHYIMPHINEPC",
+      "selectedSubject": "Physics"
+    },
+    "pdfLink": null,
+    "subscriptionType": null,
+    "videoLink": "https://youtu.be/LmEsoQEg9Bg?si=cGWA-k6sEUrMKvox",
+    "position": null
+  }
 
 
 
@@ -138,7 +147,23 @@ const InstantGuruUIDev = () => {
       return;
     }
     openFilePicker();
-  }
+  } 
+  const messages = [
+"Instant help, easy solutions, and no more Learning Roadblocks.",
+"Clear explanations that save your time during exam prep.",
+"Important questions picked and explained for quick revision.",
+"Get smarter with every swipe — simple and effective learning!",
+];
+  
+const [index, setIndex] = useState(0);
+
+
+useEffect(() => {
+const interval = setInterval(() => {
+setIndex((prev) => (prev + 1) % messages.length);
+}, 4000); // 3 sec hold + 1 sec animation
+return () => clearInterval(interval);
+}, []);
 
   window.processCroppedImage = (base64Image) => {
     if (base64Image) {
@@ -241,13 +266,13 @@ const InstantGuruUIDev = () => {
       showToast(t("waiting_for_response"));
       return;
     }
-    if (doubtText.value.trim().split(" ").length > 2 || isStepWiseSolution.value === true) {
+    if (doubtText.value.split(" ").length > 2 || isStepWiseSolution.value === true) {
       suggestedDoubtAsked.value = true;
       chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%]'><p>${doubtText}</p></div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
-      if ((chatType.value === null || chatType.value !== "SectionType.SUBJECT_RELATED") && callClassifier.value == true) {
+      if ((chatType.value === null || chatType.value !== "subject_based") && callClassifier.value == true) {
         chatClassifier(doubtText.value);
-      } else if (chatType.value === "SectionType.SUBJECT_RELATED") {
+      } else if (chatType.value === "subject_based") {
         postNewChat(doubtText.value);
       }
       lastUserQuestion.value = doubtText.value;
@@ -308,8 +333,8 @@ const InstantGuruUIDev = () => {
     chatContainer.scrollTop = chatContainer.scrollHeight + 800;
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
-
-
+  
+  
 
   return (
     <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
@@ -325,7 +350,7 @@ const InstantGuruUIDev = () => {
         <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
 
 
-
+        
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
           {/* <Lottie
             loop
@@ -349,7 +374,17 @@ const InstantGuruUIDev = () => {
           {t("newChat")}
         </button> */}
       </div>
-
+       {/* THE RESPONSIVE DATA */}
+       {/* <Only_Text_Response   response_data={response_data.value}/> */}
+       {/* <PDF_container_response respose_data={response_data.value} /> */}
+       {/* <Video_Text_response response_data={response_data}/> */}
+       {/* <Multi_Video_response/> */}
+       {/* <Model_paper_response/> */}
+       {/* <Multi_Model_paper_response/> */}
+       {/* <Whatsapp/> */}
+       {/* <Subscription_response/> */}
+       {/* <Question_response/> */ }
+       {/* THE RESPONSIVE DATA */}
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />
       }
@@ -363,7 +398,7 @@ const InstantGuruUIDev = () => {
       }
 
       <div
-        className={`p-4 overflow-y-auto  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col items-start scroll-smooth gap-4`}
+        className={`p-4 overflow-y-auto  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
         id="chat-container"
       >
 
@@ -384,7 +419,7 @@ const InstantGuruUIDev = () => {
           }
 
           return (
-            <div className="flex flex-col items-start gap-4 w-full text-[15px] text font-medium " key={hIndex}>
+            <div className="flex flex-col gap-4 w-full" key={hIndex}>
               {(hIndex != indexOfOptionSelection.value + 1) && chat.userQuery !== undefined &&
                 chat.userQuery !== null &&
                 chat.userQuery !== "" ? (
@@ -400,7 +435,7 @@ const InstantGuruUIDev = () => {
                   </div>
                 ) : (
                   <div className="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%]">
-                    <p className="text-sm break-all">{chat.userQuery}</p>
+                    <p className="text-sm">{chat.userQuery}</p>
                   </div>
                 )
               ) : null}
@@ -420,10 +455,10 @@ const InstantGuruUIDev = () => {
                   null
               }
 
-              {/* <TextOptionBubble chat={chat} chatIndex={hIndex} />
-<HTMLResponseBubble chat={chat} chatIndex={hIndex} /> */}
+              <TextOptionBubble chat={chat} chatIndex={hIndex} />
+              {/* <HTMLResponseBubble chat={chat} chatIndex={hIndex} /> */}
 
-              {
+               {
                 chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && chat.optionResponse !== undefined && chat.optionResponse !== null
                 &&
                 <TextOptionBubble chat={chat} chatIndex={hIndex} />
@@ -447,45 +482,93 @@ const InstantGuruUIDev = () => {
                 <PDF_container_response chat={chat} chatIndex={hIndex} />
               }
 
-              {
-                chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.ACTIVITY"
-                &&
-                <Only_Text_button chat={chat} />
-              }
-
-              {
-                chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.FULLCARD"
-                &&
-                <Video_Text_response chat={chat} chatIndex={hIndex} />
-              }
-
-
             </div>
           );
         })}
 
-        {showDoubtChatLoader.value === true ? (
-          <div className="flex items-center mt-6">
-            <img
-              src={require("../assets/icons/icon_chat_avatar.png")}
-              className="h-[32px] w-[32px] object-contain mr-2"
+{/* Loader + Important Questions block */}
+{showDoubtChatLoader.value === true ? (
+  <div className="flex flex-col gap-2">
+    <div className="flex items-center mt-6">
+      <img
+        src={require("../assets/icons/icon_chat_avatar.png")}
+        className="h-[40px] w-[40px] object-contain mr-2"
+      />
+      <p className=" text-[#37D3E7]"><b>Instant Guru</b></p>
+    </div>
+
+    <div className="flex gap-2 items-center">
+      <PulseLoader
+        color="#26c6da"
+        loading={true}
+        size={7}
+        aria-label="Loading Spinner"
+        data-testid="loader"
+      />
+      <p style={{ lineHeight: 1 }} className="text-sm font-semibold">
+        Answer Jaldi aa raha hai, tab tak ye <br /> padhein...
+      </p>
+    </div>
+
+    {/* ⬇️ Important 1 marks questions block (sirf jab loader active ho) */}
+    <div className="w-full mt-[35vh] flex flex-col justify-end">
+  <p className=" font-bold">Important 1 marks questions</p>
+
+  <div className="border-[#DFE6EC] gap-2 flex justify-center py-1 px-1 mt-2 border w-full h-[10vh] rounded-xl overflow-hidden">
+    {/* Static Image */}
+    <div className="w-[25px] h-[25px]  flex-shrink-0">
+      <img
+        className="w-full h-full object-cover"
+        src={quotes1}
+        alt="quote"
+      />
+    </div>
+
+    {/* Dynamic Text Carousel */}
+    <div className="w-[95%] relative overflow-hidden py-1 h-full flex flex-col justify-between">
+      <AnimatePresence mode="wait">
+        <motion.p
+          key={index}
+          className="font-bold text-sm"
+          initial={{ x: "100%", opacity: 0 }}
+          animate={{ x: 0, opacity: 1 }}
+          exit={{ x: "-100%", opacity: 0 }}
+          transition={{ duration: 1 }}
+        >
+          {messages[index]}
+        </motion.p>
+      </AnimatePresence>
+
+      {/* Fixed 5 Dots Pagination */}
+      {/* <div className="flex  items-center justify-center mt-2 gap-2">
+        {[...Array(5)].map((_, i) => {
+          const activeIndex = index % 5; // active dot calculation
+          return (
+            <div
+              key={i}
+              className={`h-2 rounded-full transition-all duration-300 ${
+                activeIndex === i
+                  ? "bg-[#26c6da] w-6"
+                  : "bg-gray-300 w-2"
+              }`}
             />
-            <PulseLoader
-              color="#26c6da"
-              loading={true}
-              size={8}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
-          </div>
-        ) : null}
+          );
+        })}
+      </div> */}
+    </div>
+  </div>
+</div>
+
+  </div>
+) : null}
+
 
         {
           showChatLoadShimmer.value === true && <ChatLoadShimmer />
         }
 
       </div>
-
+  
       {
         (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
@@ -512,17 +595,21 @@ const InstantGuruUIDev = () => {
                   scrollToBottom();
                   saveDoubtChat(item.title, question.answer);
                 }}
-                  key={index} className="white-space-nowrap bg-primary/5 p-2 rounded rounded-lg mx-1 flex-shrink-0">
+                  key={index} className="white-space-nowrap bg-primary/5 p-2 rounded-lg mx-1 flex-shrink-0">
                   <p className="text-sm">{item.title}</p>
                 </div>
               )
             })
           }
         </div>
-      }
+      } 
 
+      {/* the new crousal comtainer  */}
+  
+      {/* the new crousal comtainer  */}
 
-      <div className="h-[94px] w-full flex items-center justify-center px-4">
+        
+      <div className="h-[74px] w-full flex items-center justify-center px-4">
         <div className="border border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip
             content={t("type_your_question")}
