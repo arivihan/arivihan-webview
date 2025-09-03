@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   bottomSuggestedQuestion,
   callClassifier,
@@ -69,6 +70,9 @@ import Whatsapp from "../components/instant_guru_classifier/Whatsapp_Query/Whats
 import Subscription_response from "../components/instant_guru_classifier/Subscription_response/Subscription_response";
 import Question_response from "../components/instant_guru_classifier/Question_response/Question_response";
 
+
+ 
+ 
 
 const response_data=
   {
@@ -143,7 +147,23 @@ const InstantGuruUIDev = () => {
       return;
     }
     openFilePicker();
-  }
+  } 
+  const messages = [
+"Instant help, easy solutions, and no more Learning Roadblocks.",
+"Clear explanations that save your time during exam prep.",
+"Important questions picked and explained for quick revision.",
+"Get smarter with every swipe — simple and effective learning!",
+];
+  
+const [index, setIndex] = useState(0);
+
+
+useEffect(() => {
+const interval = setInterval(() => {
+setIndex((prev) => (prev + 1) % messages.length);
+}, 4000); // 3 sec hold + 1 sec animation
+return () => clearInterval(interval);
+}, []);
 
   window.processCroppedImage = (base64Image) => {
     if (base64Image) {
@@ -313,8 +333,8 @@ const InstantGuruUIDev = () => {
     chatContainer.scrollTop = chatContainer.scrollHeight + 800;
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
-
- 
+  
+  
 
   return (
     <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
@@ -443,19 +463,33 @@ const InstantGuruUIDev = () => {
         })}
 
         {showDoubtChatLoader.value === true ? (
-          <div className="flex items-center mt-6">
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center mt-6">
             <img
               src={require("../assets/icons/icon_chat_avatar.png")}
               className="h-[40px] w-[40px] object-contain mr-2"
             />
-            <PulseLoader
+            <p className=" text-[#37D3E7]"><b>Instant Guru</b></p>
+            {/* <PulseLoader
               color="#26c6da"
               loading={true}
               size={10}
               aria-label="Loading Spinner"
               data-testid="loader"
-            />
+            /> */}
+          </div > 
+           <div className="flex gap-2 items-center">
+            <PulseLoader
+              color="#26c6da"
+              loading={true}
+              size={7}
+              aria-label="Loading Spinner"
+              data-testid="loader"
+            /> 
+            <p style={{lineHeight:1}} className="text-sm font-semibold">Answer Jaldi aa raha hai, tab tak ye <br /> padhein...</p>
+           </div>
           </div>
+          
         ) : null}
 
         {
@@ -490,14 +524,43 @@ const InstantGuruUIDev = () => {
                   scrollToBottom();
                   saveDoubtChat(item.title, question.answer);
                 }}
-                  key={index} className="white-space-nowrap bg-primary/5 p-2 rounded rounded-lg mx-1 flex-shrink-0">
+                  key={index} className="white-space-nowrap bg-primary/5 p-2 rounded-lg mx-1 flex-shrink-0">
                   <p className="text-sm">{item.title}</p>
                 </div>
               )
             })
           }
         </div>
-      }
+      } 
+
+      {/* the new crousal comtainer  */}
+     <div className="w-[96%] absolute bottom-24 py-2 px-4">
+<p className=" font-bold">Important 1 marks questions</p>
+<div className="border-[#DFE6EC] gap-2 flex justify-center  py-2 px-1 mt-2 border w-full h-[10vh] rounded-xl overflow-hidden">
+{/* Static Image */}
+<div className="w-[5vw] h-[5vw] flex-shrink-0">
+<img className="w-full h-full object-cover" src="/quotes1.png" alt="quote" />
+</div>
+
+
+{/* Dynamic Text Carousel */}
+<div className="w-[90%] relative overflow-hidden h-full flex ">
+    <AnimatePresence mode="wait">
+      <motion.p
+      key={index}
+      className="font-semibold text-sm"
+      initial={{ x: "100%", opacity: 0 }}
+      animate={{ x: 0, opacity: 1 }}
+      exit={{ x: "-100%", opacity: 0 }}
+      transition={{ duration: 1 }}
+      >
+      {messages[index]}
+      </motion.p>
+      </AnimatePresence>
+      </div>
+    </div>
+</div>
+      {/* the new crousal comtainer  */}
 
         
       <div className="h-[94px] w-full flex items-center justify-center px-4">
