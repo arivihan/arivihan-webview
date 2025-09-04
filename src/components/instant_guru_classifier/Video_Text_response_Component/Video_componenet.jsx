@@ -32,7 +32,7 @@ const Video_componenet = ({ chat }) => {
     <div className="relative  w-[100%] bg-white shadow-md rounded-[10px] border overflow-hidden">
       {/* Video */}
 
-      <div className="w-[95%] relative mt-2 ml-2 overflow-hidden rounded-[10px]">
+      <div className="w-[95%] h-[140px] relative mt-2 ml-2 overflow-hidden rounded-[10px]">
         <div className="w-full h-full absolute top-0 left-0  bg-black/30"></div>
         <img src={chat.thumbnailUrl} className="h-full w-full rounded-[10px] object-cover" />
       </div>
