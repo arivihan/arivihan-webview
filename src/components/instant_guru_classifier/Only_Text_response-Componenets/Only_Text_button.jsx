@@ -2,8 +2,9 @@ import React from 'react'
 import { RiShareBoxFill } from 'react-icons/ri'
 import Global_like_dislike_response from '../Global_like_dislike_response'
 import { openAppActivity } from '../../../utils/instantGuruUtilsDev'
+import { chatHistory } from '../../../state/instantGuruState'
 
-const Only_Text_button = ({ chat }) => {
+const Only_Text_button = ({ chat, chatIndex }) => {
   return (
     <div className='w-full flex flex-col items-start'>
       <div className="flex items-center gap-2 mb-2">
@@ -15,14 +16,19 @@ const Only_Text_button = ({ chat }) => {
         </div>
         <p className="font-bold text-sm text-[#37D3E7]">Instant Guru</p>
       </div>
-      
+
       <div className='text-[14px]' dangerouslySetInnerHTML={{ __html: chat.botResponse }}></div>
       <div className='flex items-center my-2 justify-center gap-2 bg-[#37D3E7] px-3 py-2 rounded-full' onClick={() => openAppActivity(chat.screenClassName, chat.navigationParams)}>
-        <p className='text-white'>Lecture Dekhein</p>
+        <p className='text-white'>{chat.actionButtonText}</p>
         <span className='text-white font-bold'><RiShareBoxFill /></span>
       </div>
       <hr className='pt-0' />
-      <Global_like_dislike_response chat={chat} />
+
+      {
+        chat.needFeedback && chatIndex == chatHistory.value.length - 1
+        &&
+        <Global_like_dislike_response chat={chat} />
+      }
     </div>
   )
 }

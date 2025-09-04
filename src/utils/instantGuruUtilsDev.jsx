@@ -374,6 +374,7 @@ export function chatClassifier(message) {
             "videoEndTime": data[0].Video_End_Time,
             "subtitle": data[0].displaySubtitle,
             "showBotAvatar": true,
+            "needFeedback": true,
             "userQuery": ""
           }]
         } else {
@@ -393,7 +394,8 @@ export function chatClassifier(message) {
             "responseType": "HTML_PDF",
             "pdfFiles": pdfUrls,
             "showBotAvatar": true,
-            "userQuery": ""
+            "userQuery": "",
+            "needFeedback": true,
           }]
         }
 
@@ -410,10 +412,11 @@ export function chatClassifier(message) {
           "videoEndTime": data[0].Video_End_Time,
           "subtitle": data[0].displaySubtitle,
           "showBotAvatar": true,
-          "userQuery": ""
+          "userQuery": "",
+          "needFeedback": true,
         }]
 
-        
+
       } else if (data[0].sectionType === "SectionType.ACTIVITY") {
         chatHistory.value = [...chatHistory.value, {
           "botResponse": data[0].bigtext,
@@ -427,7 +430,8 @@ export function chatClassifier(message) {
           "videoEndTime": data[0].Video_End_Time,
           "subtitle": data[0].displaySubtitle,
           "showBotAvatar": true,
-          "userQuery": ""
+          "userQuery": "",
+          "needFeedback": true,
         }]
       } else if (data[0].sectionType === "SectionType.PYQ") {
         chatHistory.value = [...chatHistory.value, {
@@ -435,7 +439,8 @@ export function chatClassifier(message) {
           "responseType": "HTML_LINKS",
           "showBotAvatar": true,
           "userQuery": "",
-          "redirectLink": data[0].redirectLink
+          "redirectLink": data[0].redirectLink,
+          "needFeedback": true
         }]
       }
       // if (data[0].sectionType === "SectionType.OPEN_WHATSAPP")

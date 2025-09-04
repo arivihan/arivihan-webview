@@ -74,49 +74,6 @@ import { TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
 import Only_Text_button from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_button";
 
 
-
-const response_data =
-{
-  "userQuery": "electric potential and capacitor ke lecture chahiye",
-  "cardType": "CardType.FULLCARD",
-  "sectionType": "SectionType.LECTURE",
-  "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
-  "displayTitle": "Electric Potential and Capacitance",
-  "displaySubtitle": null,
-  "actionButtonText": "View Lectures",
-  "redirectLink": null,
-  "deepLink": null,
-  duration: "30s",
-  "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
-  "descriptionHtml": `
-            <ul style="list-style-type: disc; margin-left: 20px;">
-              <li><b>Introduction to Newton's Laws</b> – These laws basically tell about motion</li>
-              <li><b>Second Law</b> – Force = mass × acceleration</li>
-              <li><b>Third Law</b> – Every action has an equal and opposite reaction</li>
-            </ul>
-`,
-  "clickableElements": {
-    "thumbnail": true,
-    "title": true,
-    "subtitle": false,
-    "link": false
-  },
-  "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
-  "navigationParams": {
-    "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
-    "NotesPdfUrl": "https://dm80t6147awlm.cloudfront.net/2025_BOARD/MP_BOARD_2025/HINDI_MEDIUM/PHYSICS/EPC/EPCML1notes_compressed.pdf",
-    "chapterName": "Electric Potential and Capacitance",
-    "chapterId": "PHYIMPHINEPC",
-    "selectedSubject": "Physics"
-  },
-  "pdfLink": null,
-  "subscriptionType": null,
-  "videoLink": "https://youtu.be/LmEsoQEg9Bg?si=cGWA-k6sEUrMKvox",
-  "position": null
-}
-
-
-
 const InstantGuruUIDev = () => {
   useSignals();
   const [listening, setListening] = useState(false);
@@ -409,7 +366,7 @@ const InstantGuruUIDev = () => {
       }
 
       <div
-        className={`p-4 overflow-y-auto  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
+        className={`p-4 overflow-y-auto overflow-x-hidden  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
         id="chat-container"
       >
 
@@ -478,7 +435,7 @@ const InstantGuruUIDev = () => {
               {
                 chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML" || chat.responseType === "HTML_LINKS")
                 &&
-                <Only_Text_Response chat={chat} />
+                <Only_Text_Response chat={chat} chatIndex={hIndex} />
               }
 
               {
@@ -496,7 +453,7 @@ const InstantGuruUIDev = () => {
               {
                 chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.ACTIVITY"
                 &&
-                <Only_Text_button chat={chat} />
+                <Only_Text_button chat={chat} chatIndex={hIndex} />
               }
 
               {
