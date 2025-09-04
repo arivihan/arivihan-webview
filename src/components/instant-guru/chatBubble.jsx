@@ -144,7 +144,7 @@ export const HTMLResponseBubble = ({ chat, chatIndex, fullWidth = true }) => {
                         {/* <MathJax style={{fontFamily:"Noto Sans Devanagari"}} className="overflow-x-auto" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>").replaceAll("**", "") }}>
                         </MathJax> */}
                     </div>
-                    {chat.needFeedback && chatIndex == chatHistory.value.length - 1 ? (
+                    {chat.needFeedbac ? (
                         <div className="flex items-center ml-auto mt-1">
                             <p className="text-[9px] text-gray-500 mr-2">
                                 {t("was_this_helpful")}

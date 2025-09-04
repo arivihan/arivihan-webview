@@ -4,10 +4,12 @@ import { RiShareBoxFill } from "react-icons/ri";
 import { Link } from 'react-router-dom';
 import SmilesRenderer from '../../smileRenderer';
 import ReactDOM from "react-dom/client";
+import Global_like_dislike_response from '../Global_like_dislike_response';
+import { chatHistory } from '../../../state/instantGuruState';
 
 
 
-const Only_Text_response = ({ chat }) => {
+const Only_Text_response = ({ chat, chatIndex }) => {
   const containerRef = useRef(null);
 
   useEffect(() => {
@@ -66,6 +68,14 @@ const Only_Text_response = ({ chat }) => {
           )
         })
       }
+
+
+      {
+        chat.needFeedback && chatIndex == chatHistory.value.length - 1
+        &&
+        <Global_like_dislike_response chat={chat} />
+      }
+
       {/* <div className='mt-3 border shadow-lg rounded-md p-3'>
 
         </div> */}
