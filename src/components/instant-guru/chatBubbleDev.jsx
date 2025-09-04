@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { chatHistory, chatType, isFirstDoubt, showChatLoadShimmer, showDoubtChatLoader, suggestedDoubtAsked, waitingForResponse } from "../../state/instantGuruState";
 import { chatOptionClicked, chatRequestVideo, chatResponseFeedback, openNewChat, saveDoubtChat, scrollToBottom } from "../../utils/instantGuruUtilsProd";
-import { MathJax } from "better-react-mathjax";
 import suggestedQuestions from "../../assets/suggested_question.json";
 import 'katex/dist/katex.min.css';
 import { BlockMath } from "react-katex";
@@ -36,7 +35,7 @@ export const TextOptionBubble = ({ chat, chatIndex, fullWidth = true }) => {
                 />
             ) : <div className="h-[40px] w-[40px] mr-2"></div>} */}
             {/*  */}
-            <div className={`text-[15px] text-medium flex flex-col py-2  mr-auto text-sm rounded-lg ${fullWidth ? 'w-full' : 'w-1/2'}`}>
+            <div className={`text-sm text-medium flex flex-col py-2 mr-auto text-sm rounded-lg ${fullWidth ? 'w-full' : 'w-1/2'}`}>
                 <p className="mb-1" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>") ?? t("chooseTypeOfSolution") }}></p>
                 <div className="flex flex-col mr-auto">
                     {chat.optionResponse.map((option, index) => {

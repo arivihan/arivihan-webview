@@ -238,9 +238,9 @@ const InstantGuruUIDev = () => {
       suggestedDoubtAsked.value = true;
       chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%]'><p>${doubtText}</p></div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
-      if ((chatType.value === null || chatType.value !== "subject_based") && callClassifier.value == true) {
+      if ((chatType.value === null || chatType.value !== "SectionType.SUBJECT_RELATED") && callClassifier.value == true) {
         chatClassifier(doubtText.value);
-      } else if (chatType.value === "subject_based") {
+      } else if (chatType.value === "SectionType.SUBJECT_RELATED") {
         postNewChat(doubtText.value);
       }
       lastUserQuestion.value = doubtText.value;
@@ -342,17 +342,7 @@ const InstantGuruUIDev = () => {
           {t("newChat")}
         </button> */}
       </div>
-      {/* THE RESPONSIVE DATA */}
-      {/* <Only_Text_Response   response_data={response_data.value}/> */}
-      {/* <PDF_container_response respose_data={response_data.value} /> */}
-      {/* <Video_Text_response response_data={response_data}/> */}
-      {/* <Multi_Video_response/> */}
-      {/* <Model_paper_response/> */}
-      {/* <Multi_Model_paper_response/> */}
-      {/* <Whatsapp/> */}
-      {/* <Subscription_response/> */}
-      {/* <Question_response/> */}
-      {/* THE RESPONSIVE DATA */}
+
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />
       }
@@ -433,7 +423,7 @@ const InstantGuruUIDev = () => {
               }
 
               {
-                chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML" || chat.responseType === "HTML_LINKS")
+                chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML")
                 &&
                 <Only_Text_Response chat={chat} chatIndex={hIndex} />
               }
@@ -441,7 +431,7 @@ const InstantGuruUIDev = () => {
               {
                 chat.responseType === "HTML_LINKS"
                 &&
-                <Only_Text_Response chat={chat} />
+                <Only_Text_Response chat={chat} chatIndex={hIndex} />
               }
 
               {
@@ -487,13 +477,13 @@ const InstantGuruUIDev = () => {
                 data-testid="loader"
               />
               <p style={{ lineHeight: 1 }} className="text-sm font-semibold">
-                Answer Jaldi aa raha hai, tab tak ye <br /> padhein...
+                {t("read_till_answer_coming")}
               </p>
             </div>
 
             {/* ⬇️ Important 1 marks questions block (sirf jab loader active ho) */}
             <div className="w-[100.5%] mt-[38vh] overflow-hidden flex flex-col justify-end">
-              <p className="font-bold">Important 1 marks questions</p>
+              <p className="font-bold">{t("one_mark_question")}</p>
 
               <div className="border-[#DFE6EC] gap-2 flex justify-center py-2 px-2 mt-2 border w-full rounded-xl">
                 {/* Static Image */}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Circles, CirclesWithBar, RotatingLines, ThreeDots, ThreeCircles } from 'react-loader-spinner';
 import { effect, signal, useSignal } from '@preact/signals-react';
 import { useSignals } from '@preact/signals-react/runtime';
@@ -12,6 +12,9 @@ import SMEThemeWrapper from './smeThemeWrapper';
 import { useParams } from 'react-router-dom';
 import { MdDelete, MdEdit, MdMoreVert } from 'react-icons/md';
 import { MathJax } from 'better-react-mathjax';
+import SmilesRenderer from '../../components/smileRenderer';
+import renderMathInElement from 'katex/contrib/auto-render';
+import ReactDOM from "react-dom/client";
 
 
 
@@ -107,7 +110,7 @@ const SmeDoubtChatScreen = () => {
                                                                 //     ?
                                                                 //     null
                                                                 //     :
-                                                                <SendBubble key={doubt.id} id={doubt.id} doubt={doubt} message={doubt.response} userId={params.userid}/>
+                                                                <SendBubble key={doubt.id} id={doubt.id} doubt={doubt} message={doubt.response} userId={params.userid} />
                                                             }
                                                         </div>
                                                     )
@@ -169,7 +172,7 @@ const SmeDoubtChatScreen = () => {
 
 }
 
-const SendBubble = ({ doubt, message ,userId}) => {
+const SendBubble = ({ doubt, message, userId }) => {
 
     const [showDropdown, setShowDropdown] = useState(false);
     const [editChat, setEditChat] = useState(false);
@@ -259,14 +262,14 @@ const SendBubble = ({ doubt, message ,userId}) => {
                             </div>
                             :
                             <div className="flex flex-col">
-                                <MathJax contentEditable={editChat} id={`responseText_` + doubt.id} className={`${editChat ? "bg-white p-3" : ""}`} dangerouslySetInnerHTML={{ __html:doubt.response ?  doubt.response.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>") : "" }}></MathJax>
+                                <MathJax contentEditable={editChat} id={`responseText_` + doubt.id} className={`${editChat ? "bg-white p-3" : ""}`} dangerouslySetInnerHTML={{ __html: doubt.response ? doubt.response.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>") : "" }}></MathJax>
                                 {
                                     editChat
                                         ?
                                         <div className="flex items-center my-2 ml-auto">
                                             <div className="px-2 py-1 text-xs rounded-lg bg-red-500/10 text-red-500 cursor-pointer" onClick={handleCancelEdit}>Cancel</div>
-                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={()=>handleSaveResponse(false)}>Save</div>
-                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={()=>handleSaveResponse(true)}>Save & Notify</div>
+                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(false)}>Save</div>
+                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(true)}>Save & Notify</div>
 
                                         </div>
                                         :
@@ -294,6 +297,37 @@ const SendBubble = ({ doubt, message ,userId}) => {
 
 
 const SmeReceiveBubble = ({ doubt, message, doubtImage, user }) => {
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            renderMathInElement(containerRef.current, {
+                delimiters: [
+                    { left: "\\[", right: "\\]", display: true },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "$$", right: "$$", display: true },
+                    { left: "$", right: "$", display: false }
+                ]
+            });
+
+            const el = containerRef.current;
+            if (!el) return;
+
+            setTimeout(() => {
+                const nodes = Array.from(el.querySelectorAll("smiles"));
+                nodes.forEach((node, i) => {
+                    const smiles = (node.textContent || node.getAttribute("value") || "").trim();
+                    const mount = document.createElement("span");
+                    node.replaceWith(mount);
+                    console.log(smiles);
+                    ReactDOM.createRoot(mount).render(<SmilesRenderer key={Math.random()} smiles={smiles} />);
+                });
+
+            }, 200)
+
+        }
+    }, [doubt]);
+
 
     return (
         <div className={`text-right mb-3 bg-[#E8FBFC] mr-auto p-2 rounded-lg w-4/5 sm:w-3/5`}>
@@ -318,7 +352,7 @@ const SmeReceiveBubble = ({ doubt, message, doubtImage, user }) => {
                             :
                             <img src={doubtImage === null ? doubt.request : doubtImage} className="mb-2" />
                     }
-                    <p dangerouslySetInnerHTML={{ __html: message.replace("(bold)<b>", "</b>") }} className='break-words'></p>
+                    <p ref={containerRef} dangerouslySetInnerHTML={{ __html: message.replace("(bold)<b>", "</b>") }} className='break-words'></p>
                 </pre>
             </div>
             {/* <span className="text-xs text-gray-400">{moment(doubt.createdAt).format("h:m a DD/MM/YY")}</span> */}
