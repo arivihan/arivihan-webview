@@ -68,51 +68,51 @@ import PDF_container_response from "../components/instant_guru_classifier/PDF_co
 // import Whatsapp from "../components/instant_guru_classifier/Whatsapp_Query/Whatsapp";
 // import Subscription_response from "../components/instant_guru_classifier/Subscription_response/Subscription_response";
 // import Question_response from "../components/instant_guru_classifier/Question_response/Question_response";
-import tipsData from "../assets/Time_pass_tips.json"; 
+import tipsData from "../assets/Time_pass_tips.json";
 import quotes1 from "../assets/quotes1.png"
 import { TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
- 
- 
 
-const response_data=
-  {
-    "userQuery": "electric potential and capacitor ke lecture chahiye",
-    "cardType": "CardType.FULLCARD",
-    "sectionType": "SectionType.LECTURE",
-    "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
-    "displayTitle": "Electric Potential and Capacitance",
-    "displaySubtitle": null,
-    "actionButtonText": "View Lectures",
-    "redirectLink": null,
-    "deepLink": null,
-    duration:"30s",
-    "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
-    "descriptionHtml": `
+
+
+const response_data =
+{
+  "userQuery": "electric potential and capacitor ke lecture chahiye",
+  "cardType": "CardType.FULLCARD",
+  "sectionType": "SectionType.LECTURE",
+  "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+  "displayTitle": "Electric Potential and Capacitance",
+  "displaySubtitle": null,
+  "actionButtonText": "View Lectures",
+  "redirectLink": null,
+  "deepLink": null,
+  duration: "30s",
+  "bigtext": "Electric Potential and Capacitance ke lecture dekhne ke liye yaha click kare",
+  "descriptionHtml": `
             <ul style="list-style-type: disc; margin-left: 20px;">
               <li><b>Introduction to Newton's Laws</b> – These laws basically tell about motion</li>
               <li><b>Second Law</b> – Force = mass × acceleration</li>
               <li><b>Third Law</b> – Every action has an equal and opposite reaction</li>
             </ul>
 `,
-    "clickableElements": {
-      "thumbnail": true,
-      "title": true,
-      "subtitle": false,
-      "link": false
-    },
-    "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
-    "navigationParams": {
-      "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
-      "NotesPdfUrl": "https://dm80t6147awlm.cloudfront.net/2025_BOARD/MP_BOARD_2025/HINDI_MEDIUM/PHYSICS/EPC/EPCML1notes_compressed.pdf",
-      "chapterName": "Electric Potential and Capacitance",
-      "chapterId": "PHYIMPHINEPC",
-      "selectedSubject": "Physics"
-    },
-    "pdfLink": null,
-    "subscriptionType": null,
-    "videoLink": "https://youtu.be/LmEsoQEg9Bg?si=cGWA-k6sEUrMKvox",
-    "position": null
-  }
+  "clickableElements": {
+    "thumbnail": true,
+    "title": true,
+    "subtitle": false,
+    "link": false
+  },
+  "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
+  "navigationParams": {
+    "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/12-2026/स्थिर_वैधुत_विभव_और_धारिता_UPDATED_(1).jpg",
+    "NotesPdfUrl": "https://dm80t6147awlm.cloudfront.net/2025_BOARD/MP_BOARD_2025/HINDI_MEDIUM/PHYSICS/EPC/EPCML1notes_compressed.pdf",
+    "chapterName": "Electric Potential and Capacitance",
+    "chapterId": "PHYIMPHINEPC",
+    "selectedSubject": "Physics"
+  },
+  "pdfLink": null,
+  "subscriptionType": null,
+  "videoLink": "https://youtu.be/LmEsoQEg9Bg?si=cGWA-k6sEUrMKvox",
+  "position": null
+}
 
 
 
@@ -129,8 +129,8 @@ const InstantGuruUIDev = () => {
   const [showTooltipNumber, setShowTooltipNumber] = useState(0);
   const [tooltipTimeout, setTooltipTimeout] = useState(null);
   const [subscriptionExpired, setSubscriptionExpired] = useState(false);
-const [index, setIndex] = useState(0);
-const [messages, setMessages] = useState([]);
+  const [index, setIndex] = useState(0);
+  const [messages, setMessages] = useState([]);
   const handleImageIconClick = (e) => {
 
     if (subscriptionExpired) {
@@ -148,32 +148,32 @@ const [messages, setMessages] = useState([]);
       return;
     }
     openFilePicker();
-  } 
-useEffect(() => {
-   const urlParams = new URLSearchParams(window.location.search);
+  }
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
     let uLanguage = urlParams.get("language");
     let uSubject = urlParams.get("subject").toLowerCase();
-  const selectedTips =
-    tipsData.filter(
-      (item) =>
-        item.subject === uSubject &&
-        item.course === "board" &&
-        item.language === uLanguage
-    )[0].tips;
-    
-
-  setMessages(selectedTips);
-}, []);
-  
+    const selectedTips =
+      tipsData.filter(
+        (item) =>
+          item.subject === uSubject &&
+          item.course === "board" &&
+          item.language === uLanguage
+      )[0].tips;
 
 
+    setMessages(selectedTips);
+  }, []);
 
-useEffect(() => {
-const interval = setInterval(() => {
-setIndex((prev) => (prev + 1) % messages.length);
-}, 4000); // 3 sec hold + 1 sec animation
-return () => clearInterval(interval);
-}, [messages]);
+
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % messages.length);
+    }, 4000); // 3 sec hold + 1 sec animation
+    return () => clearInterval(interval);
+  }, [messages]);
 
   window.processCroppedImage = (base64Image) => {
     if (base64Image) {
@@ -343,8 +343,8 @@ return () => clearInterval(interval);
     chatContainer.scrollTop = chatContainer.scrollHeight + 800;
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
-  
-  
+
+
 
   return (
     <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
@@ -360,7 +360,7 @@ return () => clearInterval(interval);
         <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
 
 
-        
+
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
           {/* <Lottie
             loop
@@ -384,17 +384,17 @@ return () => clearInterval(interval);
           {t("newChat")}
         </button> */}
       </div>
-       {/* THE RESPONSIVE DATA */}
-       {/* <Only_Text_Response   response_data={response_data.value}/> */}
-       {/* <PDF_container_response respose_data={response_data.value} /> */}
-       {/* <Video_Text_response response_data={response_data}/> */}
-       {/* <Multi_Video_response/> */}
-       {/* <Model_paper_response/> */}
-       {/* <Multi_Model_paper_response/> */}
-       {/* <Whatsapp/> */}
-       {/* <Subscription_response/> */}
-       {/* <Question_response/> */ }
-       {/* THE RESPONSIVE DATA */}
+      {/* THE RESPONSIVE DATA */}
+      {/* <Only_Text_Response   response_data={response_data.value}/> */}
+      {/* <PDF_container_response respose_data={response_data.value} /> */}
+      {/* <Video_Text_response response_data={response_data}/> */}
+      {/* <Multi_Video_response/> */}
+      {/* <Model_paper_response/> */}
+      {/* <Multi_Model_paper_response/> */}
+      {/* <Whatsapp/> */}
+      {/* <Subscription_response/> */}
+      {/* <Question_response/> */}
+      {/* THE RESPONSIVE DATA */}
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />
       }
@@ -468,7 +468,7 @@ return () => clearInterval(interval);
               {/* <TextOptionBubble chat={chat} chatIndex={hIndex} /> */}
               {/* <HTMLResponseBubble chat={chat} chatIndex={hIndex} /> */}
 
-               {
+              {
                 chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && chat.optionResponse !== undefined && chat.optionResponse !== null
                 &&
                 <TextOptionBubble chat={chat} chatIndex={hIndex} />
@@ -496,82 +496,81 @@ return () => clearInterval(interval);
           );
         })}
 
-{/* Loader + Important Questions block */}
-{showDoubtChatLoader.value === true ? (
-  <div className="flex flex-col gap-2">
-    <div className="flex items-center mt-6">
-      <img
-        src={require("../assets/icons/icon_chat_avatar.png")}
-        className="h-[40px] w-[40px] object-contain mr-2"
-      />
-      <p className=" text-[#37D3E7]"><b>Instant Guru</b></p>
-    </div>
+        {/* Loader + Important Questions block */}
+        {showDoubtChatLoader.value === true ? (
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center mt-6">
+              <img
+                src={require("../assets/icons/icon_chat_avatar.png")}
+                className="h-[40px] w-[40px] object-contain mr-2"
+              />
+              <p className=" text-[#37D3E7]"><b>Instant Guru</b></p>
+            </div>
 
-    <div className="flex gap-2 items-center">
-      <PulseLoader
-        color="#26c6da"
-        loading={true}
-        size={7}
-        aria-label="Loading Spinner"
-        data-testid="loader"
-      />
-      <p style={{ lineHeight: 1 }} className="text-sm font-semibold">
-        Answer Jaldi aa raha hai, tab tak ye <br /> padhein...
-      </p>
-    </div>
+            <div className="flex gap-2 items-center">
+              <PulseLoader
+                color="#26c6da"
+                loading={true}
+                size={7}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+              <p style={{ lineHeight: 1 }} className="text-sm font-semibold">
+                Answer Jaldi aa raha hai, tab tak ye <br /> padhein...
+              </p>
+            </div>
 
-    {/* ⬇️ Important 1 marks questions block (sirf jab loader active ho) */}
-<div className="w-[100.5%] mt-[38vh] overflow-hidden flex flex-col justify-end">
-  <p className="font-bold">Important 1 marks questions</p>
+            {/* ⬇️ Important 1 marks questions block (sirf jab loader active ho) */}
+            <div className="w-[100.5%] mt-[38vh] overflow-hidden flex flex-col justify-end">
+              <p className="font-bold">Important 1 marks questions</p>
 
-  <div className="border-[#DFE6EC] gap-2 flex justify-center py-2 px-2 mt-2 border w-full rounded-xl">
-    {/* Static Image */}
-    <div className="w-[25px] h-[25px] flex-shrink-0">
-      <img
-        className="w-full h-full object-cover"
-        src={quotes1}
-        alt="quote"
-      />
-    </div>
+              <div className="border-[#DFE6EC] gap-2 flex justify-center py-2 px-2 mt-2 border w-full rounded-xl">
+                {/* Static Image */}
+                <div className="w-[25px] h-[25px] flex-shrink-0">
+                  <img
+                    className="w-full h-full object-cover"
+                    src={quotes1}
+                    alt="quote"
+                  />
+                </div>
 
-    {/* Dynamic Text Carousel */}
-    <div className="w-[95%] relative py-1 overflow-x-hidden flex flex-col justify-between">
-      <AnimatePresence mode="wait">
-        <motion.p
-          key={index}
-          className="font-bold text-sm whitespace-pre-wrap break-words"
-          initial={{ x: "100%", opacity: 0 }}
-          animate={{ x: 0, opacity: 1 }}
-          exit={{ x: "-100%", opacity: 0 }}
-          transition={{ duration: 1 }}
-        >
-          {messages[index]}
-        </motion.p>
-      </AnimatePresence>
+                {/* Dynamic Text Carousel */}
+                <div className="w-[95%] relative py-1 overflow-x-hidden flex flex-col justify-between">
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={index}
+                      className="font-bold text-sm whitespace-pre-wrap break-words"
+                      initial={{ x: "100%", opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: "-100%", opacity: 0 }}
+                      transition={{ duration: 1 }}
+                    >
+                      {messages[index]}
+                    </motion.p>
+                  </AnimatePresence>
 
-      {/* Fixed 5 Dots Pagination */}
-      <div className="flex mr-8 items-center justify-center mt-2 gap-1">
-        {[...Array(5)].map((_, i) => {
-          const activeIndex = index % 5; // active dot calculation
-          return (
-            <div
-              key={i}
-              className={`h-1 rounded-full transition-all duration-300 ${
-                activeIndex === i
-                  ? "bg-[#26c6da] w-4"
-                  : "bg-gray-300 w-1"
-              }`}
-            />
-          );
-        })}
-      </div>
-    </div>
-  </div>
-</div>
+                  {/* Fixed 5 Dots Pagination */}
+                  <div className="flex mr-8 items-center justify-center mt-2 gap-1">
+                    {[...Array(5)].map((_, i) => {
+                      const activeIndex = index % 5; // active dot calculation
+                      return (
+                        <div
+                          key={i}
+                          className={`h-1 rounded-full transition-all duration-300 ${activeIndex === i
+                              ? "bg-[#26c6da] w-4"
+                              : "bg-gray-300 w-1"
+                            }`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
 
 
-  </div>
-) : null}
+          </div>
+        ) : null}
 
 
         {
@@ -579,7 +578,7 @@ return () => clearInterval(interval);
         }
 
       </div>
-  
+
       {
         (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
@@ -613,13 +612,13 @@ return () => clearInterval(interval);
             })
           }
         </div>
-      } 
+      }
 
       {/* the new crousal comtainer  */}
-  
+
       {/* the new crousal comtainer  */}
 
-        
+
       <div className="h-[64px] w-full flex items-center justify-center px-4">
         <div className="border border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip
