@@ -516,7 +516,7 @@ const InstantGuruUIDev = () => {
             <div className="flex items-center mt-6">
               <img
                 src={require("../assets/icons/icon_chat_avatar.png")}
-                className="h-[40px] w-[40px] object-contain mr-2"
+                className="h-[32px] w-[32px] object-contain mr-2"
               />
               <p className=" text-[#37D3E7]"><b>Instant Guru</b></p>
             </div>

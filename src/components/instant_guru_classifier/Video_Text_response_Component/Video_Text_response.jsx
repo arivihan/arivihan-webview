@@ -42,7 +42,7 @@ const Video_Text_response = ({ chat }) => {
 
       {/* Open Button */}
       <div className="mt-4 w-[45vw]">
-        <div className="flex items-center justify-center gap-2 bg-[#26C6DA] text-white px-2 py-2 rounded-lg shadow transition" onClick={handleOpenVideo}>
+        <div className="flex items-center justify-center gap-2 bg-[#26C6DA] text-white px-2 py-2 rounded-full shadow transition" onClick={handleOpenVideo}>
           {
             chat.thumbnailUrl
               ?
