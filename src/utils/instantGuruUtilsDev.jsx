@@ -315,7 +315,7 @@ export function chatClassifier(message) {
     "course": "Board",
     "language": urlParams.get("language").toLocaleLowerCase() === "en" ? "english" : "hindi",
     "requestType": "HTML",
-    "subjectName": urlParams.get("subjectName"),
+    "subjectName": urlParams.get("subject"),
     "subscriptionStatus": "subscribed",
     "userName": urlParams.get("username"),
     "userQuery": message,

@@ -305,7 +305,7 @@ const InstantGuruUIDev = () => {
 
 
   return (
-    <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
+    <div className="font-sans flex flex-col justify-between h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
       <div className="flex items-center px-4 py-2 h-[64px]">
         <Tooltip
           content={t("click_here_for_old_questions")}
@@ -366,7 +366,7 @@ const InstantGuruUIDev = () => {
       }
 
       <div
-        className={`p-4 overflow-y-auto overflow-x-hidden  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
+        className={`p-4 overflow-y-auto overflow-x-hidden  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-64px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
         id="chat-container"
       >
 
