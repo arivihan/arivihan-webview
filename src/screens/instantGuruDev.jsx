@@ -61,7 +61,7 @@ import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
 import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
 import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
-// import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
+import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
 // import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
 // import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
 // import Multi_Model_paper_response from "../components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response";

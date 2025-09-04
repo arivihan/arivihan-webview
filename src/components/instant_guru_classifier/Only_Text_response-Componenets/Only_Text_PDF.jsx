@@ -39,7 +39,7 @@ const Only_Text_PDF = ({ file }) => {
           download
           className="text-gray-400 hover:text-red-400"
         >
-          <GrDownload size={18} />
+          <p className="text-[#26C6DA]"><GrDownload size={18} /></p>
         </a>
       </div>
     </div>
