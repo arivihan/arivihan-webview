@@ -456,7 +456,7 @@ return () => clearInterval(interval);
                   null
               }
 
-              <TextOptionBubble chat={chat} chatIndex={hIndex} />
+              {/* <TextOptionBubble chat={chat} chatIndex={hIndex} /> */}
               {/* <HTMLResponseBubble chat={chat} chatIndex={hIndex} /> */}
 
                {
