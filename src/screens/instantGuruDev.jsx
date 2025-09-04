@@ -238,9 +238,9 @@ const InstantGuruUIDev = () => {
       suggestedDoubtAsked.value = true;
       chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%]'><p>${doubtText}</p></div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
-      if ((chatType.value === null || chatType.value !== "subject_based") && callClassifier.value == true) {
+      if ((chatType.value === null || chatType.value !== "SectionType.SUBJECT_RELATED") && callClassifier.value == true) {
         chatClassifier(doubtText.value);
-      } else if (chatType.value === "subject_based") {
+      } else if (chatType.value === "SectionType.SUBJECT_RELATED") {
         postNewChat(doubtText.value);
       }
       lastUserQuestion.value = doubtText.value;
@@ -581,7 +581,7 @@ const InstantGuruUIDev = () => {
 
 
       <div className="h-[64px] w-full flex items-center justify-center px-4">
-        <div className="border shadow-sm border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
+        <div className="border shadow-md border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip
             content={t("type_your_question")}
             anchorSelect="#text-input-field"

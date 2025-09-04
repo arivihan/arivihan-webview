@@ -20,7 +20,7 @@ const Video_Text_response = ({ chat }) => {
   };
 
   return (
-    <div className="select-none mb-2 mx-auto overflow-hidden  rounded-lg">
+    <div className="flex flex-col select-none mb-2 mx-auto overflow-hidden  rounded-lg">
       {/* Top Info */}
       <div className="flex items-center  gap-2 mb-2">
         <div className="w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden">
@@ -42,8 +42,9 @@ const Video_Text_response = ({ chat }) => {
       <Video_description chat={chat} />
 
       {/* Open Button */}
-      <div className="mt-4 w-[45vw]">
-        <div style={{ boxShadow: "0 0 5px rgba(38,198,218,0.8)"  }} className="flex items-center justify-center gap-2 bg-[#26C6DA] shadow-xl text-white  py-2 rounded-full  transition" onClick={handleOpenVideo}>
+      <div className="mt-4 mr-auto">
+        <div style={{ boxShadow: "0 0 5px rgba(38,198,218,0.8)" }} className={`px-6 flex items-center justify-center gap-2 bg-[#26C6DA] shadow-xl text-white  py-2 rounded-full transition ${!chat.thumbnailUrl ? "flex-row" :"rlex-row-reverse"}`} onClick={handleOpenVideo}>
+          <p className="text-[16px] font-semibold">{chat.actionButtonText}</p>
           {
             chat.thumbnailUrl
               ?
@@ -51,10 +52,9 @@ const Video_Text_response = ({ chat }) => {
               :
               <RiShareBoxFill />
           }
-          <p className="text-[16px] mr-5 font-semibold">{chat.actionButtonText}</p>
         </div>
       </div>
-      <Global_like_dislike_response/>
+      <Global_like_dislike_response />
     </div>
   );
 };
