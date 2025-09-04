@@ -3,6 +3,7 @@ import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { IoShareSocialOutline } from "react-icons/io5";
 import { motion } from "framer-motion";
 import { chatResponseFeedback } from "../../utils/instantGuruUtilsDev";
+import { MdAudioFile, MdSpeaker, MdSpeakerPhone } from "react-icons/md";
 
 const Global_like_dislike_response = ({ chat }) => {
   const [liked, setLiked] = useState(false);
@@ -49,6 +50,16 @@ const Global_like_dislike_response = ({ chat }) => {
         >
           <AiOutlineDislike size={16} />
         </motion.div>
+
+        {/* <motion.div
+          whileTap={{ scale: 1.3 }}
+          animate={{ scale: disliked ? 1.2 : 1, color: disliked ? "#ef4444" : "#8C8D92" }}
+          transition={{ type: "spring", stiffness: 300 }}
+          onClick={handleDislike}
+          className="cursor-pointer"
+        > */}
+          {/* <MdSpeaker size={16} /> */}
+        {/* </motion.div> */}
 
         {/* SHARE */}
         <motion.div

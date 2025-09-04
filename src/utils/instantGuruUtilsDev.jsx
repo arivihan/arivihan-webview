@@ -393,6 +393,7 @@ export function chatClassifier(message) {
             "responseType": "HTML_PDF",
             "pdfFiles": pdfUrls,
             "showBotAvatar": true,
+            "actionButtonText": data[0].actionButtonText,
             "userQuery": ""
           }]
         }
@@ -433,7 +434,9 @@ export function chatClassifier(message) {
           "responseType": "HTML_LINKS",
           "showBotAvatar": true,
           "userQuery": "",
-          "redirectLink": data[0].redirectLink
+          "redirectLink": data[0].redirectLink,
+          "actionButtonText": data[0].actionButtonText,
+
         }]
       }
       // if (data[0].sectionType === "SectionType.OPEN_WHATSAPP")
