@@ -53,7 +53,7 @@ const Only_Text_response = ({ chat, chatIndex }) => {
       </div>
       {
         chat.botResponse &&
-        <div className='whitespace-normal' ref={containerRef} dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll(/(\n){2,}/g, '</br>') }}>
+        <div className='whitespace-normal text-[15px]' ref={containerRef} dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll(/(\n){2,}/g, '</br>') }}>
         </div>
       }
 
