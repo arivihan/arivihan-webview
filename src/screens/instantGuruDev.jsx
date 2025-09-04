@@ -57,7 +57,6 @@ import OpenWhatsAppSheet from "../components/openWhatsappSheet";
 import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie-player";
 import { Tooltip } from 'react-tooltip';
-import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubble";
 import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
 import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
@@ -69,8 +68,9 @@ import PDF_container_response from "../components/instant_guru_classifier/PDF_co
 // import Whatsapp from "../components/instant_guru_classifier/Whatsapp_Query/Whatsapp";
 // import Subscription_response from "../components/instant_guru_classifier/Subscription_response/Subscription_response";
 // import Question_response from "../components/instant_guru_classifier/Question_response/Question_response";
-
+import tipsData from "../assets/Time_pass_tips.json"; 
 import quotes1 from "../assets/quotes1.png"
+import { TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
  
  
 
@@ -129,7 +129,8 @@ const InstantGuruUIDev = () => {
   const [showTooltipNumber, setShowTooltipNumber] = useState(0);
   const [tooltipTimeout, setTooltipTimeout] = useState(null);
   const [subscriptionExpired, setSubscriptionExpired] = useState(false);
-
+const [index, setIndex] = useState(0);
+const [messages, setMessages] = useState([]);
   const handleImageIconClick = (e) => {
 
     if (subscriptionExpired) {
@@ -148,15 +149,23 @@ const InstantGuruUIDev = () => {
     }
     openFilePicker();
   } 
-  const messages = [
-"Instant help, easy solutions, and no more Learning Roadblocks  ",
-"Instant help, easy solutions, and no more Learning Roadblocks  ",
-"Instant help, easy solutions, and no more Learning Roadblocks  ",
-"Instant help, easy solutions, and no more Learning Roadblocks  ",
-"Instant help, easy solutions, and no more Learning Roadblocks  ",
-];
+useEffect(() => {
+   const urlParams = new URLSearchParams(window.location.search);
+    let uLanguage = urlParams.get("language");
+    let uSubject = urlParams.get("subject").toLowerCase();
+  const selectedTips =
+    tipsData.filter(
+      (item) =>
+        item.subject === uSubject &&
+        item.course === "board" &&
+        item.language === uLanguage
+    )[0].tips;
+    
+
+  setMessages(selectedTips);
+}, []);
   
-const [index, setIndex] = useState(0);
+
 
 
 useEffect(() => {
@@ -164,7 +173,7 @@ const interval = setInterval(() => {
 setIndex((prev) => (prev + 1) % messages.length);
 }, 4000); // 3 sec hold + 1 sec animation
 return () => clearInterval(interval);
-}, []);
+}, [messages]);
 
   window.processCroppedImage = (base64Image) => {
     if (base64Image) {
@@ -512,7 +521,7 @@ return () => clearInterval(interval);
     </div>
 
     {/* ⬇️ Important 1 marks questions block (sirf jab loader active ho) */}
-<div className="w-full mt-[38vh] overflow-hidden flex flex-col justify-end">
+<div className="w-[100.5%] mt-[38vh] overflow-hidden flex flex-col justify-end">
   <p className="font-bold">Important 1 marks questions</p>
 
   <div className="border-[#DFE6EC] gap-2 flex justify-center py-2 px-2 mt-2 border w-full rounded-xl">

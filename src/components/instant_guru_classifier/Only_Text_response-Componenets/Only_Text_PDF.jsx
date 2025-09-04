@@ -24,7 +24,7 @@ const Only_Text_PDF = ({ file }) => {
       {/* Overlay Info */}
       <div className="max-w-full bg-white text-xs p-2 flex justify-between items-center">
         <div className="flex items-center gap-2" >
-          <img src={require("../../../assets/icons/icon_pdf.png")} className="h-8 w-min-8 object-contain" />
+          <img src={require("../../../assets/icons/pdf_icon.png")} className="h-8 w-min-8 object-contain" />
           <div>
             <p className="font-bold text-black text-sm">
               {file.pdfTitle}
