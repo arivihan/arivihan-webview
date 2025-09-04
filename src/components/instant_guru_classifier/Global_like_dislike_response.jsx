@@ -31,7 +31,7 @@ const Global_like_dislike_response = ({ chat }) => {
         {/* LIKE */}
         <motion.div
           whileTap={{ scale: 1.3 }}
-          animate={{ scale: liked ? 1.2 : 1, color: liked ? "#22c55e" : "#8C8D92" }}
+          animate={{ scale: liked ? 1.4 : 1.2, color: liked ? "#22c55e" : "#8C8D92" }}
           transition={{ type: "spring", stiffness: 300 }}
           onClick={handleLike}
           className="cursor-pointer"
@@ -42,7 +42,7 @@ const Global_like_dislike_response = ({ chat }) => {
         {/* DISLIKE */}
         <motion.div
           whileTap={{ scale: 1.3 }}
-          animate={{ scale: disliked ? 1.2 : 1, color: disliked ? "#ef4444" : "#8C8D92" }}
+          animate={{ scale: disliked ? 1.4 : 1.2, color: disliked ? "#ef4444" : "#8C8D92" }}
           transition={{ type: "spring", stiffness: 300 }}
           onClick={handleDislike}
           className="cursor-pointer"
@@ -51,13 +51,13 @@ const Global_like_dislike_response = ({ chat }) => {
         </motion.div>
 
         {/* SHARE */}
-        <motion.div
-          whileTap={{ rotate: 360, scale: 1.2 }}
+        {/* <motion.div
+          whileTap={{ rotate: 360, scale: 1.4 }}
           transition={{ type: "spring", stiffness: 200 }}
           className="cursor-pointer"
         >
-          <IoShareSocialOutline size={16} />
-        </motion.div>
+          <IoShareSocialOutline size={18} />
+        </motion.div> */}
       </div>
     </div>
   );

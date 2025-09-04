@@ -4,7 +4,7 @@ import { TbArrowBearRight } from "react-icons/tb";
 import { GrDownload } from "react-icons/gr";
 import { Document, pdfjs } from "react-pdf";
 import { openPdf } from "../../../utils/instantGuruUtilsDev";
-
+import { MdOutlineFileDownload } from "react-icons/md";
 
 
 const Only_Text_PDF = ({ file }) => {
@@ -14,7 +14,7 @@ const Only_Text_PDF = ({ file }) => {
 
   // Jab PDF load ho jaye tab pages mil jayenge
   return (
-    <div className="relative h-min-[62px] w-full flex-1 h-auto shadow-sm border border-gray-100 rounded-lg overflow-hidden" onClick={() => { openPdf(file.pdfLink) }}>
+    <div className="relative h-min-[62px]  w-full flex-1 h-auto shadow-sm border border-gray-100 rounded-lg overflow-hidden" onClick={() => { openPdf(file.pdfLink) }}>
       {/* <iframe
         src={`${pdfUrl}#page=1&view=FitH`}
         title="PDF Preview"
@@ -22,11 +22,11 @@ const Only_Text_PDF = ({ file }) => {
       ></iframe> */}
 
       {/* Overlay Info */}
-      <div className="max-w-full bg-white text-xs p-2 flex justify-between items-center">
+      <div className="max-w-full border border-gray-950/10 rounded-md  text-xs px-4 py-3 flex justify-between items-center">
         <div className="flex items-center gap-2" >
           <img src={require("../../../assets/icons/pdf_icon.png")} className="h-8 w-min-8 object-contain" />
           <div>
-            <p className="font-bold text-black text-sm">
+            <p className="font-semibold text-black text-sm">
               {file.pdfTitle}
             </p>
             {/* <p className="text-[11px] text-[#585757]">
@@ -34,13 +34,7 @@ const Only_Text_PDF = ({ file }) => {
             </p> */}
           </div>
         </div>
-        <a
-          href={file.pdfLink}
-          download
-          className="text-gray-400 hover:text-red-400"
-        >
-          <p className="text-[#26C6DA]"><GrDownload size={18} /></p>
-        </a>
+        
       </div>
     </div>
 

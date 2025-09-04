@@ -349,7 +349,7 @@ const InstantGuruUIDev = () => {
 
   return (
     <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
-      <div className="flex items-center px-4 py-2 h-[64px]">
+      <div className="flex items-center  px-4 py-2 h-[64px]">
         <Tooltip
           content={t("click_here_for_old_questions")}
           anchorSelect="#open-drawer-btn"
@@ -358,7 +358,7 @@ const InstantGuruUIDev = () => {
           style={{ backgroundColor: "#211F27", borderRadius: 10 }}
         />
         <img id="open-drawer-btn" src={require("../assets/icons/icon_menu_home.png")} className="w-7" onClick={() => { openDrawer() }} />
-        <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
+        <h1 className="ml-4 mt-3 text-lg font-bold">Instant Guru</h1>
 
 
 
@@ -634,7 +634,7 @@ const InstantGuruUIDev = () => {
 
 
       <div className="h-[64px] w-full flex items-center justify-center px-4">
-        <div className="border border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
+        <div className="border shadow-md border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip
             content={t("type_your_question")}
             anchorSelect="#text-input-field"

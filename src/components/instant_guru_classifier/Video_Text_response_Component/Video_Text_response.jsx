@@ -4,6 +4,7 @@ import Video_componenet from "./Video_componenet";
 import Video_description from "./Video_description";
 import { openAppActivity } from "../../../utils/instantGuruUtilsDev";
 import { RiShareBoxFill } from "react-icons/ri";
+import Global_like_dislike_response from "../Global_like_dislike_response";
 
 const Video_Text_response = ({ chat }) => {
   const videoRef = useRef(null);
@@ -19,9 +20,9 @@ const Video_Text_response = ({ chat }) => {
   };
 
   return (
-    <div className="select-none mb-2 mx-auto bg-white overflow-hidden  rounded-lg">
+    <div className="select-none mb-2 mx-auto overflow-hidden  rounded-lg">
       {/* Top Info */}
-      <div className="flex items-center gap-2 mb-2">
+      <div className="flex items-center  gap-2 mb-2">
         <div className="w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden">
           <img
             className="h-full w-full object-cover"
@@ -42,17 +43,18 @@ const Video_Text_response = ({ chat }) => {
 
       {/* Open Button */}
       <div className="mt-4 w-[45vw]">
-        <div className="flex items-center justify-center gap-2 bg-[#26C6DA] text-white px-2 py-2 rounded-full shadow transition" onClick={handleOpenVideo}>
+        <div style={{ boxShadow: "0 0 5px rgba(38,198,218,0.8)"  }} className="flex items-center justify-center gap-2 bg-[#26C6DA] shadow-xl text-white  py-2 rounded-full  transition" onClick={handleOpenVideo}>
           {
             chat.thumbnailUrl
               ?
-              <FaPlayCircle className="text-white" />
+              <FaPlayCircle className="text-white text-2xl" />
               :
               <RiShareBoxFill />
           }
-          {chat.actionButtonText}
+          <p className="text-[16px] mr-5 font-semibold">{chat.actionButtonText}</p>
         </div>
       </div>
+      <Global_like_dislike_response/>
     </div>
   );
 };

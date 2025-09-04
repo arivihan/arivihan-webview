@@ -1,6 +1,7 @@
 import React, { useRef, useState } from "react";
 import { openAppActivity } from "../../../utils/instantGuruUtilsDev";
-
+import { GoDotFill } from "react-icons/go";
+import playbutton from "../../../assets/icons/play2.png"
 const Video_componenet = ({ chat }) => {
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -28,10 +29,11 @@ const Video_componenet = ({ chat }) => {
 
 
   return (
-    <div className="relative shadow-md rounded-[10px] border overflow-hidden">
+    <div className="relative  w-[100%] bg-white shadow-md rounded-[10px] border overflow-hidden">
       {/* Video */}
 
-      <div>
+      <div className="w-[95%] relative mt-2 ml-2 overflow-hidden rounded-[10px]">
+        <div className="w-full h-full absolute top-0 left-0  bg-black/30"></div>
         <img src={chat.thumbnailUrl} className="h-full w-full rounded-[10px] object-cover" />
       </div>
 
@@ -40,22 +42,22 @@ const Video_componenet = ({ chat }) => {
       {!isPlaying && (
         <div
           onClick={handlePlay}
-          className="absolute left-[50%] translate-x-[-50%] inset-0 h-[65%] w-[100%] top-[35%] rounded-[10px] translate-y-[-50%] bg-black/10 p-2 flex flex-col items-center justify-center cursor-pointer"
+          className="absolute left-[50%] translate-x-[-50%] inset-0 h-[73%] w-[95%] top-[28%] rounded-[10px] translate-y-[-33%] p-2 flex flex-col items-center justify-center cursor-pointer"
         >
           {loading ? (
             <p className="text-white font-bold">Please wait, video is loading...</p>
           ) : (
-            <img className="p-2 rounded w-16 h-16" src="/play_icon.png" alt="play button" />
+            <img className="p-2 rounded z-[999999] w-[70px]" src={playbutton} alt="play button" />
           )}
         </div>
       )}
 
       <div className="p-2 leading-3">
         <b>
-          <h1>{chat.title}</h1>
+          <h1 className="text-[18px]">{chat.title}</h1>
         </b>
-        <p className="mt-2 text-gray-400 text-xs">
-          {chat.videoEndTime ? chat.videoEndTime + " min" : ""} • {chat.subtitle}
+        <p className="mt-2 flex items-center gap-1 text-gray-400 text-xs">
+          {chat.videoEndTime ? chat.videoEndTime + " min" : ""} <GoDotFill size={12} /> {chat.subtitle.charAt(0).toUpperCase() + chat.subtitle.slice(1)}
         </p>
       </div>
     </div>
