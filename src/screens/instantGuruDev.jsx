@@ -61,7 +61,7 @@ import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
 import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
 import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
-// import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
+import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
 // import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
 // import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
 // import Multi_Model_paper_response from "../components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response";
@@ -492,6 +492,13 @@ const InstantGuruUIDev = () => {
                 <PDF_container_response chat={chat} chatIndex={hIndex} />
               }
 
+              {
+                chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.FULLCARD"
+                &&
+                <Video_Text_response chat={chat} chatIndex={hIndex} />
+              }
+
+
             </div>
           );
         })}
@@ -557,8 +564,8 @@ const InstantGuruUIDev = () => {
                         <div
                           key={i}
                           className={`h-1 rounded-full transition-all duration-300 ${activeIndex === i
-                              ? "bg-[#26c6da] w-4"
-                              : "bg-gray-300 w-1"
+                            ? "bg-[#26c6da] w-4"
+                            : "bg-gray-300 w-1"
                             }`}
                         />
                       );
