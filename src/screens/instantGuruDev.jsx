@@ -60,8 +60,8 @@ import { Tooltip } from 'react-tooltip';
 import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubble";
 import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
-// import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
-// import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
+import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
+import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
 // import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
 // import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
 // import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
@@ -149,10 +149,11 @@ const InstantGuruUIDev = () => {
     openFilePicker();
   } 
   const messages = [
-"Instant help, easy solutions, and no more Learning Roadblocks.",
-"Clear explanations that save your time during exam prep.",
-"Important questions picked and explained for quick revision.",
-"Get smarter with every swipe — simple and effective learning!",
+"Instant help, easy solutions, and no more Learning Roadblocks  ",
+"Instant help, easy solutions, and no more Learning Roadblocks  ",
+"Instant help, easy solutions, and no more Learning Roadblocks  ",
+"Instant help, easy solutions, and no more Learning Roadblocks  ",
+"Instant help, easy solutions, and no more Learning Roadblocks  ",
 ];
   
 const [index, setIndex] = useState(0);
@@ -511,12 +512,12 @@ return () => clearInterval(interval);
     </div>
 
     {/* ⬇️ Important 1 marks questions block (sirf jab loader active ho) */}
-    <div className="w-full mt-[35vh] flex flex-col justify-end">
-  <p className=" font-bold">Important 1 marks questions</p>
+<div className="w-full mt-[38vh] overflow-hidden flex flex-col justify-end">
+  <p className="font-bold">Important 1 marks questions</p>
 
-  <div className="border-[#DFE6EC] gap-2 flex justify-center py-1 px-1 mt-2 border w-full h-[10vh] rounded-xl overflow-hidden">
+  <div className="border-[#DFE6EC] gap-2 flex justify-center py-2 px-2 mt-2 border w-full rounded-xl">
     {/* Static Image */}
-    <div className="w-[25px] h-[25px]  flex-shrink-0">
+    <div className="w-[25px] h-[25px] flex-shrink-0">
       <img
         className="w-full h-full object-cover"
         src={quotes1}
@@ -525,11 +526,11 @@ return () => clearInterval(interval);
     </div>
 
     {/* Dynamic Text Carousel */}
-    <div className="w-[95%] relative overflow-hidden py-1 h-full flex flex-col justify-between">
+    <div className="w-[95%] relative py-1 overflow-x-hidden flex flex-col justify-between">
       <AnimatePresence mode="wait">
         <motion.p
           key={index}
-          className="font-bold text-sm"
+          className="font-bold text-sm whitespace-pre-wrap break-words"
           initial={{ x: "100%", opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           exit={{ x: "-100%", opacity: 0 }}
@@ -540,24 +541,25 @@ return () => clearInterval(interval);
       </AnimatePresence>
 
       {/* Fixed 5 Dots Pagination */}
-      {/* <div className="flex  items-center justify-center mt-2 gap-2">
+      <div className="flex mr-8 items-center justify-center mt-2 gap-2">
         {[...Array(5)].map((_, i) => {
           const activeIndex = index % 5; // active dot calculation
           return (
             <div
               key={i}
-              className={`h-2 rounded-full transition-all duration-300 ${
+              className={`h-1 rounded-full transition-all duration-300 ${
                 activeIndex === i
-                  ? "bg-[#26c6da] w-6"
-                  : "bg-gray-300 w-2"
+                  ? "bg-[#26c6da] w-4"
+                  : "bg-gray-300 w-1"
               }`}
             />
           );
         })}
-      </div> */}
+      </div>
     </div>
   </div>
 </div>
+
 
   </div>
 ) : null}
@@ -609,7 +611,7 @@ return () => clearInterval(interval);
       {/* the new crousal comtainer  */}
 
         
-      <div className="h-[74px] w-full flex items-center justify-center px-4">
+      <div className="h-[64px] w-full flex items-center justify-center px-4">
         <div className="border border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip
             content={t("type_your_question")}
