@@ -71,6 +71,7 @@ import Video_Text_response from "../components/instant_guru_classifier/Video_Tex
 import tipsData from "../assets/Time_pass_tips.json";
 import quotes1 from "../assets/quotes1.png"
 import { TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
+import Only_Text_button from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_button";
 
 
 
@@ -490,6 +491,12 @@ const InstantGuruUIDev = () => {
                 chat.responseType !== null && chat.responseType !== "" && (chat.responseType === "HTML_PDF")
                 &&
                 <PDF_container_response chat={chat} chatIndex={hIndex} />
+              }
+
+              {
+                chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.ACTIVITY"
+                &&
+                <Only_Text_button chat={chat} />
               }
 
               {

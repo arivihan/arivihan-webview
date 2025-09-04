@@ -412,6 +412,8 @@ export function chatClassifier(message) {
           "showBotAvatar": true,
           "userQuery": ""
         }]
+
+        
       } else if (data[0].sectionType === "SectionType.ACTIVITY") {
         chatHistory.value = [...chatHistory.value, {
           "botResponse": data[0].bigtext,
