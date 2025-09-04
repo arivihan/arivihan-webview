@@ -541,7 +541,7 @@ return () => clearInterval(interval);
       </AnimatePresence>
 
       {/* Fixed 5 Dots Pagination */}
-      <div className="flex mr-8 items-center justify-center mt-2 gap-2">
+      <div className="flex mr-8 items-center justify-center mt-2 gap-1">
         {[...Array(5)].map((_, i) => {
           const activeIndex = index % 5; // active dot calculation
           return (
