@@ -73,7 +73,7 @@ import quotes1 from "../assets/quotes1.png"
 import { TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
 import Only_Text_button from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_button";
 import AtomImg from "../assets/icons/atom2.png"
-
+import { AiOutlineCamera } from "react-icons/ai";
 const InstantGuruUIDev = () => {
   useSignals();
   const [listening, setListening] = useState(false);
@@ -544,7 +544,7 @@ const InstantGuruUIDev = () => {
       {
         (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
- <div className="relative w-full flex  items-end h-[64px] overflow-hidden">
+ <div className="relative w-full flex  items-end h-[60px] overflow-hidden">
   <div className="flex whitespace-nowrap  animate-scroll">
     {[...bottomSuggestedQuestion.value, ...bottomSuggestedQuestion.value].map(
       (item, index) => (
@@ -574,9 +574,9 @@ const InstantGuruUIDev = () => {
             saveDoubtChat(item.title, question.answer);
           }}
           key={index}
-          className="bg-transparent border border-[#DFE6EC] p-2 rounded-lg mx-2 inline-flex items-center gap-2 flex-shrink-0 cursor-pointer hover:bg-primary/10 transition"
+          className="bg-transparent border border-[#DFE6EC] p-1 rounded-lg mx-2 inline-flex items-center gap-2 flex-shrink-0 cursor-pointer hover:bg-primary/10 transition"
         >
-          <div className="w-[20px] h-[20px] flex-shrink-0">
+          <div className="w-[15px] h-[15px] flex-shrink-0">
             <img
               className="w-full h-full object-cover"
               src={AtomImg}
@@ -609,19 +609,29 @@ const InstantGuruUIDev = () => {
       {/* the new crousal comtainer  */}
 
 
-      <div className="h-[64px] w-full flex items-center justify-center px-4">
-        <div className="border shadow-md border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
+      <div className="h-[64px] w-full flex items-center px-4">
+        <div className="border shadow border-[#e8e9eb] p-0.5 rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip
             content={t("type_your_question")}
             anchorSelect="#text-input-field"
             isOpen={showTooltipNumber === 1}
             style={{ backgroundColor: "#211F27", borderRadius: 10 }}
           />
+            <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer shadow bg-[#26C6DA] rounded-md ml-1 flex justify-center items-center p-2 w-[6vh] h-[5vh] mr-1" onClick={handleImageIconClick}>
+            {/* <img
+              src={require("../assets/icons/icon_camera_black.png")}
+              className="h-5 object-contain"
+              alt="camera"
+            /> */}
+            <p className="text-white">
+             <AiOutlineCamera size={20}/>
+            </p>
+          </label>
           <input
             type="text"
             id="text-input-field"
-            className="outline-none p-3 w-full text-sm"
-            placeholder={t("ask_anything")}
+            className="outline-none py-3 px-1 w-full text-[14px]"
+            placeholder={t("Type ya photo bhej kar pucho...")}
             value={doubtText.value}
             onChange={(e) => {
               if (subscriptionExpired) {
@@ -648,16 +658,12 @@ const InstantGuruUIDev = () => {
             isOpen={showTooltipNumber === 2}
             style={{ backgroundColor: "#211F27", borderRadius: 10 }}
           />
-          <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer mr-3" onClick={handleImageIconClick}>
-            <img
-              src={require("../assets/icons/icon_camera_black.png")}
-              className="h-7 object-contain"
-              alt="camera"
-            />
-          </label>
+           <div className="w-[2px] mr-2 h-[4.5vh] bg-[#DFE6EC]">
+                  
+           </div>
           <img
             src={require("../assets/icons/icon_send_msg_teal.png")}
-            className="h-6 mr-3"
+            className="h-5 mr-3"
             alt="send"
             onClick={newQuestion}
           />
