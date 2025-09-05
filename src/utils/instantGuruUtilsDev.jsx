@@ -154,16 +154,15 @@ export const postNewChat = (
   });
   customAppRequest('chat', 'POST', requestBody)
     .then(data => {
+      if (data.data[data.data.length - 1].showBotAvatar === false && chatHistory.value.length > 2) {
+        data.data[data.data.length - 1]['showBotAvatar'] = true;
+      }
+
       isFirstDoubt.value = false;
 
       if (chatSessionId.value !== null && chatSessionId.value !== "" && data.data[data.data.length - 1] && !data.data[data.data.length - 1].waitingForResponse) {
         updateDoubtStatus("SOLVED_SEEN");
       }
-
-      if (data.data[data.data.length - 1].showBotAvatar === false) {
-        data.data[data.data.length - 1]['showBotAvatar'] = true;
-      }
-
 
       if (subject === null || subject === "null") {
         subject = "Physics";
@@ -219,7 +218,7 @@ export const chatResponseFeedback = (chatMessageId, thumbsUp) => {
   const urlParams = new URLSearchParams(window.location.search);
   const subject = urlParams.get("subject");
 
-  showDoubtChatLoader.value = true;
+  // showDoubtChatLoader.value = true;
 
   customAppRequest(`feedback/v2?responseId=${chatMessageId}&chatSessionId=${chatSessionId}&thumbsUp=${thumbsUp}&videoFeedback=false&selectedSubjectName=${subject}`)
     .then(data => {

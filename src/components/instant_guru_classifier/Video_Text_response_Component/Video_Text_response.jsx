@@ -43,7 +43,7 @@ const Video_Text_response = ({ chat }) => {
 
       {/* Open Button */}
       <div className="mt-4 mr-auto">
-        <div style={{ boxShadow: "0 0 5px rgba(38,198,218,0.8)" }} className={`px-6 flex items-center justify-center gap-2 bg-[#26C6DA] shadow-xl text-white  py-2 rounded-full transition ${!chat.thumbnailUrl ? "flex-row" :"flex-row-reverse"}`} onClick={handleOpenVideo}>
+        <div style={{ boxShadow: "0 0 5px rgba(38,198,218,0.8)" }} className={`flex items-center justify-center gap-2 bg-[#26C6DA] shadow-xl text-white  py-2 rounded-full transition ${!chat.thumbnailUrl ? "flex-row px-6" :"flex-row-reverse px-3"}`} onClick={handleOpenVideo}>
           <p className="text-[16px] font-semibold">{chat.actionButtonText}</p>
           {
             chat.thumbnailUrl
