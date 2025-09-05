@@ -72,7 +72,7 @@ import tipsData from "../assets/Time_pass_tips.json";
 import quotes1 from "../assets/quotes1.png"
 import { TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
 import Only_Text_button from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_button";
-
+import AtomImg from "../assets/icons/atom2.png"
 
 const InstantGuruUIDev = () => {
   useSignals();
@@ -420,6 +420,7 @@ const InstantGuruUIDev = () => {
                 chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && chat.optionResponse !== undefined && chat.optionResponse !== null
                 &&
                 <TextOptionBubble chat={chat} chatIndex={hIndex} />
+                
               }
 
               {
@@ -543,36 +544,64 @@ const InstantGuruUIDev = () => {
       {
         (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
-        <div className="flex flex-row items-center p-2 overflow-x-auto h-[64px]">
-          {
-            bottomSuggestedQuestion.value.map((item, index) => {
-              return (
-                <div onClick={() => {
-                  if (subscriptionExpired) {
-                    showDoubtSubscriptionDialog();
-                    return;
-                  }
+ <div className="relative w-full flex  items-end h-[64px] overflow-hidden">
+  <div className="flex whitespace-nowrap  animate-scroll">
+    {[...bottomSuggestedQuestion.value, ...bottomSuggestedQuestion.value].map(
+      (item, index) => (
+        <div
+          onClick={() => {
+            if (subscriptionExpired) {
+              showDoubtSubscriptionDialog();
+              return;
+            }
 
-                  let question = suggestedQuestions.filter((question) => question.question === item.title)[0];
-                  chatHistory.value = [...chatHistory.value, {
-                    "botResponse": question.answer,
-                    "responseType": "HTML",
-                    "showBotAvatar": true,
-                    "userQuery": item.title
-                  }]
-                  isFirstDoubt.value = false;
-                  chatType.value = "subject_based";
-                  suggestedDoubtAsked.value = true;
-                  scrollToBottom();
-                  saveDoubtChat(item.title, question.answer);
-                }}
-                  key={index} className="white-space-nowrap bg-primary/5 p-2 rounded-lg mx-1 flex-shrink-0">
-                  <p className="text-sm">{item.title}</p>
-                </div>
-              )
-            })
-          }
+            let question = suggestedQuestions.find(
+              (question) => question.question === item.title
+            );
+            chatHistory.value = [
+              ...chatHistory.value,
+              {
+                botResponse: question.answer,
+                responseType: "HTML",
+                showBotAvatar: true,
+                userQuery: item.title,
+              },
+            ];
+            isFirstDoubt.value = false;
+            chatType.value = "subject_based";
+            suggestedDoubtAsked.value = true;
+            scrollToBottom();
+            saveDoubtChat(item.title, question.answer);
+          }}
+          key={index}
+          className="bg-transparent border border-[#DFE6EC] p-2 rounded-lg mx-2 inline-flex items-center gap-2 flex-shrink-0 cursor-pointer hover:bg-primary/10 transition"
+        >
+          <div className="w-[20px] h-[20px] flex-shrink-0">
+            <img
+              className="w-full h-full object-cover"
+              src={AtomImg}
+              alt=""
+            />
+          </div>
+          <p className="text-sm text-[#000000]/70">{item.title}</p>
         </div>
+      )
+    )}
+  </div>
+
+  <style>{`
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-scroll {
+      display: inline-flex;
+      animation: scroll 30s linear infinite;
+      will-change: transform;
+    }
+  `}</style>
+</div>
+
       }
 
       {/* the new crousal comtainer  */}
