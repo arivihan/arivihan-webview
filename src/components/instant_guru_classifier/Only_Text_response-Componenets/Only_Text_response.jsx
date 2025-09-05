@@ -44,13 +44,17 @@ const Only_Text_response = ({ chat, chatIndex }) => {
 
 
   return (
-    <div className='w-full flex flex-col items-start gap-2 py-2 h-fit'>
-      <div className='flex items-center gap-2'>
-        <div className='w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden'>
-          <img className='h-full w-full object-cover' src={require("../../../assets/icons/icon_chat_avatar.png")} alt="" />
+    <div className='w-full flex flex-col items-start gap-2 py-0'>
+      {
+        (chat.showBotAvatar || chatHistory.value.length > 2)
+        &&
+        <div className='flex items-center gap-2'>
+          <div className='w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden'>
+            <img className='h-full w-full object-cover' src={require("../../../assets/icons/icon_chat_avatar.png")} alt="" />
+          </div>
+          <p className='font-bold text-sm text-[#37D3E7]'>Instant Guru</p>
         </div>
-        <p className='font-bold text-sm text-[#37D3E7]'>Instant Guru</p>
-      </div>
+      }
       {
         chat.botResponse &&
         <div className='whitespace-normal text-[15px]' ref={containerRef} dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>").replaceAll(/(\n){2,}/g, '</br>') }}>
