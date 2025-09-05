@@ -420,8 +420,9 @@ const InstantGuruUIDev = () => {
                 chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && chat.optionResponse !== undefined && chat.optionResponse !== null
                 &&
                 <TextOptionBubble chat={chat} chatIndex={hIndex} />
-                
+
               }
+
 
               {
                 chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML")
@@ -589,7 +590,7 @@ const InstantGuruUIDev = () => {
     )}
   </div>
 
-  <style>{`
+          <style>{`
     @keyframes scroll {
       0% { transform: translateX(0); }
       100% { transform: translateX(-50%); }
@@ -600,7 +601,7 @@ const InstantGuruUIDev = () => {
       will-change: transform;
     }
   `}</style>
-</div>
+        </div>
 
       }
 
@@ -617,7 +618,7 @@ const InstantGuruUIDev = () => {
             isOpen={showTooltipNumber === 1}
             style={{ backgroundColor: "#211F27", borderRadius: 10 }}
           />
-            <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer shadow bg-[#26C6DA] rounded-md ml-1 flex justify-center items-center p-2 w-[6vh] h-[5vh] mr-1" onClick={handleImageIconClick}>
+            <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer shadow bg-[#26C6DA] rounded-md ml-1 flex justify-center items-center p-2 w-min-[6vh] h-min-[5vh] mr-1" onClick={handleImageIconClick}>
             {/* <img
               src={require("../assets/icons/icon_camera_black.png")}
               className="h-5 object-contain"
