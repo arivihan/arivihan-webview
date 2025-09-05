@@ -331,7 +331,7 @@ const InstantGuruUIDev = () => {
             {
               isFirstDoubt.value === false
                 ?
-                <div className="absolute rounded-[10px] inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-shimmer">
+                <div className="absolute rounded-[10px]  inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-shimmer">
                 </div>
                 : null
             }

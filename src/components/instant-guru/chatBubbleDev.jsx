@@ -8,7 +8,7 @@ import { BlockMath } from "react-katex";
 import renderMathInElement from 'katex/contrib/auto-render';
 import SmilesRenderer from "../smileRenderer";
 import ReactDOM from "react-dom/client";
-
+import AtomImg from "../../assets/icons/atom2.png"
 // import ReactHtmlParser, { processNodes, convertNodeToElement, htmlparser2 } from 'react-html-parser';
 
 
@@ -21,12 +21,12 @@ export const TextOptionBubble = ({ chat, chatIndex, fullWidth = true }) => {
     return chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && chat.optionResponse !== undefined && chat.optionResponse !== null ? (
         <div key="box" className="flex flex-col items-start">
 
-            <div className='flex items-center gap-2'>
+            {/* <div className='flex items-center gap-2'>
                 <div className='w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden'>
                     <img className='h-full w-full object-cover' src={require("../../assets/icons/icon_chat_avatar.png")} alt="" />
                 </div>
                 <p className='font-bold text-sm text-[#37D3E7]'>Instant Guru</p>
-            </div>
+            </div> */}
             
             {/* {chat.showAvatar || chat.showBotAvatar ? (
                 <img
@@ -35,13 +35,22 @@ export const TextOptionBubble = ({ chat, chatIndex, fullWidth = true }) => {
                 />
             ) : <div className="h-[40px] w-[40px] mr-2"></div>} */}
             {/*  */}
-            <div className={`text-sm text-medium flex flex-col py-2 mr-auto text-sm rounded-lg ${fullWidth ? 'w-full' : 'w-1/2'}`}>
-                <p className="mb-1" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>") ?? t("chooseTypeOfSolution") }}></p>
+            <div className={`text-medium flex flex-col py-2 mr-auto text-sm rounded-lg ${fullWidth ? 'w-full' : 'w-1/2'}`}>
+              <div className="flex gap-2">
+                <div className="w-[18px] h-[18px] flex-shrink-0">
+            <img
+              className="w-full h-full object-cover"
+              src={AtomImg}
+              alt=""
+            />
+          </div>
+                  <p className="mb-1 text-[14px] font-bold" dangerouslySetInnerHTML={{ __html: chat.botResponse.replaceAll("(bold)<b>", "</b>") ?? t("chooseTypeOfSolution") }}></p>
+              </div>
                 <div className="flex flex-col mr-auto">
                     {chat.optionResponse.map((option, index) => {
                         return (
                             <div key={index}
-                                className="px-3 py-2 bg-[#f6f6f6] text-sm rounded-[8px] my-1 cursor-pointer"
+                                className="px-3 py-3 bg-transparent border border-[#DFE6EC] text-sm rounded-[8px] my-1 cursor-pointer"
                                 onClick={chatIndex !== chatHistory.value.length - 1 ? null : () => {
                                     if (waitingForResponse.value === false && showDoubtChatLoader.value === false && showChatLoadShimmer.value === false) {
                                         if (option.title.includes("Video") || option.title.includes("वीडियो")) {
