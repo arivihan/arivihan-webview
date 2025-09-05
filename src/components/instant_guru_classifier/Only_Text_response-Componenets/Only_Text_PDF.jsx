@@ -14,7 +14,7 @@ const Only_Text_PDF = ({ file }) => {
 
   // Jab PDF load ho jaye tab pages mil jayenge
   return (
-    <div className="relative h-min-[62px]  w-full flex-1 h-auto shadow-sm border border-gray-100 rounded-lg overflow-hidden" onClick={() => { openPdf(file.pdfLink) }}>
+    <div className="relative h-min-[62px]  w-full flex-1 h-auto shadow-sm border border-gray-100 rounded-lg overflow-hidden" onClick={() => { openPdf(file.pdfLink, file.pdfTitle) }}>
       {/* <iframe
         src={`${pdfUrl}#page=1&view=FitH`}
         title="PDF Preview"
@@ -34,7 +34,7 @@ const Only_Text_PDF = ({ file }) => {
             </p> */}
           </div>
         </div>
-        
+
       </div>
     </div>
 

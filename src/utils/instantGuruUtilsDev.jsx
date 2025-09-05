@@ -689,10 +689,10 @@ export function openAppActivity(className, activityParams) {
   }
 }
 
-export function openPdf(url) {
+export function openPdf(url,title) {
   if (typeof AndroidInterface !== 'undefined') {
     try {
-      window.AndroidInterface.openPdf(url);
+      window.AndroidInterface.openPdf(url,title);
     } catch (error) {
     }
   } else {
