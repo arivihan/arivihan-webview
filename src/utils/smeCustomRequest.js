@@ -18,7 +18,8 @@ function smeCustomRequest(path, method = "POST", body = {}) {
         options['body'] = JSON.stringify(body)
     }
 
-    return fetch(`https://prod.arivihan.com/internal-metrics${path}`, options)
+    try{
+ return fetch(`https://prod.arivihan.com/internal-metrics${path}`, options)
         .then(res => {
             if (res.status === 200) {
                 return res.json()
@@ -30,6 +31,10 @@ function smeCustomRequest(path, method = "POST", body = {}) {
         .then(json => {
             return json;
         })
+    }catch{
+
+    }
+   
 }
 
 

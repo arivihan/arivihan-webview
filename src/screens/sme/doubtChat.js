@@ -240,7 +240,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                     doubt.responseType === "TEXT_OPTION"
                         ?
                         <div>
-                            <p>{doubt.response}</p>
+                            <p dangerouslySetInnerHTML={{ __html: doubt.response == null ? "" : doubt.response.replace("(bold)<b>", "</b>") }}></p>
                             {
                                 doubt.optionResponse.map((item, index) => {
                                     return (
@@ -346,7 +346,7 @@ const SmeReceiveBubble = ({ doubt, message, doubtImage, user }) => {
             <div className={`ml-12 text-gray-800 text-start word mt-2`} id="typer">
                 <pre className='text-wrap whitespace-break-spaces text-sm'>
                     {
-                        doubtImage === null && doubt.requestType !== "IMAGE"
+                        doubtImage === null && doubt.requestType !== "IMAGE" && doubt.requestType !== "IMAGE_HTML"
                             ?
                             null
                             :
