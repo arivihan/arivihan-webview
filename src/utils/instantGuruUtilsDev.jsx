@@ -325,6 +325,7 @@ export function chatClassifier(message) {
 
       chatType.value = data[0].sectionType;
       showDoubtChatLoader.value = false;
+      callClassifier.value = true;
 
 
       try {
@@ -351,6 +352,7 @@ export function chatClassifier(message) {
       if (data[0].sectionType === "SectionType.SUBJECT_RELATED") {
         isFirstDoubt.value = true;
         postNewChat(message);
+        callClassifier.value = false;
       } else if (data[0].sectionType === "SectionType.FAQ" || data[0].sectionType === "SectionType.CONVERSATION_BASED") {
         chatHistory.value = [...chatHistory.value, {
           "botResponse": data[0].bigtext,
@@ -689,10 +691,10 @@ export function openAppActivity(className, activityParams) {
   }
 }
 
-export function openPdf(url,title) {
+export function openPdf(url, title) {
   if (typeof AndroidInterface !== 'undefined') {
     try {
-      window.AndroidInterface.openPdf(url,title);
+      window.AndroidInterface.openPdf(url, title);
     } catch (error) {
     }
   } else {
