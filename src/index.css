@@ -73,7 +73,13 @@ th,td{
     border: 1px solid rgb(174, 174, 174) !important;
 }
 
+b {
+  font-weight: bold !important;
+}
 
+u {
+  text-decoration: underline !important;
+}
 
 @keyframes shimmer {
     0% {

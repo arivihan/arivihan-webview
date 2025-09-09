@@ -111,13 +111,18 @@ const InstantGuruUIDev = () => {
     const urlParams = new URLSearchParams(window.location.search);
     let uLanguage = urlParams.get("language");
     let uSubject = urlParams.get("subject").toLowerCase();
-    const selectedTips =
+
+    let selectedTips =
       tipsData.filter(
         (item) =>
           item.subject === uSubject &&
           item.course === "board" &&
           item.language === uLanguage
-      )[0].tips;
+      );
+
+    if (selectedTips.length > 0) {
+      selectedTips = selectedTips[0].tips
+    }
 
 
     setMessages(selectedTips);
@@ -240,7 +245,7 @@ const InstantGuruUIDev = () => {
       chatContainer.scrollTop = chatContainer.scrollHeight;
       if ((chatType.value === null || chatType.value !== "SectionType.SUBJECT_RELATED") && callClassifier.value == true) {
         chatClassifier(doubtText.value);
-      } else if (chatType.value === "SectionType.SUBJECT_RELATED") {
+      } else {
         postNewChat(doubtText.value);
       }
       lastUserQuestion.value = doubtText.value;
@@ -545,50 +550,50 @@ const InstantGuruUIDev = () => {
       {
         (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
- <div className="relative w-full flex  items-end h-[60px] overflow-hidden">
-  <div className="flex whitespace-nowrap  animate-scroll">
-    {[...bottomSuggestedQuestion.value, ...bottomSuggestedQuestion.value].map(
-      (item, index) => (
-        <div
-          onClick={() => {
-            if (subscriptionExpired) {
-              showDoubtSubscriptionDialog();
-              return;
-            }
+        <div className="relative w-full flex  items-end h-[60px] overflow-hidden">
+          <div className="flex whitespace-nowrap  animate-scroll">
+            {[...bottomSuggestedQuestion.value, ...bottomSuggestedQuestion.value].map(
+              (item, index) => (
+                <div
+                  onClick={() => {
+                    if (subscriptionExpired) {
+                      showDoubtSubscriptionDialog();
+                      return;
+                    }
 
-            let question = suggestedQuestions.find(
-              (question) => question.question === item.title
-            );
-            chatHistory.value = [
-              ...chatHistory.value,
-              {
-                botResponse: question.answer,
-                responseType: "HTML",
-                showBotAvatar: true,
-                userQuery: item.title,
-              },
-            ];
-            isFirstDoubt.value = false;
-            chatType.value = "subject_based";
-            suggestedDoubtAsked.value = true;
-            scrollToBottom();
-            saveDoubtChat(item.title, question.answer);
-          }}
-          key={index}
-          className="bg-transparent border border-[#DFE6EC] p-1 rounded-lg mx-2 inline-flex items-center gap-2 flex-shrink-0 cursor-pointer hover:bg-primary/10 transition"
-        >
-          <div className="w-[15px] h-[15px] flex-shrink-0">
-            <img
-              className="w-full h-full object-cover"
-              src={AtomImg}
-              alt=""
-            />
+                    let question = suggestedQuestions.find(
+                      (question) => question.question === item.title
+                    );
+                    chatHistory.value = [
+                      ...chatHistory.value,
+                      {
+                        botResponse: question.answer,
+                        responseType: "HTML",
+                        showBotAvatar: true,
+                        userQuery: item.title,
+                      },
+                    ];
+                    isFirstDoubt.value = false;
+                    chatType.value = "subject_based";
+                    suggestedDoubtAsked.value = true;
+                    scrollToBottom();
+                    saveDoubtChat(item.title, question.answer);
+                  }}
+                  key={index}
+                  className="bg-transparent border border-[#DFE6EC] p-1 rounded-lg mx-2 inline-flex items-center gap-2 flex-shrink-0 cursor-pointer hover:bg-primary/10 transition"
+                >
+                  <div className="w-[15px] h-[15px] flex-shrink-0">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={AtomImg}
+                      alt=""
+                    />
+                  </div>
+                  <p className="text-sm text-[#000000]/70">{item.title}</p>
+                </div>
+              )
+            )}
           </div>
-          <p className="text-sm text-[#000000]/70">{item.title}</p>
-        </div>
-      )
-    )}
-  </div>
 
           <style>{`
     @keyframes scroll {
@@ -618,14 +623,14 @@ const InstantGuruUIDev = () => {
             isOpen={showTooltipNumber === 1}
             style={{ backgroundColor: "#211F27", borderRadius: 10 }}
           />
-            <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer shadow bg-[#26C6DA] rounded-md ml-1 flex justify-center items-center p-2 w-min-[6vh] h-min-[5vh] mr-1" onClick={handleImageIconClick}>
+          <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer shadow bg-[#26C6DA] rounded-md ml-1 flex justify-center items-center p-2 w-min-[6vh] h-min-[5vh] mr-1" onClick={handleImageIconClick}>
             {/* <img
               src={require("../assets/icons/icon_camera_black.png")}
               className="h-5 object-contain"
               alt="camera"
             /> */}
             <p className="text-white">
-             <AiOutlineCamera size={20}/>
+              <AiOutlineCamera size={20} />
             </p>
           </label>
           <input
@@ -659,9 +664,9 @@ const InstantGuruUIDev = () => {
             isOpen={showTooltipNumber === 2}
             style={{ backgroundColor: "#211F27", borderRadius: 10 }}
           />
-           <div className="w-[2px] mr-2 h-[4.5vh] bg-[#DFE6EC]">
-                  
-           </div>
+          <div className="w-[2px] mr-2 h-[4.5vh] bg-[#DFE6EC]">
+
+          </div>
           <img
             src={require("../assets/icons/icon_send_msg_teal.png")}
             className="h-5 mr-3"
