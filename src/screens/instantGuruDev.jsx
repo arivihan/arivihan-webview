@@ -68,13 +68,15 @@ import Video_Text_response from "../components/instant_guru_classifier/Video_Tex
 // import Multi_Model_paper_response from "../components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response";
 // import Whatsapp from "../components/instant_guru_classifier/Whatsapp_Query/Whatsapp";
 // import Subscription_response from "../components/instant_guru_classifier/Subscription_response/Subscription_response";
-// import Question_response from "../components/instant_guru_classifier/Question_response/Question_response";
+import Question_response from "../components/instant_guru_classifier/Question_response/Question_response";
 import tipsData from "../assets/Time_pass_tips.json";
 import quotes1 from "../assets/quotes1.png"
 import { TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
 import Only_Text_button from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_button";
 import AtomImg from "../assets/icons/atom2.png"
 import { AiOutlineCamera } from "react-icons/ai";
+import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
+import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
 const InstantGuruUIDev = () => {
   useSignals();
   const [listening, setListening] = useState(false);
@@ -328,8 +330,6 @@ const InstantGuruUIDev = () => {
         <img id="open-drawer-btn" src={require("../assets/icons/icon_menu_home.png")} className="w-7" onClick={() => { openDrawer() }} />
         <h1 className="ml-4 mt-3 text-lg font-bold">Instant Guru</h1>
 
-
-
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
           {/* <Lottie
             loop
@@ -433,7 +433,8 @@ const InstantGuruUIDev = () => {
                 <TextOptionBubble chat={chat} chatIndex={hIndex} />
 
               }
-
+                 
+                
 
               {
                 chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML")
@@ -458,7 +459,7 @@ const InstantGuruUIDev = () => {
                 &&
                 <Only_Text_button chat={chat} chatIndex={hIndex} />
               }
-
+              
               {
                 chat.responseType === "HTML_VIDEO"
                 &&
@@ -469,7 +470,7 @@ const InstantGuruUIDev = () => {
             </div>
           );
         })}
-
+        
         {/* Loader + Important Questions block */}
         {showDoubtChatLoader.value === true ? (
           <div className="flex flex-col gap-2">
@@ -617,7 +618,7 @@ const InstantGuruUIDev = () => {
       }
 
       {/* the new crousal comtainer  */}
-
+       
       {/* the new crousal comtainer  */}
 
 

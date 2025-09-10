@@ -54,7 +54,7 @@ const Video_Text_response = ({ chat }) => {
           }
         </div>
       </div>
-      <Global_like_dislike_response />
+      <Global_like_dislike_response chat={chat} />
     </div>
   );
 };
