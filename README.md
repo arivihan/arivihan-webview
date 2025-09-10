@@ -38,6 +38,9 @@ npm start
 To deploy the chatbot, use the following SCP command:
 ```bash
 scp -i C:\Users\adityasuraj\Desktop\arivihan\ssh\arivihan_website.pem -r build bitnami@arivihan.com:/home/bitnami/chatbot
+
+
+scp -i C:\Users\adityasuraj\Desktop\arivihan\ssh\arivihan_website.pem -r build bitnami@arivihan.com:/home/bitnami/chatbot
 ```
 
 ## Contributing
