@@ -56,8 +56,8 @@ const Video_componenet = ({ chat }) => {
         <b>
           <h1 className="text-[18px]">{chat.title}</h1>
         </b>
-        <p className="mt-2 flex items-center gap-1 text-gray-400 text-xs">
-          {chat.videoEndTime ? chat.videoEndTime + " min" : ""} <GoDotFill size={12} /> {chat.subtitle.charAt(0).toUpperCase() + chat.subtitle.slice(1)}
+        <p className="mt-2 flex items-center gap-1 text-gray-400 text-xs text-capitalize">
+          {chat.videoEndTime ? chat.videoEndTime + " min" : ""} <GoDotFill size={12} /> {chat.subtitle}
         </p>
       </div>
     </div>

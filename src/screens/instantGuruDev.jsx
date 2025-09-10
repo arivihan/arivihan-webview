@@ -33,6 +33,7 @@ import {
   chatResponseFeedback,
   getChatHistory,
   loadSuggestedQuestions,
+  logEventToFirebase,
   openDrawer,
   openFilePicker,
   openMicInput,
@@ -89,7 +90,9 @@ const InstantGuruUIDev = () => {
   const [subscriptionExpired, setSubscriptionExpired] = useState(false);
   const [index, setIndex] = useState(0);
   const [messages, setMessages] = useState([]);
+
   const handleImageIconClick = (e) => {
+    logEventToFirebase("doubt_chat_image_button_click")
 
     if (subscriptionExpired) {
       showDoubtSubscriptionDialog();
@@ -256,6 +259,7 @@ const InstantGuruUIDev = () => {
   };
 
   const handleMicIconClick = () => {
+    logEventToFirebase("doubt_chat_mic_button_click")
     if (subscriptionExpired) {
       showDoubtSubscriptionDialog();
       return;
@@ -264,6 +268,8 @@ const InstantGuruUIDev = () => {
   };
 
   const handleNewChat = () => {
+    logEventToFirebase("doubt_chat_new_chat_button_click")
+
     openNewChat();
   }
 
@@ -435,11 +441,11 @@ const InstantGuruUIDev = () => {
                 <Only_Text_Response chat={chat} chatIndex={hIndex} />
               }
 
-              {
+              {/* {
                 chat.responseType === "HTML_LINKS"
                 &&
                 <Only_Text_Response chat={chat} chatIndex={hIndex} />
-              }
+              } */}
 
               {
                 chat.responseType !== null && chat.responseType !== "" && (chat.responseType === "HTML_PDF")
@@ -448,13 +454,13 @@ const InstantGuruUIDev = () => {
               }
 
               {
-                chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.ACTIVITY"
+                chat.responseType === "HTML_ACTIVITY"
                 &&
                 <Only_Text_button chat={chat} chatIndex={hIndex} />
               }
 
               {
-                chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "HTML_VIDEO" && chat.cardType === "CardType.FULLCARD"
+                chat.responseType === "HTML_VIDEO"
                 &&
                 <Video_Text_response chat={chat} chatIndex={hIndex} />
               }

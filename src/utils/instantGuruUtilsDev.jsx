@@ -220,6 +220,9 @@ export const chatResponseFeedback = (chatMessageId, thumbsUp) => {
 
   // showDoubtChatLoader.value = true;
 
+
+  logEventToFirebase("doubt_chat_feedback", { messageId: chatMessageId, thumbsUp: thumbsUp });
+
   customAppRequest(`feedback/v2?responseId=${chatMessageId}&chatSessionId=${chatSessionId}&thumbsUp=${thumbsUp}&videoFeedback=false&selectedSubjectName=${subject}`)
     .then(data => {
       chatHistory.value = [...chatHistory.value, ...data.data];
@@ -349,105 +352,101 @@ export function chatClassifier(message) {
       }
 
 
-      if (data[0].sectionType === "SectionType.SUBJECT_RELATED") {
+      if (data[0].classifierResponseType === "SectionType.SUBJECT_RELATED") {
         isFirstDoubt.value = true;
         postNewChat(message);
         callClassifier.value = false;
-      } else if (data[0].sectionType === "SectionType.FAQ" || data[0].sectionType === "SectionType.CONVERSATION_BASED") {
-        chatHistory.value = [...chatHistory.value, {
-          "botResponse": data[0].bigtext,
-          "responseType": "HTML",
-          "showBotAvatar": true,
-          "userQuery": ""
-        }]
-      } else if (data[0].sectionType === "SectionType.PDF") {
-
-        if (data[0].cardType === "CardType.ACTIVITY") {
-          chatHistory.value = [...chatHistory.value, {
-            "botResponse": data[0].bigtext,
-            "responseType": "HTML_VIDEO",
-            "thumbnailUrl": data[0].thumbnailUrl,
-            "title": data[0].displayTitle,
-            "cardType": data[0].cardType,
-            "actionButtonText": data[0].actionButtonText,
-            "screenClassName": data[0].screenClassName,
-            "navigationParams": data[0].navigationParams,
-            "videoEndTime": data[0].Video_End_Time,
-            "subtitle": data[0].displaySubtitle,
-            "showBotAvatar": true,
-            "needFeedback": true,
-            "userQuery": ""
-          }]
-        } else {
-          let pdfUrls = []
-
-          data.forEach(res => {
-            pdfUrls.push(
-              {
-                "pdfTitle": res.displayTitle,
-                "pdfLink": res.pdfLink,
-              }
-            )
-          });
-
-          chatHistory.value = [...chatHistory.value, {
-            "botResponse": data[0].bigtext,
-            "responseType": "HTML_PDF",
-            "pdfFiles": pdfUrls,
-            "showBotAvatar": true,
-            "userQuery": "",
-            "needFeedback": true,
-          }]
-        }
-
-      } else if (data[0].sectionType === "SectionType.LECTURE") {
-        chatHistory.value = [...chatHistory.value, {
-          "botResponse": data[0].bigtext,
-          "responseType": "HTML_VIDEO",
-          "thumbnailUrl": data[0].thumbnailUrl,
-          "title": data[0].displayTitle,
-          "cardType": data[0].cardType,
-          "actionButtonText": data[0].actionButtonText,
-          "screenClassName": data[0].screenClassName,
-          "navigationParams": data[0].navigationParams,
-          "videoEndTime": data[0].Video_End_Time,
-          "subtitle": data[0].displaySubtitle,
-          "showBotAvatar": true,
-          "userQuery": "",
-          "needFeedback": true,
-        }]
-
-
-      } else if (data[0].sectionType === "SectionType.ACTIVITY") {
-        chatHistory.value = [...chatHistory.value, {
-          "botResponse": data[0].bigtext,
-          "responseType": "HTML_VIDEO",
-          "thumbnailUrl": data[0].thumbnailUrl,
-          "title": data[0].displayTitle,
-          "cardType": data[0].cardType,
-          "actionButtonText": data[0].actionButtonText,
-          "screenClassName": data[0].screenClassName,
-          "navigationParams": data[0].navigationParams,
-          "videoEndTime": data[0].Video_End_Time,
-          "subtitle": data[0].displaySubtitle,
-          "showBotAvatar": true,
-          "userQuery": "",
-          "needFeedback": true,
-        }]
-      } else if (data[0].sectionType === "SectionType.PYQ") {
-        chatHistory.value = [...chatHistory.value, {
-          "botResponse": data[0].bigtext,
-          "responseType": "HTML_LINKS",
-          "showBotAvatar": true,
-          "userQuery": "",
-          "redirectLink": data[0].redirectLink,
-          "needFeedback": true
-        }]
+      } else {
+        chatHistory.value = [...chatHistory.value, data[0]]
       }
+      // } else if (data[0].sectionType === "SectionType.PDF") {
+
+      //   if (data[0].cardType === "CardType.ACTIVITY") {
+      //     chatHistory.value = [...chatHistory.value, {
+      //       "botResponse": data[0].bigtext,
+      //       "responseType": "HTML_VIDEO",
+      //       "thumbnailUrl": data[0].thumbnailUrl,
+      //       "title": data[0].displayTitle,
+      //       "cardType": data[0].cardType,
+      //       "actionButtonText": data[0].actionButtonText,
+      //       "screenClassName": data[0].screenClassName,
+      //       "navigationParams": data[0].navigationParams,
+      //       "videoEndTime": data[0].Video_End_Time,
+      //       "subtitle": data[0].displaySubtitle,
+      //       "showBotAvatar": true,
+      //       "needFeedback": true,
+      //       "userQuery": ""
+      //     }]
+      //   } else {
+      //     let pdfUrls = []
+
+      //     data.forEach(res => {
+      //       pdfUrls.push(
+      //         {
+      //           "pdfTitle": res.displayTitle,
+      //           "pdfLink": res.pdfLink,
+      //         }
+      //       )
+      //     });
+
+      //     chatHistory.value = [...chatHistory.value, {
+      //       "botResponse": data[0].bigtext,
+      //       "responseType": "HTML_PDF",
+      //       "pdfFiles": pdfUrls,
+      //       "showBotAvatar": true,
+      //       "userQuery": "",
+      //       "needFeedback": true,
+      //     }]
+      //   }
+
+      // } else if (data[0].sectionType === "SectionType.LECTURE") {
+      //   chatHistory.value = [...chatHistory.value, {
+      //     "botResponse": data[0].bigtext,
+      //     "responseType": "HTML_VIDEO",
+      //     "thumbnailUrl": data[0].thumbnailUrl,
+      //     "title": data[0].displayTitle,
+      //     "cardType": data[0].cardType,
+      //     "actionButtonText": data[0].actionButtonText,
+      //     "screenClassName": data[0].screenClassName,
+      //     "navigationParams": data[0].navigationParams,
+      //     "videoEndTime": data[0].Video_End_Time,
+      //     "subtitle": data[0].displaySubtitle,
+      //     "showBotAvatar": true,
+      //     "userQuery": "",
+      //     "needFeedback": true,
+      //   }]
+
+
+      // } else if (data[0].sectionType === "SectionType.ACTIVITY") {
+      //   chatHistory.value = [...chatHistory.value, {
+      //     "botResponse": data[0].bigtext,
+      //     "responseType": "HTML_VIDEO",
+      //     "thumbnailUrl": data[0].thumbnailUrl,
+      //     "title": data[0].displayTitle,
+      //     "cardType": data[0].cardType,
+      //     "actionButtonText": data[0].actionButtonText,
+      //     "screenClassName": data[0].screenClassName,
+      //     "navigationParams": data[0].navigationParams,
+      //     "videoEndTime": data[0].Video_End_Time,
+      //     "subtitle": data[0].displaySubtitle,
+      //     "showBotAvatar": true,
+      //     "userQuery": "",
+      //     "needFeedback": true,
+      //   }]
+      // } else if (data[0].sectionType === "SectionType.PYQ") {
+      //   chatHistory.value = [...chatHistory.value, {
+      //     "botResponse": data[0].bigtext,
+      //     "responseType": "HTML_LINKS",
+      //     "showBotAvatar": true,
+      //     "userQuery": "",
+      //     "redirectLink": data[0].redirectLink,
+      //     "needFeedback": true
+      //   }]
+      // }
       // if (data[0].sectionType === "SectionType.OPEN_WHATSAPP")
-      else {
-        showWhatsappBottomSheet.value = true;
-      }
+      // else {
+      //   // showWhatsappBottomSheet.value = true;
+      // }
 
       // callClassifier.value = false;
 
@@ -560,6 +559,35 @@ export function loadSuggestedQuestions(addInChatHistory = false) {
   }
 }
 
+export function logEventToFirebase(eventName, eventData = {}) {
+  try {
+    if (analytics) {
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get("userId");
+      const langauge = urlParams.get("language");
+      const subject = urlParams.get("subject");
+      const env = urlParams.get("env");
+
+      eventData = {
+        ...eventData,
+        userId: userId,
+        subject: subject,
+        langauge: langauge,
+        env: env,
+      }
+
+      logEvent(
+        analytics,
+        eventName,
+        eventData
+      )
+    }
+  } catch (error) {
+    console.error("failed to push event :: " + error)
+  }
+}
+
 export function scrollToBottom() {
   setTimeout(() => {
     const chatContainer = document.getElementById("chat-container");
@@ -577,6 +605,7 @@ export function showToast(message) {
 
 export function openDrawer() {
   if (typeof AndroidInterface !== 'undefined') {
+    logEventToFirebase("doubt_chat_open_drawer_button_clicked")
     window.AndroidInterface.openDrawer();
   } else {
     alert("AndroidInterface is not defined for drawer");
@@ -683,6 +712,7 @@ export function openAppActivity(className, activityParams) {
 
   if (typeof AndroidInterface !== 'undefined') {
     try {
+      logEventToFirebase("doubt_chat_open_activity_clicked", { ...activityParams, className: className })
       window.AndroidInterface.openActivity(className, JSON.stringify(activityParams));
     } catch (error) {
     }
@@ -692,8 +722,10 @@ export function openAppActivity(className, activityParams) {
 }
 
 export function openPdf(url, title) {
+
   if (typeof AndroidInterface !== 'undefined') {
     try {
+      logEventToFirebase("doubt_chat_open_pdf_clicked", { url: url, title: title })
       window.AndroidInterface.openPdf(url, title);
     } catch (error) {
     }
