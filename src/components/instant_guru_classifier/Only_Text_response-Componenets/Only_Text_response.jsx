@@ -191,3 +191,95 @@ export default Only_Text_response
 // };
 
 // export default Only_Text_response;
+
+
+
+// import renderMathInElement from "katex/contrib/auto-render";
+// import React, { useEffect, useRef } from "react";
+// import SmilesRenderer from "../../smileRenderer";
+// import ReactDOM from "react-dom/client";
+// import Global_like_dislike_response from "../Global_like_dislike_response";
+// import { chatHistory } from "../../../state/instantGuruState";
+
+// const Only_Text_response = ({ chat, chatIndex }) => {
+//   const containerRef = useRef(null);
+//    const sampletext =`
+//     "bigtext": "$$Q. निम्नलिखित अभिक्रियाओं को पूर्ण कीजिये : (i) \\(\\left(\\mathrm{CH}_{3}\\right)_{3} \\mathrm{C}-\\mathrm{OC}_{2} \\mathrm{H}_{5} \\xrightarrow{\\mathrm{HI}}\\) (ii) \\(\\mathrm{CO}+2 \\mathrm{H}_{2} \\xrightarrow[\\substack{200-300 \\text { atm } \\\\ 573-673 \\mathrm{~K}}]{\\mathrm{ZnO}-\\mathrm{Cr}_{2} \\mathrm{O}_{3}}\\) (iii) benzene + \\(\\mathrm{CH}_{3}Cl\\) with \\(\\mathrm{AlCl}_{3}\\) (iv) phenol + \\(\\mathrm{CHCl}_{3}\\) + \\(\\mathrm{NaOH}\\)$$",
+
+// React
+
+// Reply
+
+// 4:53
+// "bigtext": "$$Q. निम्नलिखित अभिक्रियाओं को पूर्ण कीजिये : (i) \\(\\left(\\mathrm{CH}_{3}\\right)_{3} \\mathrm{C}-\\mathrm{OC}_{2} \\mathrm{H}_{5} \\xrightarrow{\\mathrm{HI}}\\) (ii) \\(\\mathrm{CO}+2 \\mathrm{H}_{2} \\xrightarrow[\\substack{200-300 \\text { atm } \\\\ 573-673 \\mathrm{~K}}]{\\mathrm{ZnO}-\\mathrm{Cr}_{2} \\mathrm{O}_{3}}\\) (iii) benzene + \\(\\mathrm{CH}_{3}Cl\\) with \\(\\mathrm{AlCl}_{3}\\) (iv) phenol + \\(\\mathrm{CHCl}_{3}\\) + \\(\\mathrm{NaOH}\\)$$",
+// 4:53
+// "bigtext": "$$Q. निम्नलिखित अभिक्रियाओं को पूर्ण कीजिये : (i) \\(\\left(\\mathrm{CH}_{3}\\right)_{3} \\mathrm{C}-\\mathrm{OC}_{2} \\mathrm{H}_{5} \\xrightarrow{\\mathrm{HI}}\\) (ii) \\(\\mathrm{CO}+2 \\mathrm{H}_{2} \\xrightarrow[\\substack{200-300 \\text { atm } \\\\ 573-673 \\mathrm{~K}}]{\\mathrm{ZnO}-\\mathrm{Cr}_{2} \\mathrm{O}_{3}}\\) (iii) benzene + \\(\\mathrm{CH}_{3}Cl\\) with \\(\\mathrm{AlCl}_{3}\\) (iv) phenol + \\(\\mathrm{CHCl}_{3}\\) + \\(\\mathrm{NaOH}\\)$$",
+//    `
+//   useEffect(() => {
+//     if (containerRef.current) {
+//       renderMathInElement(containerRef.current, {
+//         delimiters: [
+//           { left: "\\[", right: "\\]", display: true },
+//           { left: "\\(", right: "\\)", display: false },
+//           { left: "$$", right: "$$", display: true },
+//           { left: "$", right: "$", display: false },
+//         ],
+//       });
+
+//       const el = containerRef.current;
+//       if (!el) return;
+
+//       setTimeout(() => {
+//         const nodes = Array.from(el.querySelectorAll("smiles"));
+//         nodes.forEach((node) => {
+//           const smiles =
+//             (node.textContent || node.getAttribute("value") || "").trim();
+//           const mount = document.createElement("span");
+//           node.replaceWith(mount);
+//           ReactDOM.createRoot(mount).render(
+//             <SmilesRenderer key={Math.random()} smiles={smiles} />
+//           );
+//         });
+//       }, 200);
+//     }
+//   }, [chat.botResponse]);
+
+//   return (
+//     <div className="w-full flex flex-col items-start gap-2 py-0">
+//       {(chat.showBotAvatar || chatHistory.value.length > 2) && (
+//         <div className="flex items-center gap-2">
+//           <div className="w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden">
+//             <img
+//               className="h-full w-full object-cover"
+//               src={require("../../../assets/icons/icon_chat_avatar.png")}
+//               alt="bot"
+//             />
+//           </div>
+//           <p className="font-bold text-sm text-[#37D3E7]">Instant Guru</p>
+//         </div>
+//       )}
+
+//       {chat.botResponse && (
+//         <div
+//           className="whitespace-normal text-[15px]"
+//           ref={containerRef}
+//           dangerouslySetInnerHTML={{ __html: sampletext }}
+//         />
+//       )}
+
+//       {chat.redirectLink &&
+//         chat.redirectLink.length > 0 &&
+//         chat.redirectLink.map((link, i) => (
+//           <div key={i} className="rounded-lg border border-gray-200 p-2">
+//             <p className="text-xs">{link.title}</p>
+//           </div>
+//         ))}
+
+//       {chat.needFeedback && chatIndex === chatHistory.value.length - 1 && (
+//         <Global_like_dislike_response chat={chat} />
+//       )}
+//     </div>
+//   );
+// };
+
+// export default Only_Text_response;

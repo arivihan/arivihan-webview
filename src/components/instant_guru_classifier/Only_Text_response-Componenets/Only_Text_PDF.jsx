@@ -26,8 +26,10 @@ const Only_Text_PDF = ({ file }) => {
         <div className="flex items-center gap-2" >
           <img src={require("../../../assets/icons/pdf_icon.png")} className="h-8 w-min-8 object-contain" />
           <div>
-            <p className="font-semibold text-black text-sm">
-              {file.pdfTitle}
+           <p className="font-semibold text-black text-sm">
+              {file.pdfTitle.length > 27
+                ? file.pdfTitle.slice(0, 27) + "…"
+                : file.pdfTitle}
             </p>
             {/* <p className="text-[11px] text-[#585757]">
               📄 {numPages || "..."} pages •  {fileSize || "..."}

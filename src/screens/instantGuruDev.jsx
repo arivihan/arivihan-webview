@@ -246,7 +246,7 @@ const InstantGuruUIDev = () => {
     }
     if (doubtText.value.split(" ").length > 2 || isStepWiseSolution.value === true) {
       suggestedDoubtAsked.value = true;
-      chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%]'><p>${doubtText}</p></div>`;
+      chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%] break-words '><p>${doubtText}</p></div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
       if ((chatType.value === null || chatType.value !== "SectionType.SUBJECT_RELATED") && callClassifier.value == true) {
         chatClassifier(doubtText.value);
@@ -403,7 +403,7 @@ const InstantGuruUIDev = () => {
                     />
                   </div>
                 ) : (
-                  <div className="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%]">
+                  <div className="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%] break-all ">
                     <p className="text-sm">{chat.userQuery}</p>
                   </div>
                 )
