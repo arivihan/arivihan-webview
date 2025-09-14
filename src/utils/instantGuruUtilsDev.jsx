@@ -356,6 +356,8 @@ export function chatClassifier(message) {
         isFirstDoubt.value = true;
         postNewChat(message);
         callClassifier.value = false;
+      } else if (data[0].classifierResponseType === "SectionType.OPEN_WHATSAPP") {
+        showWhatsappBottomSheet.value = true;
       } else {
         chatHistory.value = [...chatHistory.value, data[0]]
       }
