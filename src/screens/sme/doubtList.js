@@ -202,14 +202,31 @@ export default function DoubtListScreen() {
                                             <td className="border px-2 py-1">{doubt.liked === undefined || doubt.liked === null ? "N/A" : doubt.liked ? "Liked" : "Disliked"}</td>
                                             <td className="border px-2 py-1 text-sm">{moment(doubt.createdAt).format("h:mm a DD-MM-YY")}</td>
 
-                                            <td className="border px-2 py-1 flex items-center gap-2">
+                                            {/* <td className="border px-2 py-1 flex items-center gap-2">
                                                 <div
                                                     className="border border-primary bg-primary/10 rounded p-1 cursor-pointer text-primary hover:text-white hover:bg-primary transition"
                                                     onClick={() => { handleDoubtChat(doubt) }}
                                                 >
                                                     <BsChatDotsFill />
                                                 </div>
-                                            </td>
+                                            </td> */} 
+
+                                             <td className="border px-2 py-1 flex items-center gap-2">
+                                                <div
+                                                    className="border border-primary bg-primary/10 rounded p-1 cursor-pointer text-primary hover:text-white hover:bg-primary transition"
+                                                    onClick={() => {
+                                                    const url =
+                                                        params.userid === "latest"
+                                                        ? `/sme-doubt-chat/${doubt.userId}/${doubt.sessionId}`
+                                                        : `/sme-doubt-chat/${params.userid}/${doubt.sessionId}`;
+
+                                                    window.open(url, "_blank"); 
+                                                    }}
+                                                >
+                                                    <BsChatDotsFill />
+                                                </div>
+                                                </td>
+
                                         </tr>
                                     ))
                                 )}

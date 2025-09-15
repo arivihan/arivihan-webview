@@ -14,6 +14,7 @@ import TodoListScreen from "./screens/analytics/todoList";
 import InstantGuruUIDev from "./screens/instantGuruDev";
 import InstantGuruUIProd from "./screens/instantGuruProd";
 import WebInstantGuru from "./screens/web-instant-guru/webInstantGuru";
+import Progresive_Path from "./screens/Progresive_Path/Progresive_Path";
 
 const DataContext = createContext();
 
@@ -55,6 +56,7 @@ function App() {
 
           <Route path="/instant-guru-prod" element={<InstantGuruUIProd />} />
           <Route path="/instant-guru-dev" element={<InstantGuruUIDev />} />
+          <Route path="/progressive-path" element={<Progresive_Path />} />
 
           {/* <Route path="/web-instant-guru" element={<WebInstantGuru />} /> */}
 
