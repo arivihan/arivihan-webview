@@ -186,6 +186,7 @@ const InstantGuruUIDev = () => {
     doubtText.value = input;
   }
 
+
   window.showTooltips = (show) => {
     setShowTooltips(show);
   }
@@ -366,8 +367,8 @@ const InstantGuruUIDev = () => {
       {
         showMicListentingUI.value === true && <MicListeningUI />
       } 
-
-      <Pdf_circle_mini_screen/>
+        
+        {/* <Pdf_circle_mini_screen/> */}
 
       <div
         className={`p-4 overflow-y-auto overflow-x-hidden  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-64px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}

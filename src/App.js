@@ -15,6 +15,7 @@ import InstantGuruUIDev from "./screens/instantGuruDev";
 import InstantGuruUIProd from "./screens/instantGuruProd";
 import WebInstantGuru from "./screens/web-instant-guru/webInstantGuru";
 import Progresive_Path from "./screens/Progresive_Path/Progresive_Path";
+import Pdf_circle_mini_screen from "./components/PDF_Circle/Pdf_circle_mini_screen";
 
 const DataContext = createContext();
 
@@ -56,8 +57,9 @@ function App() {
 
           <Route path="/instant-guru-prod" element={<InstantGuruUIProd />} />
           <Route path="/instant-guru-dev" element={<InstantGuruUIDev />} />
+          
           {/* <Route path="/progressive-path" element={<Progresive_Path />} /> */}
-
+            <Route path="/pdf-circle-view" element={<Pdf_circle_mini_screen/>} />
           {/* <Route path="/web-instant-guru" element={<WebInstantGuru />} /> */}
 
         </Routes>

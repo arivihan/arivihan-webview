@@ -2,12 +2,16 @@ import React, { useEffect, useRef, useState } from 'react';
 import { IoIosArrowRoundDown } from "react-icons/io";
 import { IoIosArrowRoundUp } from "react-icons/io";
 import Global_like_dislike_response from './Global_like_dislike_response';
+import renderMathInElement from 'katex/contrib/auto-render';
+import SmilesRenderer from '../smileRenderer';
+import ReactDOM from "react-dom/client";
 const Pdf_circle_mini_screen = () => {
   const contentRef = useRef(null);
+  const containerRef = useRef(null);
   const [mathLoaded, setMathLoaded] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [showScrollToBottom, setShowScrollToBottom] = useState(true);
-  
+
   const response = `
     <p><strong style="color: #26C6DA; font-size: 1.2em;">त्रिभुज का क्षेत्रफल ज्ञात करना</strong></p>
     <p><strong style="color: #26C6DA;">बेटा, जहाँ आपने सर्कल किया है, वो त्रिभुज का क्षेत्रफल निकालने का तरीका है।</strong></p>
@@ -93,6 +97,7 @@ const handleScroll = () => {
 };
 
 
+
   // Smooth scroll to top
   const scrollToTop = () => {
     if (!contentRef.current) return;
@@ -111,190 +116,36 @@ const handleScroll = () => {
     });
   };
 
-  const renderMath = () => {
-    if (!contentRef.current) return;
 
-    // Try MathJax first (more reliable for chemistry)
-    if (window.MathJax && window.MathJax.typesetPromise) {
-      window.MathJax.typesetPromise([contentRef.current])
-        .then(() => {
-          console.log('MathJax rendered successfully');
-          setMathLoaded(true);
-        })
-        .catch((err) => {
-          console.log('MathJax failed:', err);
-        });
-    }
-    // Fallback to KaTeX if available
-    else if (window.renderMathInElement && window.katex) {
-      try {
-        window.renderMathInElement(contentRef.current, {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false},
-            {left: '\\(', right: '\\)', display: false},
-            {left: '\\[', right: '\\]', display: true}
-          ],
-          throwOnError: false,
-          errorColor: '#cc0000',
-          strict: false,
-          trust: true
-        });
-        console.log('KaTeX rendered successfully');
-        setMathLoaded(true);
-      } catch (err) {
-        console.log('KaTeX failed:', err);
-      }
-    }
-  };
+
 
   useEffect(() => {
-    // Configure and load MathJax (best for chemistry)
-    if (!window.MathJax) {
-      window.MathJax = {
-        tex: {
-          inlineMath: [['$', '$'], ['\\(', '\\)']],
-          displayMath: [['$$', '$$'], ['\\[', '\\]']],
-          packages: {
-            '[+]': ['base', 'ams', 'noerrors', 'noundefined', 'mhchem', 'unicode', 'color', 'cancel', 'extpfeil', 'verb']
-          },
-          processEscapes: true,
-          processEnvironments: true,
-          tags: 'ams',
-          formatError: (jax, err) => {
-            console.log('MathJax format error:', err);
-            return jax;
-          }
-        },
-        loader: {
-          load: ['[tex]/mhchem', '[tex]/unicode', '[tex]/color', '[tex]/cancel', '[tex]/extpfeil', '[tex]/verb']
-        },
-        chtml: {
-          scale: 0.9,
-          minScale: 0.5,
-          matchFontHeight: false,
-          fontURL: 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/output/chtml/fonts/woff-v2'
-        },
-        options: {
-          renderActions: {
-            addMenu: [0, '', '']
-          },
-          skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
-          includeHtmlTags: {
-            br: '\n',
-            wbr: '',
-            '#comment': ''
-          }
-        },
-        startup: {
-          ready: () => {
-            console.log('MathJax is ready');
-            window.MathJax.startup.defaultReady();
-            
-            // Render math after MathJax is ready
-            setTimeout(() => {
-              renderMath();
-            }, 500);
-          },
-          pageReady: () => {
-            return window.MathJax.startup.defaultPageReady().then(() => {
-              console.log('MathJax page ready');
-              renderMath();
-            });
-          }
-        }
-      };
-
-      // Load MathJax script
-      const mathjaxScript = document.createElement('script');
-      mathjaxScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-mml-chtml.min.js';
-      mathjaxScript.async = true;
-      mathjaxScript.crossOrigin = 'anonymous';
-      mathjaxScript.onload = () => {
-        console.log('MathJax script loaded');
-        setTimeout(renderMath, 1000);
-      };
-      mathjaxScript.onerror = () => {
-        console.log('MathJax failed to load, trying KaTeX...');
-        loadKaTeX();
-      };
-      document.head.appendChild(mathjaxScript);
-    } else {
-      // MathJax already loaded
-      setTimeout(renderMath, 500);
-    }
-
-    // Fallback KaTeX loader
-    const loadKaTeX = async () => {
-      try {
-        // Load KaTeX CSS
-        if (!document.querySelector('link[href*="katex"]')) {
-          const katexCSS = document.createElement('link');
-          katexCSS.rel = 'stylesheet';
-          katexCSS.href = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.css';
-          katexCSS.crossOrigin = 'anonymous';
-          document.head.appendChild(katexCSS);
-        }
-
-        // Load KaTeX JS
-        if (!window.katex) {
-          await new Promise((resolve, reject) => {
-            const katexScript = document.createElement('script');
-            katexScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/katex.min.js';
-            katexScript.crossOrigin = 'anonymous';
-            katexScript.onload = resolve;
-            katexScript.onerror = reject;
-            document.head.appendChild(katexScript);
-          });
-        }
-
-        // Load chemistry extension
-        if (!document.querySelector('script[src*="mhchem"]')) {
-          await new Promise((resolve, reject) => {
-            const mhchemScript = document.createElement('script');
-            mhchemScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/contrib/mhchem.min.js';
-            mhchemScript.crossOrigin = 'anonymous';
-            mhchemScript.onload = resolve;
-            mhchemScript.onerror = reject;
-            document.head.appendChild(mhchemScript);
-          });
-        }
-
-        // Load auto-render
-        if (!window.renderMathInElement) {
-          await new Promise((resolve, reject) => {
-            const autoRenderScript = document.createElement('script');
-            autoRenderScript.src = 'https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.16.8/contrib/auto-render.min.js';
-            autoRenderScript.crossOrigin = 'anonymous';
-            autoRenderScript.onload = resolve;
-            autoRenderScript.onerror = reject;
-            document.head.appendChild(autoRenderScript);
-          });
-        }
-
-        console.log('KaTeX loaded successfully');
-        setTimeout(renderMath, 500);
-      } catch (error) {
-        console.error('Failed to load KaTeX:', error);
-      }
-    };
-
-    // Re-render on content changes
-    const observer = new MutationObserver(() => {
-      setTimeout(renderMath, 100);
-    });
-
-    if (contentRef.current) {
-      observer.observe(contentRef.current, {
-        childList: true,
-        subtree: true,
-        characterData: true
+    if (containerRef.current) {
+      renderMathInElement(containerRef.current, {
+        delimiters: [
+          { left: "\\[", right: "\\]", display: true },
+          { left: "\\(", right: "\\)", display: false },
+          { left: "$$", right: "$$", display: true },
+          { left: "$", right: "$", display: false }
+        ]
       });
-    }
 
-    return () => {
-      observer.disconnect();
-    };
+      const el = containerRef.current;
+      if (!el) return;
+
+      setTimeout(() => {
+        const nodes = Array.from(el.querySelectorAll("smiles"));
+        nodes.forEach((node, i) => {
+          const smiles = (node.textContent || node.getAttribute("value") || "").trim();
+          const mount = document.createElement("span");
+          node.replaceWith(mount);
+          console.log(smiles);
+          ReactDOM.createRoot(mount).render(<SmilesRenderer key={Math.random()} smiles={smiles} />);
+        });
+
+      }, 200)
+
+    }
   }, []);
 
   // Add scroll event listener
@@ -304,7 +155,7 @@ const handleScroll = () => {
       contentElement.addEventListener('scroll', handleScroll);
       // Initial check
       handleScroll();
-      
+
       return () => {
         contentElement.removeEventListener('scroll', handleScroll);
       };
@@ -325,24 +176,24 @@ const handleScroll = () => {
         </div>
 
         {/* Content */}
-      <div 
-  ref={contentRef}
-  className="flex-1 px-6 py-4 text-sm text-gray-700 leading-relaxed overflow-y-auto relative"
-  style={{
-    fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
-    lineHeight: '1.7'
-  }}
->
-  {/* Response content */}
-  <div dangerouslySetInnerHTML={{ __html: response }} />
+        <div
+          className="flex-1 px-6 py-4 text-sm text-gray-700 leading-relaxed overflow-y-auto relative"
+          style={{
+            fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
+            lineHeight: '1.7'
+          }}
+          ref={contentRef}
+        >
+          {/* Response content */}
+          <div dangerouslySetInnerHTML={{ __html: response }} ref={containerRef} />
 
-  {/* Hamesha neeche render hoga */}
-  <Global_like_dislike_response/>
-</div>
+          {/* Hamesha neeche render hoga */}
+          <Global_like_dislike_response />
+        </div>
 
-         
+
         {/* Scroll to Top Button */}
-        {showScrollToTop && (
+         {showScrollToTop && (
           <div className="absolute bottom-10 right-24 group">
             <button
               onClick={scrollToTop}
@@ -355,6 +206,7 @@ const handleScroll = () => {
            
           </div>
         )}
+
 
         {/* Scroll to Bottom Button */}
         {showScrollToBottom && (
@@ -369,7 +221,8 @@ const handleScroll = () => {
             
           </div>
         )}
-        
+
+
         <div className='w-full p-2 bg-white border-t border-gray-100'></div>
       </div>
     </div>
