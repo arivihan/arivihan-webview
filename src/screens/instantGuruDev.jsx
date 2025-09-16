@@ -77,6 +77,7 @@ import AtomImg from "../assets/icons/atom2.png"
 import { AiOutlineCamera } from "react-icons/ai";
 import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
 import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
+import Pdf_circle_mini_screen from "../components/PDF_Circle/Pdf_circle_mini_screen";
 const InstantGuruUIDev = () => {
   useSignals();
   const [listening, setListening] = useState(false);
@@ -364,7 +365,9 @@ const InstantGuruUIDev = () => {
 
       {
         showMicListentingUI.value === true && <MicListeningUI />
-      }
+      } 
+
+      <Pdf_circle_mini_screen/>
 
       <div
         className={`p-4 overflow-y-auto overflow-x-hidden  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-64px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
