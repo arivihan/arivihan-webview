@@ -56,7 +56,7 @@ function App() {
 
           <Route path="/instant-guru-prod" element={<InstantGuruUIProd />} />
           <Route path="/instant-guru-dev" element={<InstantGuruUIDev />} />
-          <Route path="/progressive-path" element={<Progresive_Path />} />
+          {/* <Route path="/progressive-path" element={<Progresive_Path />} /> */}
 
           {/* <Route path="/web-instant-guru" element={<WebInstantGuru />} /> */}
 
