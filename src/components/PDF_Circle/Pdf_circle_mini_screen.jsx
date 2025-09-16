@@ -164,7 +164,7 @@ const handleScroll = () => {
 
   return (
     <div className="absolute w-screen h-screen bg-zinc-900/60 flex justify-center items-center z-50">
-      <div className="w-[85vw] h-[85vh] bg-white rounded-lg shadow-2xl overflow-hidden flex flex-col relative">
+      <div className="w-[100vw] h-[100vh] bg-white overflow-hidden flex flex-col relative">
         {/* Header */}
         <div className="flex items-center px-4 py-1 h-[50px] flex-shrink-0">
           <div className="w-8 h-8  rounded-full flex items-center justify-center shadow-md">
