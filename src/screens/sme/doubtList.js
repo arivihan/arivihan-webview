@@ -18,11 +18,34 @@ export default function DoubtListScreen() {
     const navigate = useNavigate();
     const params = useParams();
     const [showUserId, setShowUserId] = useState(false);
-
+    const [Subject, setSubject] = useState("")
+    const [QT, setQT] = useState("")
+    
     const onInputChange = (e) => {
         if (e.key === "Enter") {
             handleSearch()
         }
+    }
+
+    const buildSearchUrl = () => {
+        const baseUrl = `/secure/sme/doubts-search`;
+        const searchParams = new URLSearchParams({
+            search: searchText,
+            startDate: moment(startDate).format("yy-MM-DD"),
+            endDate: moment(endDate).format("yy-MM-DD")
+        });
+        
+        // Add subject parameter if selected
+        if (Subject && Subject !== "") {
+            searchParams.append('subject', Subject);
+        }
+        
+        // Add question type parameter if selected
+        if (QT && QT !== "") {
+            searchParams.append('questionType', QT);
+        }
+        
+        return `${baseUrl}?${searchParams.toString()}`;
     }
 
     const handleSearch = () => {
@@ -34,14 +57,14 @@ export default function DoubtListScreen() {
         if (moment(startDate).isAfter(moment.now()) || moment(endDate).isAfter(moment.now())) {
             alert("Invalid date range.");
             return;
-        }
+        } 
 
         setIsLoading(true);
-        smeCustomRequest(
-            `/secure/sme/doubts-search?search=${searchText}&startDate=${moment(startDate).format("yy-MM-DD")}&endDate=${moment(endDate).format("yy-MM-DD")}`,
-            "GET"
-        ).then((res) => {
+        smeCustomRequest(buildSearchUrl(), "GET").then((res) => {
             setDoubts(res)
+            setIsLoading(false);
+        }).catch((error) => {
+            console.error("Search error:", error);
             setIsLoading(false);
         })
     }
@@ -49,16 +72,28 @@ export default function DoubtListScreen() {
     const getDoubts = () => {
         setIsLoading(true);
         if (params.userid === "latest") {
-            smeCustomRequest(
-                `/secure/sme/doubts-search?search=${searchText}&startDate=${moment(startDate).format("yy-MM-DD")}&endDate=${moment(endDate).format("yy-MM-DD")}`,
-                "GET"
-            ).then((res) => {
+            smeCustomRequest(buildSearchUrl(), "GET").then((res) => {
                 setDoubts(res);
+                setIsLoading(false);
+            }).catch((error) => {
+                console.error("Get doubts error:", error);
                 setIsLoading(false);
             })
         } else {
-            smeCustomRequest(`/secure/sme/doubts?userId=${params.userid}`, "GET").then((res) => {
+            let url = `/secure/sme/doubts?userId=${params.userid}`;
+            // Add subject filter for specific user as well if your API supports it
+            if (Subject && Subject !== "") {
+                url += `&subject=${Subject}`;
+            }
+            // Add question type filter for specific user as well if your API supports it
+            if (QT && QT !== "") {
+                url += `&questionType=${QT}`;
+            }
+            smeCustomRequest(url, "GET").then((res) => {
                 setDoubts(res);
+                setIsLoading(false);
+            }).catch((error) => {
+                console.error("Get doubts error:", error);
                 setIsLoading(false);
             })
         }
@@ -74,6 +109,33 @@ export default function DoubtListScreen() {
         }
     }
 
+    // Filter doubts locally if API doesn't support filtering
+    const filteredDoubts = doubts ? doubts.filter(doubt => {
+        // Filter by subject
+        if (Subject && Subject !== "") {
+            if (doubt.selectedSubject?.toLowerCase() !== Subject.toLowerCase()) {
+                return false;
+            }
+        }
+        
+        // Filter by question type
+        if (QT && QT !== "") {
+            // Map display values to actual API values
+            let questionTypeToMatch = QT;
+            if (QT === "Image") {
+                questionTypeToMatch = "IMAGE_HTML";
+            } else if (QT === "Text") {
+                questionTypeToMatch = "TEXT_OPTION";
+            }
+            
+            if (doubt.doubtChatQuestionType !== questionTypeToMatch) {
+                return false;
+            }
+        }
+        
+        return true;
+    }) : null;
+
     useEffect(() => {
         const urlParams = new URLSearchParams(window.location.search);
         setShowUserId(
@@ -83,6 +145,13 @@ export default function DoubtListScreen() {
         )
         getDoubts();
     }, [])
+
+    // Re-fetch data when subject or question type changes
+    useEffect(() => {
+        if (doubts !== null) { // Only trigger if doubts have been loaded at least once
+            getDoubts();
+        }
+    }, [Subject, QT])
 
     return (
         <SMEThemeWrapper>
@@ -94,6 +163,42 @@ export default function DoubtListScreen() {
                     }
 
                     <div className="ml-auto flex items-end gap-2">
+                        <div className="flex flex-col w-40">
+                            <label htmlFor="subject" className="text-[9px] text-gray-400">
+                                Select Subject
+                            </label>
+                            <select
+                                name="subject"
+                                value={Subject}
+                                className="border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-full"
+                                onChange={(e) => setSubject(e.target.value)}
+                            >
+                                <option value="">ALL Subject</option>
+                                <option value="Mathematics">Math</option>
+                                <option value="Physics">Physics</option>
+                                <option value="Biology">Biology</option>
+                                <option value="Chemistry">Chemistry</option>
+                            </select>
+                        </div>
+                        
+                        <div className="flex flex-col w-40">
+                            <label htmlFor="questionType" className="text-[9px] text-gray-400">
+                                Question Type
+                            </label>
+                            <select
+                                name="questionType"
+                                value={QT}
+                                className="border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-full"
+                                onChange={(e) => setQT(e.target.value)}
+                            >
+                                <option value="">ALL Types</option>
+                                
+                                <option value="TEXT">Text</option>
+                                <option value="IMAGE_HTML">Image</option>
+                                
+                            </select>
+                        </div>
+
                         <div className="flex flex-col w-40">
                             <label htmlFor="start_date" className='text-[9px] text-gray-400'>Start Date</label>
                             <input
@@ -160,7 +265,7 @@ export default function DoubtListScreen() {
                                             </div>
                                         </td>
                                     </tr>
-                                ) : doubts === null || doubts.length === 0 ? (
+                                ) : filteredDoubts === null || filteredDoubts.length === 0 ? (
                                     <tr>
                                         <td colSpan={11} className="px-6 py-4 whitespace-nowrap">
                                             <div className="w-full flex flex-col items-center justify-center h-[58vh]">
@@ -170,7 +275,7 @@ export default function DoubtListScreen() {
                                         </td>
                                     </tr>
                                 ) : (
-                                    doubts.map((doubt, index) => (
+                                    filteredDoubts.map((doubt, index) => (
                                         <tr key={index}>
                                             <td className="border px-2 py-1">{index + 1} {showUserId && "[" + doubt.userId + "]"}</td>
                                             <td className="border px-2 py-1 max-w-72 break-all hyphen">{doubt.title}</td>
@@ -202,16 +307,7 @@ export default function DoubtListScreen() {
                                             <td className="border px-2 py-1">{doubt.liked === undefined || doubt.liked === null ? "N/A" : doubt.liked ? "Liked" : "Disliked"}</td>
                                             <td className="border px-2 py-1 text-sm">{moment(doubt.createdAt).format("h:mm a DD-MM-YY")}</td>
 
-                                            {/* <td className="border px-2 py-1 flex items-center gap-2">
-                                                <div
-                                                    className="border border-primary bg-primary/10 rounded p-1 cursor-pointer text-primary hover:text-white hover:bg-primary transition"
-                                                    onClick={() => { handleDoubtChat(doubt) }}
-                                                >
-                                                    <BsChatDotsFill />
-                                                </div>
-                                            </td> */} 
-
-                                             <td className="border px-2 py-1 flex items-center gap-2">
+                                            <td className="border px-2 py-1 flex items-center gap-2">
                                                 <div
                                                     className="border border-primary bg-primary/10 rounded p-1 cursor-pointer text-primary hover:text-white hover:bg-primary transition"
                                                     onClick={() => {
@@ -225,7 +321,7 @@ export default function DoubtListScreen() {
                                                 >
                                                     <BsChatDotsFill />
                                                 </div>
-                                                </td>
+                                            </td>
 
                                         </tr>
                                     ))

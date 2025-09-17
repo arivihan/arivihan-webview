@@ -16,8 +16,9 @@ import { MathJax } from 'better-react-mathjax';
 import SmilesRenderer from '../../components/smileRenderer';
 import renderMathInElement from 'katex/contrib/auto-render';
 import ReactDOM from "react-dom/client";
-
-
+import OpenWhatsAppSheet from '../../components/openWhatsappSheet';
+import { FaWhatsapp } from "react-icons/fa";
+import { useTranslation } from 'react-i18next';
 
 const messages = signal([]);
 
@@ -174,7 +175,7 @@ const SmeDoubtChatScreen = () => {
 }
 
 const SendBubble = ({ doubt, message, userId }) => {
-
+     const { t } = useTranslation();
     const [showDropdown, setShowDropdown] = useState(false);
     const [editChat, setEditChat] = useState(false);
 
@@ -433,6 +434,25 @@ const SendBubble = ({ doubt, message, userId }) => {
                                 <p className='pt-1' dangerouslySetInnerHTML={{ __html: doubt.response == null ? "" : doubt.response.replace("(bold)<b>", "</b>") }}></p>
                             </div>
                             :
+                            
+                            doubt.responseType == 'OPEN_WHATSAPP'
+                            ?
+                            <div className=" h-[25vh]  z-[999999] w-[30vw] flex justify-center items-center">
+                                        <div  className='w-[92%]  flex justify-center items-center '>
+                                                        <div style={{boxShadow: "0px  0 15px rgba(0,0,0,0.2)"}} className=" rounded-xl mt-7 w-[100%] h-[17vh]   bg-white ">
+                                            {/* <MdClose className='text-[#b0b0b0] text-3xl mb-6 ml-auto mr-4' onClick={() => { showWhatsappBottomSheet.value = false; }} /> */}
+                                            <div className="flex flex-col  items-center justify-center p-2 py-3 ">
+                                                <p className="text-black text-[15px] text-center mb-2 font-medium">{t("open_whatsapp_msg")}</p>
+                                                <div className="flex items-center gap-2 justify-center w-[70%] py-2 rounded-full bg-green-500 relative" >
+                                                    <p className='text-white text-'>open_whatsapp</p>
+                                                    <p className='text-white text-2xl' ><FaWhatsapp /></p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        </div>
+                                    </div>
+                            :
+
                             doubt.responseType === "HTML_PDF" || doubt.responseType === "HTML" || doubt.responseType === "HTML_ACTIVITY" || doubt.responseType === "HTML_VIDEO"
                                 ?
                                 <div className="flex flex-col">
