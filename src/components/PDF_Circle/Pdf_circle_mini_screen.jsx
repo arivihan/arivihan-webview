@@ -12,7 +12,15 @@ const Pdf_circle_mini_screen = () => {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [showScrollToBottom, setShowScrollToBottom] = useState(true);
 
-  const response = `
+  const [response, setResponse] = useState("");
+
+
+  window.showNotesDoubtResponse  = (res) => {
+    console.log(res);
+    setResponse(res.response);
+  }
+
+  const responseTest = `
     <p><strong style="color: #26C6DA; font-size: 1.2em;">त्रिभुज का क्षेत्रफल ज्ञात करना</strong></p>
     <p><strong style="color: #26C6DA;">बेटा, जहाँ आपने सर्कल किया है, वो त्रिभुज का क्षेत्रफल निकालने का तरीका है।</strong></p>
     <p>जब हमें त्रिभुज के तीन बिंदुओं के निर्देशांक दिए होते हैं, तो हम सारणिक (determinant) विधि से उसका क्षेत्रफल निकाल सकते हैं। इसके लिए एक खास सूत्र है:</p>
@@ -84,17 +92,17 @@ const Pdf_circle_mini_screen = () => {
   `;
 
   // Scroll handler for showing/hiding scroll buttons
-const handleScroll = () => {
-  if (!contentRef.current) return;
+  const handleScroll = () => {
+    if (!contentRef.current) return;
 
-  const { scrollTop, scrollHeight, clientHeight } = contentRef.current;
+    const { scrollTop, scrollHeight, clientHeight } = contentRef.current;
 
-  // Agar end tak scroll kar liya (tolerance 5px rakha for safety)
-  const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
+    // Agar end tak scroll kar liya (tolerance 5px rakha for safety)
+    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
 
-  setShowScrollToTop(isAtBottom);      // sirf neeche pohche tab "Go to Top"
-  setShowScrollToBottom(!isAtBottom);  // warna hamesha "Go to Bottom"
-};
+    setShowScrollToTop(isAtBottom);      // sirf neeche pohche tab "Go to Top"
+    setShowScrollToBottom(!isAtBottom);  // warna hamesha "Go to Bottom"
+  };
 
 
 
@@ -193,17 +201,17 @@ const handleScroll = () => {
 
 
         {/* Scroll to Top Button */}
-         {showScrollToTop && (
+        {showScrollToTop && (
           <div className="absolute bottom-10 right-24 group">
             <button
               onClick={scrollToTop}
               className="bg-[#000000CC] hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
             >
               <p className='text-sm flex items-center'>Upar jayein <p className='text-xl'><IoIosArrowRoundUp /></p>
- </p>
+              </p>
             </button>
             {/* Tooltip */}
-           
+
           </div>
         )}
 
@@ -218,7 +226,7 @@ const handleScroll = () => {
               <p className="text-sm flex items-center">Neeche jayein <p className='text-xl'><IoIosArrowRoundDown /></p> </p>
             </button>
             {/* Tooltip */}
-            
+
           </div>
         )}
 
