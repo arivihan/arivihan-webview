@@ -7,6 +7,8 @@ import {
   chatHistory,
   chatSessionId,
   chatType,
+  contextAnswer,
+  contextQuestion,
   doubtText,
   imageViewUrl,
   indexOfOptionSelection,
@@ -14,6 +16,7 @@ import {
   isFirstRequestLoaded,
   isStepWiseSolution,
   lastUserQuestion,
+  mockTestDoubt,
   showChatLoadShimmer,
   showDoubtChatLoader,
   showMicListentingUI,
@@ -25,6 +28,7 @@ import {
   waitingForResponse,
 } from "../state/instantGuruState";
 import {
+  callBackToPreviousActivity,
   changeSelectedCourse,
   chatClassifier,
   chatImageRequest,
@@ -78,6 +82,8 @@ import { AiOutlineCamera } from "react-icons/ai";
 import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
 import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
 import Pdf_circle_mini_screen from "../components/PDF_Circle/Pdf_circle_mini_screen";
+
+
 const InstantGuruUIDev = () => {
   useSignals();
   const [listening, setListening] = useState(false);
@@ -199,6 +205,30 @@ const InstantGuruUIDev = () => {
     showSuggestions.value = true;
   }
 
+  window.setContextForChat = (contextData) => {
+
+    chatType.value = "SectionType.SUBJECT_RELATED";
+    mockTestDoubt.value = true;
+    contextAnswer.value = contextData.response;
+    contextQuestion.value = contextData.userQuery;
+
+    if(contextData.showResponseBubble){
+      chatHistory.value = [];
+      chatHistory.value = [...chatHistory.value, {
+            "botResponse": contextData.response,
+            "responseType": "HTML",
+            "showBotAvatar": true,
+            "userQuery": "",
+            "needFeedback": true,
+          }]
+    }
+
+    if(contextData.origin == "PDF_CIRCLE"){
+      document.getElementById("newChatBtn").innerText = t("back_to_notes");
+    }
+
+  }
+
   useEffect(() => {
     if (isFirstRequestLoaded.value === true && showSuggestions.value === true && suggestionAdded.value === false) {
       setTimeout(() => {
@@ -274,7 +304,11 @@ const InstantGuruUIDev = () => {
   const handleNewChat = () => {
     logEventToFirebase("doubt_chat_new_chat_button_click")
 
-    openNewChat();
+    if(contextAnswer.value){
+      callBackToPreviousActivity();
+    }else{
+      openNewChat();
+    }
   }
 
 
@@ -320,7 +354,7 @@ const InstantGuruUIDev = () => {
 
 
   return (
-    <div className="font-sans flex flex-col justify-between h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
+    <div className="font-sans flex flex-col justify-between h-screen overflow-hidden"  onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
       <div className="flex items-center px-4 py-2 h-[64px]">
         <Tooltip
           content={t("click_here_for_old_questions")}
@@ -349,7 +383,7 @@ const InstantGuruUIDev = () => {
                 : null
             }
           </div>
-          <span className="absolute text-sm">{t("newChat")}</span>
+          <span className="absolute text-sm" id="newChatBtn">{t("newChat")}</span>
         </div>
         {/* <button className="ml-auto bg-[#f6f6f6] text-sm px-4 py-1 rounded-[8px] border border-[#e8e9eb]">
           {t("newChat")}

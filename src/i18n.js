@@ -24,7 +24,8 @@ i18n.use(initReactI18next).init({
                 waiting_for_response: "Waiting for response",
                 write_doubt_in_detail: "Write your doubt in detail...",
                 one_mark_question: "Important 1 marks questions",
-                read_till_answer_coming: "Answer jald hi aa raha hai, tab tak ye padhein..."
+                read_till_answer_coming: "Answer jald hi aa raha hai, tab tak ye padhein...",
+                back_to_notes:"Back to notes"
             },
         },
         hi: {
@@ -43,7 +44,8 @@ i18n.use(initReactI18next).init({
                 waiting_for_response: "समाधान की प्रतीक्षा है",
                 write_doubt_in_detail: "अपना प्रश्न विस्तार से लिखें...",
                 one_mark_question: "महत्वपूर्ण 1 अंक के प्रश्न",
-                read_till_answer_coming: "उत्तर जल्द ही आ रहा है, तब तक ये पढ़ें..."
+                read_till_answer_coming: "उत्तर जल्द ही आ रहा है, तब तक ये पढ़ें...",
+                back_to_notes:"नोट्स पर वापस जाएँ"
             },
         },
     },

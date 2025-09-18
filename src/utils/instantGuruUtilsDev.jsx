@@ -4,10 +4,13 @@ import {
   chatHistory,
   chatSessionId,
   chatType,
+  contextAnswer,
+  contextQuestion,
   giveResponseOption,
   isFirstDoubt,
   isFirstRequestLoaded,
   lastUserQuestion,
+  mockTestDoubt,
   showChatLoadShimmer,
   showDoubtChatLoader,
   showOptionSelection,
@@ -95,7 +98,7 @@ export const getChatHistory = () => {
         suggestedDoubtAsked.value = true;
         suggestionAdded.value = true;
         isFirstDoubt.value = false;
-        chatHistory.value = data;
+          chatHistory.value = data;
 
         callClassifier.value = false;
         chatType.value = 'subject_based';
@@ -140,13 +143,13 @@ export const postNewChat = (
   }
 
   let requestBody = JSON.stringify({
-    answer: answer,
+    answer: contextAnswer.value,
     chatSessionId: chatSessionId.value,
     doubtImageUrl: doubtImageUrl,
     firstDoubt: isFirstDoubt.value,
     giveOption: isFirstDoubt.value && requestType !== "IMAGE_HTML",
-    mockTestDoubt: mockQuestion === "true" ? true : false,
-    question: question,
+    mockTestDoubt: mockTestDoubt.value,
+    question: contextQuestion.value,
     requestType: requestType,
     selectedSubjectName: subject,
     userQuery: userQuery,
@@ -176,11 +179,13 @@ export const postNewChat = (
         if (chatSessionId.value === null || chatSessionId.value === "") {
           chatSessionId.value = data.data[data.data.length - 1].chatSesssionId;
           isFirstDoubt.value = true;
-          data.data.forEach((chat) => {
-            setTimeout(() => {
-              chatHistory.value = [...chatHistory.value, chat];
-            }, 200)
-          })
+          if(!contextAnswer.value){
+            data.data.forEach((chat) => {
+              setTimeout(() => {
+                chatHistory.value = [...chatHistory.value, chat];
+              }, 200)
+            })
+          }
         } else {
           chatHistory.value = [...chatHistory.value, ...data.data];
         }
@@ -729,6 +734,17 @@ export function openPdf(url, title) {
     try {
       logEventToFirebase("doubt_chat_open_pdf_clicked", { url: url, title: title })
       window.AndroidInterface.openPdf(url, title);
+    } catch (error) {
+    }
+  } else {
+    alert("AndroidInterface is not defined for openActivity");
+  }
+}
+
+export function callBackToPreviousActivity() {
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      window.AndroidInterface.backToPreviousActivity();
     } catch (error) {
     }
   } else {
