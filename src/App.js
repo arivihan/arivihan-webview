@@ -60,6 +60,7 @@ function App() {
           
           {/* <Route path="/progressive-path" element={<Progresive_Path />} /> */}
             <Route path="/pdf-circle-view" element={<Pdf_circle_mini_screen/>} />
+            <Route path="/Practice-question-view" element={<Pdf_circle_mini_screen/>} />
           {/* <Route path="/web-instant-guru" element={<WebInstantGuru />} /> */}
 
         </Routes>
