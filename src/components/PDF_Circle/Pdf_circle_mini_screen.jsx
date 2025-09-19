@@ -11,7 +11,7 @@ const Pdf_circle_mini_screen = () => {
   const [mathLoaded, setMathLoaded] = useState(false);
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [showScrollToBottom, setShowScrollToBottom] = useState(true);
-
+  const [isScrollable, setIsScrollable] = useState(false);
   const [response, setResponse] = useState("");
 
 
@@ -21,17 +21,15 @@ const Pdf_circle_mini_screen = () => {
   }
 
   // Scroll handler for showing/hiding scroll buttons
-  const handleScroll = () => {
-    if (!contentRef.current) return;
+const handleScroll = () => {
+  if (!contentRef.current) return;
+  const { scrollTop, scrollHeight, clientHeight } = contentRef.current;
 
-    const { scrollTop, scrollHeight, clientHeight } = contentRef.current;
+  const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
 
-    // Agar end tak scroll kar liya (tolerance 5px rakha for safety)
-    const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
-
-    setShowScrollToTop(isAtBottom);      // sirf neeche pohche tab "Go to Top"
-    setShowScrollToBottom(!isAtBottom);  // warna hamesha "Go to Bottom"
-  };
+  setShowScrollToTop(isAtBottom);
+  setShowScrollToBottom(!isAtBottom);
+};
 
 
 
@@ -85,6 +83,27 @@ const Pdf_circle_mini_screen = () => {
     }
   }, []);
 
+  useEffect(() => {
+  const contentElement = contentRef.current;
+  if (contentElement) {
+    // Pehle check karo scrollable hai ya nahi
+    const checkScrollable = () => {
+      setIsScrollable(contentElement.scrollHeight > contentElement.clientHeight);
+    };
+
+    checkScrollable(); // Initial check
+    window.addEventListener("resize", checkScrollable); // Resize pe bhi check karna zaruri hai
+
+    contentElement.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial scroll check
+
+    return () => {
+      contentElement.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkScrollable);
+    };
+  }
+}, []);
+
   // Add scroll event listener
   useEffect(() => {
     const contentElement = contentRef.current;
@@ -130,7 +149,7 @@ const Pdf_circle_mini_screen = () => {
 
 
         {/* Scroll to Top Button */}
-        {showScrollToTop && (
+        {isScrollable && showScrollToTop && (
           <div className="absolute bottom-20 left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
@@ -146,7 +165,7 @@ const Pdf_circle_mini_screen = () => {
 
 
         {/* Scroll to Bottom Button */}
-        {showScrollToBottom && (
+        {isScrollable && showScrollToBottom && (
           <div className="absolute bottom-20 left-[50%] -translate-x-[50%] group ">
             <button
               onClick={scrollToBottom}
