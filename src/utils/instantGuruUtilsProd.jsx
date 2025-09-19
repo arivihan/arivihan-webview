@@ -19,8 +19,6 @@ import {
 import suggestedQuestions from "../assets/suggested_question.json";
 import { analytics } from "../firebase";
 import { logEvent } from "firebase/analytics"
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
 
 
 

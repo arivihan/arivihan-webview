@@ -5,10 +5,7 @@
   "private": true,
   "proxy": "http://103.119.171.205:8085",
   "dependencies": {
-    "@aws-sdk/client-s3": "^3.850.0",
-    "@aws-sdk/credential-provider-cognito-identity": "^3.848.0",
     "@preact/signals-react": "^2.0.0",
-    "@react-three/fiber": "^9.3.0",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -42,7 +39,6 @@
     "react-spinners": "^0.14.1",
     "react-tooltip": "^5.28.0",
     "regenerator-runtime": "^0.14.1",
-    "smiles-drawer": "^2.1.7",
     "uuid": "^8.3.2",
     "web-vitals": "^2.1.4"
   },
