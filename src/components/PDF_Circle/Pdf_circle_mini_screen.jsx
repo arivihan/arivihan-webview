@@ -29,6 +29,8 @@ const handleScroll = () => {
 
   setShowScrollToTop(isAtBottom);
   setShowScrollToBottom(!isAtBottom);
+  setShowScrollToTop(isAtBottom);
+  setShowScrollToBottom(!isAtBottom);
 };
 
 
@@ -50,7 +52,26 @@ const handleScroll = () => {
       behavior: 'smooth'
     });
   };
+useEffect(() => {
+  const contentElement = contentRef.current;
+  if (contentElement) {
+    // Pehle check karo scrollable hai ya nahi
+    const checkScrollable = () => {
+      setIsScrollable(contentElement.scrollHeight > contentElement.clientHeight);
+    };
 
+    checkScrollable(); // Initial check
+    window.addEventListener("resize", checkScrollable); // Resize pe bhi check karna zaruri hai
+
+    contentElement.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial scroll check
+
+    return () => {
+      contentElement.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkScrollable);
+    };
+  }
+}, []);
 
 
 

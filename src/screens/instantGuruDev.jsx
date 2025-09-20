@@ -47,10 +47,10 @@ import {
   saveDoubtChat,
   scrollToBottom,
   setChatSessionIdInActivity,
-  showDoubtSubscriptionDialog,
   showToast,
   watchLectureNowTextClickAction,
-} from "../utils/instantGuruUtilsDev";
+} from "../utils/instantGuruUtilsDev"; 
+import {showDoubtSubscriptionDialog} from "../utils/instantGuruUtilsDev";
 import { useSignals } from "@preact/signals-react/runtime";
 import { PulseLoader } from "react-spinners";
 import { MathJax } from "better-react-mathjax";
@@ -402,7 +402,8 @@ const InstantGuruUIDev = () => {
         showMicListentingUI.value === true && <MicListeningUI />
       } 
         
-        {/* <Pdf_circle_mini_screen/> */}
+        <Multi_Video_response/>
+      
 
       <div
         className={`p-4 overflow-y-auto overflow-x-hidden  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-64px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
