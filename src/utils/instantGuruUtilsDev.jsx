@@ -22,22 +22,6 @@ import {
 import suggestedQuestions from "../assets/suggested_question.json";
 import { analytics } from "../firebase";
 import { logEvent } from "firebase/analytics"
-// import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-// import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
-
-
-// const REGION = "ap-south-1"; // Your region
-// const BUCKET = "my-react-upload-bucket"; // Your bucket
-// const IDENTITY_POOL_ID = "ap-south-1:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
-
-// const s3 = new S3Client({
-//   region: REGION,
-//   credentials: fromCognitoIdentityPool({
-//     clientConfig: { region: REGION },
-//     identityPoolId: IDENTITY_POOL_ID,
-//   }),
-// });
-
 
 
 const customAppRequest = (baseUrl, method = "GET", requestBody = null) => {
