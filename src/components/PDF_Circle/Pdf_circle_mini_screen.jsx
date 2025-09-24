@@ -170,7 +170,7 @@ useEffect(() => {
 
 
         {/* Scroll to Top Button */}
-        { (
+        {isScrollable && showScrollToTop && (
           <div className="absolute bottom-[10vh] left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
