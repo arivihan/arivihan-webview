@@ -170,8 +170,8 @@ useEffect(() => {
 
 
         {/* Scroll to Top Button */}
-        {isScrollable && showScrollToTop && (
-          <div className="absolute bottom-20 left-[50%] -translate-x-[50%] group">
+        { (
+          <div className="absolute bottom-[10vh] left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
               className="bg-[#000000CC] hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
@@ -187,7 +187,7 @@ useEffect(() => {
 
         {/* Scroll to Bottom Button */}
         {isScrollable && showScrollToBottom && (
-          <div className="absolute bottom-20 left-[50%] -translate-x-[50%] group ">
+          <div className="absolute bottom-[10vh] left-[50%] -translate-x-[50%] group ">
             <button
               onClick={scrollToBottom}
               className="bg-[#000000CC]  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
