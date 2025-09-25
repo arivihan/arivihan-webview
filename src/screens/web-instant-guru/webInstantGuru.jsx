@@ -301,8 +301,8 @@ const WebInstantGuru = () => {
 
                 <img src={require("../../assets/logo-full.png")} alt="" className='h-9' />
 
-                <nav className='ml-auto hidden sm:flex'>
-                    <ul className='flex items-center text-sm'>
+                <nav className='ml-auto  hidden sm:flex'>
+                    <ul className='flex  items-center text-sm'>
                         <li className='mx-2'>
                             <a href="https://arivihan.com/" className=''>Home</a>
                         </li>

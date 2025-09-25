@@ -15,7 +15,7 @@ import InstantGuruUIProd from "./screens/instantGuruProd";
 import WebInstantGuru from "./screens/web-instant-guru/webInstantGuru";
 import Progresive_Path from "./screens/Progresive_Path/Progresive_Path";
 import Pdf_circle_mini_screen from "./components/PDF_Circle/Pdf_circle_mini_screen";
-
+import Text_view from "./screens/Test_View/Test_view"
 const DataContext = createContext();
 
 let initialData = {
@@ -57,6 +57,7 @@ function App() {
           
           {/* <Route path="/progressive-path" element={<Progresive_Path />} /> */}
             <Route path="/pdf-circle-view" element={<Pdf_circle_mini_screen/>} />
+            <Route path="/Practice-question-view" element={<Text_view/>} />
           {/* <Route path="/web-instant-guru" element={<WebInstantGuru />} /> */}
 
         </Routes>

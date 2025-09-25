@@ -42,7 +42,7 @@ const Video_componenet = ({ chat }) => {
       {!isPlaying && (
         <div
           onClick={handlePlay}
-          className="absolute left-[50%] translate-x-[-50%] inset-0 h-[73%] w-[95%] top-[28%] rounded-[10px] translate-y-[-33%] p-2 flex flex-col items-center justify-center cursor-pointer"
+          className="absolute left-[50%]  translate-x-[-50%] inset-0 h-[73%] w-[95%] top-[28%] rounded-[10px] translate-y-[-33%] p-2 flex flex-col items-center justify-center cursor-pointer"
         >
           {loading ? (
             <p className="text-white font-bold">Please wait, video is loading...</p>
@@ -52,10 +52,14 @@ const Video_componenet = ({ chat }) => {
         </div>
       )}
 
-      <div className="p-2 leading-3">
+      <div className="p-2 px-4 leading-3">
         <b>
-          <h1 className="text-[18px]">{chat.title}</h1>
-        </b>
+  <h1 className="text-[18px]">
+    {chat.title.length > 35 
+      ? chat.title.substring(0, 35) + "…" 
+      : chat.title}
+  </h1>
+</b>
       <p className="mt-2 flex items-center gap-1 text-gray-400 text-xs">
   {chat.videoEndTime ? Math.floor(chat.videoEndTime) + " min" : ""} 
   <GoDotFill size={12} /> 

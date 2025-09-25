@@ -148,7 +148,7 @@ const Multi_Model_paper_response = () => {
        </button>
 
 
-       <Global_like_dislike_response chat={chat}/>
+       <Global_like_dislike_response/>
     </div>
   );
 };

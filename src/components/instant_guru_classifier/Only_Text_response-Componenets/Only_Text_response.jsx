@@ -7,11 +7,51 @@ import ReactDOM from "react-dom/client";
 import Global_like_dislike_response from '../Global_like_dislike_response';
 import { chatHistory } from '../../../state/instantGuruState';
 
-
+const chat=`
+   {
+  "message": "Success",
+  "result": [
+    {
+      "userQuery": "अभिक्रिया की दर ",
+      "cardType": "CardType.FULLCARD",
+      "sectionType": "SectionType.LECTURE_DOUBT_VIDEO",
+      "displaySubtitle": "watch the doubt video",
+      "actionButtonText": null,
+      "redirectLink": null,
+      "deepLink": null,
+      "bigtext": null,
+      "pdfLink": null,
+      "subscriptionType": null,
+      "videoLink": null,
+      "position": null,
+      "screenClassName": "arivihan.technologies.doubtbuzzter2.activity.MicrolectureListActivity",
+      "thumbnailUrl": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/dde65d5c-5804-4b3f-82cb-badf58f2dd7b/MAIN_EXAM_2025_CHEMISTRY_HINDI_CH3.jpg",
+      "displayTitle": "अभिक्रिया की दर ",
+      "clickableElements": {
+        "thumbnail": true,
+        "title": true,
+        "subtitle": false,
+        "link": false
+      },
+      "navigationParams": {
+        "chapterId": "CHEMPBHINCHK",
+        "chapterName": "Chemical Kinetics",
+        "microLectureId": "CHEMPBHINCHKML1",
+        "microLectureName": "अभिक्रिया की दर ",
+        "startTime": 1621000,
+        "endTime": "2322000",
+        "IntroImage": "https://d2ztt6so6c3jo0.cloudfront.net/do_not_delete/dde65d5c-5804-4b3f-82cb-badf58f2dd7b/MAIN_EXAM_2025_CHEMISTRY_HINDI_CH3.jpg",
+        "hideTapTarget": true,
+        "openVideo": true
+      }
+    }
+  ]
+}
+`
 
 const Only_Text_response = ({ chat, chatIndex }) => {
   const containerRef = useRef(null);
-
+  
   useEffect(() => {
     if (containerRef.current) {
       renderMathInElement(containerRef.current, {

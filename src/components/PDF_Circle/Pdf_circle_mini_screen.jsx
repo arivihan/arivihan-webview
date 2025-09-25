@@ -5,7 +5,7 @@ import Global_like_dislike_response from './Global_like_dislike_response';
 import renderMathInElement from 'katex/contrib/auto-render';
 import SmilesRenderer from '../smileRenderer';
 import ReactDOM from "react-dom/client";
-
+import "./pdf-circle-and-web-view-common.css";
 const Pdf_circle_mini_screen = () => {
   const contentRef = useRef(null);
   const containerRef = useRef(null);
@@ -36,6 +36,8 @@ const handleScroll = () => {
 
   setShowScrollToTop(isAtBottom);
   setShowScrollToBottom(!isAtBottom);
+  setShowScrollToTop(isAtBottom);
+  setShowScrollToBottom(!isAtBottom);
 };
 
 
@@ -57,7 +59,26 @@ const handleScroll = () => {
       behavior: 'smooth'
     });
   };
+useEffect(() => {
+  const contentElement = contentRef.current;
+  if (contentElement) {
+    // Pehle check karo scrollable hai ya nahi
+    const checkScrollable = () => {
+      setIsScrollable(contentElement.scrollHeight > contentElement.clientHeight);
+    };
 
+    checkScrollable(); // Initial check
+    window.addEventListener("resize", checkScrollable); // Resize pe bhi check karna zaruri hai
+
+    contentElement.addEventListener("scroll", handleScroll);
+    handleScroll(); // Initial scroll check
+
+    return () => {
+      contentElement.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("resize", checkScrollable);
+    };
+  }
+}, []);
 
 
 
@@ -159,7 +180,7 @@ const handleScroll = () => {
 
         {/* Scroll to Top Button */}
         {isScrollable && showScrollToTop && (
-          <div className="absolute bottom-32 left-[50%] -translate-x-[50%] group">
+          <div className="absolute bottom-[10vh] left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
               className="bg-[#000000CC] hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
@@ -175,7 +196,7 @@ const handleScroll = () => {
 
         {/* Scroll to Bottom Button */}
         {isScrollable && showScrollToBottom && (
-          <div className="absolute bottom-32 left-[50%] -translate-x-[50%] group ">
+          <div className="absolute bottom-[10vh] left-[50%] -translate-x-[50%] group ">
             <button
               onClick={scrollToBottom}
               className="bg-[#000000CC]  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"

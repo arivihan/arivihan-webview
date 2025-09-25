@@ -1,0 +1,20 @@
+[
+  {
+    "completed": false,
+    "questionId": "PHYBRDENGCIEML1Fill in the Blank 1",
+    "type": "FILL_IN_THE_BLANKS",
+    "question": "The unit of electric current in the SI system is ________.",
+    "answer": "ampere",
+    "answerEx": "<html><body>ampere (A)<br><br>Explanation: The ampere is the SI unit of electric current, defined as the flow of one coulomb of charge per second.</body></html>",
+    "pos": 1
+  },
+  {
+    "completed": false,
+    "questionId": "PHYBRDENGCIEML1Fill in the Blank 2",
+    "type": "FILL_IN_THE_BLANKS",
+    "question": "The instantaneous current is mathematically represented as ________.",
+    "answer": "dq/dt",
+    "answerEx": "<html><body>dq/dt<br><br>Explanation: Instantaneous current is defined as the rate of flow of charge at a specific moment, which is represented mathematically as the derivative of charge with respect to time (dq/dt).</body></html>",
+    "pos": 2
+  }
+]

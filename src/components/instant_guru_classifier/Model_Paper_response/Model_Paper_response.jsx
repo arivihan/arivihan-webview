@@ -38,11 +38,11 @@ const Model_paper_response = () => {
       </div>
 
       {/* Card Info */}
-      <div className="rounded-md border-2 flex-col items-center justify-items-end border-gray-100">
+      <div className="rounded-md h-[13vh] border-2 flex-col items-center justify-items-end border-gray-100">
         <div className="w-full flex items-center justify-between">
           <Model_paper />
-          <div className="w-[15%] flex mr-4 justify-center items-center h-[15%]">
-            <img className="w-full h-full object-cover" src="/atom.png" alt="" />
+          <div className="w-[12%] flex mr-4 justify-center items-center h-[15%]">
+            <img className="w-full h-full object-cover" src="/atom2.png" alt="" />
           </div>
         </div>
         <div className="bg-[#26C6DA]/10 w-full flex items-center px-3 py-1 justify-end">
