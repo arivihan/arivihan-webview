@@ -5,6 +5,7 @@ import Global_like_dislike_response from './Global_like_dislike_response';
 import renderMathInElement from 'katex/contrib/auto-render';
 import SmilesRenderer from '../smileRenderer';
 import ReactDOM from "react-dom/client";
+import "./pdf-circle-and-web-view-common.css";
 const Pdf_circle_mini_screen = () => {
   const contentRef = useRef(null);
   const containerRef = useRef(null);

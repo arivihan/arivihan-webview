@@ -83,6 +83,7 @@ import Model_paper_response from "../components/instant_guru_classifier/Model_Pa
 import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
 import Pdf_circle_mini_screen from "../components/PDF_Circle/Pdf_circle_mini_screen";
 
+import "../components/PDF_Circle/pdf-circle-and-web-view-common.css";
 
 const InstantGuruUIDev = () => {
   useSignals();
@@ -351,10 +352,10 @@ const InstantGuruUIDev = () => {
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
 
-
+  
 
   return (
-    <div className="font-sans flex flex-col justify-between h-screen overflow-hidden"  onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
+    <div  className="font-sans flex flex-col justify-between h-screen overflow-hidden"  onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
       <div className="flex items-center px-4 py-2 h-[64px]">
         <Tooltip
           content={t("click_here_for_old_questions")}
