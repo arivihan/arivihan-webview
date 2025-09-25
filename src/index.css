@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-@import "swiper/css";
 ::-webkit-scrollbar {
     background-color: transparent;
     width: 5px;
