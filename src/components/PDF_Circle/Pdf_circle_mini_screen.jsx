@@ -176,7 +176,7 @@ useEffect(() => {
           <div className="absolute bottom-[15vh] left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
-              className="bg-[#000000CC] hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
+              className="bg-[#000000CC]/80 hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
             >
               <p className='text-sm flex items-center'>Upar jayein <p className='text-xl'><IoIosArrowRoundUp /></p>
               </p>
@@ -192,7 +192,7 @@ useEffect(() => {
           <div className="absolute bottom-[15vh] left-[50%] -translate-x-[50%] group ">
             <button
               onClick={scrollToBottom}
-              className="bg-[#000000CC]  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
+              className="bg-[#000000CC]/80  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
             >
               <p className="text-sm flex items-center">Neeche jayein <p className='text-xl'><IoIosArrowRoundDown /></p> </p>
             </button>
