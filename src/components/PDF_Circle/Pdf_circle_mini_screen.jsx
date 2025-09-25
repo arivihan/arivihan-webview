@@ -147,8 +147,8 @@ useEffect(() => {
   }, []);
 
   return (
-    <div className="absolute w-screen h-screen bg-zinc-900/60 flex justify-center items-center">
-      <div className="w-[100vw] h-[100vh] bg-white overflow-hidden flex flex-col relative">
+    <div className="absolute w-screen h-screen bg-zinc-900/60  flex justify-center items-center z-50">
+      <div className="w-[100vw] h-[100vh]  bg-white overflow-hidden flex flex-col relative">
         {/* Header */}
         <div className="flex items-center px-4 py-1 h-[50px] flex-shrink-0">
           <div className="w-8 h-8  rounded-full flex items-center justify-center shadow-md">
@@ -174,16 +174,17 @@ useEffect(() => {
           <div className='whitespace-normal text-[15px]' dangerouslySetInnerHTML={{ __html: response.replaceAll("(bold)<b>", "</b>").replaceAll(/(\n){2,}/g, '</br>') }} ref={containerRef} />
 
           {/* Hamesha neeche render hoga */}
-          <Global_like_dislike_response responseId={responseId} isPDFCircle={true} userId={userId}/>
+          <Global_like_dislike_response />
+          <div className='h-[20vh]'></div>
         </div>
 
 
         {/* Scroll to Top Button */}
         {isScrollable && showScrollToTop && (
-          <div className="absolute bottom-[10vh] left-[50%] -translate-x-[50%] group">
+          <div className="absolute bottom-[15vh] left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
-              className="bg-[#000000CC] hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
+              className="bg-[#000000CC]/80 hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
             >
               <p className='text-sm flex items-center'>Upar jayein <p className='text-xl'><IoIosArrowRoundUp /></p>
               </p>
@@ -196,10 +197,10 @@ useEffect(() => {
 
         {/* Scroll to Bottom Button */}
         {isScrollable && showScrollToBottom && (
-          <div className="absolute bottom-[10vh] left-[50%] -translate-x-[50%] group ">
+          <div className="absolute bottom-[15vh] left-[50%] -translate-x-[50%] group ">
             <button
               onClick={scrollToBottom}
-              className="bg-[#000000CC]  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
+              className="bg-[#000000CC]/80  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
             >
               <p className="text-sm flex items-center">Neeche jayein <p className='text-xl'><IoIosArrowRoundDown /></p> </p>
             </button>

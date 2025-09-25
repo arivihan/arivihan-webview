@@ -51,8 +51,8 @@ import {
   setChatSessionIdInActivity,
   showToast,
   watchLectureNowTextClickAction,
-} from "../utils/instantGuruUtilsDev"; 
-import {showDoubtSubscriptionDialog} from "../utils/instantGuruUtilsDev";
+} from "../utils/instantGuruUtilsDev";
+import { showDoubtSubscriptionDialog } from "../utils/instantGuruUtilsDev";
 import { useSignals } from "@preact/signals-react/runtime";
 import { PulseLoader } from "react-spinners";
 import ImageCropModal from "../components/imageCropModal";
@@ -187,7 +187,7 @@ const InstantGuruUIDev = () => {
   }
 
   window.showDoubtSubscriptionDialog = () => {
-    setSubscriptionExpired(true);
+    setSubscriptionExpired(true); 
   }
 
   window.processMicInput = (input) => {
@@ -219,18 +219,18 @@ const InstantGuruUIDev = () => {
     contextExtractedText.value = contextData.extractedText;
 
 
-    if(contextData.showResponseBubble){
+    if (contextData.showResponseBubble) {
       chatHistory.value = [];
       chatHistory.value = [...chatHistory.value, {
-            "botResponse": contextData.response,
-            "responseType": "HTML",
-            "showBotAvatar": true,
-            "userQuery": "",
-            "needFeedback": true,
-          }]
+        "botResponse": contextData.response,
+        "responseType": "HTML",
+        "showBotAvatar": true,
+        "userQuery": "",
+        "needFeedback": true,
+      }]
     }
 
-    if(contextData.origin == "PDF_CIRCLE"){
+    if (contextData.origin == "PDF_CIRCLE") {
       document.getElementById("newChatBtn").innerText = t("back_to_notes");
     }
 
@@ -311,9 +311,9 @@ const InstantGuruUIDev = () => {
   const handleNewChat = () => {
     logEventToFirebase("doubt_chat_new_chat_button_click")
 
-    if(contextAnswer.value){
+    if (contextAnswer.value) {
       callBackToPreviousActivity();
-    }else{
+    } else {
       openNewChat();
     }
   }
@@ -358,10 +358,10 @@ const InstantGuruUIDev = () => {
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
 
-  
+
 
   return (
-    <div  className="font-sans flex flex-col justify-between h-screen overflow-hidden"  onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
+    <div className="font-sans flex flex-col justify-between h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
       <div className="flex items-center px-4 py-2 h-[64px]">
         <Tooltip
           content={t("click_here_for_old_questions")}
@@ -407,10 +407,10 @@ const InstantGuruUIDev = () => {
 
       {
         showMicListentingUI.value === true && <MicListeningUI />
-      } 
-        
-        
-      
+      }
+
+
+
 
       <div
         className={`p-4 overflow-y-auto overflow-x-hidden  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-64px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
@@ -479,8 +479,8 @@ const InstantGuruUIDev = () => {
                 <TextOptionBubble chat={chat} chatIndex={hIndex} />
 
               }
-                 
-                
+
+
 
               {
                 chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML")
@@ -505,7 +505,7 @@ const InstantGuruUIDev = () => {
                 &&
                 <Only_Text_button chat={chat} chatIndex={hIndex} />
               }
-              
+
               {
                 chat.responseType === "HTML_VIDEO"
                 &&
@@ -516,7 +516,7 @@ const InstantGuruUIDev = () => {
             </div>
           );
         })}
-        
+
         {/* Loader + Important Questions block */}
         {showDoubtChatLoader.value === true ? (
           <div className="flex flex-col gap-2">
@@ -664,7 +664,7 @@ const InstantGuruUIDev = () => {
       }
 
       {/* the new crousal comtainer  */}
-       
+
       {/* the new crousal comtainer  */}
 
 
