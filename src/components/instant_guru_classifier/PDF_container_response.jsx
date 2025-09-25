@@ -61,6 +61,8 @@ const PDF_container_response = ({ chat }) => {
       {/* Description */}
       <Only_Text_Discription chat={chat} />
 
+      <hr />
+
       {/* Open Button */}
       {/* <div className="mt-4 w-[45vw]">
         <a
@@ -82,7 +84,7 @@ const PDF_container_response = ({ chat }) => {
           onLoadSuccess={onDocumentLoadSuccess}
         ></Document>
       </div> */}
-      <Global_like_dislike_response chat={chat} />
+      {/* <Global_like_dislike_response chat={chat} /> */}
     </div>
   );
 };

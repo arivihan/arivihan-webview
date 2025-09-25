@@ -1,6 +1,5 @@
 import { createContext, useContext, useEffect } from "react";
 import { BrowserRouter as Router, Route, Routes, useNavigate } from 'react-router-dom';
-import { MathJaxContext } from "better-react-mathjax";
 import LoginScreen from "./screens/login";
 import SMEDashboardScreen from "./screens/smeDashboard";
 import DoubtListScreen from "./screens/sme/doubtList";
@@ -28,7 +27,6 @@ function App() {
 
 
   return (
-    <MathJaxContext
     // config={{
     //   loader: { load: ["[tex]/mhchem"] },
     //   tex: {
@@ -37,7 +35,6 @@ function App() {
     //     },
     //   }
     // }}
-    >
 
 
       <Router>
@@ -64,7 +61,6 @@ function App() {
 
         </Routes>
       </Router>
-    </MathJaxContext>
   );
 }
 

@@ -8,6 +8,8 @@ import {
   chatSessionId,
   chatType,
   contextAnswer,
+  contextExtractedText,
+  contextImageUrl,
   contextQuestion,
   doubtText,
   imageViewUrl,
@@ -53,7 +55,6 @@ import {
 } from "../utils/instantGuruUtilsDev";
 import { useSignals } from "@preact/signals-react/runtime";
 import { PulseLoader } from "react-spinners";
-import { MathJax } from "better-react-mathjax";
 import ImageCropModal from "../components/imageCropModal";
 import { ChatLoadShimmer } from "../components/chatLoadShimmer";
 import MicListeningUI from "../components/micListeningUi";
@@ -207,10 +208,15 @@ const InstantGuruUIDev = () => {
 
   window.setContextForChat = (contextData) => {
 
+    console.log(contextData);
+    isFirstDoubt.value = false;
     chatType.value = "SectionType.SUBJECT_RELATED";
     mockTestDoubt.value = true;
     contextAnswer.value = contextData.response;
-    contextQuestion.value = contextData.userQuery;
+    contextQuestion.value = contextData.extractedText;
+    contextImageUrl.value = contextData.screenshotUrl;
+    contextExtractedText.value = contextData.extractedText;
+
 
     if(contextData.showResponseBubble){
       chatHistory.value = [];
@@ -668,16 +674,20 @@ const InstantGuruUIDev = () => {
             isOpen={showTooltipNumber === 1}
             style={{ backgroundColor: "#211F27", borderRadius: 10 }}
           />
-          <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer shadow bg-[#26C6DA] rounded-md ml-1 flex justify-center items-center p-2 w-min-[6vh] h-min-[5vh] mr-1" onClick={handleImageIconClick}>
-            {/* <img
-              src={require("../assets/icons/icon_camera_black.png")}
-              className="h-5 object-contain"
-              alt="camera"
-            /> */}
-            <p className="text-white">
-              <AiOutlineCamera size={20} />
-            </p>
-          </label>
+          {
+            chatHistory.value.length < 3
+            &&
+            <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer shadow bg-[#26C6DA] rounded-md ml-1 flex justify-center items-center p-2 w-min-[6vh] h-min-[5vh] mr-1" onClick={handleImageIconClick}>
+              {/* <img
+                src={require("../assets/icons/icon_camera_black.png")}
+                className="h-5 object-contain"
+                alt="camera"
+              /> */}
+              <p className="text-white">
+                <AiOutlineCamera size={20} />
+              </p>
+            </label>
+          }
           <input
             type="text"
             id="text-input-field"

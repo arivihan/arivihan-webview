@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { motion } from "framer-motion";
-import { chatResponseFeedback } from "../../utils/instantGuruUtilsDev";
+import { chatResponseFeedback, shareOnWhatssapp } from "../../utils/instantGuruUtilsDev";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
-const Global_like_dislike_response = ({ chat }) => {
+const Global_like_dislike_response = ({ chat , isPDFCircle = false ,responseId = null,userId = null}) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const [cooldown, setCooldown] = useState(false); // cooldown state
+  const { i18n, t } = useTranslation();
 
   const startCooldown = () => {
     setCooldown(true);
@@ -15,19 +17,48 @@ const Global_like_dislike_response = ({ chat }) => {
   };
 
   const handleLike = () => {
-    if (cooldown) return; // agar cooldown hai to ignore
-    chatResponseFeedback(chat.responseId, true);
-    setLiked(!liked);
-    if (!liked && disliked) setDisliked(false);
-    startCooldown();
+          if (cooldown) return; // agar cooldown hai to ignore
+    if(isPDFCircle){
+  fetch(`http://103.119.171.58:5001/api/v1/explain/like/${responseId}?user_id=${userId}&liked=false`, {
+        method: "PATCH",
+        headers: {
+          "accept": "application/json",
+          "Content-Type": "application/x-www-form-urlencoded",
+        }
+      });
+      setDisliked(!disliked);
+      if (!disliked && liked) setLiked(false);
+      startCooldown();
+    }else{
+      chatResponseFeedback(chat.responseId, true);
+      setLiked(!liked);
+      if (!liked && disliked) setDisliked(false);
+      startCooldown();
+    }
   };
 
   const handleDislike = () => {
     if (cooldown) return;
-    chatResponseFeedback(chat.responseId, false);
-    setDisliked(!disliked);
-    if (!disliked && liked) setLiked(false);
-    startCooldown();
+    if(isPDFCircle){
+      fetch(`http://103.119.171.58:5001/api/v1/explain/like/${responseId}`, {
+        method: "PATCH",
+        headers: {
+          "accept": "application/json",
+        },
+        body: new URLSearchParams({
+          user_id: userId,
+          liked: "true",
+        }),
+      });
+      setDisliked(!disliked);
+      if (!disliked && liked) setLiked(false);
+      startCooldown();
+    }else{
+      chatResponseFeedback(chat.responseId, false);
+      setDisliked(!disliked);
+      if (!disliked && liked) setLiked(false);
+      startCooldown();
+    }
   };
 
   return (
@@ -66,13 +97,17 @@ const Global_like_dislike_response = ({ chat }) => {
         >
           <AiOutlineDislike size={16} />
         </motion.div>
-        <motion.div
-          whileTap={{ rotate: 360, scale: 1.2 }}
-          transition={{ type: "spring", stiffness: 200 }}
-          className="cursor-pointer"
-        >
-          <IoShareSocialOutline size={22} />
-        </motion.div>
+        <div onClick={() => {
+                shareOnWhatssapp(t("share_on_whatsapp"));
+            }}>
+          <motion.div
+            whileTap={{ rotate: 360, scale: 1.2 }}
+            transition={{ type: "spring", stiffness: 200 }}
+            className="cursor-pointer"
+          >
+            <IoShareSocialOutline size={22} />
+          </motion.div>
+        </div>
       </div>
     </div>
   );

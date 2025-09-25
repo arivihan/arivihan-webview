@@ -22,7 +22,7 @@ const Only_Text_button = ({ chat, chatIndex }) => {
         <p className='text-white'>{chat.actionButtonText}</p>
         <span className='text-white font-bold'><RiShareBoxFill /></span>
       </div>
-      <hr className='pt-0' />
+      <hr className='w-full mt-2'/>
 
       {
         chat.needFeedback && chatIndex == chatHistory.value.length - 1

@@ -5,6 +5,7 @@ import Global_like_dislike_response from './Global_like_dislike_response';
 import renderMathInElement from 'katex/contrib/auto-render';
 import SmilesRenderer from '../smileRenderer';
 import ReactDOM from "react-dom/client";
+
 const Pdf_circle_mini_screen = () => {
   const contentRef = useRef(null);
   const containerRef = useRef(null);
@@ -13,11 +14,17 @@ const Pdf_circle_mini_screen = () => {
   const [showScrollToBottom, setShowScrollToBottom] = useState(true);
   const [isScrollable, setIsScrollable] = useState(false);
   const [response, setResponse] = useState("");
+  const [title, setTitle] = useState("");
+  const [responseId,setResponseId] = useState(null);
+    const [userId,setUserId] = useState(null);
+
 
 
   window.showNotesDoubtResponse  = (res) => {
-    console.log(res);
     setResponse(res.response);
+    setTitle(res.title);
+    setResponseId(res.request_id);
+    setUserId(res.userId);
   }
 
   // Scroll handler for showing/hiding scroll buttons
@@ -81,7 +88,7 @@ const handleScroll = () => {
       }, 200)
 
     }
-  }, []);
+  }, [response]);
 
   useEffect(() => {
   const contentElement = contentRef.current;
@@ -119,7 +126,7 @@ const handleScroll = () => {
   }, []);
 
   return (
-    <div className="absolute w-screen h-screen bg-zinc-900/60 flex justify-center items-center z-50">
+    <div className="absolute w-screen h-screen bg-zinc-900/60 flex justify-center items-center">
       <div className="w-[100vw] h-[100vh] bg-white overflow-hidden flex flex-col relative">
         {/* Header */}
         <div className="flex items-center px-4 py-1 h-[50px] flex-shrink-0">
@@ -134,23 +141,25 @@ const handleScroll = () => {
         {/* Content */}
         <div
           className="flex-1 px-6 py-4 text-sm text-gray-700 leading-relaxed overflow-y-auto relative"
-          style={{
-            fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
-            lineHeight: '1.7'
-          }}
+          // style={{
+          //   fontFamily: '"Segoe UI", Tahoma, Geneva, Verdana, sans-serif',
+          //   lineHeight: '1.7'
+          // }}
           ref={contentRef}
         >
           {/* Response content */}
-          <div dangerouslySetInnerHTML={{ __html: response.replaceAll("(bold)<b>", "</b>").replaceAll(/(\n){2,}/g, '</br>') }} ref={containerRef} />
+          <h2 className='text-lg font-bold text-primary'>{title}</h2>
+          <hr className='mb-2' />
+          <div className='whitespace-normal text-[15px]' dangerouslySetInnerHTML={{ __html: response.replaceAll("(bold)<b>", "</b>").replaceAll(/(\n){2,}/g, '</br>') }} ref={containerRef} />
 
           {/* Hamesha neeche render hoga */}
-          <Global_like_dislike_response />
+          <Global_like_dislike_response responseId={responseId} isPDFCircle={true} userId={userId}/>
         </div>
 
 
         {/* Scroll to Top Button */}
         {isScrollable && showScrollToTop && (
-          <div className="absolute bottom-20 left-[50%] -translate-x-[50%] group">
+          <div className="absolute bottom-32 left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
               className="bg-[#000000CC] hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
@@ -166,7 +175,7 @@ const handleScroll = () => {
 
         {/* Scroll to Bottom Button */}
         {isScrollable && showScrollToBottom && (
-          <div className="absolute bottom-20 left-[50%] -translate-x-[50%] group ">
+          <div className="absolute bottom-32 left-[50%] -translate-x-[50%] group ">
             <button
               onClick={scrollToBottom}
               className="bg-[#000000CC]  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"

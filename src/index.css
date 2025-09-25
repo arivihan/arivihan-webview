@@ -27,7 +27,10 @@
 .MathJax {
     overflow-x: auto !important;
     overflow-y: hidden;
-    padding-right: 30px;
+    /* padding-right: 30px;
+    background-color: red !important; */
+    padding: 10px !important;
+    background-color: red !important;
 }
 
 .receiveBubble p {
@@ -52,11 +55,11 @@
 
 /* Katex changes */
 .pstrut{
-    min-height: 3.1em !important;
+    /* min-height: 3.1em !important; */
 }
 .katex-display{
     overflow-x: auto !important;
-    padding: 12px !important;
+    /* padding: 12px !important; */
 }
 body{
     height: 100vh;
@@ -105,3 +108,4 @@ ol {
     animation: shimmer 8s infinite linear;
     background-size: 200% 100%;
 }
+

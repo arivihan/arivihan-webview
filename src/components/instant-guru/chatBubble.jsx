@@ -2,7 +2,6 @@ import React, { useEffect, useRef } from "react";
 import { useTranslation } from "react-i18next";
 import { chatHistory, chatType, isFirstDoubt, showChatLoadShimmer, showDoubtChatLoader, suggestedDoubtAsked, waitingForResponse } from "../../state/instantGuruState";
 import { chatOptionClicked, chatRequestVideo, chatResponseFeedback, openNewChat, saveDoubtChat, scrollToBottom } from "../../utils/instantGuruUtilsProd";
-import { MathJax } from "better-react-mathjax";
 import suggestedQuestions from "../../assets/suggested_question.json";
 import 'katex/dist/katex.min.css';
 import { BlockMath } from "react-katex";

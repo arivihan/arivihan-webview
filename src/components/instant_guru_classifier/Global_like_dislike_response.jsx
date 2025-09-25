@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import { AiOutlineLike, AiOutlineDislike } from "react-icons/ai";
 import { motion } from "framer-motion";
-import { chatResponseFeedback } from "../../utils/instantGuruUtilsDev";
+import { chatResponseFeedback, shareOnWhatssapp } from "../../utils/instantGuruUtilsDev";
 import { IoShareSocialOutline } from "react-icons/io5";
+import { useTranslation } from "react-i18next";
 
 const Global_like_dislike_response = ({ chat }) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
   const [cooldown, setCooldown] = useState(false); // cooldown state
+    const { i18n, t } = useTranslation();
 
   const startCooldown = () => {
     setCooldown(true);
@@ -70,6 +72,9 @@ const Global_like_dislike_response = ({ chat }) => {
           whileTap={{ rotate: 360, scale: 1.2 }}
           transition={{ type: "spring", stiffness: 200 }}
           className="cursor-pointer"
+            onClick={() => {
+                      shareOnWhatssapp(t("share_on_whatsapp"));
+                    }}
         >
           <IoShareSocialOutline size={22} />
         </motion.div>

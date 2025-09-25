@@ -5,6 +5,8 @@ import {
   chatSessionId,
   chatType,
   contextAnswer,
+  contextExtractedText,
+  contextImageUrl,
   contextQuestion,
   giveResponseOption,
   isFirstDoubt,
@@ -136,14 +138,21 @@ export const postNewChat = (
     question: contextQuestion.value,
     requestType: requestType,
     selectedSubjectName: subject,
-    userQuery: userQuery,
-    imageQuery: imageQuery,
+    userQuery:  userQuery,
+    extractedText: contextExtractedText.value,
+    imageQuery: mockTestDoubt.value ? contextImageUrl.value :  imageQuery,
   });
+
+  console.log(requestBody);
+  
+
   customAppRequest('chat', 'POST', requestBody)
     .then(data => {
       if (data.data[data.data.length - 1].showBotAvatar === false && chatHistory.value.length > 2) {
         data.data[data.data.length - 1]['showBotAvatar'] = true;
       }
+
+
 
       isFirstDoubt.value = false;
 
@@ -162,7 +171,12 @@ export const postNewChat = (
 
         if (chatSessionId.value === null || chatSessionId.value === "") {
           chatSessionId.value = data.data[data.data.length - 1].chatSesssionId;
-          isFirstDoubt.value = true;
+          if(mockTestDoubt.value != true){
+            isFirstDoubt.value = true;
+          }
+          if(chatHistory.length > 0){
+            mockTestDoubt.value = false;
+          }
           if(!contextAnswer.value){
             data.data.forEach((chat) => {
               setTimeout(() => {
@@ -310,7 +324,8 @@ export function chatClassifier(message) {
     "subscriptionStatus": "subscribed",
     "userName": urlParams.get("username"),
     "userQuery": message,
-    "chatSessionId": chatSessionId.value
+    "chatSessionId": chatSessionId.value,
+    "firstDoubt": isFirstDoubt.value,
   }))
     .then(data => {
       console.log(data);
@@ -318,6 +333,8 @@ export function chatClassifier(message) {
       chatType.value = data[0].sectionType;
       showDoubtChatLoader.value = false;
       callClassifier.value = true;
+
+      isFirstDoubt.value = false;
 
 
       try {
@@ -348,7 +365,7 @@ export function chatClassifier(message) {
       } else if (data[0].classifierResponseType === "SectionType.OPEN_WHATSAPP") {
         showWhatsappBottomSheet.value = true;
       } else {
-        chatHistory.value = [...chatHistory.value, data[0]]
+        chatHistory.value = [...chatHistory.value, ...data]
       }
       // } else if (data[0].sectionType === "SectionType.PDF") {
 
@@ -712,12 +729,12 @@ export function openAppActivity(className, activityParams) {
   }
 }
 
-export function openPdf(url, title) {
+export function openPdf(url, title,notesType,subjectName) {
 
   if (typeof AndroidInterface !== 'undefined') {
     try {
-      logEventToFirebase("doubt_chat_open_pdf_clicked", { url: url, title: title })
-      window.AndroidInterface.openPdf(url, title);
+      logEventToFirebase("doubt_chat_open_pdf_clicked", { url: url, title: title , notesType: notesType, subjectName: subjectName})
+      window.AndroidInterface.openPdf(url, title,notesType,subjectName);
     } catch (error) {
     }
   } else {
@@ -733,5 +750,16 @@ export function callBackToPreviousActivity() {
     }
   } else {
     alert("AndroidInterface is not defined for openActivity");
+  }
+}
+
+export function shareOnWhatssapp(content) {
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      window.AndroidInterface.shareOnWhatsapp(content);
+    } catch (error) {
+    }
+  } else {
+    alert("AndroidInterface is not defined for shareOnWhatsapp");
   }
 }

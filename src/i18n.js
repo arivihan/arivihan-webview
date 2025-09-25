@@ -25,7 +25,10 @@ i18n.use(initReactI18next).init({
                 write_doubt_in_detail: "Write your doubt in detail...",
                 one_mark_question: "Important 1 marks questions",
                 read_till_answer_coming: "Answer jald hi aa raha hai, tab tak ye padhein...",
-                back_to_notes:"Back to notes"
+                back_to_notes:"Back to notes",
+                share_on_whatsapp:`😎 *Ask Doubt* ne mera doubt instantly solve kar diya ✅
+Tum bhi apne doubts clear karne ke liye abhi pucho
+👉 https://arivihan.com/deeplink?redirectTo=choose-doubt-subject`
             },
         },
         hi: {
@@ -45,7 +48,10 @@ i18n.use(initReactI18next).init({
                 write_doubt_in_detail: "अपना प्रश्न विस्तार से लिखें...",
                 one_mark_question: "महत्वपूर्ण 1 अंक के प्रश्न",
                 read_till_answer_coming: "उत्तर जल्द ही आ रहा है, तब तक ये पढ़ें...",
-                back_to_notes:"नोट्स पर वापस जाएँ"
+                back_to_notes:"नोट्स पर वापस जाएँ",
+                share_on_whatsapp:`😎 *डाउट पूछें* ने मेरा सवाल तुरंत हल कर दिया ✅
+तुम भी अपने डाउट्स क्लियर करने के लिए अभी पूछो
+👉 https://arivihan.com/deeplink?redirectTo=choose-doubt-subject`
             },
         },
     },
