@@ -71,7 +71,6 @@ const Global_like_dislike_response = ({ chat }) => {
           transition={{ type: "spring", stiffness: 200 }}
           className="cursor-pointer"
         >
-          <IoShareSocialOutline size={22} />
         </motion.div>
       </div>
     </div>
