@@ -167,7 +167,7 @@ useEffect(() => {
 
           {/* Hamesha neeche render hoga */}
           <Global_like_dislike_response />
-          <div className='h-[20vh]'></div>
+          <div className='h-[10vh]'></div>
         </div>
 
 
