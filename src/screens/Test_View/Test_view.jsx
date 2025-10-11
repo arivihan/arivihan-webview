@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, AlertTriangle, MoreHorizontal, CheckCircle, Clock, Star, Flag, X } from 'lucide-react';
 import { IoIosArrowRoundDown } from "react-icons/io";
+import { useNavigate } from 'react-router-dom';
 // Sample data for different question types
 const questionData = {
   mcq: [
@@ -434,7 +435,7 @@ export default function PracticeQuestionsUI() {
   const questions = questionData[currentQuestionType] || [];
   const currentQuestion = questions[currentQuestionIndex];
   const totalQuestions = questions.length;
-
+  const navigate = useNavigate();
   // Start timer when question loads or changes
   useEffect(() => {
     setStartTime(Date.now());
@@ -659,7 +660,7 @@ export default function PracticeQuestionsUI() {
       {/* Header */}
       <div ref={containerRef} className="bg-white border-b px-4 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm flex-shrink-0">
         <div className="flex items-center gap-3">
-          <ChevronLeft className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-800 transition-colors" />
+          <ChevronLeft onClick={() => navigate(-1)} className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-800 transition-colors" />
           <h1 className="text-lg font-semibold text-gray-800 truncate">Electric Charges And Fields</h1>
         </div>
       </div>
