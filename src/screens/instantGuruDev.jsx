@@ -186,8 +186,12 @@ const InstantGuruUIDev = () => {
     }
   }
 
-  window.showDoubtSubscriptionDialog = () => {
-    setSubscriptionExpired(true); 
+  try{
+      window.showDoubtSubscriptionDialog = () => {
+        setSubscriptionExpired(true); 
+      }
+  }catch(e){
+    console.log("Error in setting subscription dialog function", e);
   }
 
   window.processMicInput = (input) => {
@@ -216,7 +220,8 @@ const InstantGuruUIDev = () => {
     contextAnswer.value = contextData.response;
     contextQuestion.value = contextData.extractedText;
     contextImageUrl.value = contextData.screenshotUrl;
-    contextExtractedText.value = contextData.extractedText;
+    contextExtractedText.value = contextData.extractedText ?? contextData.screenshotUrl;
+    callClassifier.value = false;
 
 
     if (contextData.showResponseBubble) {
@@ -287,7 +292,7 @@ const InstantGuruUIDev = () => {
       suggestedDoubtAsked.value = true;
       chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%] break-words '><p>${doubtText}</p></div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
-      if ((chatType.value === null || chatType.value !== "SectionType.SUBJECT_RELATED") && callClassifier.value == true) {
+      if ((chatType.value === null || chatType.value !== "SectionType.SUBJECT_RELATED" || chatType.value !== "subject_based") && callClassifier.value == true) {
         chatClassifier(doubtText.value);
       } else {
         postNewChat(doubtText.value);
@@ -355,6 +360,21 @@ const InstantGuruUIDev = () => {
   useEffect(() => {
     const chatContainer = document.getElementById("chat-container");
     chatContainer.scrollTop = chatContainer.scrollHeight + 800;
+
+    if (chatContainer) {
+      const tables = chatContainer.querySelectorAll("table");
+      tables.forEach((table) => {
+      if (!table.parentElement.classList.contains("table-scroll-x")) {
+        const wrapper = document.createElement("div");
+        wrapper.style.overflowX = "auto";
+        wrapper.style.width = "100%";
+        wrapper.className = "table-scroll-x";
+        table.parentElement.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      }
+      table.parentElement.scrollLeft = table.parentElement.scrollWidth;
+      });
+    }
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
 

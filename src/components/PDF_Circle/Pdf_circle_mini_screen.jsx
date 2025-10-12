@@ -174,7 +174,7 @@ useEffect(() => {
           <div className='whitespace-normal text-[15px]' dangerouslySetInnerHTML={{ __html: response.replaceAll("(bold)<b>", "</b>").replaceAll(/(\n){2,}/g, '</br>') }} ref={containerRef} />
 
           {/* Hamesha neeche render hoga */}
-          <Global_like_dislike_response />
+          <Global_like_dislike_response isPDFCircle={true} responseId={responseId} userId={userId} />
           <div className='h-[20vh]'></div>
         </div>
 

@@ -314,6 +314,52 @@ export function chatClassifier(message) {
   showDoubtChatLoader.value = true;
   const urlParams = new URLSearchParams(window.location.search);
   const startTime = performance.now();
+  const board = urlParams.get("board");
+
+  if(board === "false" || board === false){
+    customAppRequest(`chat-classifier?doubt=` + encodeURI(message))
+        .then(data => {
+          chatType.value = data.result;
+          showDoubtChatLoader.value = false;    
+    
+          try {
+            const firebaseEventData = {
+              event: "chat_classifier_response",
+              result: data.result,
+              timestamp: Date.now(),
+              timeTakenMs: performance.now() - startTime,
+              doubt: message
+            };
+            if (analytics) {
+              logEvent(
+                analytics,
+                "chat_classifier_response",
+                firebaseEventData
+              )
+            }
+    
+          } catch (error) {
+            console.error("failed to push event :: " + error)
+          }
+    
+          if (data.result === "conversation_based") {
+            postNewChatConversation(message);
+          } else if (data.result !== "subject_based") {
+            showWhatsappBottomSheet.value = true;
+          } else if (data.result === "subject_based") {
+            isFirstDoubt.value = true;
+            postNewChat(message);
+          }
+
+          callClassifier.value = false;
+        })
+        .catch(error => {
+          console.error('Error:', error)
+        })
+    return;
+  }
+
+
 
   customAppRequest(`chat-classifier-new`, "POST", JSON.stringify({
     "class": "Class 12th",
@@ -367,105 +413,6 @@ export function chatClassifier(message) {
       } else {
         chatHistory.value = [...chatHistory.value, ...data]
       }
-      // } else if (data[0].sectionType === "SectionType.PDF") {
-
-      //   if (data[0].cardType === "CardType.ACTIVITY") {
-      //     chatHistory.value = [...chatHistory.value, {
-      //       "botResponse": data[0].bigtext,
-      //       "responseType": "HTML_VIDEO",
-      //       "thumbnailUrl": data[0].thumbnailUrl,
-      //       "title": data[0].displayTitle,
-      //       "cardType": data[0].cardType,
-      //       "actionButtonText": data[0].actionButtonText,
-      //       "screenClassName": data[0].screenClassName,
-      //       "navigationParams": data[0].navigationParams,
-      //       "videoEndTime": data[0].Video_End_Time,
-      //       "subtitle": data[0].displaySubtitle,
-      //       "showBotAvatar": true,
-      //       "needFeedback": true,
-      //       "userQuery": ""
-      //     }]
-      //   } else {
-      //     let pdfUrls = []
-
-      //     data.forEach(res => {
-      //       pdfUrls.push(
-      //         {
-      //           "pdfTitle": res.displayTitle,
-      //           "pdfLink": res.pdfLink,
-      //         }
-      //       )
-      //     });
-
-      //     chatHistory.value = [...chatHistory.value, {
-      //       "botResponse": data[0].bigtext,
-      //       "responseType": "HTML_PDF",
-      //       "pdfFiles": pdfUrls,
-      //       "showBotAvatar": true,
-      //       "userQuery": "",
-      //       "needFeedback": true,
-      //     }]
-      //   }
-
-      // } else if (data[0].sectionType === "SectionType.LECTURE") {
-      //   chatHistory.value = [...chatHistory.value, {
-      //     "botResponse": data[0].bigtext,
-      //     "responseType": "HTML_VIDEO",
-      //     "thumbnailUrl": data[0].thumbnailUrl,
-      //     "title": data[0].displayTitle,
-      //     "cardType": data[0].cardType,
-      //     "actionButtonText": data[0].actionButtonText,
-      //     "screenClassName": data[0].screenClassName,
-      //     "navigationParams": data[0].navigationParams,
-      //     "videoEndTime": data[0].Video_End_Time,
-      //     "subtitle": data[0].displaySubtitle,
-      //     "showBotAvatar": true,
-      //     "userQuery": "",
-      //     "needFeedback": true,
-      //   }]
-
-
-      // } else if (data[0].sectionType === "SectionType.ACTIVITY") {
-      //   chatHistory.value = [...chatHistory.value, {
-      //     "botResponse": data[0].bigtext,
-      //     "responseType": "HTML_VIDEO",
-      //     "thumbnailUrl": data[0].thumbnailUrl,
-      //     "title": data[0].displayTitle,
-      //     "cardType": data[0].cardType,
-      //     "actionButtonText": data[0].actionButtonText,
-      //     "screenClassName": data[0].screenClassName,
-      //     "navigationParams": data[0].navigationParams,
-      //     "videoEndTime": data[0].Video_End_Time,
-      //     "subtitle": data[0].displaySubtitle,
-      //     "showBotAvatar": true,
-      //     "userQuery": "",
-      //     "needFeedback": true,
-      //   }]
-      // } else if (data[0].sectionType === "SectionType.PYQ") {
-      //   chatHistory.value = [...chatHistory.value, {
-      //     "botResponse": data[0].bigtext,
-      //     "responseType": "HTML_LINKS",
-      //     "showBotAvatar": true,
-      //     "userQuery": "",
-      //     "redirectLink": data[0].redirectLink,
-      //     "needFeedback": true
-      //   }]
-      // }
-      // if (data[0].sectionType === "SectionType.OPEN_WHATSAPP")
-      // else {
-      //   // showWhatsappBottomSheet.value = true;
-      // }
-
-      // callClassifier.value = false;
-
-      // if (data.result === "conversation_based") {
-      //   postNewChatConversation(message);
-      // } else if (data.sectionType !== "SectionType.SUBJECT_RELATED") {
-      //   showWhatsappBottomSheet.value = true;
-      // } else if (data.sectionType === "SectionType.SUBJECT_RELATED") {
-      //   isFirstDoubt.value = true;
-      //   postNewChat(message);
-      // }
     })
     .catch(error => {
       console.error('Error:', error)

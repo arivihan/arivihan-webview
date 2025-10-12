@@ -12,7 +12,7 @@ import moment from 'moment';
 import SMEThemeWrapper from './smeThemeWrapper';
 import { useParams } from 'react-router-dom';
 import { MdDelete, MdEdit, MdMoreVert } from 'react-icons/md';
-import { MathJax } from 'better-react-mathjax';
+// import { MathJax } from 'better-react-mathjax';
 import SmilesRenderer from '../../components/smileRenderer';
 import renderMathInElement from 'katex/contrib/auto-render';
 import ReactDOM from "react-dom/client";
@@ -174,6 +174,49 @@ const SmeDoubtChatScreen = () => {
 
 }
 
+
+const RenderHTMLWithLaTex = ({response,editChat =false,elementId = null}) =>{
+    const containerRef = useRef(null);
+
+    useEffect(() => {
+        if (containerRef.current) {
+            renderMathInElement(containerRef.current, {
+                delimiters: [
+                    { left: "\\[", right: "\\]", display: true },
+                    { left: "\\(", right: "\\)", display: false },
+                    { left: "$$", right: "$$", display: true },
+                    { left: "$", right: "$", display: false }
+                ]
+            });
+
+            const el = containerRef.current;
+            if (!el) return;
+
+            setTimeout(() => {
+                const nodes = Array.from(el.querySelectorAll("smiles"));
+                nodes.forEach((node, i) => {
+                    const smiles = (node.textContent || node.getAttribute("value") || "").trim();
+                    const mount = document.createElement("span");
+                    node.replaceWith(mount);
+                    console.log(smiles);
+                    ReactDOM.createRoot(mount).render(<SmilesRenderer key={Math.random()} smiles={smiles} />);
+                });
+
+            }, 200)
+
+        }
+    }, [response]);
+
+
+    return (
+        elementId
+        ?
+        <div id={elementId} contentEditable={editChat} className={`${editChat ? "bg-white p-3 break-words" : "break-words"}`} ref={containerRef} dangerouslySetInnerHTML={{ __html: response.replace("(bold)<b>", "</b>") }}></div>
+        :
+        <div id={elementId} contentEditable={editChat} ref={containerRef} dangerouslySetInnerHTML={{ __html: response.replace("(bold)<b>", "</b>") }} className='break-words'></div>
+    )
+}
+
 const SendBubble = ({ doubt, message, userId }) => {
      const { t } = useTranslation();
     const [showDropdown, setShowDropdown] = useState(false);
@@ -187,7 +230,7 @@ const SendBubble = ({ doubt, message, userId }) => {
 
     const handleSaveResponse = (notify) => {
         let obj = doubt;
-        obj['response'] = document.getElementById("responseText_" + doubt.id).innerText;
+        obj['response'] = document.getElementById("responseText_" + doubt.id).innerHTML;
         smeCustomRequest(`/secure/sme/doubt-chat-new-response?userId=${userId}&sendNotification=${notify}`, "POST", obj).then((res) => {
             setEditChat(false);
         })
@@ -195,7 +238,7 @@ const SendBubble = ({ doubt, message, userId }) => {
 
     const handleCancelEdit = () => {
         setEditChat(!editChat);
-        document.getElementById("responseText_" + doubt.id).innerText = doubt.response;
+        document.getElementById("responseText_" + doubt.id).innerHTML = doubt.response;
     }
 
     const initializeVideo = () => {
@@ -224,7 +267,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                 <div className="mt-3">
                     {bigtext && (
                         <div className="mb-4">
-                            <MathJax dangerouslySetInnerHTML={{ __html: bigtext }} />
+                            <RenderHTMLWithLaTex response={bigtext} />
                         </div>
                     )}
                     
@@ -246,7 +289,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                 <div className="mt-3">
                     {bigtext && (
                         <div className="mb-4">
-                            <MathJax dangerouslySetInnerHTML={{ __html: bigtext }} />
+                            <RenderHTMLWithLaTex response={bigtext} />
                         </div>
                     )}
                     
@@ -289,7 +332,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                 <div className="mt-3">
                     {bigtext && (
                         <div className="mb-4">
-                            <MathJax dangerouslySetInnerHTML={{ __html: bigtext }} />
+                            <RenderHTMLWithLaTex response={bigtext} />
                         </div>
                     )}
                     
@@ -324,7 +367,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                 <div className="mt-3">
                     {bigtext && (
                         <div className="mb-4">
-                            <MathJax dangerouslySetInnerHTML={{ __html: bigtext }} />
+                            <RenderHTMLWithLaTex response={bigtext} />
                         </div>
                     )}
                     
@@ -365,7 +408,7 @@ const SendBubble = ({ doubt, message, userId }) => {
         if (bigtext) {
             return (
                 <div className="mt-3">
-                    <MathJax dangerouslySetInnerHTML={{ __html: bigtext }} />
+                    <RenderHTMLWithLaTex response={bigtext} />
                 </div>
             );
         }
@@ -461,12 +504,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                                     
                                     {/* Render regular response if exists */}
                                     {doubt.response && (
-                                        <MathJax 
-                                            contentEditable={editChat} 
-                                            id={`responseText_` + doubt.id} 
-                                            className={`${editChat ? "bg-white p-3" : ""} mt-2`} 
-                                            dangerouslySetInnerHTML={{ __html: doubt.response.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>") }} 
-                                        />
+                                        <RenderHTMLWithLaTex response={doubt.response} editChat={editChat} elementId={`responseText_` + doubt.id}/>
                                     )}
                                     
                                     {editChat && (
@@ -479,7 +517,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                                 </div>
                                 :
                                 <div className="flex flex-col">
-                                    <MathJax contentEditable={editChat} id={`responseText_` + doubt.id} className={`${editChat ? "bg-white p-3" : ""}`} dangerouslySetInnerHTML={{ __html: doubt.response ? doubt.response.replaceAll("(bold)<b>", "</b>").replaceAll("\n", "</br>") : "" }}></MathJax>
+                                    <RenderHTMLWithLaTex response={doubt.response} editChat={editChat} elementId={`responseText_` + doubt.id}/>
                                     {
                                         editChat
                                             ?
@@ -569,7 +607,7 @@ const SmeReceiveBubble = ({ doubt, message, doubtImage, user }) => {
                             :
                             <img src={doubtImage === null ? doubt.request : doubtImage} className="mb-2" />
                     }
-                    <p ref={containerRef} dangerouslySetInnerHTML={{ __html: message.replace("(bold)<b>", "</b>") }} className='break-words'></p>
+                    <div ref={containerRef} dangerouslySetInnerHTML={{ __html: message.replace("(bold)<b>", "</b>") }} className='break-words'></div>
                 </pre>
             </div>
             {/* <span className="text-xs text-gray-400">{moment(doubt.createdAt).format("h:m a DD/MM/YY")}</span> */}

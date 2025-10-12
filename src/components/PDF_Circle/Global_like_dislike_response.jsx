@@ -19,15 +19,15 @@ const Global_like_dislike_response = ({ chat , isPDFCircle = false ,responseId =
   const handleLike = () => {
           if (cooldown) return; // agar cooldown hai to ignore
     if(isPDFCircle){
-  fetch(`http://103.119.171.58:5001/api/v1/explain/like/${responseId}?user_id=${userId}&liked=false`, {
+    fetch(`http://103.119.171.58:5001/api/v1/explain/like/${responseId}?user_id=${userId}&liked=false`, {
         method: "PATCH",
         headers: {
           "accept": "application/json",
           "Content-Type": "application/x-www-form-urlencoded",
         }
       });
-      setDisliked(!disliked);
-      if (!disliked && liked) setLiked(false);
+      setLiked(!liked);
+      if (!liked && disliked) setDisliked(false);
       startCooldown();
     }else{
       chatResponseFeedback(chat.responseId, true);
@@ -97,7 +97,7 @@ const Global_like_dislike_response = ({ chat , isPDFCircle = false ,responseId =
         >
           <AiOutlineDislike size={16} />
         </motion.div>
-        <div onClick={() => {
+        {/* <div onClick={() => {
                 shareOnWhatssapp(t("share_on_whatsapp"));
             }}>
           <motion.div
@@ -107,7 +107,7 @@ const Global_like_dislike_response = ({ chat , isPDFCircle = false ,responseId =
           >
             <IoShareSocialOutline size={22} />
           </motion.div>
-        </div>
+        </div> */}
       </div>
     </div>
   );
