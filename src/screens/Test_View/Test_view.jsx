@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, AlertTriangle, MoreHorizontal, CheckCircle, Clock, Star, Flag, X } from 'lucide-react';
 import { IoIosArrowRoundDown } from "react-icons/io";
 import { useNavigate } from 'react-router-dom';
+import cup from "../../assets/cup.png"
+import { CiBookmark } from "react-icons/ci";
 // Sample data for different question types
 const questionData = {
   mcq: [
@@ -66,86 +68,86 @@ const questionData = {
       pos: 4
     }
   ],
-  fillInTheBlanks: [
-    {
-      questionId: "fill1",
-      type: "FILL_IN_THE_BLANKS",
-      question: "The unit of electric current in the SI system is ________.",
-      answer: "ampere",
-      answerEx: "ampere (A) - The ampere is the SI unit of electric current, defined as the flow of one coulomb of charge per second.",
-      marks: "1",
-      pos: 1
-    },
-    {
-      questionId: "fill2",
-      type: "FILL_IN_THE_BLANKS", 
-      question: "The instantaneous current is mathematically represented as ________.",
-      answer: "dq/dt",
-      answerEx: "dq/dt - Instantaneous current is defined as the rate of flow of charge at a specific moment, which is represented mathematically as the derivative of charge with respect to time (dq/dt).",
-      marks: "1",
-      pos: 2
-    },
-    {
-      questionId: "fill3",
-      type: "FILL_IN_THE_BLANKS", 
-      question: "Electric field intensity is measured in ________.",
-      answer: "N/C",
-      answerEx: "N/C (Newton per Coulomb) - Electric field intensity is defined as force per unit charge, hence measured in N/C or V/m.",
-      marks: "1",
-      pos: 3
-    }
-  ],
-  trueFalse: [
-    {
-      questionId: "tf1",
-      type: "TRUE_FALSE",
-      question: "Electric current can flow through a vacuum.",
-      answer: false,
-      answerEx: "False - Electric current requires charge carriers (like electrons) to flow, which are not present in a vacuum under normal conditions.",
-      marks: "1",
-      pos: 1
-    },
-    {
-      questionId: "tf2",
-      type: "TRUE_FALSE",
-      question: "Conventional current flows from positive to negative terminal.",
-      answer: true,
-      answerEx: "True - By convention, current is said to flow from positive to negative terminal, even though electrons actually flow from negative to positive.",
-      marks: "1",
-      pos: 2
-    },
-    {
-      questionId: "tf3",
-      type: "TRUE_FALSE",
-      question: "Electric field lines can intersect each other.",
-      answer: false,
-      answerEx: "False - Electric field lines never intersect because at any point in space, the electric field has a unique direction.",
-      marks: "1",
-      pos: 3
-    }
-  ],
-  shortAnswer: [
-    {
-      questionId: "short1",
-      type: "SHORT_ANSWER",
-      question: "What is the SI unit of electric charge?",
-      answer: "Coulomb",
-      answerEx: "Coulomb (C) is the SI unit of electric charge. It is defined as the amount of charge transported by a constant current of one ampere in one second.",
-      marks: "1",
-      pos: 1
-    }
-  ],
-  longAnswer: [
-    {
-      questionId: "long1",
-      type: "LONG_ANSWER",
-      question: "What is the definition of electric field intensity?",
-      answer: "The force per unit charge of an electric field.",
-      answerEx: "Electric field intensity is defined as the force per unit charge of an electric field. It is measured in Newton per Coulomb (N/C).",
-      marks: "1",
-      pos: 1
-    }
-  ]
+  // fillInTheBlanks: [
+  //   {
+  //     questionId: "fill1",
+  //     type: "FILL_IN_THE_BLANKS",
+  //     question: "The unit of electric current in the SI system is ________.",
+  //     answer: "ampere",
+  //     answerEx: "ampere (A) - The ampere is the SI unit of electric current, defined as the flow of one coulomb of charge per second.",
+  //     marks: "1",
+  //     pos: 1
+  //   },
+  //   {
+  //     questionId: "fill2",
+  //     type: "FILL_IN_THE_BLANKS", 
+  //     question: "The instantaneous current is mathematically represented as ________.",
+  //     answer: "dq/dt",
+  //     answerEx: "dq/dt - Instantaneous current is defined as the rate of flow of charge at a specific moment, which is represented mathematically as the derivative of charge with respect to time (dq/dt).",
+  //     marks: "1",
+  //     pos: 2
+  //   },
+  //   {
+  //     questionId: "fill3",
+  //     type: "FILL_IN_THE_BLANKS", 
+  //     question: "Electric field intensity is measured in ________.",
+  //     answer: "N/C",
+  //     answerEx: "N/C (Newton per Coulomb) - Electric field intensity is defined as force per unit charge, hence measured in N/C or V/m.",
+  //     marks: "1",
+  //     pos: 3
+  //   }
+  // ],
+  // trueFalse: [
+  //   {
+  //     questionId: "tf1",
+  //     type: "TRUE_FALSE",
+  //     question: "Electric current can flow through a vacuum.",
+  //     answer: false,
+  //     answerEx: "False - Electric current requires charge carriers (like electrons) to flow, which are not present in a vacuum under normal conditions.",
+  //     marks: "1",
+  //     pos: 1
+  //   },
+  //   {
+  //     questionId: "tf2",
+  //     type: "TRUE_FALSE",
+  //     question: "Conventional current flows from positive to negative terminal.",
+  //     answer: true,
+  //     answerEx: "True - By convention, current is said to flow from positive to negative terminal, even though electrons actually flow from negative to positive.",
+  //     marks: "1",
+  //     pos: 2
+  //   },
+  //   {
+  //     questionId: "tf3",
+  //     type: "TRUE_FALSE",
+  //     question: "Electric field lines can intersect each other.",
+  //     answer: false,
+  //     answerEx: "False - Electric field lines never intersect because at any point in space, the electric field has a unique direction.",
+  //     marks: "1",
+  //     pos: 3
+  //   }
+  // ],
+  // shortAnswer: [
+  //   {
+  //     questionId: "short1",
+  //     type: "SHORT_ANSWER",
+  //     question: "What is the SI unit of electric charge?",
+  //     answer: "Coulomb",
+  //     answerEx: "Coulomb (C) is the SI unit of electric charge. It is defined as the amount of charge transported by a constant current of one ampere in one second.",
+  //     marks: "1",
+  //     pos: 1
+  //   }
+  // ],
+  // longAnswer: [
+  //   {
+  //     questionId: "long1",
+  //     type: "LONG_ANSWER",
+  //     question: "What is the definition of electric field intensity?",
+  //     answer: "The force per unit charge of an electric field.",
+  //     answerEx: "Electric field intensity is defined as the force per unit charge of an electric field. It is measured in Newton per Coulomb (N/C).",
+  //     marks: "1",
+  //     pos: 1
+  //   }
+  // ]
 
 };
 
@@ -260,8 +262,8 @@ const MCQ = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitt
       {question.question}
     </div>
     <div className="space-y-3"> 
-      <div className=" text-sm text-gray-500 font-medium">
-                Your submitted answer
+      <div className=" text-[12px] text-gray-500 font-medium">
+                Select one option
               </div>
       {question.options.map((option) => (
         <button
@@ -286,135 +288,13 @@ const MCQ = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitt
   </div>
 );
 
-const FillInTheBlank = ({ question, userAnswer, onAnswerChange, showSolution, isSubmitted }) => (
-  <div className="space-y-4 w-[90vw]">
-    <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
-      {question.question}
-    </div>
-    <div className="space-y-3">
-      <p className='text-[12px] text-gray-600'>Type your answer here</p>
-      <input
-        type="text"
-        value={userAnswer || ''}
-        onChange={(e) => !isSubmitted && onAnswerChange(e.target.value)}
-        placeholder="Enter your answer..."
-        disabled={isSubmitted}
-        className={`w-full px-4 py-3 border rounded-xl text-base transition-all duration-200 ${
-          isSubmitted
-            ? userAnswer?.toLowerCase() === question.answer.toLowerCase()
-              ? 'border-green-500 bg-green-50 shadow-md'
-              : 'border-red-500 bg-red-50 shadow-md'
-            : 'border-gray-200 focus:border-cyan-400 focus:shadow-md'
-        } focus:outline-none ${isSubmitted ? 'cursor-not-allowed' : ''}`}
-      />
-      {isSubmitted && (
-        <div className="p-3 bg-green-50 border border-green-200 rounded-xl">
-          <div className="text-sm font-medium text-green-800">
-            Correct Answer: <span className="font-bold">{question.answer}</span>
-          </div>
-        </div>
-      )}
-    </div>
-  </div>
-); 
 
 
 
-const TrueFalse = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => (
-  <div className="space-y-4 w-[90vw]">
-    <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
-      {question.question}
-    </div>
-    <div className="space-y-3">
-      {[
-        { id: 'true', text: 'True', value: true },
-        { id: 'false', text: 'False', value: false }
-      ].map((option) => (
-        <button
-          key={option.id}
-          onClick={() => !isSubmitted && onAnswerSelect(option.value)}
-          disabled={isSubmitted}
-          className={`w-full p-4 rounded-xl border-2 text-left transition-all duration-200 ${
-            isSubmitted && option.value === question.answer
-              ? 'border-green-500 bg-green-50 shadow-md'
-              : isSubmitted && selectedAnswer === option.value && selectedAnswer !== question.answer
-              ? 'border-red-500 bg-red-50 shadow-md'
-              : selectedAnswer === option.value
-              ? 'border-cyan-400 bg-cyan-50 shadow-md'
-              : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
-          } ${isSubmitted ? 'cursor-not-allowed' : 'cursor-pointer hover:scale-[1.02]'}`}
-        >
-          <span className="text-gray-800 font-medium">{option.text}</span>
-        </button>
-      ))}
-    </div>
-  </div>
-);
 
-const ShortAnswer = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => (
-  <div className="space-y-4 w-[90vw]">
-    <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
-      {question.question}
-    </div>
-    <p style={{fontWeight:600}} className='italic text-sm '>Option-1- Apna answer yha type karein</p>
-    <div className="space-y-3">
-      <input
-        type="text"
-        value={selectedAnswer || ''}
-        onChange={(e) => !isSubmitted && onAnswerSelect(e.target.value)}
-        placeholder="Enter your answer..."
-        disabled={isSubmitted}
-        className={`w-full p-3 border-2 rounded-md text-base transition-all duration-200 ${
-          isSubmitted
-            ? selectedAnswer?.toLowerCase() === question.answer.toLowerCase()
-              ? 'border-green-500 bg-green-50 shadow-md'
-              : 'border-red-500 bg-red-50 shadow-md'
-            : 'border-gray-200 focus:border-cyan-400 focus:shadow-md'
-        } focus:outline-none ${isSubmitted ? 'cursor-not-allowed' : ''}`}
-      />
-      {isSubmitted && (
-        <div className="p-3 bg-green-50 border border-green-200 rounded-xl">
-          <div className="text-sm font-medium text-green-800">
-            Correct Answer: <span className="font-bold">{question.answer}</span>
-          </div>
-        </div>
-      )}
-        
-    </div> 
-    <p style={{fontWeight:600}} className='italic text-sm '>Option-2- ya photo click krke upload karein</p>
-    <div style={{border:'2px dashed gray'}} className='w-[90vw] h-[28vh] flex flex-col justify-center items-center rounded-md'>
-              <p className='text-cyan-300 text-[18px]'>Answer upload <span className='text-black'><b>Karein</b></span></p>
-               <p style={{fontWeight:400}} className='text-[15px]'>Maximum file size 10mb</p>
-               <button className='bg-cyan-400 text-white px-10 py-2 mt-2 rounded-lg hover:bg-cyan-500'>
-                 <p>Upload</p>
-               </button>
-    </div>
-  </div>
-);
-const LongAnswer = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => (
-  <div className="space-y-4 w-[90vw]">
-    <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
-      {question.question}
-    </div>
-      <div className="space-y-3">
-      
-      <div className='text-black/50'>
-        <p style={{fontWeight:600}} className='italic text-sm '>Option-2- ya photo click krke upload karein</p>
-        <p style={{fontWeight:600}} className='italic text-sm '>Option-2- ya photo click krke upload karein</p>
-      </div>
-        
-    </div> 
-    <div style={{border:'2px dashed gray'}} className='w-[90vw] h-[28vh] flex flex-col justify-center items-center rounded-md'>
-              <div className='w-[96%] h-[95%] flex flex-col justify-center items-center rounded-md bg-cyan-100/50'>
-                <p style={{fontWeight:400}} className='text-cyan-300 w-[80%] leading-5 text-center text-[18px]'>Answer upload <span style={{fontWeight:500}} className='text-black'>Karein aur board exam experts se check karwaayein</span></p>
-               <p style={{fontWeight:400}} className='text-[15px] mt-2'>Maximum file size 10mb</p>
-               <button className='bg-cyan-400 text-white px-10 py-2 mt-2 rounded-lg hover:bg-cyan-500'>
-                 <p>Upload</p>
-               </button>
-              </div>
-    </div>
-  </div>
-);
+
+
+
 
 export default function PracticeQuestionsUI() {
   const [currentQuestionType, setCurrentQuestionType] = useState('mcq');
@@ -599,10 +479,10 @@ export default function PracticeQuestionsUI() {
 
     const QuestionComponent = {
       'MULTIPLE_CHOICE': MCQ,
-      'FILL_IN_THE_BLANKS': FillInTheBlank,
-      'TRUE_FALSE': TrueFalse ,
-      'SHORT_ANSWER': ShortAnswer,
-      'LONG_ANSWER': LongAnswer,
+      // 'FILL_IN_THE_BLANKS': FillInTheBlank,
+      // 'TRUE_FALSE': TrueFalse ,
+      // 'SHORT_ANSWER': ShortAnswer,
+      // 'LONG_ANSWER': LongAnswer,
     }[currentQuestion.type] || MCQ;
 
     return <QuestionComponent {...props} />;
@@ -658,15 +538,15 @@ export default function PracticeQuestionsUI() {
       />
 
       {/* Header */}
-      <div ref={containerRef} className="bg-white border-b px-4 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm flex-shrink-0">
-        <div className="flex items-center gap-3">
-          <ChevronLeft onClick={() => navigate(-1)} className="w-6 h-6 text-gray-600 cursor-pointer hover:text-gray-800 transition-colors" />
-          <h1 className="text-lg font-semibold text-gray-800 truncate">Electric Charges And Fields</h1>
+      <div ref={containerRef} className="bg-white px-4 py-2 mt-2 flex items-center justify-between sticky top-0 z-20 flex-shrink-0">
+        <div className="flex items-center  gap-3">
+          <ChevronLeft onClick={() => navigate(-1)} size={24}  className='mb-1'/>
+          <h1 className="text-lg mt-1 font-semibold text-gray-800 truncate">Electric Charges And Fields</h1>
         </div>
       </div>
 
       {/* Question Type Selector */}
-      <div className="bg-white border-b px-4 py-2 shadow-sm flex-shrink-0">
+      {/* <div className="bg-white border-b px-4 py-2 shadow-sm flex-shrink-0">
         <select 
           value={currentQuestionType}
           onChange={(e) => {
@@ -682,7 +562,16 @@ export default function PracticeQuestionsUI() {
           <option value="shortAnswer">Short Answer</option>
           <option value="longAnswer">Long Answer</option>
         </select>
+      </div> */}
+         
+      {/* reward strip */}
+     <div className='w-full flex justify-center items-center'>
+       <div className='w-[90%] flex gap-2  px-2 py-2 bg-[#E9FBFC99]'>
+        <img className='w-6 h-6 object-cover' src={cup} alt="" /> 
+        <p>To win: <span className='text-[#696969]'>Solve 2 questions continously</span> </p>
       </div>
+     </div>
+
 
       {/* Question Navigation */}
      <div className="bg-white px-4 py-1 flex-shrink-0 relative">
@@ -696,9 +585,9 @@ export default function PracticeQuestionsUI() {
           className={`relative w-8 h-8 rounded-full mt-2 ml-1 text-sm font-semibold flex-shrink-0 transition-all duration-200
             ${
               status === "submitted"
-                ? "bg-green-400 text-white shadow-md hover:bg-green-600"
+                ? "bg-[#A8E0BE] text-black shadow-md hover:bg-[#A8E0BE]"
                 : status === "answered"
-                ? "bg-orange-400 text-white shadow-md hover:bg-orange-500"
+                ? "bg-[#F7DCE3] text-black shadow-md hover:bg-[#F7DCE3]"
                 : "bg-transparent text-gray-600 hover:bg-red-300 shadow-sm"
             }
           `}
@@ -741,12 +630,13 @@ export default function PracticeQuestionsUI() {
           <div className="h-full flex flex-col items-center overflow-y-auto pb-24" style={{ scrollbarWidth: 'thin' }}>
             {/* Question Content */}
              <div className="flex p-2 w-full px-6 items-center justify-between text-sm">
-          <span className="text-gray-600 font-medium">
+          {/* <span className="text-gray-600 font-medium">
             <p className='text-[18px]'>Q{currentQuestionIndex + 1} of {totalQuestions}</p>
-          </span>
+          </span> */}
           <span className="bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-700 px-3 py-1 rounded-full text-xs font-medium">
-            MP Board 2012
+            NEET 25-2026
           </span>
+          <CiBookmark className='text-[#8C8D92]' size={20} />
         </div>
             <div className="p-2 sm:p-6  my-1 rounded-2xl">
               
@@ -789,7 +679,7 @@ export default function PracticeQuestionsUI() {
               {hasAnswered() ? (
                 <button
                   onClick={handleSubmit}
-                  className="bg-cyan-400 max-w-[30vw] ml-auto text-white px-8 py-3 rounded-xl font-semibold text-base flex-1 transition-all duration-200 shadow-lg transform"
+                  className="bg-[#26C6DA] max-w-[35vw] ml-auto text-white px-8 py-3 rounded-xl font-semibold text-base flex-1 transition-all duration-200 shadow-lg transform"
                 >
                   Submit
                 </button>

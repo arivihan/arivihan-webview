@@ -1,23 +1,31 @@
-// components/types/FillInTheBlank.jsx
-export default function FillInTheBlank({ question, index }) {
-  return (
-    <div className="bg-white p-4 sm:p-6 md:p-8 rounded-2xl shadow-lg max-w-3xl mx-auto">
-      <h2 className="text-base sm:text-lg md:text-xl font-semibold text-gray-800">
-        Q{index + 1}. {question.question}
-      </h2>
-
-      <input
-        type="text"
-        placeholder="Your Answer..."
-        className="mt-4 w-full border border-gray-300 rounded-lg p-2 sm:p-3 focus:ring-2 focus:ring-blue-400 text-sm sm:text-base"
-      />
-
-      <div className="mt-4 text-xs sm:text-sm text-gray-600">
-        <p>
-          <strong>Answer:</strong> {question.answer}
-        </p>
-        
-      </div>
-    </div>
-  );
-}
+// const FillInTheBlank = ({ question, userAnswer, onAnswerChange, showSolution, isSubmitted }) => (
+//   <div className="space-y-4 w-[90vw]">
+//     <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
+//       {question.question}
+//     </div>
+//     <div className="space-y-3">
+//       <p className='text-[12px] text-gray-600'>Type your answer here</p>
+//       <input
+//         type="text"
+//         value={userAnswer || ''}
+//         onChange={(e) => !isSubmitted && onAnswerChange(e.target.value)}
+//         placeholder="Enter your answer..."
+//         disabled={isSubmitted}
+//         className={`w-full px-4 py-3 border rounded-xl text-base transition-all duration-200 ${
+//           isSubmitted
+//             ? userAnswer?.toLowerCase() === question.answer.toLowerCase()
+//               ? 'border-green-500 bg-green-50 shadow-md'
+//               : 'border-red-500 bg-red-50 shadow-md'
+//             : 'border-gray-200 focus:border-cyan-400 focus:shadow-md'
+//         } focus:outline-none ${isSubmitted ? 'cursor-not-allowed' : ''}`}
+//       />
+//       {isSubmitted && (
+//         <div className="p-3 bg-green-50 border border-green-200 rounded-xl">
+//           <div className="text-sm font-medium text-green-800">
+//             Correct Answer: <span className="font-bold">{question.answer}</span>
+//           </div>
+//         </div>
+//       )}
+//     </div>
+//   </div>
+// ); 

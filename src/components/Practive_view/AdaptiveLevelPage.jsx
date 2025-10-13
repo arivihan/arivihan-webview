@@ -1,9 +1,14 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ArrowLeft, Check } from 'lucide-react';
+import { Check } from 'lucide-react';
+import { IoIosArrowBack } from "react-icons/io";
 import { useTranslation } from "react-i18next";
 import "./Neet_Adaptive.css"
 import { useNavigate } from 'react-router-dom';
-
+import vector1 from '../../components/Practive_view/temp_icons/Vector1.png';
+import vector2 from '../../components/Practive_view/temp_icons/Vector2.png';
+import vector3 from '../../components/Practive_view/temp_icons/vector3.png';
+import vector4 from '../../components/Practive_view/temp_icons/vector4.png';
+import vector5 from '../../components/Practive_view/temp_icons/Vector5.png';
 const AdaptiveLevelPage = () => {
   const { i18n, t } = useTranslation();
   const [currentLevel, setCurrentLevel] = useState(2);
@@ -14,36 +19,36 @@ const AdaptiveLevelPage = () => {
     { 
       id: 1, 
       title: t('level 1'), 
-      difficulty: t('easy'), 
-      icon: "💡",
+      difficulty: t('Easy'), 
+      icon: vector1,
       completed: true 
     },
     { 
       id: 2, 
       title: t('level 2'), 
-      difficulty: t('medium'), 
-      icon: '🏃',
+      difficulty: t('Medium'), 
+      icon: vector2,
       completed: false 
     },
     { 
       id: 3, 
       title: t('level 3'), 
-      difficulty: t('hard'), 
-      icon: '🏋️',
+      difficulty: t('Hard'), 
+      icon: vector3,
       completed: false 
     },
     { 
       id: 4, 
       title: t('level 4'), 
-      difficulty: t('neet'), 
-      icon: '🚀',
+      difficulty: t('Neet'), 
+      icon: vector4,
       completed: false 
     },
     { 
       id: 5, 
       title: t('level 5'), 
-      difficulty: t('neet_plus_plus'), 
-      icon: '💼',
+      difficulty: t('Neet ++'), 
+      icon: vector5,
       completed: false 
     }
   ];
@@ -80,7 +85,7 @@ const AdaptiveLevelPage = () => {
       <div className="relative w-full max-w-md mx-auto min-h-screen flex flex-col px-4 sm:px-0">
         {/* Header */}
         <div className="flex items-center px-2 py-4">
-          <ArrowLeft
+          <IoIosArrowBack
   onClick={() => {
     setTimeout(() => navigate(-1), 2000);
   }}
@@ -154,7 +159,7 @@ const AdaptiveLevelPage = () => {
               >
                 <div 
                   id='Neet_Avatar'
-                  className="w-[55px] h-[55px] sm:w-11 sm:h-11 rounded-full border-4 border-[#24C6D6]  shadow-lg overflow-hidden flex items-center justify-center"
+                  className="w-[55px] h-[55px] sm:w-11 sm:h-11 rounded-full border-1.5 border-[white]  shadow-lg overflow-hidden flex items-center justify-center"
                 >
                   
                 </div>
@@ -200,7 +205,7 @@ const AdaptiveLevelPage = () => {
               >
                 {level.completed && (
                   <div 
-                    className="absolute -top-1.5 sm:-top-2 -right-1.5 sm:-right-2 bg-green-500 rounded-full p-1 sm:p-1 shadow-lg"
+                    className="absolute -top-1.5 sm:-top-2 -right-1.5 sm:-right-2  border-2 border-white bg-green-500 rounded-full p-1 sm:p-1 shadow-lg"
                     style={{
                       animation: 'checkBounce 0.6s ease-out'
                     }}
@@ -210,14 +215,12 @@ const AdaptiveLevelPage = () => {
                 )}
 
                 <div className="flex items-center gap-4">
-                  <div className={`w-14 h-11 rounded-lg flex items-center justify-center transition-colors duration-300 ${
-                    level.id === 1 ? 'bg-cyan-100' :
-                    level.id === 2 ? 'bg-cyan-100' :
-                    level.id === 3 ? 'bg-orange-100' :
-                    level.id === 4 ? 'bg-purple-100' :
-                    'bg-blue-100'
-                  }`}>
-                    <span className="text-xl sm:text-2xl">{level.icon}</span>
+                  <div className={`w-14 h-11 rounded-lg flex items-center justify-center transition-colors duration-300 
+                    
+                  `}>
+                    <span className="text-xl w-11  h-11 sm:text-2xl">
+                      <img className=' w-full h-full object-cover' src={level.icon} alt="" />
+                    </span>
                   </div>
 
                   <div className="flex-1 leading-tight min-w-0">
