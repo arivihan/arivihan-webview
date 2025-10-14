@@ -5,9 +5,9 @@ import { useTranslation } from "react-i18next";
 import "./Neet_Adaptive.css"
 import { useNavigate } from 'react-router-dom';
 import vector1 from '../../components/Practive_view/temp_icons/Vector1.png';
-import vector2 from '../../components/Practive_view/temp_icons/Vector2.png';
-import vector3 from '../../components/Practive_view/temp_icons/vector3.png';
-import vector4 from '../../components/Practive_view/temp_icons/vector4.png';
+import vector2 from '../../components/Practive_view/temp_icons/Vector4.svg';
+import vector3 from '../../components/Practive_view/temp_icons/Vector3.svg';
+import vector4 from '../../components/Practive_view/temp_icons/Vector2.svg';
 import vector5 from '../../components/Practive_view/temp_icons/Vector5.png';
 const AdaptiveLevelPage = () => {
   const { i18n, t } = useTranslation();
@@ -18,36 +18,36 @@ const AdaptiveLevelPage = () => {
   const levels = [
     { 
       id: 1, 
-      title: t('level 1'), 
-      difficulty: t('Easy'), 
+      title: t('Level 1'), 
+      text_title: t('Basic concepts clear karo💡'), 
       icon: vector1,
       completed: true 
     },
     { 
       id: 2, 
-      title: t('level 2'), 
-      difficulty: t('Medium'), 
+      title: t('Level 2'), 
+      text_title: t('Concepts ko apply karo ⏳'), 
       icon: vector2,
       completed: false 
     },
     { 
       id: 3, 
-      title: t('level 3'), 
-      difficulty: t('Hard'), 
+      title: t('Level 3'), 
+      text_title: t("Now, let's beat the clock ⏰"), 
       icon: vector3,
       completed: false 
     },
     { 
       id: 4, 
-      title: t('level 4'), 
-      difficulty: t('Neet'), 
+      title: t('Level 4'), 
+      text_title: t('Previous Year Questions 📝'), 
       icon: vector4,
       completed: false 
     },
     { 
       id: 5, 
-      title: t('level 5'), 
-      difficulty: t('Neet ++'), 
+      title: t('Level 5'), 
+      text_title: t('Ek kadam aage ki taiyari 🏋️‍♀️'), 
       icon: vector5,
       completed: false 
     }
@@ -84,7 +84,7 @@ const AdaptiveLevelPage = () => {
       {/* Main Container */}
       <div className="relative w-full max-w-md mx-auto min-h-screen flex flex-col px-4 sm:px-0">
         {/* Header */}
-        <div className="flex items-center px-2 py-4">
+        <div className="flex  items-center px-2 py-2">
           <IoIosArrowBack
   onClick={() => {
     setTimeout(() => navigate(-1), 2000);
@@ -93,13 +93,13 @@ const AdaptiveLevelPage = () => {
   className="text-gray-800 "
 />
 
-          <h1 className="text-2xl sm:text-xl mt-2 font-bold text-gray-800 ml-2">{t('coulomb_law')}</h1>
+          <h1 className="text-2xl sm:text-xl mt-2 font-semibold text-gray-800 ml-2">{t('Coulomb Law')}</h1>
         </div>
 
         {/* Progress Section */}
         <div className="px-1 justify-center flex flex-col items-center sm:px-5 pb-4 sm:pb-6">
-          <p className="text-[16px] sm:text-sm text-gray-600 mb-2 sm:mb-3 font-semibold">
-            {currentLevel}/5 {t('level_completed')}
+          <p className="text-[16px] sm:text-sm text-gray-600 mb-2 sm:mb-3 font-bold">
+            {currentLevel}/5 {t('level completed')}
           </p>
           <div className="flex gap-1.5 sm:gap-2">
             {levels.map((level) => (
@@ -190,14 +190,14 @@ const AdaptiveLevelPage = () => {
           </div>
 
           {/* Right side - Level cards */}
-          <div className="ml-16 w-[75%] flex flex-col gap-6 sm:ml-20 pr-1 sm:pr-0">
+          <div className="ml-[70px] w-[76%] flex flex-col gap-6 sm:ml-20 pr-1 sm:pr-0">
             {levels.map((level, index) => (
               <div
                 key={level.id}
                 ref={el => levelRefs.current[index] = el}
                 onClick={() => handleLevelClick(level.id)}
-                className={`relative bg-white rounded-xl sm:rounded-2xl px-4 py-2 transition-all duration-500 cursor-pointer hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] ${
-                  level.id === currentLevel ? 'ring-2 ring-[#24C6D6] shadow-[#24C6D6] ' : ''
+                className={`relative bg-white rounded-xl sm:rounded-2xl px-4 py-3 transition-all duration-500 cursor-pointer hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] ${
+                  level.id === currentLevel ? 'ring-2 ring-[#24C6D6] shadow-[0_0_5px_3px_rgba(156,163,175,0.6)] ' : ''
                 } ${level.completed ? 'opacity-100' : 'opacity-90'}`}
                 style={{
                   animation: `slideIn 0.6s ease-out ${index * 0.1}s both`
@@ -214,19 +214,19 @@ const AdaptiveLevelPage = () => {
                   </div>
                 )}
 
-                <div className="flex items-center gap-4">
+                <div className="flex items-center  gap-2">
                   <div className={`w-14 h-11 rounded-lg flex items-center justify-center transition-colors duration-300 
                     
                   `}>
-                    <span className="text-xl w-11  h-11 sm:text-2xl">
+                    <span className="text-xl w-8  h-auto sm:text-2xl">
                       <img className=' w-full h-full object-cover' src={level.icon} alt="" />
                     </span>
                   </div>
 
                   <div className="flex-1 leading-tight min-w-0">
-                    <h3 className="text-xl font-semibold text-gray-800 leading-3">{level.title}</h3>
-                    <p className="text-[13px] font-medium leading-3 text-gray-600">
-                      {level.difficulty}
+                    <h3 className="text-[18px] font-bold text-gray-800 leading-3">{level.title}</h3>
+                    <p className="text-[11px] font-medium leading-3 text-[#7A7A7C]">
+                      {level.text_title}
                     </p>
                   </div>
                 </div>

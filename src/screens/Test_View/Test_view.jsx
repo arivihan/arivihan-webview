@@ -1,154 +1,164 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { ChevronLeft, AlertTriangle, MoreHorizontal, CheckCircle, Clock, Star, Flag, X } from 'lucide-react';
+import { ChevronLeft, AlertTriangle, CheckCircle, Clock, Star, X } from 'lucide-react';
 import { IoIosArrowRoundDown } from "react-icons/io";
-import { useNavigate } from 'react-router-dom';
-import cup from "../../assets/cup.png"
 import { CiBookmark } from "react-icons/ci";
-// Sample data for different question types
+import cup from "../../assets/cup.png";
+import { useNavigate } from 'react-router-dom';
+import CorrectAnswer from '../../components/Practive_view/timely_active_popups/CorrectAnswer';
+import WrongAnswer from '../../components/Practive_view/timely_active_popups/WrongAnswer';
+import sandclock from "../../components/Practive_view/temp_icons/sandclock.png";
+// Sample data with only single and multi choice questions
 const questionData = {
-  mcq: [
-    {
-      questionId: "mcq1",
-      type: "MULTIPLE_CHOICE",
-      question: "Which of the following is not a type of charge?",
-      options: [
-        { id: 'A', text: 'Positive charge' },
-        { id: 'B', text: 'Negative charge' },
-        { id: 'C', text: 'Neutral charge' },
-        { id: 'D', text: 'Magnetic charge' }
-      ],
-      answer: "D",
-      answerEx: "There are only two types of electric charges: positive and negative. Neutral means no charge. Magnetic charge doesn't exist - magnets have poles (north and south), not charges.",
-      marks: "1",
-      pos: 1
-    },
-    {
-      questionId: "mcq2", 
-      type: "MULTIPLE_CHOICE",
-      question: "What is the SI unit of electric charge?",
-      options: [
-        { id: 'A', text: 'Volt' },
-        { id: 'B', text: 'Ampere' },
-        { id: 'C', text: 'Coulomb' },
-        { id: 'D', text: 'Ohm' }
-      ],
-      answer: "C",
-      answerEx: "The coulomb (C) is the SI unit of electric charge. It is defined as the amount of charge transported by a constant current of one ampere in one second.",
-      marks: "1", 
-      pos: 2
-    },
-    {
-      questionId: "mcq3",
-      type: "MULTIPLE_CHOICE", 
-      question: "Coulomb's law states that the force between two point charges is:",
-      options: [
-        { id: 'A', text: 'Directly proportional to the square of distance' },
-        { id: 'B', text: 'Inversely proportional to the square of distance' },
-        { id: 'C', text: 'Directly proportional to the distance' },
-        { id: 'D', text: 'Independent of distance' }
-      ],
-      answer: "B",
-      answerEx: "According to Coulomb's law, the electrostatic force between two point charges is inversely proportional to the square of the distance between them. F = kq₁q₂/r²",
-      marks: "1",
-      pos: 3
-    },
-    {
-      questionId: "mcq4",
-      type: "MULTIPLE_CHOICE", 
-      question: "What happens to the electric force between two charges when the distance is doubled?",
-      options: [
-        { id: 'A', text: 'Force becomes half' },
-        { id: 'B', text: 'Force becomes double' },
-        { id: 'C', text: 'Force becomes one-fourth' },
-        { id: 'D', text: 'Force remains same' }
-      ],
-      answer: "C",
-      answerEx: "When distance is doubled, the force becomes 1/4 times the original force because force is inversely proportional to the square of distance (1/r²).",
-      marks: "1",
-      pos: 4
-    }
-  ],
-  // fillInTheBlanks: [
-  //   {
-  //     questionId: "fill1",
-  //     type: "FILL_IN_THE_BLANKS",
-  //     question: "The unit of electric current in the SI system is ________.",
-  //     answer: "ampere",
-  //     answerEx: "ampere (A) - The ampere is the SI unit of electric current, defined as the flow of one coulomb of charge per second.",
-  //     marks: "1",
-  //     pos: 1
-  //   },
-  //   {
-  //     questionId: "fill2",
-  //     type: "FILL_IN_THE_BLANKS", 
-  //     question: "The instantaneous current is mathematically represented as ________.",
-  //     answer: "dq/dt",
-  //     answerEx: "dq/dt - Instantaneous current is defined as the rate of flow of charge at a specific moment, which is represented mathematically as the derivative of charge with respect to time (dq/dt).",
-  //     marks: "1",
-  //     pos: 2
-  //   },
-  //   {
-  //     questionId: "fill3",
-  //     type: "FILL_IN_THE_BLANKS", 
-  //     question: "Electric field intensity is measured in ________.",
-  //     answer: "N/C",
-  //     answerEx: "N/C (Newton per Coulomb) - Electric field intensity is defined as force per unit charge, hence measured in N/C or V/m.",
-  //     marks: "1",
-  //     pos: 3
-  //   }
-  // ],
-  // trueFalse: [
-  //   {
-  //     questionId: "tf1",
-  //     type: "TRUE_FALSE",
-  //     question: "Electric current can flow through a vacuum.",
-  //     answer: false,
-  //     answerEx: "False - Electric current requires charge carriers (like electrons) to flow, which are not present in a vacuum under normal conditions.",
-  //     marks: "1",
-  //     pos: 1
-  //   },
-  //   {
-  //     questionId: "tf2",
-  //     type: "TRUE_FALSE",
-  //     question: "Conventional current flows from positive to negative terminal.",
-  //     answer: true,
-  //     answerEx: "True - By convention, current is said to flow from positive to negative terminal, even though electrons actually flow from negative to positive.",
-  //     marks: "1",
-  //     pos: 2
-  //   },
-  //   {
-  //     questionId: "tf3",
-  //     type: "TRUE_FALSE",
-  //     question: "Electric field lines can intersect each other.",
-  //     answer: false,
-  //     answerEx: "False - Electric field lines never intersect because at any point in space, the electric field has a unique direction.",
-  //     marks: "1",
-  //     pos: 3
-  //   }
-  // ],
-  // shortAnswer: [
-  //   {
-  //     questionId: "short1",
-  //     type: "SHORT_ANSWER",
-  //     question: "What is the SI unit of electric charge?",
-  //     answer: "Coulomb",
-  //     answerEx: "Coulomb (C) is the SI unit of electric charge. It is defined as the amount of charge transported by a constant current of one ampere in one second.",
-  //     marks: "1",
-  //     pos: 1
-  //   }
-  // ],
-  // longAnswer: [
-  //   {
-  //     questionId: "long1",
-  //     type: "LONG_ANSWER",
-  //     question: "What is the definition of electric field intensity?",
-  //     answer: "The force per unit charge of an electric field.",
-  //     answerEx: "Electric field intensity is defined as the force per unit charge of an electric field. It is measured in Newton per Coulomb (N/C).",
-  //     marks: "1",
-  //     pos: 1
-  //   }
-  // ]
-
+  level1: {
+    title: "Electric Charges And Fields",
+    level: 1,
+    showTimer: false,
+    questions: [
+      {
+        questionId: "l1_q1",
+        type: "SINGLE_CHOICE",
+        question: "Which of the following is not a type of charge?",
+        options: [
+          { id: 'A', text: 'Positive charge' },
+          { id: 'B', text: 'Negative charge' },
+          { id: 'C', text: 'Neutral charge' },
+          { id: 'D', text: 'Magnetic charge' }
+        ],
+        answer: "D",
+        answerEx: "There are only two types of electric charges: positive and negative. Neutral means no charge. Magnetic charge doesn't exist - magnets have poles (north and south), not charges.",
+        marks: "1",
+        difficulty: "Easy"
+      },
+      {
+        questionId: "l1_q2", 
+        type: "SINGLE_CHOICE",
+        question: "What is the SI unit of electric charge?",
+        options: [
+          { id: 'A', text: 'Volt' },
+          { id: 'B', text: 'Ampere' },
+          { id: 'C', text: 'Coulomb' },
+          { id: 'D', text: 'Ohm' }
+        ],
+        answer: "C",
+        answerEx: "The coulomb (C) is the SI unit of electric charge. It is defined as the amount of charge transported by a constant current of one ampere in one second.",
+        marks: "1",
+        difficulty: "Easy"
+      }
+    ]
+  },
+  level2: {
+    title: "Electric Charges And Fields",
+    level: 2,
+    showTimer: false,
+    questions: [
+      {
+        questionId: "l2_q1",
+        type: "MULTI_CHOICE", 
+        question: "Which of the following are properties of electric field lines? (Select all that apply)",
+        options: [
+          { id: 'A', text: 'They never intersect' },
+          { id: 'B', text: 'They start from positive charges' },
+          { id: 'C', text: 'They can form closed loops' },
+          { id: 'D', text: 'They end on negative charges' }
+        ],
+        answer: ["A", "B", "D"],
+        answerEx: "Electric field lines never intersect, originate from positive charges, and terminate on negative charges. They do not form closed loops in electrostatics.",
+        marks: "2",
+        difficulty: "Medium"
+      },
+      {
+        questionId: "l2_q2",
+        type: "SINGLE_CHOICE",
+        question: "Coulomb's law states that the force between two point charges is:",
+        options: [
+          { id: 'A', text: 'Directly proportional to the square of distance' },
+          { id: 'B', text: 'Inversely proportional to the square of distance' },
+          { id: 'C', text: 'Directly proportional to the distance' },
+          { id: 'D', text: 'Independent of distance' }
+        ],
+        answer: "B",
+        answerEx: "According to Coulomb's law, the electrostatic force between two point charges is inversely proportional to the square of the distance between them. F = kq₁q₂/r²",
+        marks: "1",
+        difficulty: "Medium"
+      }
+    ]
+  },
+  level3: {
+    title: "Coulomb Law",
+    level: 3,
+    showTimer: true,
+    timeLimit: 120,
+    questions: [
+      {
+        questionId: "l3_q1",
+        type: "SINGLE_CHOICE",
+        question: "If the distance between two charges is doubled, by what factor does the electrostatic force change?",
+        options: [
+          { id: 'A', text: 'Becomes 2 times' },
+          { id: 'B', text: 'Becomes 4 times' },
+          { id: 'C', text: 'Becomes 1/2 times' },
+          { id: 'D', text: 'Becomes 1/4 times' }
+        ],
+        answer: "D",
+        answerEx: "When distance is doubled, the force becomes 1/4 times the original force because force is inversely proportional to the square of distance (1/r²). So it changes by a factor of 4.",
+        marks: "2",
+        difficulty: "Medium"
+      },
+      {
+        questionId: "l3_q2",
+        type: "MULTI_CHOICE",
+        question: "Select all correct statements about Coulomb's law:",
+        options: [
+          { id: 'A', text: 'Force is directly proportional to product of charges' },
+          { id: 'B', text: 'Force is inversely proportional to distance' },
+          { id: 'C', text: 'Force acts along the line joining the charges' },
+          { id: 'D', text: 'Like charges attract each other' }
+        ],
+        answer: ["A", "C"],
+        answerEx: "Force is directly proportional to the product of charges and acts along the line joining them. Force is inversely proportional to the square of distance (not just distance), and like charges repel.",
+        marks: "2",
+        difficulty: "Hard"
+      }
+    ]
+  },
+  level4: {
+    title: "Coulomb Law",
+    level: 4,
+    showTimer: true,
+    timeLimit: 90,
+    questions: [
+      {
+        questionId: "l4_q1",
+        type: "SINGLE_CHOICE",
+        question: "What happens to the electric force between two charges when the distance is doubled?",
+        options: [
+          { id: 'A', text: 'Force becomes half' },
+          { id: 'B', text: 'Force becomes double' },
+          { id: 'C', text: 'Force becomes one-fourth' },
+          { id: 'D', text: 'Force remains same' }
+        ],
+        answer: "C",
+        answerEx: "When distance is doubled, the force becomes 1/4 times the original force because force is inversely proportional to the square of distance (1/r²).",
+        marks: "1",
+        difficulty: "Medium"
+      },
+      {
+        questionId: "l4_q2",
+        type: "MULTI_CHOICE",
+        question: "Which of the following are true about electric charges?",
+        options: [
+          { id: 'A', text: 'Charge is quantized' },
+          { id: 'B', text: 'Charge is conserved' },
+          { id: 'C', text: 'Charge can be created' },
+          { id: 'D', text: 'Charge is additive' }
+        ],
+        answer: ["A", "B", "D"],
+        answerEx: "Electric charge is quantized (exists in discrete units), conserved (total charge remains constant), and additive (total charge is the algebraic sum). Charge cannot be created or destroyed, only transferred.",
+        marks: "2",
+        difficulty: "Hard"
+      }
+    ]
+  }
 };
 
 // Success Popup Component
@@ -169,7 +179,7 @@ const SuccessPopup = ({ show, message, icon, onClose }) => {
           {icon}
         </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2">{message}</h3>
-        <div className="text-sm text-gray-600">Great work!</div>
+        
       </div>
     </div>
   );
@@ -255,16 +265,71 @@ const ReportPopup = ({ show, onClose, questionId }) => {
   );
 };
 
-// Question Type Components
-const MCQ = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => (
-  <div className=" w-[90vw] space-y-4">
+// Timer Component
+const Timer = ({ timeLimit, onTimeUp, isPaused }) => {
+  const [timeLeft, setTimeLeft] = useState(timeLimit);
+
+  useEffect(() => {
+    if (timeLeft <= 0) {
+      onTimeUp();
+      return;
+    }
+
+    if (isPaused) return;
+
+    const timer = setInterval(() => {
+      setTimeLeft(prev => prev - 1);
+    }, 1000);
+
+    return () => clearInterval(timer);
+  }, [timeLeft, onTimeUp, isPaused]);
+
+  const minutes = Math.floor(timeLeft / 60);
+  const seconds = timeLeft % 60;
+
+  return (
+    <div className={`flex items-center gap-1 ${timeLeft <= 30 ? 'text-red-500' : 'text-gray-700'}`}>
+      <Clock size={16} />
+      <span className="text-sm font-semibold">{seconds.toString().padStart(2, '0')}s</span>
+      <span className="text-sm font-semibold">left</span>
+    </div>
+  );
+};
+
+// TimeOver Popup Component
+const TimeOverPopup = ({ show, onClose }) => {
+  useEffect(() => {
+    if (show) {
+      const timer = setTimeout(onClose, 2000);
+      return () => clearTimeout(timer);
+    }
+  }, [show, onClose]);
+
+  if (!show) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 px-4">
+      <div className="bg-white rounded-2xl p-6 max-w-sm w-full text-center shadow-2xl">
+        <div className="mb-4 flex justify-center">
+          <img src={sandclock} alt="" />
+        </div>
+        <h3 className="text-xl font-semibold text-gray-800 mb-2">Time's Up!</h3>
+        <div className="text-sm text-gray-600">Moving to next question...</div>
+      </div>
+    </div>
+  );
+};
+
+// Single Choice Component
+const SingleChoice = ({ question, selectedAnswer, onAnswerSelect, isSubmitted }) => (
+  <div className="w-[90vw] space-y-4">
     <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
       {question.question}
     </div>
-    <div className="space-y-3"> 
-      <div className=" text-[12px] text-gray-500 font-medium">
-                Select one option
-              </div>
+    <div className="space-y-3">
+      <div className="text-[12px] text-gray-500 font-medium">
+        Select one option
+      </div>
       {question.options.map((option) => (
         <button
           key={option.id}
@@ -288,16 +353,61 @@ const MCQ = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitt
   </div>
 );
 
+// Multi Choice Component
+const MultiChoice = ({ question, selectedAnswer = [], onAnswerSelect, isSubmitted }) => {
+  const handleToggle = (optionId) => {
+    if (isSubmitted) return;
+    
+    const current = Array.isArray(selectedAnswer) ? selectedAnswer : [];
+    const newSelection = current.includes(optionId)
+      ? current.filter(id => id !== optionId)
+      : [...current, optionId];
+    onAnswerSelect(newSelection);
+  };
 
+  const isCorrectOption = (optionId) => {
+    return question.answer.includes(optionId);
+  };
 
+  const isSelected = (optionId) => {
+    return Array.isArray(selectedAnswer) && selectedAnswer.includes(optionId);
+  };
 
-
-
-
-
+  return (
+    <div className="w-[90vw] space-y-4">
+      <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
+        {question.question}
+      </div>
+      <div className="space-y-3">
+        <div className="text-[12px] text-gray-500 font-medium">
+          Select all that apply
+        </div>
+        {question.options.map((option) => (
+          <button
+            key={option.id}
+            onClick={() => handleToggle(option.id)}
+            disabled={isSubmitted}
+            className={`w-full p-3 rounded-xl border text-left transition-all duration-200 ${
+              isSubmitted && isCorrectOption(option.id)
+                ? 'border-green-500 bg-green-50 shadow-md'
+                : isSubmitted && isSelected(option.id) && !isCorrectOption(option.id)
+                ? 'border-red-500 bg-red-50 shadow-md'
+                : isSelected(option.id)
+                ? 'border-cyan-400 bg-cyan-50 shadow-md'
+                : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
+            } ${isSubmitted ? 'cursor-not-allowed' : 'cursor-pointer hover:scale-[1.02]'}`}
+          >
+            <span className="font-bold text-gray-700 mr-3">{option.id}.</span>
+            <span className="text-gray-800">{option.text}</span>
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+};
 
 export default function PracticeQuestionsUI() {
-  const [currentQuestionType, setCurrentQuestionType] = useState('mcq');
+  const [currentLevel, setCurrentLevel] = useState('level3');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
   const [showSolution, setShowSolution] = useState(false);
@@ -306,38 +416,43 @@ export default function PracticeQuestionsUI() {
   const [showPopup, setShowPopup] = useState(false);
   const [popupData, setPopupData] = useState({ message: '', icon: null });
   const [showReportPopup, setShowReportPopup] = useState(false);
+  const [showTimeOver, setShowTimeOver] = useState(false);
   const [touchStart, setTouchStart] = useState({ x: 0, y: 0 });
   const [touchEnd, setTouchEnd] = useState({ x: 0, y: 0 });
   const [isTransitioning, setIsTransitioning] = useState(false);
   const [swipeDirection, setSwipeDirection] = useState(null);
-      const containerRef = useRef(null);
+  const [timerPaused, setTimerPaused] = useState(false);
+  const containerRef = useRef(null);
   const solutionRef = useRef(null);
-  const questions = questionData[currentQuestionType] || [];
+  const levelData = questionData[currentLevel];
+  const questions = levelData?.questions || [];
   const currentQuestion = questions[currentQuestionIndex];
   const totalQuestions = questions.length;
-  const navigate = useNavigate();
-  // Start timer when question loads or changes
+
   useEffect(() => {
     setStartTime(Date.now());
-  }, [currentQuestionIndex, currentQuestionType]);
+  }, [currentQuestionIndex, currentLevel]);
 
   const handleAnswerChange = (answer) => {
-    const key = `${currentQuestionType}_${currentQuestionIndex}`;
+    const key = `${currentLevel}_${currentQuestionIndex}`;
     setUserAnswers(prev => ({ ...prev, [key]: answer }));
   };
 
   const getCurrentAnswer = () => {
-    const key = `${currentQuestionType}_${currentQuestionIndex}`;
+    const key = `${currentLevel}_${currentQuestionIndex}`;
     return userAnswers[key];
   };
 
   const isCurrentQuestionSubmitted = () => {
-    const key = `${currentQuestionType}_${currentQuestionIndex}`;
+    const key = `${currentLevel}_${currentQuestionIndex}`;
     return isSubmitted[key] || false;
   };
 
   const hasAnswered = () => {
     const answer = getCurrentAnswer();
+    if (currentQuestion?.type === 'MULTI_CHOICE') {
+      return Array.isArray(answer) && answer.length > 0;
+    }
     return answer !== undefined && answer !== null && answer !== '';
   };
 
@@ -345,45 +460,55 @@ export default function PracticeQuestionsUI() {
     const userAnswer = getCurrentAnswer();
     const correctAnswer = currentQuestion.answer;
     
-    if (currentQuestion.type === 'MULTIPLE_CHOICE' || currentQuestion.type === 'TRUE_FALSE') {
+    if (currentQuestion.type === 'SINGLE_CHOICE') {
       return userAnswer === correctAnswer;
-    } else {
-      return userAnswer?.toLowerCase()?.trim() === correctAnswer?.toLowerCase()?.trim();
+    } else if (currentQuestion.type === 'MULTI_CHOICE') {
+      const userSet = new Set(userAnswer || []);
+      const correctSet = new Set(correctAnswer);
+      return userSet.size === correctSet.size && [...userSet].every(val => correctSet.has(val));
     }
+    return false;
   };
-
+   const navigate = useNavigate()
   const handleSubmit = () => {
     const endTime = Date.now();
     const timeTaken = (endTime - startTime) / 1000;
-    const key = `${currentQuestionType}_${currentQuestionIndex}`;
+    const key = `${currentLevel}_${currentQuestionIndex}`;
     
     setIsSubmitted(prev => ({ ...prev, [key]: true }));
     setShowSolution(true);
+    setTimerPaused(true);
     
     const isCorrect = checkAnswer();
     
-    if (isCorrect) {
-      if (timeTaken <= 5) {
-        setPopupData({ 
-          message: 'Brilliant!', 
-          icon: <Star className="w-12 h-12 text-yellow-500" /> 
-        });
-      } else if (timeTaken <= 10) {
-        setPopupData({ 
-          message: 'A little late but great!', 
-          icon: <Clock className="w-12 h-12 text-orange-500" /> 
-        });
-      } else {
-        setPopupData({ 
-          message: 'Good job!', 
-          icon: <CheckCircle className="w-12 h-12 text-green-500" /> 
-        });
-      }
-    } else {
-      setPopupData({ 
-        message: 'Keep trying!', 
-        icon: <CheckCircle className="w-12 h-12 text-red-500" /> 
-      });
+    // if (isCorrect) {
+    //   if (timeTaken <= 5) {
+    //     setPopupData({ 
+    //       message: 'Brilliant!', 
+    //       icon: <Star className="w-12 h-12 text-yellow-500" /> 
+    //     });
+    //   } else if (timeTaken <= 10) {
+    //     setPopupData({ 
+    //       message: 'A little late but great!', 
+    //       icon: <Clock className="w-12 h-12 text-orange-500" /> 
+    //     });
+    //   } else {
+    //     setPopupData({ 
+    //       message: 'Good job!', 
+    //       icon: <CheckCircle className="w-12 h-12 text-green-500" /> 
+    //     });
+    //   }
+    // } else {
+    //   setPopupData({ 
+    //     message: 'Keep trying!', 
+    //     icon: <CheckCircle className="w-12 h-12 text-red-500" /> 
+    //   });
+    // }
+
+    if(isCorrect){ 
+      <CorrectAnswer/>
+    }else {
+      <WrongAnswer/>
     }
     
     setShowPopup(true);
@@ -396,6 +521,7 @@ export default function PracticeQuestionsUI() {
     setTimeout(() => {
       setCurrentQuestionIndex(newIndex);
       setShowSolution(false);
+      setTimerPaused(false);
       setTimeout(() => {
         setIsTransitioning(false);
         setSwipeDirection(null);
@@ -415,8 +541,10 @@ export default function PracticeQuestionsUI() {
     }
   };
 
-  // Enhanced touch handlers for horizontal swiping only
   const handleTouchStart = (e) => {
+    // Disable swipe for timed questions
+    if (levelData?.showTimer) return;
+    
     setTouchStart({
       x: e.targetTouches[0].clientX,
       y: e.targetTouches[0].clientY
@@ -425,6 +553,9 @@ export default function PracticeQuestionsUI() {
   };
 
   const handleTouchMove = (e) => {
+    // Disable swipe for timed questions
+    if (levelData?.showTimer) return;
+    
     setTouchEnd({
       x: e.targetTouches[0].clientX,
       y: e.targetTouches[0].clientY
@@ -432,14 +563,15 @@ export default function PracticeQuestionsUI() {
   };
 
   const handleTouchEnd = (e) => {
+    // Disable swipe for timed questions
+    if (levelData?.showTimer) return;
+    
     if (!touchStart.x || !touchEnd.x) return;
     
     const deltaX = touchStart.x - touchEnd.x;
     const deltaY = touchStart.y - touchEnd.y;
     
-    // Check if the swipe is more horizontal than vertical
     if (Math.abs(deltaX) > Math.abs(deltaY) && Math.abs(deltaX) > 50) {
-      // Prevent default scrolling behavior for horizontal swipes
       e.preventDefault();
       
       const isLeftSwipe = deltaX > 0;
@@ -456,8 +588,11 @@ export default function PracticeQuestionsUI() {
     setTouchStart({ x: 0, y: 0 });
     setTouchEnd({ x: 0, y: 0 });
   };
- 
+
   const goToQuestion = (index) => {
+    // Disable navigation for timed questions
+    if (levelData?.showTimer) return;
+    
     if (index !== currentQuestionIndex) {
       const direction = index > currentQuestionIndex ? 'next' : 'prev';
       transitionToQuestion(index, direction);
@@ -478,31 +613,37 @@ export default function PracticeQuestionsUI() {
     };
 
     const QuestionComponent = {
-      'MULTIPLE_CHOICE': MCQ,
-      // 'FILL_IN_THE_BLANKS': FillInTheBlank,
-      // 'TRUE_FALSE': TrueFalse ,
-      // 'SHORT_ANSWER': ShortAnswer,
-      // 'LONG_ANSWER': LongAnswer,
-    }[currentQuestion.type] || MCQ;
+      'SINGLE_CHOICE': SingleChoice,
+      'MULTI_CHOICE': MultiChoice,
+    }[currentQuestion.type] || SingleChoice;
 
     return <QuestionComponent {...props} />;
   };
 
   const getQuestionStatus = (index) => {
-    const key = `${currentQuestionType}_${index}`;
+    const key = `${currentLevel}_${index}`;
     const hasAnswer = userAnswers[key] !== undefined && userAnswers[key] !== null && userAnswers[key] !== '';
     const submitted = isSubmitted[key];
      
-    if (submitted) return 'submitted';
-    if (hasAnswer) return 'answered';
-    return 'unanswered';
-
-
-   
-
+    if (!submitted) return 'unanswered';
+    
+    // Check if answer was correct
+    const question = questions[index];
+    const userAnswer = userAnswers[key];
+    let isCorrect = false;
+    
+    if (question.type === 'SINGLE_CHOICE') {
+      isCorrect = userAnswer === question.answer;
+    } else if (question.type === 'MULTI_CHOICE') {
+      const userSet = new Set(userAnswer || []);
+      const correctSet = new Set(question.answer);
+      isCorrect = userSet.size === correctSet.size && [...userSet].every(val => correctSet.has(val));
+    }
+    
+    return isCorrect ? 'correct' : 'incorrect';
   };
   
-    const scrollToSolution = () => {
+  const scrollToSolution = () => {
     if (solutionRef.current) {
       solutionRef.current.scrollIntoView({ behavior: "smooth" });
     } else if (containerRef.current) {
@@ -511,18 +652,31 @@ export default function PracticeQuestionsUI() {
         behavior: "smooth",
       });
     }
-    document.getElementById('solution').style.display='none'
-  };  
-  const isScrollAtBottom = (container) => {
-  if (!container) return false;
-  const { scrollTop, scrollHeight, clientHeight } = container;
-  // Agar scroll bottom par ho toh true return kare
-  return scrollTop + clientHeight >= scrollHeight - 5; // 5px tolerance
-};
+    const solutionBtn = document.getElementById('solution');
+    if (solutionBtn) solutionBtn.style.display = 'none';
+  };
+
+  const handleTimeUp = () => {
+    if (levelData?.showTimer) {
+      setShowTimeOver(true);
+      setTimerPaused(true);
+    }
+  };
+
+  const handleTimeOverClose = () => {
+    setShowTimeOver(false);
+    if (currentQuestionIndex < totalQuestions - 1) {
+      nextQuestion();
+    }
+  };
+
+  const handleBack = () => {
+    navigate(-1)
+    console.log('Going back...');
+  };
 
   return (
     <div className="min-h-screen bg-white flex flex-col">
-      {/* Success Popup */}
       <SuccessPopup 
         show={showPopup} 
         message={popupData.message}
@@ -530,7 +684,11 @@ export default function PracticeQuestionsUI() {
         onClose={() => setShowPopup(false)}
       />
 
-      {/* Report Popup */}
+      <TimeOverPopup 
+        show={showTimeOver}
+        onClose={handleTimeOverClose}
+      />
+
       <ReportPopup
         show={showReportPopup}
         onClose={() => setShowReportPopup(false)}
@@ -539,80 +697,69 @@ export default function PracticeQuestionsUI() {
 
       {/* Header */}
       <div ref={containerRef} className="bg-white px-4 py-2 mt-2 flex items-center justify-between sticky top-0 z-20 flex-shrink-0">
-        <div className="flex items-center  gap-3">
-          <ChevronLeft onClick={() => navigate(-1)} size={24}  className='mb-1'/>
-          <h1 className="text-lg mt-1 font-semibold text-gray-800 truncate">Electric Charges And Fields</h1>
+        <div className="flex items-center gap-1 flex-1 min-w-0">
+          <ChevronLeft onClick={handleBack} size={24} className='mb-1 flex-shrink-0 cursor-pointer' />
+          <h1 className="text-lg mt-1 font-semibold text-gray-800 truncate">
+            {levelData?.title} - Level {levelData?.level}
+          </h1>
         </div>
+        {levelData?.showTimer && (
+          <div className="flex-shrink-0 mr-3">
+            <Timer 
+              timeLimit={levelData.timeLimit} 
+              onTimeUp={handleTimeUp}
+              isPaused={timerPaused}
+            />
+          </div>
+        )}
       </div>
 
-      {/* Question Type Selector */}
-      {/* <div className="bg-white border-b px-4 py-2 shadow-sm flex-shrink-0">
-        <select 
-          value={currentQuestionType}
-          onChange={(e) => {
-            setCurrentQuestionType(e.target.value);
-            setCurrentQuestionIndex(0);
-            setShowSolution(false);
-          }}
-          className="w-full p-3 border border-gray-300 rounded-xl text-sm focus:border-cyan-400 focus:outline-none bg-white shadow-sm transition-all duration-200"
-        >
-          <option value="mcq">Multiple Choice Questions</option>
-          <option value="fillInTheBlanks">Fill in the Blanks</option>
-          <option value="trueFalse">True/False</option>
-          <option value="shortAnswer">Short Answer</option>
-          <option value="longAnswer">Long Answer</option>
-        </select>
-      </div> */}
-         
-      {/* reward strip */}
-     <div className='w-full flex justify-center items-center'>
+      {/* Reward strip */}
+      <div className='w-full flex justify-center rounded-2xl items-center'>
        <div className='w-[90%] flex gap-2  px-2 py-2 bg-[#E9FBFC99]'>
         <img className='w-6 h-6 object-cover' src={cup} alt="" /> 
-        <p>To win: <span className='text-[#696969]'>Solve 2 questions continously</span> </p>
+        <p style={{fontWeight:600}} className='text-[15px]'>To win: <span className='text-[#696969]'>Solve 2 questions continously</span> </p>
       </div>
      </div>
 
-
       {/* Question Navigation */}
-     <div className="bg-white px-4 py-1 flex-shrink-0 relative">
-  <div className="flex gap-2 overflow-x-auto pb-2 relative">
-    {questions.map((_, index) => {
-      const status = getQuestionStatus(index);
-      return (
-        <button
-          key={index}
-          onClick={() => goToQuestion(index)}
-          className={`relative w-8 h-8 rounded-full mt-2 ml-1 text-sm font-semibold flex-shrink-0 transition-all duration-200
-            ${
-              status === "submitted"
-                ? "bg-[#A8E0BE] text-black shadow-md hover:bg-[#A8E0BE]"
-                : status === "answered"
-                ? "bg-[#F7DCE3] text-black shadow-md hover:bg-[#F7DCE3]"
-                : "bg-transparent text-gray-600 hover:bg-red-300 shadow-sm"
-            }
-          `}
-        >
-          {index + 1}
-        </button>
-      );
-    })}
+      <div className="bg-white px-4 py-1 flex-shrink-0 relative">
+        <div className="flex gap-2 overflow-x-auto pb-2 relative">
+          {questions.map((_, index) => {
+            const status = getQuestionStatus(index);
+            return (
+              <button
+                key={index}
+                onClick={() => goToQuestion(index)}
+                disabled={levelData?.showTimer}
+                className={`relative w-8 h-8 rounded-full mt-2 ml-1 text-sm font-semibold flex-shrink-0 transition-all duration-200
+                  ${
+                    status === "correct"
+                      ? "bg-green-400 text-white shadow-md"
+                      : status === "incorrect"
+                      ? "bg-red-400 text-white shadow-md"
+                      : "bg-transparent text-gray-600"
+                  }
+                  ${levelData?.showTimer ? 'cursor-not-allowed opacity-60' : 'hover:scale-110'}
+                `}
+              >
+                {index + 1}
+              </button>
+            );
+          })}
 
-    {/* Sliding Cyan Underline */}
-    <div
-      className="absolute bottom-0 h-[3px] bg-cyan-400 rounded-full transition-all duration-300"
-      style={{
-        width: "2.5rem", // same as button width (w-8 = 2rem)
-        transform: `translateX(${currentQuestionIndex * (32 + 13)}px)` 
-        // 32px button + ~8px gap
-      }}
-    />
-  </div>
-</div>
+          <div
+            className="absolute bottom-0 h-[3px] bg-cyan-400 rounded-full transition-all duration-300"
+            style={{
+              width: "2.5rem",
+              transform: `translateX(${currentQuestionIndex * (32 + 13)}px)` 
+            }}
+          />
+        </div>
+      </div>
 
-
-      {/* Question Content Container with Swiper Effect and Proper Scrolling */}
-      <div  className="flex-1  relative bg-white overflow-hidden">
-        
+      {/* Question Content Container */}
+      <div className="flex-1 relative bg-white overflow-hidden">
         <div 
           className={`h-full overflow-y-auto max-h-[calc(100vh-200px)] transition-transform duration-300 ease-in-out ${
             isTransitioning 
@@ -624,43 +771,35 @@ export default function PracticeQuestionsUI() {
           onTouchStart={handleTouchStart}
           onTouchMove={handleTouchMove}
           onTouchEnd={handleTouchEnd}
-          style={{ touchAction: 'pan-y' }} // Allow vertical scrolling, restrict horizontal
+          style={{ touchAction: 'pan-y' }}
         >
-          {/* Scrollable Content Area */}
           <div className="h-full flex flex-col items-center overflow-y-auto pb-24" style={{ scrollbarWidth: 'thin' }}>
-            {/* Question Content */}
-             <div className="flex p-2 w-full px-6 items-center justify-between text-sm">
-          {/* <span className="text-gray-600 font-medium">
-            <p className='text-[18px]'>Q{currentQuestionIndex + 1} of {totalQuestions}</p>
-          </span> */}
-          <span className="bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-700 px-3 py-1 rounded-full text-xs font-medium">
-            NEET 25-2026
-          </span>
-          <CiBookmark className='text-[#8C8D92]' size={20} />
-        </div>
-            <div className="p-2 sm:p-6  my-1 rounded-2xl">
-              
+            <div className="flex p-2 w-full px-6 items-center justify-between text-sm">
+              <span className="bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-700 px-3 py-1 rounded-full text-xs font-medium">
+                NEET 25-2026
+              </span>
+              <CiBookmark className='text-[#8C8D92]' size={20} />
+            </div>
+            
+            <div className="p-2 sm:p-6 my-1 rounded-2xl">
               {renderQuestion()}
-              
             </div>
 
             {/* Solution Section */}
             {showSolution && currentQuestion && (
-              <div ref={solutionRef} className="mx-4  mb-[12vh] rounded-2xl  overflow-hidden">
+              <div ref={solutionRef} className="mx-4 mb-[12vh] rounded-2xl overflow-hidden">
                 <div className="px-2 flex items-center justify-between">
                   <div className="flex w-full justify-between gap-3">
-                     <div className="flex flex-col items-center gap-1">
-                    <span className="font-semibold text-[22px] text-gray-800">Solution</span>
-                    <span className="bg-cyan-100 text-orange-700 px-3 py-1 rounded-full text-xs font-medium">
-                      <p className='text-[14px] text-cyan-600'>Medium</p>
-                    </span>
-                  </div>
-                    <div  onClick={() => setShowReportPopup(true)} className="p-2  rounded-lg">
+                    <div className="flex flex-col items-center gap-1">
+                      <span className="font-semibold text-[22px] text-gray-800">Solution</span>
+                      <span className="bg-cyan-100 text-orange-700 px-3 py-1 rounded-full text-xs font-medium">
+                        <p className='text-[14px] text-cyan-600'>{currentQuestion.difficulty}</p>
+                      </span>
+                    </div>
+                    <div onClick={() => setShowReportPopup(true)} className="p-2 rounded-lg cursor-pointer">
                       <AlertTriangle className="w-6 h-6 text-black" />
                     </div>
-                    
                   </div>
-                 
                 </div>
                 <div className="px-4 py-2 text-sm sm:text-base text-gray-700 leading-relaxed">
                   {currentQuestion.answerEx}
@@ -672,7 +811,7 @@ export default function PracticeQuestionsUI() {
       </div>
 
       {/* Bottom Actions */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white  p-4 z-10 flex-shrink-0">
+      <div className="fixed bottom-0 left-0 right-0 bg-white p-4 z-10 flex-shrink-0">
         <div className="flex gap-3 mb-3">
           {!isCurrentQuestionSubmitted() ? (
             <>
@@ -686,14 +825,14 @@ export default function PracticeQuestionsUI() {
               ) : (
                 <button
                   onClick={nextQuestion}
-                  disabled={currentQuestionIndex >= totalQuestions - 1}
+                  disabled={currentQuestionIndex >= totalQuestions - 1 || levelData?.showTimer}
                   className={`px-2 max-w-[30vw] ml-auto text-white py-3 rounded-xl font-semibold text-base flex-1 transition-all duration-200 ${
-                    currentQuestionIndex >= totalQuestions - 1
+                    currentQuestionIndex >= totalQuestions - 1 || levelData?.showTimer
                       ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
                       : 'bg-cyan-500'
                   }`}
                 >
-                  Next
+                  {levelData?.showTimer ? 'Submit' : 'Next'}
                 </button>
               )}
             </>
@@ -701,10 +840,10 @@ export default function PracticeQuestionsUI() {
             <button
               onClick={nextQuestion}
               disabled={currentQuestionIndex >= totalQuestions - 1}
-              className={`px-8 py-3 max-w-[30vw] ml-auto rounded-xl font-semibold text-base flex-1 transition-all duration-200 ${
+              className={`px-8 py-3 text-white max-w-[30vw] ml-auto rounded-xl font-semibold text-base flex-1 transition-all duration-200 ${
                 currentQuestionIndex >= totalQuestions - 1
                   ? 'bg-gray-200 text-gray-400 cursor-not-allowed'
-                  : 'bg-gradient-to-r from-cyan-400 to-blue-500 text-white hover:from-cyan-500 hover:to-blue-600 shadow-lg transform hover:scale-105'
+                  : 'bg-[#26C6DA] shadow-lg transform hover:scale-105'
               }`}
             >
               Next
@@ -713,13 +852,12 @@ export default function PracticeQuestionsUI() {
         </div>
       </div>  
          
-         {showSolution &&  (
-            <div onClick={scrollToSolution} id='solution' className='absolute bottom-24 w-fit h-fit left-1/2 transform -translate-x-1/2  bg-black/70 text-white flex justify-center p-1 text-sm px-3 rounded-full z-10 '>
-               <p>view solution</p> 
-               <IoIosArrowRoundDown size={18}  />
-            </div>
-         )}
-        
+      {showSolution && (
+        <div onClick={scrollToSolution} id='solution' className='absolute bottom-24 w-fit h-fit left-1/2 transform -translate-x-1/2 bg-black/70 text-white flex justify-center p-1 text-sm px-3 rounded-full z-10 cursor-pointer'>
+          <p>view solution</p> 
+          <IoIosArrowRoundDown size={18} />
+        </div>
+      )}
     </div>
   );
 }
