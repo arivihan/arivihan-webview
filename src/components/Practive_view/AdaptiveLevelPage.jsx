@@ -39,14 +39,14 @@ const AdaptiveLevelPage = () => {
     },
     { 
       id: 4, 
-      title: t('Level 4'), 
+      title: t('NEET Level'), 
       text_title: t('Previous Year Questions 📝'), 
       icon: vector4,
       completed: false 
     },
     { 
       id: 5, 
-      title: t('Level 5'), 
+      title: t('Neet++ Level'), 
       text_title: t('Ek kadam aage ki taiyari 🏋️‍♀️'), 
       icon: vector5,
       completed: false 
@@ -70,12 +70,12 @@ const AdaptiveLevelPage = () => {
     return () => window.removeEventListener('resize', calculatePositions);
   }, []);
 
-  const handleLevelClick = (levelId) => {
-    setCurrentLevel(levelId);
-    setTimeout(() => 
-         navigate("/Practice-question-view")
-        , 1000);
-  };
+const handleLevelClick = (levelId) => {
+  setCurrentLevel(levelId);
+  setTimeout(() => 
+       navigate("/Practice-question-view", { state: { level: levelId } })
+      , 1000);
+};
 
   return (
     <div id='Neet_Adaptive' className="min-h-screen relative overflow-hidden">

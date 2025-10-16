@@ -1,33 +1,27 @@
-import React, { useState } from 'react';
-import confettie from "../temp_icons/confettie_avatar.png";
-import { X } from 'lucide-react'; // using lucide-react for clean icon
-
-const Level_crossed = () => {
-  const [visible, setVisible] = useState(true);
-
-  if (!visible) return null;
-
+export const LevelCompletionPopup = () => {
+  
   return (
-    <div className='w-screen bg-black/20 absolute top-0 left-0 z-[999] h-screen '>
-      <div className='w-[70%] p-2 absolute top-[50%] left-[50%] z-[999] transform -translate-x-1/2 -translate-y-1/2 h-[27%] rounded-xl bg-white flex flex-col justify-center items-center'>
-        {/* Close Icon */}
-        <X
-          size={22}
-          className="absolute top-3 right-3 text-black/60 cursor-pointer hover:text-black"
-          onClick={() => setVisible(false)}
-        />
-
-        <div className='rounded-full overflow-hidden w-[80px] h-[80px] bg-[#D0FDFF]'>
-          <img src={confettie} alt="" />
+    <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-4">
+      <div className="bg-white rounded-2xl p-8 max-w-md w-full shadow-2xl relative">
+        <button
+          onClick={onClose}
+          className="absolute top-4 right-4 p-2 hover:bg-gray-100 rounded-full transition-colors"
+        >
+          <X className="w-5 h-5 text-gray-500" />
+        </button>
+        
+        <div className="flex flex-col w-[80%] bg-pink-500 rounded-2xl items-center justify-center  gap-4 mb-6">
+          <div className="w-[100px] h-[100px] bg-[#D0FDFF] rounded-full overflow-hidden flex items-center justify-center flex-shrink-0">
+            <img className='w-[95%] h-[95%] object-cover' src="" alt="" />
+          </div>
+          <div className="flex-1 w-[100%] items-center justify-center">
+            <h2 className="text-2xl font-bold text-gray-800 mb-2">Level 5 crossed</h2>
+            <p className="text-gray-600 text-sm leading-relaxed">
+              Apne basic concepts clear kar liye, ab unhe apply karne ke liye tayyar ho jao 💪
+            </p>
+          </div>
         </div>
-
-        <p className='text-xl font-bold text-black/80'>Level 1 crossed</p>
-        <p className='text-[#696969] mt-1 leading-4 text-center'>
-          Aap aage ke tough quotations solve karne ke liye ready hain!
-        </p>
       </div>
     </div>
   );
 };
-
-export default Level_crossed;
