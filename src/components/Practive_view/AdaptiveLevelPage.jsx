@@ -26,7 +26,7 @@ const AdaptiveLevelPage = () => {
     { 
       id: 2, 
       title: t('Level 2'), 
-      text_title: t('Concepts ko apply karo ⏳'), 
+      text_title: t('Concepts ko apply karo 🎯'), 
       icon: vector2,
       completed: false 
     },
@@ -84,21 +84,21 @@ const handleLevelClick = (levelId) => {
       {/* Main Container */}
       <div className="relative w-full max-w-md mx-auto min-h-screen flex flex-col px-4 sm:px-0">
         {/* Header */}
-        <div className="flex  items-center px-2 py-2">
+        <div style={{fontWeight:400}} className="flex  items-center px-2 py-2">
           <IoIosArrowBack
   onClick={() => {
     setTimeout(() => navigate(-1), 2000);
   }}
-  size={23}
+  size={20}
   className="text-gray-800 "
 />
 
-          <h1 className="text-2xl sm:text-xl mt-2 font-semibold text-gray-800 ml-2">{t('Coulomb Law')}</h1>
+          <h1 className="text-xl sm:text-xl mt-2 font-semibold text-gray-800 ml-2">{t('Coulomb Law')}</h1>
         </div>
 
         {/* Progress Section */}
         <div className="px-1 justify-center flex flex-col items-center sm:px-5 pb-4 sm:pb-6">
-          <p className="text-[16px] sm:text-sm text-gray-600 mb-2 sm:mb-3 font-bold">
+          <p className="text-[15px] text-[#000000] mb-2 sm:mb-3 font-bold">
             {currentLevel}/5 {t('level completed')}
           </p>
           <div className="flex gap-1.5 sm:gap-2">
@@ -138,8 +138,8 @@ const handleLevelClick = (levelId) => {
                         ? 'stroke-[#24C6D6]'
                         : 'stroke-[#24C6D6]'
                     }`}
-                    strokeWidth="2"
-                    strokeDasharray={isCompleted || isPassed ? '0' : '5,5'}
+                    strokeWidth={isCompleted ? 6 : 4}
+                    strokeDasharray={isCompleted || isPassed ? '0' : '10,6'}
                     style={{
                       strokeDashoffset: isCompleted ? '0' : undefined,
                     }}
@@ -196,8 +196,10 @@ const handleLevelClick = (levelId) => {
                 key={level.id}
                 ref={el => levelRefs.current[index] = el}
                 onClick={() => handleLevelClick(level.id)}
-                className={`relative bg-white rounded-xl sm:rounded-2xl px-4 py-[10px] transition-all duration-500 cursor-pointer hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] ${
-                  level.id === currentLevel ? 'ring-2 ring-[#24C6D6] shadow-[0_0_5px_3px_rgba(156,163,175,0.6)] ' : ''
+                className={`relative bg-white rounded-xl sm:rounded-2xl px-2 py-[10px] transition-all duration-500 cursor-pointer  hover:shadow-[0_0_5px_2px_#26C6DA] hover:scale-[1.02] active:scale-[0.98] ${
+                  level.id === currentLevel 
+  ? 'ring-1 ring-[#24C6D6] shadow-[0_0_5px_2px_#26C6DA]'
+  : ''
                 } ${level.completed ? 'opacity-100' : 'opacity-90'}`}
                 style={{
                   animation: `slideIn 0.6s ease-out ${index * 0.1}s both`
@@ -205,12 +207,12 @@ const handleLevelClick = (levelId) => {
               >
                 {level.completed && (
                   <div 
-                    className="absolute -top-1.5 sm:-top-2 -right-1.5 sm:-right-2  border-2 border-white bg-green-500 rounded-full p-1 sm:p-1 shadow-lg"
+                    className="absolute flex justify-center items-center -top-3 w-[25px] h-[25px] -right-1.5  border-2 border-white bg-green-500 rounded-full  shadow-lg"
                     style={{
                       animation: 'checkBounce 0.6s ease-out'
                     }}
                   >
-                    <Check className="w-3 h-3 text-white" />
+                    <Check className="w-4 h-4 text-white" />
                   </div>
                 )}
 
@@ -218,8 +220,8 @@ const handleLevelClick = (levelId) => {
                   <div className={`w-14 h-11 rounded-lg flex items-center justify-center transition-colors duration-300 
                     
                   `}>
-                    <span className="text-xl w-8  h-auto sm:text-2xl">
-                      <img className=' w-full h-full object-cover' src={level.icon} alt="" />
+                    <span className="text-xl w-auto  h-[35px] sm:text-2xl">
+                      <img className=' w-full h-full object-fit' src={level.icon} alt="" />
                     </span>
                   </div>
 

@@ -1638,7 +1638,7 @@ useEffect(() => {
      </div>
        
       {/* Question Navigation */}
-      <div className="bg-white px-5 py-1 flex-shrink-0 relative">
+      <div className="bg-white px-3 py-1 flex-shrink-0 relative">
         <div className="flex gap-6 overflow-x-auto pb-2 relative">
           {visibleQuestions.map((index) => {
             const key = `${currentLevel}_${index}`;
@@ -1653,7 +1653,7 @@ useEffect(() => {
                 key={index}
                 onClick={() => canNavigate && handleQuestionNavigation(index)}
                 disabled={!canNavigate}
-                className={`relative w-8 h-8 rounded-full mt-2 ml-1 text-sm font-semibold flex-shrink-0 transition-all duration-200
+                className={`relative w-6 h-6 rounded-full mt-2 ml-1 text-sm font-semibold flex-shrink-0 transition-all duration-200
                   ${
                     isCorrect
                       ? "bg-[#A8E0BE] text-black "
@@ -1669,22 +1669,24 @@ useEffect(() => {
           })}
 
           {/* Cyan underline indicator */}
-          <div
-            className="absolute bottom-0 h-[3px] bg-[#26C6DA] rounded-full transition-all duration-300"
-            style={{
-              width: "2.5rem",
-              transform: `translateX(${currentQuestionIndex * (32 + 28)}px)`,
-            }}
-          />
+          {/* Cyan underline indicator */}
+<div
+  className="absolute bottom-[2px] h-[3px] bg-[#26C6DA] rounded-full transition-all duration-300"
+  style={{
+    width: "1.5rem", // same as button width (6 = 24px approx)
+    left: `calc(${currentQuestionIndex * 3.2}rem + 0.25rem)`, // fine-tuned for exact center
+  }}
+/>
+
         </div>
       </div>
 
       {/* Question Content Container */}
       <div ref={containerRef} className="flex-1 px-2 overflow-y-auto pb-24">
-        <div className="p-4" style={{ minHeight: '100%' }}>
+        <div className="p-4 px-2" style={{ minHeight: '100%' }}>
           {/* Year tag and bookmark */}
-          <div className="flex justify-between items-center mb-4">
-            <span className="bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-700 px-3 py-1 rounded-full text-xs font-medium">
+          <div className="flex justify-between items-center mb-2 ">
+            <span className="bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-700 px-3 py-1 rounded-full text-[10px] font-medium">
               NEET 2025-2026
             </span>
             <button className="text-gray-500 hover:text-gray-700">
@@ -1735,7 +1737,7 @@ useEffect(() => {
           {!isCurrentQuestionSubmitted() && hasAnswered() && (
             <button
               onClick={handleSubmit}
-              className="bg-[#26C6DA] text-white px-8 py-3 rounded-xl font-semibold text-base transition-all duration-200 shadow-lg transform hover:scale-105"
+              className="bg-[#26C6DA] text-white px-8 py-2.5 rounded-xl font-semibold text-base transition-all duration-200 shadow-lg transform hover:scale-105"
             >
               Submit
             </button>
