@@ -196,7 +196,7 @@ const handleLevelClick = (levelId) => {
                 key={level.id}
                 ref={el => levelRefs.current[index] = el}
                 onClick={() => handleLevelClick(level.id)}
-                className={`relative bg-white rounded-xl sm:rounded-2xl px-4 py-3 transition-all duration-500 cursor-pointer hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] ${
+                className={`relative bg-white rounded-xl sm:rounded-2xl px-4 py-[10px] transition-all duration-500 cursor-pointer hover:shadow-xl hover:scale-[1.02] active:scale-[0.98] ${
                   level.id === currentLevel ? 'ring-2 ring-[#24C6D6] shadow-[0_0_5px_3px_rgba(156,163,175,0.6)] ' : ''
                 } ${level.completed ? 'opacity-100' : 'opacity-90'}`}
                 style={{

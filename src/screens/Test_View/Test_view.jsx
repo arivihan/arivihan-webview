@@ -1199,7 +1199,7 @@ const LevelCompletionPopup = ({ show, level, onClose, onContinue }) => {
         levelImage:"../../assets/level4th.png"
       },
       5: {
-        title: "Level 5 crossed",
+        title: "Congratulations",
         message: "Yeh topic NEET ke liye ready hai, ab aapko doctor banne se koi nahi rok sakta 🎯",
         bgColor: "bg-[#D0FFE4]",
         levelImage:"../../assets/level5th.png"
@@ -1582,7 +1582,7 @@ useEffect(() => {
   };
 
   return (
-    <div className="h-screen bg-white flex flex-col overflow-hidden">
+    <div className="h-screen px-2  flex flex-col overflow-hidden">
       <CorrectAnswerPopup 
         show={showCorrectPopup} 
         onClose={() => setShowCorrectPopup(false)}
@@ -1638,7 +1638,7 @@ useEffect(() => {
      </div>
        
       {/* Question Navigation */}
-      <div className="bg-white px-4 py-1 flex-shrink-0 relative">
+      <div className="bg-white px-5 py-1 flex-shrink-0 relative">
         <div className="flex gap-6 overflow-x-auto pb-2 relative">
           {visibleQuestions.map((index) => {
             const key = `${currentLevel}_${index}`;
@@ -1656,9 +1656,9 @@ useEffect(() => {
                 className={`relative w-8 h-8 rounded-full mt-2 ml-1 text-sm font-semibold flex-shrink-0 transition-all duration-200
                   ${
                     isCorrect
-                      ? "bg-[#A8E0BE] text-black shadow-md"
+                      ? "bg-[#A8E0BE] text-black "
                       : submitted && !isCorrect
-                      ? "bg-[#F7DCE3] text-black shadow-md"
+                      ? "bg-[#F7DCE3] text-black "
                       : "bg-transparent text-gray-600"
                   }
                 `}
@@ -1670,17 +1670,17 @@ useEffect(() => {
 
           {/* Cyan underline indicator */}
           <div
-            className="absolute bottom-0 h-[3px] bg-cyan-400 rounded-full transition-all duration-300"
+            className="absolute bottom-0 h-[3px] bg-[#26C6DA] rounded-full transition-all duration-300"
             style={{
               width: "2.5rem",
-              transform: `translateX(${currentQuestionIndex * (32 + 25)}px)`,
+              transform: `translateX(${currentQuestionIndex * (32 + 28)}px)`,
             }}
           />
         </div>
       </div>
 
       {/* Question Content Container */}
-      <div ref={containerRef} className="flex-1 overflow-y-auto pb-24">
+      <div ref={containerRef} className="flex-1 px-2 overflow-y-auto pb-24">
         <div className="p-4" style={{ minHeight: '100%' }}>
           {/* Year tag and bookmark */}
           <div className="flex justify-between items-center mb-4">
@@ -1730,12 +1730,12 @@ useEffect(() => {
       </div>
 
       {/* Bottom Actions */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 p-4 z-10 flex-shrink-0">
+      <div className="fixed bottom-0 left-0 right-2 bg-white  p-4 z-10 flex-shrink-0">
         <div className="flex justify-end">
           {!isCurrentQuestionSubmitted() && hasAnswered() && (
             <button
               onClick={handleSubmit}
-              className="bg-cyan-400 text-white px-8 py-3 rounded-xl font-semibold text-base transition-all duration-200 shadow-lg transform hover:scale-105"
+              className="bg-[#26C6DA] text-white px-8 py-3 rounded-xl font-semibold text-base transition-all duration-200 shadow-lg transform hover:scale-105"
             >
               Submit
             </button>
