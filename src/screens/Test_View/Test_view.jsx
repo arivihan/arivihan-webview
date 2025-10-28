@@ -869,7 +869,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, AlertTriangle, CheckCircle, Clock, X, Trophy } from 'lucide-react';
 import cup from "../../assets/cup.png"
 import { useNavigate } from 'react-router-dom';
-
+import bookmark from "../../assets/bookmarkHD.png"
 // Sample data with levels 1-5
 const questionData = {
   level1: {
@@ -1281,7 +1281,7 @@ const ReportPopup = ({ show, onClose, questionId }) => {
                   value={issue}
                   checked={selectedIssue === issue}
                   onChange={(e) => setSelectedIssue(e.target.value)}
-                  className="w-4 h-4 text-cyan-400 focus:ring-cyan-400"
+                  className="w-4 h-4 text-[#26C6DA] focus:ring-cyan-400"
                 />
                 <span className="text-sm text-gray-700">{issue}</span>
               </label>
@@ -1297,7 +1297,7 @@ const ReportPopup = ({ show, onClose, questionId }) => {
               onChange={(e) => setFeedback(e.target.value)}
               placeholder="Please provide additional details..."
               rows={4}
-              className="w-full p-3 border border-gray-300 rounded-xl focus:border-cyan-400 focus:outline-none resize-none text-sm"
+              className="w-full p-3 border border-gray-300 rounded-xl focus:border-[#26C6DA] focus:outline-none resize-none text-sm"
             />
           </div>
         </div>
@@ -1308,7 +1308,7 @@ const ReportPopup = ({ show, onClose, questionId }) => {
             disabled={!selectedIssue}
             className={`w-full py-3 rounded-xl font-medium text-sm transition-all ${
               selectedIssue
-                ? 'bg-cyan-400 text-white hover:bg-cyan-500 shadow-lg'
+                ? 'bg-[#26C6DA] text-white hover:bg-[#26C6DA] shadow-lg'
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
@@ -1341,7 +1341,7 @@ const SingleChoice = ({ question, selectedAnswer, onAnswerSelect, isSubmitted })
               : isSubmitted && selectedAnswer === option.id && selectedAnswer !== question.answer
               ? 'border-red-500 bg-red-50 shadow-md'
               : selectedAnswer === option.id
-              ? 'border-cyan-400 bg-cyan-50 shadow-md'
+              ? 'border-[#26C6DA] bg-[#E9FBFC] shadow-md'
               : 'border-gray-200 hover:border-gray-300 hover:shadow-sm'
           } ${isSubmitted ? 'cursor-not-allowed' : 'cursor-pointer hover:scale-[1.02]'}`}
         >
@@ -1614,8 +1614,8 @@ useEffect(() => {
       {/* Header */}
       <div className="bg-white px-4 py-2 mt-2 flex items-center justify-between sticky top-0 z-20 flex-shrink-0">
         <div className="flex items-center gap-1 flex-1 min-w-0">
-          <ChevronLeft onClick={handleBack} size={24} className='mb-1 flex-shrink-0 cursor-pointer' />
-          <h1 className="text-lg mt-1 font-semibold text-gray-800 truncate max-w-[70vw] overflow-hidden whitespace-nowrap">
+          <ChevronLeft onClick={handleBack} size={24} className='mb-1 text-[#191919] flex-shrink-0 cursor-pointer' />
+          <h1 style={{fontWeight:500}} className="text-lg mt-1 text-[#191919] truncate max-w-[70vw] overflow-hidden whitespace-nowrap">
             {levelData?.title} - Level {levelData?.level}
           </h1>
         </div>
@@ -1631,9 +1631,9 @@ useEffect(() => {
 
       {/* Reward strip */}
       <div className='w-full flex justify-center rounded-2xl items-center'>
-       <div className='w-[90%] flex gap-2  px-2 py-2 bg-[#E9FBFC99]'>
+       <div className='w-[90%] flex gap-2 rounded-[5px] px-2 py-2 bg-[#E9FBFC99]'>
         <img className='w-6 h-6 object-cover' src={cup} alt="" /> 
-        <p style={{fontWeight:600}} className='text-[15px]'>To win: <span className='text-[#696969]'>Solve {requiredConsecutive} questions continously</span> </p>
+        <p style={{fontWeight:500}} className='text-[15px]'>To win: <span className='text-[#696969]'>Solve {requiredConsecutive} questions continously</span> </p>
       </div>
      </div>
        
@@ -1656,10 +1656,10 @@ useEffect(() => {
                 className={`relative w-6 h-6 rounded-full mt-2 ml-1 text-sm font-semibold flex-shrink-0 transition-all duration-200
                   ${
                     isCorrect
-                      ? "bg-[#A8E0BE] text-black "
+                      ? "bg-[#A8E0BE] text-[#191919] "
                       : submitted && !isCorrect
-                      ? "bg-[#F7DCE3] text-black "
-                      : "bg-transparent text-gray-600"
+                      ? "bg-[#F7DCE3] text-[#191919] "
+                      : "bg-transparent font-bold text-[#191919]"
                   }
                 `}
               >
@@ -1671,9 +1671,9 @@ useEffect(() => {
           {/* Cyan underline indicator */}
           {/* Cyan underline indicator */}
 <div
-  className="absolute bottom-[2px] h-[3px] bg-[#26C6DA] rounded-full transition-all duration-300"
+  className="absolute bottom-[4px] h-[2px] bg-[#26C6DA] rounded-full transition-all duration-300"
   style={{
-    width: "1.5rem", // same as button width (6 = 24px approx)
+    width: "2rem", // same as button width (6 = 24px approx)
     left: `calc(${currentQuestionIndex * 3.2}rem + 0.25rem)`, // fine-tuned for exact center
   }}
 />
@@ -1686,13 +1686,11 @@ useEffect(() => {
         <div className="p-4 px-2" style={{ minHeight: '100%' }}>
           {/* Year tag and bookmark */}
           <div className="flex justify-between items-center mb-2 ">
-            <span className="bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-700 px-3 py-1 rounded-full text-[10px] font-medium">
+            <span style={{fontWeight:600}} className="bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-700 px-3 py-1 rounded-full text-[10px] ">
               NEET 2025-2026
             </span>
             <button className="text-gray-500 hover:text-gray-700">
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 5a2 2 0 012-2h10a2 2 0 012 2v16l-7-3.5L5 21V5z" />
-              </svg>
+             <img className='w-[13px]' src={bookmark} alt="" />
             </button>
           </div>
 
@@ -1712,7 +1710,7 @@ useEffect(() => {
               <div className="px-4 py-3 flex items-center justify-between border-b border-gray-200">
                 <div className="flex items-center gap-3">
                   <span className="font-semibold text-lg text-gray-800">Solution</span>
-                  <span className="bg-cyan-100 text-cyan-600 px-3 py-1 rounded-full text-xs font-medium">
+                  <span className="bg-cyan-100 text-[#26C6DA]-600 px-3 py-1 rounded-full text-xs font-medium">
                     {currentQuestion.difficulty}
                   </span>
                 </div>
@@ -1737,7 +1735,7 @@ useEffect(() => {
           {!isCurrentQuestionSubmitted() && hasAnswered() && (
             <button
               onClick={handleSubmit}
-              className="bg-[#26C6DA] text-white px-8 py-2.5 rounded-xl font-semibold text-base transition-all duration-200 shadow-lg transform hover:scale-105"
+              className="bg-[#26C6DA] text-white px-8 py-2.5 rounded-md font-semibold text-base transition-all duration-200 shadow-lg transform hover:scale-105"
             >
               Submit
             </button>
