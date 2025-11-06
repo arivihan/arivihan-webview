@@ -27,7 +27,7 @@ const Only_Text_PDF = ({ file }) => {
           <img src={require("../../../assets/icons/pdf_icon.png")} className="h-8 w-min-8 object-contain" />
           <div>
            <p className="font-semibold text-black text-sm">
-              {file.pdfTitle.length > 27
+              {file.pdfTitle && file.pdfTitle.length > 27
                 ? file.pdfTitle.slice(0, 27) + "…"
                 : file.pdfTitle}
             </p>
