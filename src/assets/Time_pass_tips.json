@@ -427,5 +427,127 @@
       "ऑक्सिटोसिन प्रसव में गर्भाशय संकुचन कराता है; प्रोलैक्टिन दुग्ध स्रवण बनाए रखता है।",
       "मानव कैरियोटाइप 2n = 46; Down syndrome में ट्राइसॉमी-21 (47, +21) पाई जाती है।"
     ]
+  },
+  {
+    "subject": "Economics",
+    "course": "board",
+    "language": "hi",
+    "tips": [
+      "Q: एक देश की मुद्रा का दूसरे देश की मुद्रा में व्यक्त मूल्य क्या कहलाता है? A: विनिमय दर",
+      "Q: बाजार शक्तियों द्वारा निर्धारित विदेशी विनिमय दर क्या कहलाती है? A: लोचशील विनिमय दर",
+      "Q: डॉलर की तुलना में रुपये की दर बढ़ने पर भारतीय आयातकों के लाभ पर क्या प्रभाव होगा? A: प्रतिकूल",
+      "Q: अपरिवर्तनशील कागजी मुद्रा की दशा में विदेशी विनिमय दर का निर्धारण किस सिद्धांत द्वारा होता है? A: क्रय शक्ति समता सिद्धांत",
+      "Q: व्यापार का उद्देश्य क्या होता है? A: लाभ",
+      "Q: व्यापार संतुलन में कौन-सी मदें शामिल की जाती हैं? A: केवल दृश्य मदें",
+      "Q: व्यापार संतुलन किसका अंग माना जाता है? A: भुगतान संतुलन",
+      "Q: विनिमय नियंत्रण का क्या उद्देश्य होता है? A: मुद्रा की विनिमय दर स्थिर रखना"
+    ]
+  },
+  {
+    "subject": "Business Studies",
+    "course": "board",
+    "language": "hi",
+    "tips": [
+      "Q: उस संगठन का नाम बताइए जो नियमों एवं कार्य-विधियों पर आधारित है। A: औपचारिक संगठन",
+      "Q: संगठनात्मक ढाँचे में किस प्रकार के संबंध को दिखाया जाता है? A: अधिकारी व अधीनस्थ संबंध",
+      "Q: प्रबंध का संगठन का कार्य प्रबंध के किस कार्य के बाद आता है? A: नियोजन के बाद",
+      "Q: विभागीय संगठन प्रक्रिया का कौन-सा चरण है? A: दूसरा चरण",
+      "Q: अनौपचारिक संगठन में सदस्यों में किस प्रकार का संबंध होता है? A: मधुर संबंध",
+      "Q: विकेन्द्रीयकरण के निर्णय किसके द्वारा लिए जाते हैं? A: अधीनस्थों"
+    ]
+  },
+  {
+    "subject": "Accountancy",
+    "course": "board",
+    "language": "hi",
+    "tips": [
+      "Q: क्या ऋणपत्रों को जब कभी भी वापस मांगा जा सकता है? A: नहीं",
+      "Q: उस ऋणपत्र का नाम बताइए जिसका भुगतान केवल कंपनी के समापन पर किया जाता है। A: अशोध्य एवं अप्रतिदेय ऋणपत्र",
+      "Q: वह ऋणपत्र जिसका पंजीयन कंपनी रजिस्टर में किया जाता है? A: पंजीकृत ऋणपत्र",
+      "Q: ऐसा ऋणपत्र जिसके ऋण के बदले कोई संपत्ति बंधक नहीं रखी जाती है? A: अरक्षित ऋणपत्र",
+      "Q: वह ऋणपत्र जो अंकित मूल्य से कम मूल्य पर जारी किया जाए? A: बट्टे पर निर्गमित ऋणपत्र",
+      "Q: जब जारी किये गये ऋणपत्रों से अधिक संख्या में आवेदन पत्र प्राप्त हों, उस दशा को क्या कहा जायेगा? A: अति अभिदान"
+    ]
+  },
+  {
+    "subject": "History",
+    "course": "board",
+    "language": "hi",
+    "tips": [
+      "Q: विजयनगर साम्राज्य की स्थापना सन् में की गई थी। A: 1336 में",
+      "Q: कृष्णदेव राय ने किस उपनगर की स्थापना की? A: नगलपुरम",
+      "Q: 1542 ई. में विजयनगर का नियंत्रण किस वंश के हाथों में चला गया? A: अराविदु",
+      "Q: वह कौन-सा विशालकाय मंच था जहाँ अनेक अनुष्ठान संपन्न किए जाते थे? A: महानवमी डिब्बा",
+      "Q: सन् में हम्पी को राष्ट्रीय महत्व के स्थल के रूप में मान्यता मिली। A: 1976"
+    ]
+  },
+  {
+    "subject": "Geography",
+    "course": "board",
+    "language": "hi",
+    "tips": [
+      "Q: भारत में नियोजन का कार्य किसके अधीन है? A: योजना आयोग",
+      "Q: सतत् पोषणीय विकास का उद्देश्य क्या है? A: श्रमिकों को नियमित रोजगार देना",
+      "Q: सतत् पोषणीय विकास में किस बात का विशेष ध्यान रखा गया? A: पर्यावरण संरक्षण",
+      "Q: इंदिरा गाँधी नहर का नाम पहले क्या था? A: राजस्थान नहर",
+      "Q: पंजाब के हरिके बाँध से नहर कहाँ तक ले जायी गई? A: राजस्थान तक",
+      "Q: भरमौर जनजाति भारत के किस राज्य में निवास करती है? A: हिमाचल प्रदेश",
+      "Q: सतत् पोषणीय विकास की संकल्पना ने कब जन्म लिया? A: 20वीं शताब्दी के उत्तरार्ध में"
+    ]
+  },
+  {
+    "subject": "political_science",
+    "course": "board",
+    "language": "hi",
+    "tips": [
+      "Q: 1950-1964 में राजनीतिक व्यवस्था किस प्रकार की थी? A: स्थिर व एकदलीय प्रभुत्व की",
+      "Q: Coalition किस भाषा का शब्द है? A: लैटिन",
+      "Q: गठबंधन सरकार बनने के मुख्य कारण क्या हैं? A: राष्ट्रीय दलों की कमजोर स्थिति",
+      "Q: अटल बिहारी वाजपेयी किस गठबंधन के नेता के रूप में प्रधानमंत्री बने? A: राजग",
+      "Q: जनता दल की सरकार के पतन के क्या कारण थे? A: अल्पमत सरकार",
+      "Q: 1996 के लोकसभा चुनाव में किस दल को सर्वाधिक सीटें मिली थीं? A: भाजपा",
+      "Q: 2014 के चुनाव के बाद कौन प्रधानमंत्री बने? A: श्री नरेन्द्र मोदी"
+    ]
+  },
+  {
+    "subject": "ECONOMICS",
+    "course": "board",
+    "language": "en",
+    "tips": [
+      "Q: What is the value of the currency of one country expressed in terms of the currency of another country called? A: Exchange Rate",
+      "Q: What is the foreign exchange rate determined by market forces called? A: Flexible Exchange Rate",
+      "Q: When the value of the rupee increases compared to the dollar, what will be the effect on the profit of Indian importers? A: Adverse",
+      "Q: Under the inconvertible paper currency system, foreign exchange rate is determined by which theory? A: Purchasing Power Parity Theory",
+      "Q: What is the main objective of trade? A: Profit",
+      "Q: Which items are included in the balance of trade? A: Only visible items",
+      "Q: Balance of trade is considered a part of which broader concept? A: Balance of Payments",
+      "Q: What is the objective of exchange control? A: To keep the exchange rate stable"
+    ]
+  },
+  {
+    "subject": "BUSINESS STUDIES",
+    "course": "board",
+    "language": "en",
+    "tips": [
+      "Q: Name the type of organisation which is based on rules and procedures. A: Formal Organisation",
+      "Q: What type of relationship is shown in an organisational structure? A: Superior–Subordinate Relationship",
+      "Q: The organising function of management comes after which function? A: Planning",
+      "Q: Which stage is departmental organisation in the organising process? A: Second Stage",
+      "Q: What type of relationship exists among members of informal organisation? A: Cordial (Friendly) Relationship",
+      "Q: Decisions related to decentralisation are taken by whom? A: Subordinates"
+    ]
+  },
+  {
+    "subject": "ACCOUNTANCY",
+    "course": "board",
+    "language": "en",
+    "tips": [
+      "Q: Can debentures be converted into shares? A: No",
+      "Q: Name the debenture which is paid only at the time of liquidation of the company. A: Irredeemable / Non-redeemable Debenture",
+      "Q: What is the debenture called whose registration is done in the company’s register? A: Registered Debenture",
+      "Q: Which debenture is issued without pledging any asset as security? A: Unsecured Debenture",
+      "Q: What is the debenture called that is issued at a price lower than its face value? A: Debenture Issued at Discount",
+      "Q: What is the situation called when more applications are received than the number of debentures issued? A: Over-subscription"
+    ]
   }
 ]

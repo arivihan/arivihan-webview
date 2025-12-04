@@ -480,7 +480,9 @@ export function loadSuggestedQuestions(addInChatHistory = false) {
   let courseNameMapping = {
     "1": "jee",
     "2": "board",
-    "3": "jee"
+    "3": "jee",
+    "7" :"commerce",
+    "8":"arts"
   }
 
   let classNameMapping = {

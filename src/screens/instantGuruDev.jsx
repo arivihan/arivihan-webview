@@ -129,7 +129,7 @@ const InstantGuruUIDev = () => {
     let selectedTips =
       tipsData.filter(
         (item) =>
-          item.subject === uSubject &&
+          item.subject.toLowerCase() === uSubject &&
           item.course === "board" &&
           item.language === uLanguage
       );
