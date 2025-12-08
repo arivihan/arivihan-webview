@@ -60,7 +60,7 @@ pipeline {
                     sh """
                     node -v
                     npm -v
-                    npm install
+                    npm install -f
                     npm run build
                     """
                 }
