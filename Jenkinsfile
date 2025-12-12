@@ -12,7 +12,7 @@ pipeline {
     }
 
     environment {
-        GIT_REPO          = 'https://github.com/arivihan/adaptive-webview.git'
+        GIT_REPO          = 'https://github.com/arivihan/arivihan-webview.git'
         GITHUB_TOKEN      = credentials('GitHubAccessToken')
         SONAR_TOKEN       = credentials('SonarQubeToken')
 
