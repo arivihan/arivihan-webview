@@ -18,11 +18,11 @@ pipeline {
 
         AWS_REGION        = 'ap-south-1'
         ECR_REGISTRY      = '524814437057.dkr.ecr.ap-south-1.amazonaws.com'
-        ECR_REPO          = 'adaptive-webview'
+        ECR_REPO          = 'arivihan-webview'
         DOCKERFILE_PATH   = 'Dockerfile'
 
         SONARQUBE_ENV     = 'SonarQubeServer'
-        SONAR_PROJECT_KEY = 'adaptive-webview'
+        SONAR_PROJECT_KEY = 'arivihan-webview'
     }
 
     stages {
@@ -35,8 +35,8 @@ pipeline {
 
         stage('Clone Arivihan Webview Application') {
             steps {
-                dir('adaptive_webview_application') {
-                     git branch: "${ADAPTIVE_WEBVIEW_REPO_GIT_BRANCH}", url: "${GIT_REPO}", credentialsId: 'GitHubAccessToken'
+                dir('arivihan_webview_application') {
+                     git branch: "${ARIVIHAN_WEBVIEW_REPO_GIT_BRANCH}", url: "${GIT_REPO}", credentialsId: 'GitHubAccessToken'
                 }
             }
         }
@@ -44,7 +44,7 @@ pipeline {
         stage('Secrets Scan - Gitleaks') {
             steps {
                 echo "🔐 Running Gitleaks secret scan..."
-                dir('adaptive_webview_application') {
+                dir('arivihan_webview_application') {
                     sh '''
                         gitleaks detect --no-git --report-format json --report-path ../gitleaks-report.json || true
                         echo "✅ Gitleaks scan summary:"
@@ -56,7 +56,7 @@ pipeline {
 
         stage('Build Frontend Application') {
             steps {
-                dir('adaptive_webview_application') {
+                dir('arivihan_webview_application') {
                     sh """
                     node -v
                     npm -v
@@ -70,7 +70,7 @@ pipeline {
         stage('SAST - Semgrep') {
             steps {
                 echo "🧠 Running Semgrep static analysis..."
-                dir('adaptive_webview_application') {
+                dir('arivihan_webview_application') {
                     sh '''
                        semgrep --config p/ci --no-git-ignore --max-target-bytes=2500000 --json > ../semgrep-report.json || true
                     '''
@@ -82,7 +82,7 @@ pipeline {
             steps {
                 echo "🔍 Running SonarQube analysis..."
                 withSonarQubeEnv("${SONARQUBE_ENV}") {
-                    dir('adaptive_webview_application') {
+                    dir('arivihan_webview_application') {
                         sh '''
                           sonar-scanner \
                                 -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
@@ -101,7 +101,7 @@ pipeline {
         
         stage('Build Image') {
             steps {
-                dir('adaptive_webview_application'){
+                dir('arivihan_webview_application'){
 
                     script {
                         def date = new Date().format("yyyyMMdd")
@@ -130,7 +130,7 @@ pipeline {
 
         stage('Scan Image with Trivy') {
             steps {
-                dir('adaptive_webview_application') {
+                dir('arivihan_webview_application') {
                     container(name: 'builder') {
                         script {
                             sh '''
