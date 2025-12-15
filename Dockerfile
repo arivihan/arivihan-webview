@@ -7,6 +7,6 @@ COPY . .
 RUN CI=false npm run build
 
 FROM 524814437057.dkr.ecr.ap-south-1.amazonaws.com/base-images:nginx
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/build /usr/share/nginx/html
 EXPOSE 80
 CMD ["nginx", "-g", "daemon off;"]
