@@ -2,7 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-
 ::-webkit-scrollbar {
     background-color: transparent;
     width: 5px;
@@ -27,7 +26,10 @@
 .MathJax {
     overflow-x: auto !important;
     overflow-y: hidden;
-    padding-right: 30px;
+    /* padding-right: 30px;
+    background-color: red !important; */
+    padding: 10px !important;
+    background-color: red !important;
 }
 
 .receiveBubble p {
@@ -52,17 +54,38 @@
 
 /* Katex changes */
 .pstrut{
-    min-height: 3.1em !important;
+    /* min-height: 3.1em !important; */
 }
 .katex-display{
     overflow-x: auto !important;
-    padding: 12px !important;
+    /* padding: 12px !important; */
 }
 body{
     height: 100vh;
     overflow-y: hidden;
 }
 
+h1,h2,h3,h4,h5,h6{
+    font-size: 18px;
+    font-weight:600;
+    margin-bottom: 10px;
+}
+
+th,td{
+    border: 1px solid rgb(174, 174, 174) !important;
+}
+
+ul, ol {
+  list-style: none;         
+}
+
+b {
+  font-weight: bold !important;
+}
+
+u {
+  text-decoration: underline !important;
+}
 
 
 
@@ -80,3 +103,6 @@ body{
     animation: shimmer 8s infinite linear;
     background-size: 200% 100%;
 }
+
+
+

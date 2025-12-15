@@ -1,11 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { motion, AnimatePresence } from "framer-motion";
 import {
   bottomSuggestedQuestion,
   callClassifier,
   chatHistory,
   chatSessionId,
   chatType,
+  contextAnswer,
+  contextExtractedText,
+  contextImageUrl,
+  contextQuestion,
   doubtText,
   imageViewUrl,
   indexOfOptionSelection,
@@ -13,6 +18,7 @@ import {
   isFirstRequestLoaded,
   isStepWiseSolution,
   lastUserQuestion,
+  mockTestDoubt,
   showChatLoadShimmer,
   showDoubtChatLoader,
   showMicListentingUI,
@@ -24,6 +30,7 @@ import {
   waitingForResponse,
 } from "../state/instantGuruState";
 import {
+  callBackToPreviousActivity,
   changeSelectedCourse,
   chatClassifier,
   chatImageRequest,
@@ -32,6 +39,7 @@ import {
   chatResponseFeedback,
   getChatHistory,
   loadSuggestedQuestions,
+  logEventToFirebase,
   openDrawer,
   openFilePicker,
   openMicInput,
@@ -41,13 +49,12 @@ import {
   saveDoubtChat,
   scrollToBottom,
   setChatSessionIdInActivity,
-  showDoubtSubscriptionDialog,
   showToast,
   watchLectureNowTextClickAction,
 } from "../utils/instantGuruUtilsDev";
+import { showDoubtSubscriptionDialog } from "../utils/instantGuruUtilsDev";
 import { useSignals } from "@preact/signals-react/runtime";
 import { PulseLoader } from "react-spinners";
-import { MathJax } from "better-react-mathjax";
 import ImageCropModal from "../components/imageCropModal";
 import { ChatLoadShimmer } from "../components/chatLoadShimmer";
 import MicListeningUI from "../components/micListeningUi";
@@ -56,11 +63,28 @@ import OpenWhatsAppSheet from "../components/openWhatsappSheet";
 import { useTranslation } from "react-i18next";
 import Lottie from "react-lottie-player";
 import { Tooltip } from 'react-tooltip';
-import { HTMLResponseBubble, TextOptionBubble } from "../components/instant-guru/chatBubble";
 import suggestedQuestions from "../assets/suggested_question.json";
 import { set } from "firebase/database";
+import Only_Text_Response from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response";
+import PDF_container_response from "../components/instant_guru_classifier/PDF_container_response";
+import Video_Text_response from "../components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response";
+// import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
+// import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
+// import Multi_Model_paper_response from "../components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response";
+// import Whatsapp from "../components/instant_guru_classifier/Whatsapp_Query/Whatsapp";
+// import Subscription_response from "../components/instant_guru_classifier/Subscription_response/Subscription_response";
+import Question_response from "../components/instant_guru_classifier/Question_response/Question_response";
+import tipsData from "../assets/Time_pass_tips.json";
+import quotes1 from "../assets/quotes1.png"
+import { TextOptionBubble } from "../components/instant-guru/chatBubbleDev";
+import Only_Text_button from "../components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_button";
+import AtomImg from "../assets/icons/atom2.png"
+import { AiOutlineCamera } from "react-icons/ai";
+import Model_paper_response from "../components/instant_guru_classifier/Model_Paper_response/Model_Paper_response";
+import Multi_Video_response from "../components/instant_guru_classifier/Multi video response/Multi_Video_response";
+import Pdf_circle_mini_screen from "../components/PDF_Circle/Pdf_circle_mini_screen";
 
-
+import "../components/PDF_Circle/pdf-circle-and-web-view-common.css";
 
 const InstantGuruUIDev = () => {
   useSignals();
@@ -75,8 +99,11 @@ const InstantGuruUIDev = () => {
   const [showTooltipNumber, setShowTooltipNumber] = useState(0);
   const [tooltipTimeout, setTooltipTimeout] = useState(null);
   const [subscriptionExpired, setSubscriptionExpired] = useState(false);
+  const [index, setIndex] = useState(0);
+  const [messages, setMessages] = useState([]);
 
   const handleImageIconClick = (e) => {
+    logEventToFirebase("doubt_chat_image_button_click")
 
     if (subscriptionExpired) {
       showDoubtSubscriptionDialog();
@@ -94,6 +121,36 @@ const InstantGuruUIDev = () => {
     }
     openFilePicker();
   }
+  useEffect(() => {
+    const urlParams = new URLSearchParams(window.location.search);
+    let uLanguage = urlParams.get("language");
+    let uSubject = urlParams.get("subject").toLowerCase();
+
+    let selectedTips =
+      tipsData.filter(
+        (item) =>
+          item.subject.toLowerCase() === uSubject &&
+          item.course === "board" &&
+          item.language === uLanguage
+      );
+
+    if (selectedTips.length > 0) {
+      selectedTips = selectedTips[0].tips
+    }
+
+
+    setMessages(selectedTips);
+  }, []);
+
+
+
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setIndex((prev) => (prev + 1) % messages.length);
+    }, 4000); // 3 sec hold + 1 sec animation
+    return () => clearInterval(interval);
+  }, [messages]);
 
   window.processCroppedImage = (base64Image) => {
     if (base64Image) {
@@ -129,13 +186,18 @@ const InstantGuruUIDev = () => {
     }
   }
 
-  window.showDoubtSubscriptionDialog = () => {
-    setSubscriptionExpired(true);
+  try{
+      window.showDoubtSubscriptionDialog = () => {
+        setSubscriptionExpired(true); 
+      }
+  }catch(e){
+    console.log("Error in setting subscription dialog function", e);
   }
 
   window.processMicInput = (input) => {
     doubtText.value = input;
   }
+
 
   window.showTooltips = (show) => {
     setShowTooltips(show);
@@ -147,6 +209,36 @@ const InstantGuruUIDev = () => {
 
   window.showSuggestion = () => {
     showSuggestions.value = true;
+  }
+
+  window.setContextForChat = (contextData) => {
+
+    console.log(contextData);
+    isFirstDoubt.value = false;
+    chatType.value = "SectionType.SUBJECT_RELATED";
+    mockTestDoubt.value = true;
+    contextAnswer.value = contextData.response;
+    contextQuestion.value = contextData.extractedText;
+    contextImageUrl.value = contextData.screenshotUrl;
+    contextExtractedText.value = contextData.extractedText ?? contextData.screenshotUrl;
+    callClassifier.value = false;
+
+
+    if (contextData.showResponseBubble) {
+      chatHistory.value = [];
+      chatHistory.value = [...chatHistory.value, {
+        "botResponse": contextData.response,
+        "responseType": "HTML",
+        "showBotAvatar": true,
+        "userQuery": "",
+        "needFeedback": true,
+      }]
+    }
+
+    if (contextData.origin == "PDF_CIRCLE") {
+      document.getElementById("newChatBtn").innerText = t("back_to_notes");
+    }
+
   }
 
   useEffect(() => {
@@ -198,11 +290,11 @@ const InstantGuruUIDev = () => {
     }
     if (doubtText.value.split(" ").length > 2 || isStepWiseSolution.value === true) {
       suggestedDoubtAsked.value = true;
-      chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%]'><p>${doubtText}</p></div>`;
+      chatContainer.innerHTML += `<div class='px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[8px] max-w-[64%] break-words '><p>${doubtText}</p></div>`;
       chatContainer.scrollTop = chatContainer.scrollHeight;
-      if ((chatType.value === null || chatType.value !== "subject_based") && callClassifier.value == true) {
+      if ((chatType.value === null || chatType.value !== "SectionType.SUBJECT_RELATED" || chatType.value !== "subject_based") && callClassifier.value == true) {
         chatClassifier(doubtText.value);
-      } else if (chatType.value === "subject_based") {
+      } else {
         postNewChat(doubtText.value);
       }
       lastUserQuestion.value = doubtText.value;
@@ -213,6 +305,7 @@ const InstantGuruUIDev = () => {
   };
 
   const handleMicIconClick = () => {
+    logEventToFirebase("doubt_chat_mic_button_click")
     if (subscriptionExpired) {
       showDoubtSubscriptionDialog();
       return;
@@ -221,7 +314,13 @@ const InstantGuruUIDev = () => {
   };
 
   const handleNewChat = () => {
-    openNewChat();
+    logEventToFirebase("doubt_chat_new_chat_button_click")
+
+    if (contextAnswer.value) {
+      callBackToPreviousActivity();
+    } else {
+      openNewChat();
+    }
   }
 
 
@@ -261,13 +360,28 @@ const InstantGuruUIDev = () => {
   useEffect(() => {
     const chatContainer = document.getElementById("chat-container");
     chatContainer.scrollTop = chatContainer.scrollHeight + 800;
+
+    if (chatContainer) {
+      const tables = chatContainer.querySelectorAll("table");
+      tables.forEach((table) => {
+      if (!table.parentElement.classList.contains("table-scroll-x")) {
+        const wrapper = document.createElement("div");
+        wrapper.style.overflowX = "auto";
+        wrapper.style.width = "100%";
+        wrapper.className = "table-scroll-x";
+        table.parentElement.insertBefore(wrapper, table);
+        wrapper.appendChild(table);
+      }
+      table.parentElement.scrollLeft = table.parentElement.scrollWidth;
+      });
+    }
   }, [chatHistory.value, showDoubtChatLoader.value]);
 
 
- 
+
 
   return (
-    <div className="font-sans h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
+    <div className="font-sans flex flex-col justify-between h-screen overflow-hidden" onClick={() => { if (showTooltips && showTooltipNumber < 4) { setShowTooltipNumber(showTooltipNumber + 1) } }}>
       <div className="flex items-center px-4 py-2 h-[64px]">
         <Tooltip
           content={t("click_here_for_old_questions")}
@@ -277,7 +391,8 @@ const InstantGuruUIDev = () => {
           style={{ backgroundColor: "#211F27", borderRadius: 10 }}
         />
         <img id="open-drawer-btn" src={require("../assets/icons/icon_menu_home.png")} className="w-7" onClick={() => { openDrawer() }} />
-        <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
+        <h1 className="ml-4 mt-3 text-lg font-bold">Instant Guru</h1>
+
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
           {/* <Lottie
             loop
@@ -290,18 +405,17 @@ const InstantGuruUIDev = () => {
             {
               isFirstDoubt.value === false
                 ?
-                <div className="absolute rounded-[10px] inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-shimmer">
+                <div className="absolute rounded-[10px]  inset-0 bg-gradient-to-r from-transparent via-primary/20 to-transparent animate-shimmer">
                 </div>
                 : null
             }
           </div>
-          <span className="absolute text-sm">{t("newChat")}</span>
+          <span className="absolute text-sm" id="newChatBtn">{t("newChat")}</span>
         </div>
         {/* <button className="ml-auto bg-[#f6f6f6] text-sm px-4 py-1 rounded-[8px] border border-[#e8e9eb]">
           {t("newChat")}
         </button> */}
       </div>
-
 
       {
         showWhatsappBottomSheet.value === true && <OpenWhatsAppSheet />
@@ -315,8 +429,11 @@ const InstantGuruUIDev = () => {
         showMicListentingUI.value === true && <MicListeningUI />
       }
 
+
+
+
       <div
-        className={`p-4 overflow-y-auto  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-94px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
+        className={`p-4 overflow-y-auto overflow-x-hidden  ${isFirstDoubt.value === false || suggestedDoubtAsked.value === true || bottomSuggestedQuestion.value.length < 1 || suggestionAdded.value === true ? 'h-[calc(100%-64px-64px)]' : 'h-[calc(100%-64px-94px-64px)]'} flex flex-col scroll-smooth gap-4`}
         id="chat-container"
       >
 
@@ -352,7 +469,7 @@ const InstantGuruUIDev = () => {
                     />
                   </div>
                 ) : (
-                  <div className="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%]">
+                  <div className="px-3 py-2 bg-[#d2f8f9] ml-auto text-sm rounded-[12px] max-w-[64%] break-all ">
                     <p className="text-sm">{chat.userQuery}</p>
                   </div>
                 )
@@ -373,28 +490,129 @@ const InstantGuruUIDev = () => {
                   null
               }
 
-              <TextOptionBubble chat={chat} chatIndex={hIndex} />
-              <HTMLResponseBubble chat={chat} chatIndex={hIndex} />
+              {/* <TextOptionBubble chat={chat} chatIndex={hIndex} /> */}
+              {/* <HTMLResponseBubble chat={chat} chatIndex={hIndex} /> */}
+
+              {
+                chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && chat.optionResponse !== undefined && chat.optionResponse !== null
+                &&
+                <TextOptionBubble chat={chat} chatIndex={hIndex} />
+
+              }
+
+
+
+              {
+                chat.botResponse !== null && chat.botResponse !== "" && (chat.responseType === "TEXT" || chat.responseType === "HTML")
+                &&
+                <Only_Text_Response chat={chat} chatIndex={hIndex} />
+              }
+
+              {/* {
+                chat.responseType === "HTML_LINKS"
+                &&
+                <Only_Text_Response chat={chat} chatIndex={hIndex} />
+              } */}
+
+              {
+                chat.responseType !== null && chat.responseType !== "" && (chat.responseType === "HTML_PDF")
+                &&
+                <PDF_container_response chat={chat} chatIndex={hIndex} />
+              }
+
+              {
+                chat.responseType === "HTML_ACTIVITY"
+                &&
+                <Only_Text_button chat={chat} chatIndex={hIndex} />
+              }
+
+              {
+                chat.responseType === "HTML_VIDEO"
+                &&
+                <Video_Text_response chat={chat} chatIndex={hIndex} />
+              }
+
 
             </div>
           );
         })}
 
+        {/* Loader + Important Questions block */}
         {showDoubtChatLoader.value === true ? (
-          <div className="flex items-center mt-6">
-            <img
-              src={require("../assets/icons/icon_chat_avatar.png")}
-              className="h-[40px] w-[40px] object-contain mr-2"
-            />
-            <PulseLoader
-              color="#26c6da"
-              loading={true}
-              size={10}
-              aria-label="Loading Spinner"
-              data-testid="loader"
-            />
+          <div className="flex flex-col gap-2">
+            <div className="flex items-center mt-6">
+              <img
+                src={require("../assets/icons/icon_chat_avatar.png")}
+                className="h-[32px] w-[32px] object-contain mr-2"
+              />
+              <p className=" text-[#37D3E7]"><b>Instant Guru</b></p>
+            </div>
+
+            <div className="flex gap-2 items-center">
+              <PulseLoader
+                color="#26c6da"
+                loading={true}
+                size={7}
+                aria-label="Loading Spinner"
+                data-testid="loader"
+              />
+              <p style={{ lineHeight: 1 }} className="text-sm font-semibold">
+                {t("read_till_answer_coming")}
+              </p>
+            </div>
+
+            {/* ⬇️ Important 1 marks questions block (sirf jab loader active ho) */}
+            <div className="w-[100.5%] mt-[38vh] overflow-hidden flex flex-col justify-end">
+              <p className="font-bold">{t("one_mark_question")}</p>
+
+              <div className="border-[#DFE6EC] gap-2 flex justify-center py-2 px-2 mt-2 border w-full rounded-xl">
+                {/* Static Image */}
+                <div className="w-[25px] h-[25px] flex-shrink-0">
+                  <img
+                    className="w-full h-full object-cover"
+                    src={quotes1}
+                    alt="quote"
+                  />
+                </div>
+
+                {/* Dynamic Text Carousel */}
+                <div className="w-[95%] relative py-1 overflow-x-hidden flex flex-col justify-between">
+                  <AnimatePresence mode="wait">
+                    <motion.p
+                      key={index}
+                      className="font-bold text-sm whitespace-pre-wrap break-words"
+                      initial={{ x: "100%", opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: "-100%", opacity: 0 }}
+                      transition={{ duration: 1 }}
+                    >
+                      {messages[index]}
+                    </motion.p>
+                  </AnimatePresence>
+
+                  {/* Fixed 5 Dots Pagination */}
+                  <div className="flex mr-8 items-center justify-center mt-2 gap-1">
+                    {[...Array(5)].map((_, i) => {
+                      const activeIndex = index % 5; // active dot calculation
+                      return (
+                        <div
+                          key={i}
+                          className={`h-1 rounded-full transition-all duration-300 ${activeIndex === i
+                            ? "bg-[#26c6da] w-4"
+                            : "bg-gray-300 w-1"
+                            }`}
+                        />
+                      );
+                    })}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
           </div>
         ) : null}
+
 
         {
           showChatLoadShimmer.value === true && <ChatLoadShimmer />
@@ -405,52 +623,98 @@ const InstantGuruUIDev = () => {
       {
         (suggestedDoubtAsked.value === false && suggestionAdded.value === false && isFirstDoubt.value == true && bottomSuggestedQuestion.value.length > 0)
         &&
-        <div className="flex flex-row items-center p-2 overflow-x-auto h-[64px]">
-          {
-            bottomSuggestedQuestion.value.map((item, index) => {
-              return (
-                <div onClick={() => {
-                  if (subscriptionExpired) {
-                    showDoubtSubscriptionDialog();
-                    return;
-                  }
+        <div className="relative w-full flex  items-end h-[60px] overflow-hidden">
+          <div className="flex whitespace-nowrap  animate-scroll">
+            {[...bottomSuggestedQuestion.value, ...bottomSuggestedQuestion.value].map(
+              (item, index) => (
+                <div
+                  onClick={() => {
+                    if (subscriptionExpired) {
+                      showDoubtSubscriptionDialog();
+                      return;
+                    }
 
-                  let question = suggestedQuestions.filter((question) => question.question === item.title)[0];
-                  chatHistory.value = [...chatHistory.value, {
-                    "botResponse": question.answer,
-                    "responseType": "HTML",
-                    "showBotAvatar": true,
-                    "userQuery": item.title
-                  }]
-                  isFirstDoubt.value = false;
-                  chatType.value = "subject_based";
-                  suggestedDoubtAsked.value = true;
-                  scrollToBottom();
-                  saveDoubtChat(item.title, question.answer);
-                }}
-                  key={index} className="white-space-nowrap bg-primary/5 p-2 rounded rounded-lg mx-1 flex-shrink-0">
-                  <p className="text-sm">{item.title}</p>
+                    let question = suggestedQuestions.find(
+                      (question) => question.question === item.title
+                    );
+                    chatHistory.value = [
+                      ...chatHistory.value,
+                      {
+                        botResponse: question.answer,
+                        responseType: "HTML",
+                        showBotAvatar: true,
+                        userQuery: item.title,
+                      },
+                    ];
+                    isFirstDoubt.value = false;
+                    chatType.value = "subject_based";
+                    suggestedDoubtAsked.value = true;
+                    scrollToBottom();
+                    saveDoubtChat(item.title, question.answer);
+                  }}
+                  key={index}
+                  className="bg-transparent border border-[#DFE6EC] p-1 rounded-lg mx-2 inline-flex items-center gap-2 flex-shrink-0 cursor-pointer hover:bg-primary/10 transition"
+                >
+                  <div className="w-[15px] h-[15px] flex-shrink-0">
+                    <img
+                      className="w-full h-full object-cover"
+                      src={AtomImg}
+                      alt=""
+                    />
+                  </div>
+                  <p className="text-sm text-[#000000]/70">{item.title}</p>
                 </div>
               )
-            })
-          }
+            )}
+          </div>
+
+          <style>{`
+    @keyframes scroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .animate-scroll {
+      display: inline-flex;
+      animation: scroll 30s linear infinite;
+      will-change: transform;
+    }
+  `}</style>
         </div>
+
       }
 
+      {/* the new crousal comtainer  */}
 
-      <div className="h-[94px] w-full flex items-center justify-center px-4">
-        <div className="border border-[#e8e9eb] rounded-lg bg-white flex items-center w-full overflow-hidden">
+      {/* the new crousal comtainer  */}
+
+
+      <div className="h-[64px] w-full flex items-center px-4">
+        <div className="border shadow border-[#e8e9eb] p-0.5 rounded-lg bg-white flex items-center w-full overflow-hidden">
           <Tooltip
             content={t("type_your_question")}
             anchorSelect="#text-input-field"
             isOpen={showTooltipNumber === 1}
             style={{ backgroundColor: "#211F27", borderRadius: 10 }}
           />
+          {
+            chatHistory.value.length < 3
+            &&
+            <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer shadow bg-[#26C6DA] rounded-md ml-1 flex justify-center items-center p-2 w-min-[6vh] h-min-[5vh] mr-1" onClick={handleImageIconClick}>
+              {/* <img
+                src={require("../assets/icons/icon_camera_black.png")}
+                className="h-5 object-contain"
+                alt="camera"
+              /> */}
+              <p className="text-white">
+                <AiOutlineCamera size={20} />
+              </p>
+            </label>
+          }
           <input
             type="text"
             id="text-input-field"
-            className="outline-none p-3 w-full text-sm"
-            placeholder={t("ask_anything")}
+            className="outline-none py-3 px-1 w-full text-[14px]"
+            placeholder={t("Type ya photo bhej kar pucho...")}
             value={doubtText.value}
             onChange={(e) => {
               if (subscriptionExpired) {
@@ -477,16 +741,12 @@ const InstantGuruUIDev = () => {
             isOpen={showTooltipNumber === 2}
             style={{ backgroundColor: "#211F27", borderRadius: 10 }}
           />
-          <label htmlFor="imageInputt" id="image-selection-icon" className="cursor-pointer mr-3" onClick={handleImageIconClick}>
-            <img
-              src={require("../assets/icons/icon_camera_black.png")}
-              className="h-7 object-contain"
-              alt="camera"
-            />
-          </label>
+          <div className="w-[2px] mr-2 h-[4.5vh] bg-[#DFE6EC]">
+
+          </div>
           <img
             src={require("../assets/icons/icon_send_msg_teal.png")}
-            className="h-6 mr-3"
+            className="h-5 mr-3"
             alt="send"
             onClick={newQuestion}
           />

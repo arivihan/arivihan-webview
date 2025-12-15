@@ -4,10 +4,15 @@ import {
   chatHistory,
   chatSessionId,
   chatType,
+  contextAnswer,
+  contextExtractedText,
+  contextImageUrl,
+  contextQuestion,
   giveResponseOption,
   isFirstDoubt,
   isFirstRequestLoaded,
   lastUserQuestion,
+  mockTestDoubt,
   showChatLoadShimmer,
   showDoubtChatLoader,
   showOptionSelection,
@@ -19,22 +24,6 @@ import {
 import suggestedQuestions from "../assets/suggested_question.json";
 import { analytics } from "../firebase";
 import { logEvent } from "firebase/analytics"
-import { S3Client, PutObjectCommand } from '@aws-sdk/client-s3';
-import { fromCognitoIdentityPool } from "@aws-sdk/credential-provider-cognito-identity";
-
-
-const REGION = "ap-south-1"; // Your region
-const BUCKET = "my-react-upload-bucket"; // Your bucket
-const IDENTITY_POOL_ID = "ap-south-1:xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx";
-
-const s3 = new S3Client({
-  region: REGION,
-  credentials: fromCognitoIdentityPool({
-    clientConfig: { region: REGION },
-    identityPoolId: IDENTITY_POOL_ID,
-  }),
-});
-
 
 
 const customAppRequest = (baseUrl, method = "GET", requestBody = null) => {
@@ -95,7 +84,7 @@ export const getChatHistory = () => {
         suggestedDoubtAsked.value = true;
         suggestionAdded.value = true;
         isFirstDoubt.value = false;
-        chatHistory.value = data;
+          chatHistory.value = data;
 
         callClassifier.value = false;
         chatType.value = 'subject_based';
@@ -140,30 +129,36 @@ export const postNewChat = (
   }
 
   let requestBody = JSON.stringify({
-    answer: answer,
+    answer: contextAnswer.value,
     chatSessionId: chatSessionId.value,
     doubtImageUrl: doubtImageUrl,
     firstDoubt: isFirstDoubt.value,
     giveOption: isFirstDoubt.value && requestType !== "IMAGE_HTML",
-    mockTestDoubt: mockQuestion === "true" ? true : false,
-    question: question,
+    mockTestDoubt: mockTestDoubt.value,
+    question: contextQuestion.value,
     requestType: requestType,
     selectedSubjectName: subject,
-    userQuery: userQuery,
-    imageQuery: imageQuery,
+    userQuery:  userQuery,
+    extractedText: contextExtractedText.value,
+    imageQuery: mockTestDoubt.value ? contextImageUrl.value :  imageQuery,
   });
+
+  console.log(requestBody);
+  
+
   customAppRequest('chat', 'POST', requestBody)
     .then(data => {
+      if (data.data[data.data.length - 1].showBotAvatar === false && chatHistory.value.length > 2) {
+        data.data[data.data.length - 1]['showBotAvatar'] = true;
+      }
+
+
+
       isFirstDoubt.value = false;
 
       if (chatSessionId.value !== null && chatSessionId.value !== "" && data.data[data.data.length - 1] && !data.data[data.data.length - 1].waitingForResponse) {
         updateDoubtStatus("SOLVED_SEEN");
       }
-
-      if (data.data[data.data.length - 1].showBotAvatar === false) {
-        data.data[data.data.length - 1]['showBotAvatar'] = true;
-      }
-
 
       if (subject === null || subject === "null") {
         subject = "Physics";
@@ -176,12 +171,19 @@ export const postNewChat = (
 
         if (chatSessionId.value === null || chatSessionId.value === "") {
           chatSessionId.value = data.data[data.data.length - 1].chatSesssionId;
-          isFirstDoubt.value = true;
-          data.data.forEach((chat) => {
-            setTimeout(() => {
-              chatHistory.value = [...chatHistory.value, chat];
-            }, 200)
-          })
+          if(mockTestDoubt.value != true){
+            isFirstDoubt.value = true;
+          }
+          if(chatHistory.length > 0){
+            mockTestDoubt.value = false;
+          }
+          if(!contextAnswer.value){
+            data.data.forEach((chat) => {
+              setTimeout(() => {
+                chatHistory.value = [...chatHistory.value, chat];
+              }, 200)
+            })
+          }
         } else {
           chatHistory.value = [...chatHistory.value, ...data.data];
         }
@@ -219,7 +221,10 @@ export const chatResponseFeedback = (chatMessageId, thumbsUp) => {
   const urlParams = new URLSearchParams(window.location.search);
   const subject = urlParams.get("subject");
 
-  showDoubtChatLoader.value = true;
+  // showDoubtChatLoader.value = true;
+
+
+  logEventToFirebase("doubt_chat_feedback", { messageId: chatMessageId, thumbsUp: thumbsUp });
 
   customAppRequest(`feedback/v2?responseId=${chatMessageId}&chatSessionId=${chatSessionId}&thumbsUp=${thumbsUp}&videoFeedback=false&selectedSubjectName=${subject}`)
     .then(data => {
@@ -307,12 +312,75 @@ export const chatImageRequest = (imageFile, userQuery = "") => {
 
 export function chatClassifier(message) {
   showDoubtChatLoader.value = true;
+  const urlParams = new URLSearchParams(window.location.search);
   const startTime = performance.now();
+  const board = urlParams.get("board");
 
-  customAppRequest(`chat-classifier?doubt=` + encodeURI(message))
+  if(board === "false" || board === false){
+    customAppRequest(`chat-classifier?doubt=` + encodeURI(message))
+        .then(data => {
+          chatType.value = data.result;
+          showDoubtChatLoader.value = false;    
+    
+          try {
+            const firebaseEventData = {
+              event: "chat_classifier_response",
+              result: data.result,
+              timestamp: Date.now(),
+              timeTakenMs: performance.now() - startTime,
+              doubt: message
+            };
+            if (analytics) {
+              logEvent(
+                analytics,
+                "chat_classifier_response",
+                firebaseEventData
+              )
+            }
+    
+          } catch (error) {
+            console.error("failed to push event :: " + error)
+          }
+    
+          if (data.result === "conversation_based") {
+            postNewChatConversation(message);
+          } else if (data.result !== "subject_based") {
+            showWhatsappBottomSheet.value = true;
+          } else if (data.result === "subject_based") {
+            isFirstDoubt.value = true;
+            postNewChat(message);
+          }
+
+          callClassifier.value = false;
+        })
+        .catch(error => {
+          console.error('Error:', error)
+        })
+    return;
+  }
+
+
+
+  customAppRequest(`chat-classifier-new`, "POST", JSON.stringify({
+    "class": "Class 12th",
+    "course": "Board",
+    "language": urlParams.get("language").toLocaleLowerCase() === "en" ? "english" : "hindi",
+    "requestType": "HTML",
+    "subjectName": urlParams.get("subject"),
+    "subscriptionStatus": "subscribed",
+    "userName": urlParams.get("username"),
+    "userQuery": message,
+    "chatSessionId": chatSessionId.value,
+    "firstDoubt": isFirstDoubt.value,
+  }))
     .then(data => {
-      chatType.value = data.result;
+      console.log(data);
+
+      chatType.value = data[0].sectionType;
       showDoubtChatLoader.value = false;
+      callClassifier.value = true;
+
+      isFirstDoubt.value = false;
 
 
       try {
@@ -335,13 +403,15 @@ export function chatClassifier(message) {
         console.error("failed to push event :: " + error)
       }
 
-      if (data.result === "conversation_based") {
-        postNewChatConversation(message);
-      } else if (data.result !== "subject_based") {
-        showWhatsappBottomSheet.value = true;
-      } else if (data.result === "subject_based") {
+
+      if (data[0].classifierResponseType === "SectionType.SUBJECT_RELATED") {
         isFirstDoubt.value = true;
         postNewChat(message);
+        callClassifier.value = false;
+      } else if (data[0].classifierResponseType === "SectionType.OPEN_WHATSAPP") {
+        showWhatsappBottomSheet.value = true;
+      } else {
+        chatHistory.value = [...chatHistory.value, ...data]
       }
     })
     .catch(error => {
@@ -410,7 +480,9 @@ export function loadSuggestedQuestions(addInChatHistory = false) {
   let courseNameMapping = {
     "1": "jee",
     "2": "board",
-    "3": "jee"
+    "3": "jee",
+    "7" :"commerce",
+    "8":"arts"
   }
 
   let classNameMapping = {
@@ -444,6 +516,35 @@ export function loadSuggestedQuestions(addInChatHistory = false) {
   }
 }
 
+export function logEventToFirebase(eventName, eventData = {}) {
+  try {
+    if (analytics) {
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = urlParams.get("userId");
+      const langauge = urlParams.get("language");
+      const subject = urlParams.get("subject");
+      const env = urlParams.get("env");
+
+      eventData = {
+        ...eventData,
+        userId: userId,
+        subject: subject,
+        langauge: langauge,
+        env: env,
+      }
+
+      logEvent(
+        analytics,
+        eventName,
+        eventData
+      )
+    }
+  } catch (error) {
+    console.error("failed to push event :: " + error)
+  }
+}
+
 export function scrollToBottom() {
   setTimeout(() => {
     const chatContainer = document.getElementById("chat-container");
@@ -461,6 +562,7 @@ export function showToast(message) {
 
 export function openDrawer() {
   if (typeof AndroidInterface !== 'undefined') {
+    logEventToFirebase("doubt_chat_open_drawer_button_clicked")
     window.AndroidInterface.openDrawer();
   } else {
     alert("AndroidInterface is not defined for drawer");
@@ -555,5 +657,58 @@ export function showDoubtSubscriptionDialog() {
     }
   } else {
     alert("AndroidInterface is not defined for showSubscriptionDialog");
+  }
+}
+
+
+
+export function openAppActivity(className, activityParams) {
+  console.log("OPEN_PARAMS :: " + JSON.stringify(className));
+
+  console.log("OPEN_PARAMS :: " + JSON.stringify(activityParams));
+
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      logEventToFirebase("doubt_chat_open_activity_clicked", { ...activityParams, className: className })
+      window.AndroidInterface.openActivity(className, JSON.stringify(activityParams));
+    } catch (error) {
+    }
+  } else {
+    alert("AndroidInterface is not defined for openActivity");
+  }
+}
+
+export function openPdf(url, title,notesType,subjectName) {
+
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      logEventToFirebase("doubt_chat_open_pdf_clicked", { url: url, title: title , notesType: notesType, subjectName: subjectName})
+      window.AndroidInterface.openPdf(url, title,notesType,subjectName);
+    } catch (error) {
+    }
+  } else {
+    alert("AndroidInterface is not defined for openActivity");
+  }
+}
+
+export function callBackToPreviousActivity() {
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      window.AndroidInterface.backToPreviousActivity();
+    } catch (error) {
+    }
+  } else {
+    alert("AndroidInterface is not defined for openActivity");
+  }
+}
+
+export function shareOnWhatssapp(content) {
+  if (typeof AndroidInterface !== 'undefined') {
+    try {
+      window.AndroidInterface.shareOnWhatsapp(content);
+    } catch (error) {
+    }
+  } else {
+    alert("AndroidInterface is not defined for shareOnWhatsapp");
   }
 }

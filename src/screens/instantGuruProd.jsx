@@ -47,7 +47,6 @@ import {
 } from "../utils/instantGuruUtilsProd";
 import { useSignals } from "@preact/signals-react/runtime";
 import { PulseLoader } from "react-spinners";
-import { MathJax } from "better-react-mathjax";
 import ImageCropModal from "../components/imageCropModal";
 import { ChatLoadShimmer } from "../components/chatLoadShimmer";
 import MicListeningUI from "../components/micListeningUi";
