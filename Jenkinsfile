@@ -61,6 +61,8 @@ pipeline {
                     node -v
                     npm -v
                     npm install -f
+                    export CI=false
+                    npm run build
                     """
                 }
             }
