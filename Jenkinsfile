@@ -61,7 +61,6 @@ pipeline {
                     node -v
                     npm -v
                     npm install -f
-                    npm run build
                     """
                 }
             }
