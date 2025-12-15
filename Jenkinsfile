@@ -60,7 +60,11 @@ pipeline {
                     sh """
                     node -v
                     npm -v
+                    ls -la
                     npm install -f
+                    export CI=false
+                    npm run build
+                    ls -la
                     """
                 }
             }
