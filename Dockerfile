@@ -2,7 +2,7 @@
 FROM 524814437057.dkr.ecr.ap-south-1.amazonaws.com/base-images:node-20 AS builder
 WORKDIR /app
 COPY package*.json ./
-RUN npm install
+RUN npm install -f
 COPY . .
 RUN npm run build
 
