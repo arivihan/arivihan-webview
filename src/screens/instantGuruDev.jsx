@@ -186,11 +186,11 @@ const InstantGuruUIDev = () => {
     }
   }
 
-  try{
-      window.showDoubtSubscriptionDialog = () => {
-        setSubscriptionExpired(true); 
-      }
-  }catch(e){
+  try {
+    window.showDoubtSubscriptionDialog = () => {
+      setSubscriptionExpired(true);
+    }
+  } catch (e) {
     console.log("Error in setting subscription dialog function", e);
   }
 
@@ -364,15 +364,15 @@ const InstantGuruUIDev = () => {
     if (chatContainer) {
       const tables = chatContainer.querySelectorAll("table");
       tables.forEach((table) => {
-      if (!table.parentElement.classList.contains("table-scroll-x")) {
-        const wrapper = document.createElement("div");
-        wrapper.style.overflowX = "auto";
-        wrapper.style.width = "100%";
-        wrapper.className = "table-scroll-x";
-        table.parentElement.insertBefore(wrapper, table);
-        wrapper.appendChild(table);
-      }
-      table.parentElement.scrollLeft = table.parentElement.scrollWidth;
+        if (!table.parentElement.classList.contains("table-scroll-x")) {
+          const wrapper = document.createElement("div");
+          wrapper.style.overflowX = "auto";
+          wrapper.style.width = "100%";
+          wrapper.className = "table-scroll-x";
+          table.parentElement.insertBefore(wrapper, table);
+          wrapper.appendChild(table);
+        }
+        table.parentElement.scrollLeft = table.parentElement.scrollWidth;
       });
     }
   }, [chatHistory.value, showDoubtChatLoader.value]);
@@ -725,6 +725,13 @@ const InstantGuruUIDev = () => {
               doubtText.value = e.target.value;
               suggestedDoubtAsked.value = e.target.value.length > 0;
             }}
+
+            onKeyDown={(e) => {
+              if (e.key === "Enter") {
+                newQuestion();
+              }
+            }}
+
           />
           <button onClick={handleMicIconClick} className="mr-3">
             <img
