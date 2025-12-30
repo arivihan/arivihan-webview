@@ -34,7 +34,7 @@ const customAppRequest = (baseUrl, method = "GET", requestBody = null) => {
   const env = urlParams.get("env");
   const board = urlParams.get("board");
 
-  return fetch(`https://platform-${env}.arivihan.com:443/arivihan-platform/secure/webview/doubt/${baseUrl}`, {
+  return fetch(`https://${env === "dev" ? "backend-dev" : "platform-prod"}.arivihan.com:443/arivihan-platform/secure/webview/doubt/${baseUrl}`, {
     method: method,
     body: requestBody,
     headers: {
@@ -287,7 +287,7 @@ export const chatImageRequest = (imageFile, userQuery = "") => {
 
   showDoubtChatLoader.value = true;
   fetch(
-    `https://platform-${env}.arivihan.com:443/arivihan-platform/secure/webview/doubt/upload/image`,
+    `https://${env === "dev" ? "backend-dev" : "platform-prod"}.arivihan.com:443/arivihan-platform/secure/webview/doubt/upload/image`,
     {
       method: "POST",
       headers: {
