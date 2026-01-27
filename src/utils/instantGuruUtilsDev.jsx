@@ -25,6 +25,9 @@ import suggestedQuestions from "../assets/suggested_question.json";
 import { analytics } from "../firebase";
 import { logEvent } from "firebase/analytics"
 
+function getSubdomainUsingEnv(env){
+  return env === "prod" ? "platform-prod" : "backend-" + env;
+}
 
 const customAppRequest = (baseUrl, method = "GET", requestBody = null) => {
   const urlParams = new URLSearchParams(window.location.search);
@@ -34,7 +37,7 @@ const customAppRequest = (baseUrl, method = "GET", requestBody = null) => {
   const env = urlParams.get("env");
   const board = urlParams.get("board");
 
-  return fetch(`https://${env === "dev" ? "backend-dev" : "platform-prod"}.arivihan.com:443/arivihan-platform/secure/webview/doubt/${baseUrl}`, {
+  return fetch(`https://${getSubdomainUsingEnv(env)}.arivihan.com:443/arivihan-platform/secure/webview/doubt/${baseUrl}`, {
     method: method,
     body: requestBody,
     headers: {
@@ -287,7 +290,7 @@ export const chatImageRequest = (imageFile, userQuery = "") => {
 
   showDoubtChatLoader.value = true;
   fetch(
-    `https://${env === "dev" ? "backend-dev" : "platform-prod"}.arivihan.com:443/arivihan-platform/secure/webview/doubt/upload/image`,
+    `https://${getSubdomainUsingEnv(env)}.arivihan.com:443/arivihan-platform/secure/webview/doubt/upload/image`,
     {
       method: "POST",
       headers: {

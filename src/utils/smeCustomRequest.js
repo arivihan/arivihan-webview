@@ -1,9 +1,12 @@
+import Cookies from 'js-cookie';
+
+
 function smeCustomRequest(path, method = "POST", body = {}) {
   let headers = {
     userId: localStorage.getItem("id") ?? "",
     "content-Type": "application/json",
-    Authorization: "Bearer " + localStorage.getItem("token") ?? "",
-    token: localStorage.getItem("token") ?? "",
+    Authorization: "Bearer " + Cookies.get("avToken") ?? "",
+    token: Cookies.get("avToken") ?? "",
   };
 
   let options = {

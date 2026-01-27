@@ -510,6 +510,20 @@
     ]
   },
   {
+    "subject": "sociology",
+    "course": "board",
+    "language": "hi",
+    "tips": [
+      "Q: समाजशास्त्र की परिभाषा किसने दी है? A: ए.आर. बर्नार्ड",
+      "Q: समाजशास्त्र के अध्ययन का मुख्य उद्देश्य क्या है? A: समाज के विभिन्न पहलुओं को समझना और उसका विश्लेषण करना",
+      "Q: 'सामाजिक कार्य' शब्द का प्रयोग किसने किया था? A: एम.वी. गिलिन",
+      "Q: समाज में धार्मिक मान्यताओं की भूमिका क्या है? A: धार्मिक मान्यताएँ समाज के सामाजिक ढांचे को प्रभावित करती हैं",
+      "Q: 'मूल्य और मानक' से तात्पर्य क्या है? A: मूल्य समाज द्वारा निर्धारित आदर्श और मानक होते हैं, जो व्यवहार को नियंत्रित करते हैं",
+      "Q: क्या है सामाजिक परिवर्तन? A: समाज में समय के साथ होने वाला परिवर्तन सामाजिक परिवर्तन कहलाता है",
+      "Q: 'जाति व्यवस्था' पर समाजशास्त्रियों का दृष्टिकोण क्या है? A: समाजशास्त्रियों का मानना है कि जाति व्यवस्था समाज में असमानता और भेदभाव का कारण है"
+    ]
+  },
+  {
     "subject": "ECONOMICS",
     "course": "board",
     "language": "en",
@@ -548,6 +562,20 @@
       "Q: Which debenture is issued without pledging any asset as security? A: Unsecured Debenture",
       "Q: What is the debenture called that is issued at a price lower than its face value? A: Debenture Issued at Discount",
       "Q: What is the situation called when more applications are received than the number of debentures issued? A: Over-subscription"
+    ]
+  },
+  {
+    "subject": "SOCIOLOGY",
+    "course": "board",
+    "language": "en",
+    "tips": [
+      "Q: What is society? A: Society is a group of people living together with shared norms and values",
+      "Q: What is meant by social institution? A: An organized system of social relationships to fulfill basic needs",
+      "Q: What is social stratification? A: The division of society into hierarchical layers",
+      "Q: What is meant by culture? A: The way of life of a group of people",
+      "Q: What is primary group? A: A small group based on close and personal relationships",
+      "Q: What is socialization? A: The process through which individuals learn social norms and values",
+      "Q: What is meant by social control? A: Methods used by society to regulate individual behavior"
     ]
   }
 ]
