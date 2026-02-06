@@ -86,7 +86,7 @@ const Only_Text_response = ({ chat, chatIndex }) => {
   return (
     <div className='w-full flex flex-col items-start gap-2 py-0'>
       {
-        chat.showBotAvatar 
+        chat.showBotAvatar  || chat.showAvatar
         &&
         <div className='flex items-center gap-2'>
           <div className='w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden'>

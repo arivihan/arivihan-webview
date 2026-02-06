@@ -87,7 +87,7 @@ export const getChatHistory = () => {
         suggestedDoubtAsked.value = true;
         suggestionAdded.value = true;
         isFirstDoubt.value = false;
-          chatHistory.value = data;
+        chatHistory.value = data;
 
         callClassifier.value = false;
         chatType.value = 'subject_based';
