@@ -87,7 +87,13 @@ export const getChatHistory = () => {
         suggestedDoubtAsked.value = true;
         suggestionAdded.value = true;
         isFirstDoubt.value = false;
-        chatHistory.value = data;
+      
+
+chatHistory.value = data.filter(item => {
+  if (!item) return true;
+  const text = typeof item === "string" ? item : JSON.stringify(item);
+  return !text.includes("Video Solution");
+});
 
         callClassifier.value = false;
         chatType.value = 'subject_based';
