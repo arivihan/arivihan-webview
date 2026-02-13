@@ -325,48 +325,48 @@ export function chatClassifier(message) {
   const startTime = performance.now();
   const board = urlParams.get("board");
 
-  if (board === "false" || board === false) {
-    customAppRequest(`chat-classifier?doubt=` + encodeURI(message))
-      .then(data => {
-        chatType.value = data.result;
-        showDoubtChatLoader.value = false;
+  // if (board === "false" || board === false) {
+  //   customAppRequest(`chat-classifier?doubt=` + encodeURI(message))
+  //     .then(data => {
+  //       chatType.value = data.result;
+  //       showDoubtChatLoader.value = false;
 
-        try {
-          const firebaseEventData = {
-            event: "chat_classifier_response",
-            result: data.result,
-            timestamp: Date.now(),
-            timeTakenMs: performance.now() - startTime,
-            doubt: message
-          };
-          if (analytics) {
-            logEvent(
-              analytics,
-              "chat_classifier_response",
-              firebaseEventData
-            )
-          }
+  //       try {
+  //         const firebaseEventData = {
+  //           event: "chat_classifier_response",
+  //           result: data.result,
+  //           timestamp: Date.now(),
+  //           timeTakenMs: performance.now() - startTime,
+  //           doubt: message
+  //         };
+  //         if (analytics) {
+  //           logEvent(
+  //             analytics,
+  //             "chat_classifier_response",
+  //             firebaseEventData
+  //           )
+  //         }
 
-        } catch (error) {
-          console.error("failed to push event :: " + error)
-        }
+  //       } catch (error) {
+  //         console.error("failed to push event :: " + error)
+  //       }
 
-        if (data.result === "conversation_based") {
-          postNewChatConversation(message);
-        } else if (data.result !== "subject_based") {
-          showWhatsappBottomSheet.value = true;
-        } else if (data.result === "subject_based") {
-          isFirstDoubt.value = true;
-          postNewChat(message);
-        }
+  //       if (data.result === "conversation_based") {
+  //         postNewChatConversation(message);
+  //       } else if (data.result !== "subject_based") {
+  //         showWhatsappBottomSheet.value = true;
+  //       } else if (data.result === "subject_based") {
+  //         isFirstDoubt.value = true;
+  //         postNewChat(message);
+  //       }
 
-        callClassifier.value = false;
-      })
-      .catch(error => {
-        console.error('Error:', error)
-      })
-    return;
-  }
+  //       callClassifier.value = false;
+  //     })
+  //     .catch(error => {
+  //       console.error('Error:', error)
+  //     })
+  //   return;
+  // }
 
 
 
