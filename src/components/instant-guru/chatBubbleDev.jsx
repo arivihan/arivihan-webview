@@ -21,12 +21,18 @@ export const TextOptionBubble = ({ chat, chatIndex, fullWidth = true }) => {
     return chat.botResponse !== null && chat.botResponse !== "" && chat.responseType === "TEXT_OPTION" && chat.optionResponse !== undefined && chat.optionResponse !== null ? (
         <div key="box" className="flex flex-col items-start">
 
-            {/* <div className='flex items-center gap-2'>
-                <div className='w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden'>
-                    <img className='h-full w-full object-cover' src={require("../../assets/icons/icon_chat_avatar.png")} alt="" />
+            {/* {
+                chat.showAvatar || chat.showBotAvatar
+                ?
+                <div className='flex items-center gap-2'>
+                    <div className='w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden'>
+                        <img className='h-full w-full object-cover' src={require("../../assets/icons/icon_chat_avatar.png")} alt="" />
+                    </div>
+                    <p className='font-bold text-sm text-[#37D3E7]'>Instant Guru</p>
                 </div>
-                <p className='font-bold text-sm text-[#37D3E7]'>Instant Guru</p>
-            </div> */}
+                :
+                null
+            } */}
 
             {/* {chat.showAvatar || chat.showBotAvatar ? (
                 <img
