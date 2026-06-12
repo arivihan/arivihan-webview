@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { IoIosArrowRoundDown } from "react-icons/io";
 import { IoIosArrowRoundUp } from "react-icons/io";
-import Global_like_dislike_response from './Global_like_dislike_response';
+import GlobalLikeDislikeResponse from './Global_like_dislike_response';
 import renderMathInElement from 'katex/contrib/auto-render';
 import SmilesRenderer from '../smileRenderer';
 import ReactDOM from "react-dom/client";
@@ -9,22 +9,33 @@ import "./pdf-circle-and-web-view-common.css";
 const Pdf_circle_mini_screen = () => {
   const contentRef = useRef(null);
   const containerRef = useRef(null);
-  const [mathLoaded, setMathLoaded] = useState(false);
-  const [showScrollToTop, setShowScrollToTop] = useState(false);
+const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [showScrollToBottom, setShowScrollToBottom] = useState(true);
   const [isScrollable, setIsScrollable] = useState(false);
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
-  const [responseId,setResponseId] = useState(null);
-    const [userId,setUserId] = useState(null);
+  const [responseId, setResponseId] = useState(null);
+  const [userId, setUserId] = useState(null);
+  const [userQuery, setUserQuery] = useState("");
+  const [subject, setSubject] = useState("");
+  const [extractedText, setExtractedText] = useState("");
+  const [screenshotUrl, setScreenshotUrl] = useState("");
+  const [pdfTitle, setPdfTitle] = useState("");
+  const [pageNumber, setPageNumber] = useState(null);
+  const [pageContext, setPageContext] = useState("");
 
-
-
-  window.showNotesDoubtResponse  = (res) => {
+  window.showNotesDoubtResponse = (res) => {
     setResponse(res.response);
     setTitle(res.title);
-    setResponseId(res.request_id);
+    setResponseId(res.request_id || res.requestId);
     setUserId(res.userId);
+    setUserQuery(res.userQuery || res.user_query || "");
+    setSubject(res.subject || "");
+    setExtractedText(res.extractedText || res.ocr_text || "");
+    setScreenshotUrl(res.screenshotUrl || res.screenshot_url || "");
+    setPdfTitle(res.pdfTitle || "");
+    setPageNumber(res.pageNumber ?? null);
+    setPageContext(res.pageContext || "");
   }
 
   // Scroll handler for showing/hiding scroll buttons
@@ -58,6 +69,28 @@ const handleScroll = () => {
       top: contentRef.current.scrollHeight,
       behavior: 'smooth'
     });
+  };
+
+  const handleOpenDoubtChat = () => {
+    console.log("ask doubt button clicked from pdf circle");
+    if (window.AndroidInterface?.openActivity) {
+      // const ctx = {
+      //   userQuery,
+      //   subject,
+      //   response,
+      //   showResponseBubble: true,
+      //   origin: "PDF_CIRCLE",
+      //   title,
+      //   extractedText,
+      //   screenshotUrl,
+      //   requestId: responseId,
+      //   pdfTitle,
+      //   pageNumber,
+      //   pageContext,
+      //   userId,
+      // };
+      window.AndroidInterface.openActivity("DoubtChatActivity");
+    }
   };
 useEffect(() => {
   const contentElement = contentRef.current;
@@ -155,7 +188,7 @@ useEffect(() => {
             <img src={require("../../assets/icons/icon_chat_avatar.png")} alt="" />
           </div>
           <div className="ml-4">
-            <p className="text-sm text-[#37D3E7] font-bold">Instant Guru</p>
+            <p className="text-md text-[#37D3E7] font-bold">Instant Guru</p>
           </div>
         </div>
 
@@ -174,14 +207,14 @@ useEffect(() => {
           <div className='whitespace-normal text-[15px]' dangerouslySetInnerHTML={{ __html: response.replaceAll("(bold)<b>", "</b>").replaceAll(/(\n){2,}/g, '</br>') }} ref={containerRef} />
 
           {/* Hamesha neeche render hoga */}
-          <Global_like_dislike_response isPDFCircle={true} responseId={responseId} userId={userId} />
+          <GlobalLikeDislikeResponse isPDFCircle={true} responseId={responseId} userId={userId} />
           <div className='h-[20vh]'></div>
         </div>
 
 
         {/* Scroll to Top Button */}
         {isScrollable && showScrollToTop && (
-          <div className="absolute bottom-[15vh] left-[50%] -translate-x-[50%] group">
+          <div className="absolute bottom-[19vh] left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
               className="bg-[#000000CC]/80 hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
@@ -197,7 +230,7 @@ useEffect(() => {
 
         {/* Scroll to Bottom Button */}
         {isScrollable && showScrollToBottom && (
-          <div className="absolute bottom-[15vh] left-[50%] -translate-x-[50%] group ">
+          <div className="absolute bottom-[19vh] left-[50%] -translate-x-[50%] group ">
             <button
               onClick={scrollToBottom}
               className="bg-[#000000CC]/80  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
@@ -205,10 +238,22 @@ useEffect(() => {
               <p className="text-sm flex items-center">Neeche jayein <p className='text-xl'><IoIosArrowRoundDown /></p> </p>
             </button>
             {/* Tooltip */}
-
+              
           </div>
         )}
+       
+        <div className="relative w-screen h-[15vh]">
+  {/* Blurred background */}
+  <div className="absolute inset-0 bg-white/60 backdrop-blur-md pointer-events-none"></div>
 
+  {/* Content */}
+  <div className="relative z-10 flex justify-center items-center mt-3">
+    <button onClick={handleOpenDoubtChat} className="px-16 py-3 bg-[#26C6DA] rounded-full flex items-center gap-4">
+      <span className='text-white font-bold text-[4.5vw]'>Doubt Chat mein pucho</span>
+      <img className='w-[16px]' src="/arrow-right.png" alt="arrow" />
+    </button>
+  </div>
+</div>
 
         <div className='w-full p-2 bg-white border-t border-gray-100'></div>
       </div>
