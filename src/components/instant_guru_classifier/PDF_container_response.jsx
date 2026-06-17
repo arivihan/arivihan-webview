@@ -6,6 +6,7 @@ import { Document, pdfjs } from "react-pdf";
 import Only_Text_PDF from "./Only_Text_response-Componenets/Only_Text_PDF";
 import Only_Text_Discription from "./Only_Text_response-Componenets/Only_Text_Discription";
 import Global_like_dislike_response from "./Global_like_dislike_response";
+import LatexComponent from "../latexComponent";
 
 // ✅ Worker setup (use public folder, no CDN, no ?url)
 pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdf.worker.min.js`;
@@ -59,7 +60,9 @@ const PDF_container_response = ({ chat }) => {
       </div>
 
       {/* Description */}
-      <Only_Text_Discription chat={chat} />
+      <LatexComponent latexContent={chat.botResponse}/>
+
+      {/* <Only_Text_Discription chat={chat} /> */}
 
       <hr />
 
