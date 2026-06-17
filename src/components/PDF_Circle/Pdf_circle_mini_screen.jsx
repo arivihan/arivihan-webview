@@ -208,13 +208,27 @@ useEffect(() => {
 
           {/* Hamesha neeche render hoga */}
           <GlobalLikeDislikeResponse isPDFCircle={true} responseId={responseId} userId={userId} />
-          <div className='h-[20vh]'></div>
+
+          {/* Ask More button - inline at end of content */}
+          <div className='flex justify-end mt-4 mb-8 pr-2'>
+            <div className="relative flex items-center justify-center w-[72px] h-[72px]">
+              {/* Pulse rings */}
+              <span className="absolute inline-flex w-[58px] h-[58px] rounded-full bg-[#26C6DA] opacity-40 pulse-ring" />
+              <span className="absolute inline-flex w-[58px] h-[58px] rounded-full bg-[#26C6DA] opacity-20 pulse-ring-delayed" />
+              <button
+                onClick={handleOpenDoubtChat}
+                className="relative w-[72px] h-[72px] bg-[#26C6DA] rounded-full flex flex-col items-center justify-center shadow-lg active:scale-95 transition-transform z-10"
+              >
+                <span className='text-white font-bold text-[15px] leading-[14px] text-center'>Ask<br />More?</span>
+              </button>
+            </div>
+          </div>
         </div>
 
 
         {/* Scroll to Top Button */}
         {isScrollable && showScrollToTop && (
-          <div className="absolute bottom-[19vh] left-[50%] -translate-x-[50%] group">
+          <div className="absolute bottom-24 left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
               className="bg-[#000000CC]/80 hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
@@ -222,40 +236,20 @@ useEffect(() => {
               <p className='text-sm flex items-center'>Upar jayein <p className='text-xl'><IoIosArrowRoundUp /></p>
               </p>
             </button>
-            {/* Tooltip */}
-
           </div>
         )}
-
 
         {/* Scroll to Bottom Button */}
         {isScrollable && showScrollToBottom && (
-          <div className="absolute bottom-[19vh] left-[50%] -translate-x-[50%] group ">
+          <div className="absolute bottom-24 left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToBottom}
-              className="bg-[#000000CC]/80  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
+              className="bg-[#000000CC]/80 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
             >
               <p className="text-sm flex items-center">Neeche jayein <p className='text-xl'><IoIosArrowRoundDown /></p> </p>
             </button>
-            {/* Tooltip */}
-              
           </div>
         )}
-       
-        <div className="relative w-screen h-[15vh]">
-  {/* Blurred background */}
-  <div className="absolute inset-0 bg-white/60 backdrop-blur-md pointer-events-none"></div>
-
-  {/* Content */}
-  <div className="relative z-10 flex justify-center items-center mt-3">
-    <button onClick={handleOpenDoubtChat} className="px-16 py-3 bg-[#26C6DA] rounded-full flex items-center gap-4">
-      <span className='text-white font-bold text-[4.5vw]'>Doubt Chat mein pucho</span>
-      <img className='w-[16px]' src="/arrow-right.png" alt="arrow" />
-    </button>
-  </div>
-</div>
-
-        <div className='w-full p-2 bg-white border-t border-gray-100'></div>
       </div>
     </div>
   );
