@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CgGoogle } from 'react-icons/cg';
 import { FaGoogle } from 'react-icons/fa';
 import { smeCustomRequest } from '../utils/smeCustomRequest';
@@ -27,6 +27,12 @@ export default function LoginScreen() {
             }
         })
     }
+
+    useEffect(()=>{
+        if(Cookies.get("avToken")){
+            navigate("/sme-home");
+        }
+    },[])
 
     return (
         <div className="w-full h-screen flex">

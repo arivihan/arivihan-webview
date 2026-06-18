@@ -10,6 +10,8 @@ const Only_Text_Discription = ({chat}) => {
     className="list-disc pl-5 space-y-1 text-sm text-gray-700"
     dangerouslySetInnerHTML={{ __html: chat.botResponse }}
   />
+
+  {/* <LatextCo */}
 </div>
   )
 }
