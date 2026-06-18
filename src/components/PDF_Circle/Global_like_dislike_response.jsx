@@ -5,6 +5,10 @@ import { chatResponseFeedback, shareOnWhatssapp } from "../../utils/instantGuruU
 import { IoShareSocialOutline } from "react-icons/io5";
 import { useTranslation } from "react-i18next";
 
+const PDF_CIRCLE_API_BASE = process.env.NODE_ENV === 'production'
+  ? 'https://ml-pdf-circle-prod.arivihan.com'
+  : 'https://ml-pdf-circle-stage.arivihan.com';
+
 const Global_like_dislike_response = ({ chat , isPDFCircle = false ,responseId = null,userId = null}) => {
   const [liked, setLiked] = useState(false);
   const [disliked, setDisliked] = useState(false);
@@ -17,19 +21,24 @@ const Global_like_dislike_response = ({ chat , isPDFCircle = false ,responseId =
   };
 
   const handleLike = () => {
-          if (cooldown) return; // agar cooldown hai to ignore
-    if(isPDFCircle){
-    fetch(`http://103.119.171.58:5001/api/v1/explain/like/${responseId}?user_id=${userId}&liked=false`, {
-        method: "PATCH",
-        headers: {
-          "accept": "application/json",
-          "Content-Type": "application/x-www-form-urlencoded",
-        }
-      });
+    if (cooldown) return;
+    if (isPDFCircle) {
+      if (responseId) {
+        fetch(`${PDF_CIRCLE_API_BASE}/api/v1/explain/like/${responseId}`, {
+          method: "PATCH",
+          headers: {
+            "accept": "application/json",
+          },
+          body: new URLSearchParams({
+            user_id: userId,
+            liked: "false",
+          }),
+        }).catch(() => {});
+      }
       setLiked(!liked);
       if (!liked && disliked) setDisliked(false);
       startCooldown();
-    }else{
+    } else {
       chatResponseFeedback(chat.responseId, true);
       setLiked(!liked);
       if (!liked && disliked) setDisliked(false);
@@ -39,21 +48,23 @@ const Global_like_dislike_response = ({ chat , isPDFCircle = false ,responseId =
 
   const handleDislike = () => {
     if (cooldown) return;
-    if(isPDFCircle){
-      fetch(`http://103.119.171.58:5001/api/v1/explain/like/${responseId}`, {
-        method: "PATCH",
-        headers: {
-          "accept": "application/json",
-        },
-        body: new URLSearchParams({
-          user_id: userId,
-          liked: "true",
-        }),
-      });
+    if (isPDFCircle) {
+      if (responseId) {
+        fetch(`${PDF_CIRCLE_API_BASE}/api/v1/explain/like/${responseId}`, {
+          method: "PATCH",
+          headers: {
+            "accept": "application/json",
+          },
+          body: new URLSearchParams({
+            user_id: userId,
+            liked: "true",
+          }),
+        }).catch(() => {});
+      }
       setDisliked(!disliked);
       if (!disliked && liked) setLiked(false);
       startCooldown();
-    }else{
+    } else {
       chatResponseFeedback(chat.responseId, false);
       setDisliked(!disliked);
       if (!disliked && liked) setLiked(false);
