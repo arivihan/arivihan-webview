@@ -213,8 +213,8 @@ useEffect(() => {
           <div className='flex justify-end mt-4 mb-[15vh] pr-2'>
             <div className="relative flex items-center justify-center w-[62px] h-[62px]">
               {/* Pulse rings - pointer-events-none so they never block taps */}
-              <span className="absolute inline-flex w-[62px] h-[62px] rounded-full bg-[#26C6DA] opacity-40 pulse-ring pointer-events-none" />
-              <span className="absolute inline-flex w-[62px] h-[62px] rounded-full bg-[#26C6DA] opacity-20 pulse-ring-delayed pointer-events-none" />
+              <span className="absolute inline-flex w-[52px] h-[52px] rounded-full bg-[#26C6DA] opacity-30 pulse-ring pointer-events-none" />
+              <span className="absolute inline-flex w-[52px] h-[52px] rounded-full bg-[#26C6DA] opacity-10 pulse-ring-delayed pointer-events-none" />
               <button
                 onClick={handleOpenDoubtChat}
                 className="relative w-[62px] h-[62px] bg-[#26C6DA] rounded-full flex flex-col items-center justify-center shadow-lg active:scale-95 transition-transform z-10"
