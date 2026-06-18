@@ -210,14 +210,14 @@ useEffect(() => {
           <GlobalLikeDislikeResponse isPDFCircle={true} responseId={responseId} userId={userId} />
 
           {/* Ask More button - inline at end of content */}
-          <div className='flex justify-end mt-4 mb-8 pr-2'>
-            <div className="relative flex items-center justify-center w-[72px] h-[72px]">
-              {/* Pulse rings */}
-              <span className="absolute inline-flex w-[58px] h-[58px] rounded-full bg-[#26C6DA] opacity-40 pulse-ring" />
-              <span className="absolute inline-flex w-[58px] h-[58px] rounded-full bg-[#26C6DA] opacity-20 pulse-ring-delayed" />
+          <div className='flex justify-end mt-4 mb-[15vh] pr-2'>
+            <div className="relative flex items-center justify-center w-[62px] h-[62px]">
+              {/* Pulse rings - pointer-events-none so they never block taps */}
+              <span className="absolute inline-flex w-[62px] h-[62px] rounded-full bg-[#26C6DA] opacity-40 pulse-ring pointer-events-none" />
+              <span className="absolute inline-flex w-[62px] h-[62px] rounded-full bg-[#26C6DA] opacity-20 pulse-ring-delayed pointer-events-none" />
               <button
                 onClick={handleOpenDoubtChat}
-                className="relative w-[72px] h-[72px] bg-[#26C6DA] rounded-full flex flex-col items-center justify-center shadow-lg active:scale-95 transition-transform z-10"
+                className="relative w-[62px] h-[62px] bg-[#26C6DA] rounded-full flex flex-col items-center justify-center shadow-lg active:scale-95 transition-transform z-10"
               >
                 <span className='text-white font-bold text-[15px] leading-[14px] text-center'>Ask<br />More?</span>
               </button>
