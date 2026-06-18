@@ -12,6 +12,7 @@ const Pdf_circle_mini_screen = () => {
 const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [showScrollToBottom, setShowScrollToBottom] = useState(true);
   const [isScrollable, setIsScrollable] = useState(false);
+  const [isAtTop, setIsAtTop] = useState(true);
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
   const [responseId, setResponseId] = useState(null);
@@ -43,12 +44,12 @@ const handleScroll = () => {
   if (!contentRef.current) return;
   const { scrollTop, scrollHeight, clientHeight } = contentRef.current;
 
-  const isAtBottom = scrollTop + clientHeight >= scrollHeight - 5;
+  const atBottom = scrollTop + clientHeight >= scrollHeight - 5;
+  const atTop = scrollTop < 5;
 
-  setShowScrollToTop(isAtBottom);
-  setShowScrollToBottom(!isAtBottom);
-  setShowScrollToTop(isAtBottom);
-  setShowScrollToBottom(!isAtBottom);
+  setIsAtTop(atTop);
+  setShowScrollToTop(atBottom);
+  setShowScrollToBottom(!atBottom);
 };
 
 
@@ -208,13 +209,29 @@ useEffect(() => {
 
           {/* Hamesha neeche render hoga */}
           <GlobalLikeDislikeResponse isPDFCircle={true} responseId={responseId} userId={userId} />
-          <div className='h-[20vh]'></div>
+          <div className='h-8' />
         </div>
 
+        {/* Ask More - fixed inside panel, visible only at scroll top */}
+        <div
+          className="absolute bottom-[10vh] right-[4vh] z-20 transition-opacity duration-300"
+          style={{ opacity: (isAtTop || showScrollToTop) ? 1 : 0, pointerEvents: (isAtTop || showScrollToTop) ? 'auto' : 'none' }}
+        >
+          <div className="relative flex items-center justify-center w-[62px] h-[62px]">
+            <span className="absolute inline-flex w-[62px] h-[62px] rounded-full bg-[#26C6DA] opacity-40 pulse-ring pointer-events-none" />
+            <span className="absolute inline-flex w-[62px] h-[62px] rounded-full bg-[#26C6DA] opacity-20 pulse-ring-delayed pointer-events-none" />
+            <button
+              onClick={handleOpenDoubtChat}
+              className="relative w-[62px] h-[62px] bg-[#26C6DA] rounded-full flex flex-col items-center justify-center shadow-lg active:scale-95 transition-transform z-10"
+            >
+              <span className='text-white font-bold text-[15px] leading-[14px] text-center'>Ask<br />More?</span>
+            </button>
+          </div>
+        </div>
 
         {/* Scroll to Top Button */}
         {isScrollable && showScrollToTop && (
-          <div className="absolute bottom-[19vh] left-[50%] -translate-x-[50%] group">
+          <div className="absolute bottom-24 left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
               className="bg-[#000000CC]/80 hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
@@ -222,40 +239,20 @@ useEffect(() => {
               <p className='text-sm flex items-center'>Upar jayein <p className='text-xl'><IoIosArrowRoundUp /></p>
               </p>
             </button>
-            {/* Tooltip */}
-
           </div>
         )}
-
 
         {/* Scroll to Bottom Button */}
         {isScrollable && showScrollToBottom && (
-          <div className="absolute bottom-[19vh] left-[50%] -translate-x-[50%] group ">
+          <div className="absolute bottom-24 left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToBottom}
-              className="bg-[#000000CC]/80  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
+              className="bg-[#000000CC]/80 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
             >
               <p className="text-sm flex items-center">Neeche jayein <p className='text-xl'><IoIosArrowRoundDown /></p> </p>
             </button>
-            {/* Tooltip */}
-              
           </div>
         )}
-       
-        <div className="relative w-screen h-[15vh]">
-  {/* Blurred background */}
-  <div className="absolute inset-0 bg-white/60 backdrop-blur-md pointer-events-none"></div>
-
-  {/* Content */}
-  <div className="relative z-10 flex justify-center items-center mt-3">
-    <button onClick={handleOpenDoubtChat} className="px-16 py-3 bg-[#26C6DA] rounded-full flex items-center gap-4">
-      <span className='text-white font-bold text-[4.5vw]'>Doubt Chat mein pucho</span>
-      <img className='w-[16px]' src="/arrow-right.png" alt="arrow" />
-    </button>
-  </div>
-</div>
-
-        <div className='w-full p-2 bg-white border-t border-gray-100'></div>
       </div>
     </div>
   );

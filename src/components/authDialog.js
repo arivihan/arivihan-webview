@@ -7,6 +7,17 @@ import { effect } from '@preact/signals-react';
 import { customFetchRequest } from '../utils/customRequest';
 import Cookies from 'js-cookie';
 
+function getSubdomainUsingEnv() {
+  const hostname = window.location.hostname;
+
+  const subdomain = hostname.split('.')[0];
+
+  const env = subdomain.split('-')[1];
+
+  return env === "prod" ? "platform-prod" : "backend-" + env;
+}
+
+
 
 export default function AuthDialog() {
     const [isLoading, setIsLoading] = useState();
@@ -24,7 +35,7 @@ export default function AuthDialog() {
             return;
         }
 
-        fetch(`https://platform-prod.arivihan.com:443/arivihan-platform/secure/user/generate/otp?phone=${phoneNumber}&accessKey=4Ae9BRq4AoTvD2y%2FF33Zhg%3D%3D`)
+        fetch(`https://${getSubdomainUsingEnv()}.arivihan.com:443/arivihan-platform/secure/user/generate/otp?phone=${phoneNumber}&accessKey=4Ae9BRq4AoTvD2y%2FF33Zhg%3D%3D`)
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);
@@ -48,7 +59,7 @@ export default function AuthDialog() {
             return;
         }
 
-        fetch(`https://platform-prod.arivihan.com:443/arivihan-platform/secure/user/website-user-login?phone=${phoneNumber}&otp=${otp}&accessKey=4Ae9BRq4AoTvD2y%2FF33Zhg%3D%3D`)
+        fetch(`https://${getSubdomainUsingEnv()}.arivihan.com:443/arivihan-platform/secure/user/website-user-login?phone=${phoneNumber}&otp=${otp}&accessKey=4Ae9BRq4AoTvD2y%2FF33Zhg%3D%3D`)
             .then((res) => res.json())
             .then((res) => {
                 console.log(res);

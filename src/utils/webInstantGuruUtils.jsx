@@ -4,7 +4,6 @@ import {
   chatHistory,
   chatSessionId,
   chatType,
-  giveResponseOption,
   isFirstDoubt,
   lastUserQuestion,
   showChatLoadShimmer,
