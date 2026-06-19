@@ -5,8 +5,10 @@ import GlobalLikeDislikeResponse from './Global_like_dislike_response';
 import renderMathInElement from 'katex/contrib/auto-render';
 import SmilesRenderer from '../smileRenderer';
 import ReactDOM from "react-dom/client";
+import { useTranslation } from "react-i18next";
 import "./pdf-circle-and-web-view-common.css";
 const Pdf_circle_mini_screen = () => {
+  const { t } = useTranslation();
   const contentRef = useRef(null);
   const containerRef = useRef(null);
 const [showScrollToTop, setShowScrollToTop] = useState(false);
@@ -188,7 +190,7 @@ useEffect(() => {
             <img src={require("../../assets/icons/icon_chat_avatar.png")} alt="" />
           </div>
           <div className="ml-4">
-            <p className="text-md text-[#37D3E7] font-bold">Instant Guru</p>
+            <p className="text-md text-[#37D3E7] font-bold">{t("instant_guru_bot_name")}</p>
           </div>
         </div>
 
@@ -219,7 +221,7 @@ useEffect(() => {
               onClick={scrollToTop}
               className="bg-[#000000CC]/80 hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
             >
-              <p className='text-sm flex items-center'>Upar jayein <p className='text-xl'><IoIosArrowRoundUp /></p>
+              <p className='text-sm flex items-center'>{t("pdf_circle_mini_scroll_up")} <p className='text-xl'><IoIosArrowRoundUp /></p>
               </p>
             </button>
             {/* Tooltip */}
@@ -235,7 +237,7 @@ useEffect(() => {
               onClick={scrollToBottom}
               className="bg-[#000000CC]/80  text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
             >
-              <p className="text-sm flex items-center">Neeche jayein <p className='text-xl'><IoIosArrowRoundDown /></p> </p>
+              <p className="text-sm flex items-center">{t("pdf_circle_mini_scroll_down")} <p className='text-xl'><IoIosArrowRoundDown /></p> </p>
             </button>
             {/* Tooltip */}
               
@@ -249,7 +251,7 @@ useEffect(() => {
   {/* Content */}
   <div className="relative z-10 flex justify-center items-center mt-3">
     <button onClick={handleOpenDoubtChat} className="px-16 py-3 bg-[#26C6DA] rounded-full flex items-center gap-4">
-      <span className='text-white font-bold text-[4.5vw]'>Doubt Chat mein pucho</span>
+      <span className='text-white font-bold text-[4.5vw]'>{t("pdf_circle_mini_ask_doubt_chat")}</span>
       <img className='w-[16px]' src="/arrow-right.png" alt="arrow" />
     </button>
   </div>

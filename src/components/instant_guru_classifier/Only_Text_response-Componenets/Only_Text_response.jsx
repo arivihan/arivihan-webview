@@ -6,6 +6,7 @@ import SmilesRenderer from '../../smileRenderer';
 import ReactDOM from "react-dom/client";
 import Global_like_dislike_response from '../Global_like_dislike_response';
 import { chatHistory } from '../../../state/instantGuruState';
+import { useTranslation } from "react-i18next";
 
 const chat=`
    {
@@ -50,8 +51,9 @@ const chat=`
 `
 
 const Only_Text_response = ({ chat, chatIndex }) => {
+  const { t } = useTranslation();
   const containerRef = useRef(null);
-  
+
   useEffect(() => {
     if (containerRef.current) {
       renderMathInElement(containerRef.current, {
@@ -92,7 +94,7 @@ const Only_Text_response = ({ chat, chatIndex }) => {
           <div className='w-[32px] h-[32px] bg-gray-300 rounded-full overflow-hidden'>
             <img className='h-full w-full object-cover' src={require("../../../assets/icons/icon_chat_avatar.png")} alt="" />
           </div>
-          <p className='font-bold text-sm text-[#37D3E7]'>Instant Guru</p>
+          <p className='font-bold text-sm text-[#37D3E7]'>{t("instant_guru_bot_name")}</p>
         </div>
       }
       {

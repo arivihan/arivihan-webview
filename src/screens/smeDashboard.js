@@ -13,10 +13,12 @@ import StudentList from './sme/studentsList';
 import DoubtList from './sme/doubtList';
 import { smeCurrentViewCompoent } from '../state/smeState';
 import SmeDoubtChat from './sme/doubtChat';
+import { useTranslation } from 'react-i18next';
 
 
 
 const SMEDashboardScreen = () => {
+    const { t } = useTranslation();
     useSignals();
     const [messages, setMessages] = useState([]);
     const [inputText, setInputText] = useState('');
@@ -151,16 +153,16 @@ const SMEDashboardScreen = () => {
                 <nav className='ml-auto hidden sm:flex'>
                     <ul className='flex items-center text-sm'>
                         <li className='mx-2'>
-                            <a href="https://arivihan.com/" className=''>Home</a>
+                            <a href="https://arivihan.com/" className=''>{t("chat_nav_home")}</a>
                         </li>
                         <li className='mx-2'>
-                            <a href="https://arivihan.com/contact/" className=''>Contact</a>
+                            <a href="https://arivihan.com/contact/" className=''>{t("chat_nav_contact")}</a>
                         </li>
                         <li className='mx-2'>
-                            <a href="https://arivihan.com/about/" className=''>About</a>
+                            <a href="https://arivihan.com/about/" className=''>{t("chat_nav_about")}</a>
                         </li>
                         <li className='mx-2'>
-                            <a href="#" className='text-[#26c6da] border-b-2 border-[#26c6da]'>Ask Doubt</a>
+                            <a href="#" className='text-[#26c6da] border-b-2 border-[#26c6da]'>{t("chat_nav_ask_doubt")}</a>
                         </li>
 
                     </ul>
@@ -279,6 +281,7 @@ const SMEDashboardScreen = () => {
 }
 
 const SendBubble = (props) => {
+    const { t } = useTranslation();
 
     useEffect(() => {
         document.getElementById("message_container").scrollBy({ top: 600, behavior: "smooth" })
@@ -289,7 +292,7 @@ const SendBubble = (props) => {
         <div className={`text-right mb-3 bg-[#E8FBFC] ml-auto p-2 rounded-lg w-4/5 sm:w-3/5`}>
             <div className="flex items-center">
                 <img src={require("../assets/user.png")} alt="" className="rounded-full bg-white h-9 w-9 object-contain" />
-                <h4 className='font-bold ml-2'>You</h4>
+                <h4 className='font-bold ml-2'>{t("chat_user_label")}</h4>
             </div>
             <div className={`ml-12 text-gray-800 text-start text-sm`}>
                 {props.message}

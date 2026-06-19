@@ -82,7 +82,7 @@ const InstantGuruUIProd = () => {
     }
 
     if (waitingForResponse.value === true || showDoubtChatLoader.value === true || showChatLoadShimmer.value === true) {
-      showToast('Waiting for response')
+      showToast(t('waiting_for_response'))
       return;
     }
 
@@ -273,7 +273,7 @@ const InstantGuruUIProd = () => {
           style={{ backgroundColor: "#211F27", borderRadius: 10 }}
         />
         <img id="open-drawer-btn" src={require("../assets/icons/icon_menu_home.png")} className="w-7" onClick={() => { openDrawer() }} />
-        <h1 className="ml-4 text-lg font-bold">Instant Guru</h1>
+        <h1 className="ml-4 text-lg font-bold">{t("instant_guru_bot_name")}</h1>
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
           {/* <Lottie
             loop

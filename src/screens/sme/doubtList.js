@@ -7,9 +7,10 @@ import moment from 'moment';
 import { ThreeCircles } from 'react-loader-spinner';
 import SMEThemeWrapper from './smeThemeWrapper';
 import { useNavigate, useParams } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 export default function DoubtListScreen() {
-
+    const { t } = useTranslation();
     const [doubts, setDoubts] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const [searchText, setSearchText] = useState("");
@@ -51,11 +52,11 @@ export default function DoubtListScreen() {
     const handleSearch = () => {
         let november1st = moment().year(2024).month(10).date(1);
         if (moment(startDate).isBefore(november1st) || moment(endDate).isBefore(november1st)) {
-            alert("Data is archived.");
+            alert(t("doubt_list_alert_archived"));
             return;
         }
         if (moment(startDate).isAfter(moment.now()) || moment(endDate).isAfter(moment.now())) {
-            alert("Invalid date range.");
+            alert(t("doubt_list_alert_invalid_range"));
             return;
         } 
 
@@ -158,14 +159,14 @@ export default function DoubtListScreen() {
             <div className="h-full w-full">
                 <div className=" flex items-center sticky top-0 bg-white py-0">
                     {params.userid === "latest"
-                        ? <h2 className='font-bold'>Latest Doubts</h2>
-                        : <h2 className='font-bold'>{smeDoubtListUserName.value}'s Doubts</h2>
+                        ? <h2 className='font-bold'>{t("doubt_list_latest_doubts")}</h2>
+                        : <h2 className='font-bold'>{t("doubt_list_user_doubts", { name: smeDoubtListUserName.value })}</h2>
                     }
 
                     <div className="ml-auto flex items-end gap-2">
                         <div className="flex flex-col w-40">
                             <label htmlFor="subject" className="text-[9px] text-gray-400">
-                                Select Subject
+                                {t("doubt_list_select_subject")}
                             </label>
                             <select
                                 name="subject"
@@ -173,17 +174,17 @@ export default function DoubtListScreen() {
                                 className="border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-full"
                                 onChange={(e) => setSubject(e.target.value)}
                             >
-                                <option value="">ALL Subject</option>
-                                <option value="Mathematics">Math</option>
-                                <option value="Physics">Physics</option>
-                                <option value="Biology">Biology</option>
-                                <option value="Chemistry">Chemistry</option>
+                                <option value="">{t("doubt_list_all_subject")}</option>
+                                <option value="Mathematics">{t("doubt_list_subject_math")}</option>
+                                <option value="Physics">{t("doubt_list_subject_physics")}</option>
+                                <option value="Biology">{t("doubt_list_subject_biology")}</option>
+                                <option value="Chemistry">{t("doubt_list_subject_chemistry")}</option>
                             </select>
                         </div>
-                        
+
                         <div className="flex flex-col w-40">
                             <label htmlFor="questionType" className="text-[9px] text-gray-400">
-                                Question Type
+                                {t("doubt_list_question_type")}
                             </label>
                             <select
                                 name="questionType"
@@ -191,16 +192,16 @@ export default function DoubtListScreen() {
                                 className="border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-full"
                                 onChange={(e) => setQT(e.target.value)}
                             >
-                                <option value="">ALL Types</option>
-                                
-                                <option value="TEXT">Text</option>
-                                <option value="IMAGE_HTML">Image</option>
-                                
+                                <option value="">{t("doubt_list_all_types")}</option>
+
+                                <option value="TEXT">{t("doubt_list_type_text")}</option>
+                                <option value="IMAGE_HTML">{t("doubt_list_type_image")}</option>
+
                             </select>
                         </div>
 
                         <div className="flex flex-col w-40">
-                            <label htmlFor="start_date" className='text-[9px] text-gray-400'>Start Date</label>
+                            <label htmlFor="start_date" className='text-[9px] text-gray-400'>{t("doubt_list_start_date")}</label>
                             <input
                                 type="date"
                                 name="start_date"
@@ -210,7 +211,7 @@ export default function DoubtListScreen() {
                             />
                         </div>
                         <div className="flex flex-col w-40">
-                            <label htmlFor="end_date" className='text-[9px] text-gray-400'>End Date</label>
+                            <label htmlFor="end_date" className='text-[9px] text-gray-400'>{t("doubt_list_end_date")}</label>
                             <input
                                 type="date"
                                 name="end_date"
@@ -220,11 +221,11 @@ export default function DoubtListScreen() {
                             />
                         </div>
                         <div className="flex flex-col w-72">
-                            <label htmlFor="end_date" className='text-[9px] text-gray-400'>Search By doubt text</label>
+                            <label htmlFor="end_date" className='text-[9px] text-gray-400'>{t("doubt_list_search_label")}</label>
                             <input
                                 type="text"
                                 className='border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-full'
-                                placeholder='Search by doubt text...'
+                                placeholder={t("doubt_list_search_placeholder")}
                                 onInput={(e) => setSearchText(e.target.value)}
                                 onKeyDown={onInputChange}
                             />
@@ -243,17 +244,17 @@ export default function DoubtListScreen() {
                         <table className='border w-full'>
                             <thead className='bg-primary text-white sticky top-0'>
                                 <tr>
-                                    <th className='border text-start px-2 py-1'>S.No.</th>
-                                    <th className='border text-start px-2 py-1'>Title</th>
-                                    <th className='border text-start px-2 py-1'>Subject</th>
-                                    <th className='border text-start px-2 py-1'>Language</th>
-                                    <th className='border text-start px-2 py-1'>Course</th>
-                                    <th className='border text-start px-2 py-1'>Question Type</th>
-                                    <th className='border text-start px-2 py-1'>Subscription</th>
-                                    <th className='border text-start px-2 py-1'>Approved</th>
-                                    <th className='border text-start px-2 py-1'>User Feedback</th>
-                                    <th className='border text-start px-2 py-1'>Date</th>
-                                    <th className='border text-start px-2 py-1'>Actions</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_sno")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_title")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_subject")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_language")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_course")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_question_type")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_subscription")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_approved")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_user_feedback")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_date")}</th>
+                                    <th className='border text-start px-2 py-1'>{t("doubt_list_th_actions")}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -270,7 +271,7 @@ export default function DoubtListScreen() {
                                         <td colSpan={11} className="px-6 py-4 whitespace-nowrap">
                                             <div className="w-full flex flex-col items-center justify-center h-[58vh]">
                                                 <img src={require("../../assets/chat.png")} className='h-40 w-80 object-contain' />
-                                                <p className='text-sm text-gray-500'>Oops! no any result found.</p>
+                                                <p className='text-sm text-gray-500'>{t("doubt_list_no_results")}</p>
                                             </div>
                                         </td>
                                     </tr>
@@ -286,7 +287,7 @@ export default function DoubtListScreen() {
                                             <td className="border px-2 py-1 text-center">
                                                 {doubt.doubtImageUrl ? (
                                                     <div className='flex items-center justify-center gap-2'>
-                                                        {doubt.doubtChatQuestionType == "IMAGE_HTML" ?<div>Image</div> : <div>{doubt.doubtChatQuestionType}</div>}
+                                                        {doubt.doubtChatQuestionType == "IMAGE_HTML" ?<div>{t("doubt_list_type_image")}</div> : <div>{doubt.doubtChatQuestionType}</div>}
                                                         
                                                         <a
                                                         href={doubt.doubtImageUrl}
@@ -298,13 +299,13 @@ export default function DoubtListScreen() {
                                                     </a>
                                                     </div>
                                                 ) : (
-                                                    "Text"
+                                                    t("doubt_list_type_text")
                                                 )}
                                             </td>
 
-                                            <td className="border px-2 py-1">{doubt.subscribedUser ? "PREMIUM" : "BASIC"}</td>
-                                            <td className="border px-2 py-1">{(index > doubts.length * 0.08) ? "Yes" : "No"}</td>
-                                            <td className="border px-2 py-1">{doubt.liked === undefined || doubt.liked === null ? "N/A" : doubt.liked ? "Liked" : "Disliked"}</td>
+                                            <td className="border px-2 py-1">{doubt.subscribedUser ? t("doubt_list_premium") : t("doubt_list_basic")}</td>
+                                            <td className="border px-2 py-1">{(index > doubts.length * 0.08) ? t("doubt_list_yes") : t("doubt_list_no")}</td>
+                                            <td className="border px-2 py-1">{doubt.liked === undefined || doubt.liked === null ? t("doubt_list_na") : doubt.liked ? t("doubt_list_liked") : t("doubt_list_disliked")}</td>
                                             <td className="border px-2 py-1 text-sm">{moment(doubt.createdAt).format("h:mm a DD-MM-YY")}</td>
 
                                             <td className="border px-2 py-1 flex items-center gap-2">

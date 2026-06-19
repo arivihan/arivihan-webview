@@ -6,9 +6,11 @@ import { alertDialogContent, showAuthModal } from '../state/chatState';
 import { effect } from '@preact/signals-react';
 import { customFetchRequest } from '../utils/customRequest';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 
 export default function AlertDialog() {
+    const { t } = useTranslation();
 
     const handleCloseAuthModal = () => {
         alertDialogContent.value = "";
@@ -29,7 +31,7 @@ export default function AlertDialog() {
 
                 <div className="flex flex-col">
                     <div className="flex items-center rounded-lg">
-                        <h2 className='font-bold text-2xl'>Alert</h2>
+                        <h2 className='font-bold text-2xl'>{t("alert_modal_heading")}</h2>
                     </div>
                     <hr className='my-4' />
 
@@ -38,7 +40,7 @@ export default function AlertDialog() {
                     <hr  className='my-4'/>
 
                     <button onClick={handleCloseAuthModal} className='px-6 py-2 bg-[#26c6da] text-white rounded-lg ml-auto font-medium flex justify-center'>
-                        Close
+                        {t("alert_modal_close")}
                     </button>
                   
                 </div>

@@ -5,9 +5,11 @@ import { effect, signal, useSignal } from '@preact/signals-react';
 import { useSignals } from '@preact/signals-react/runtime';
 import { chatIsWaitingForResponse, chatLoadingMessageId, chatReceiveChatMessage } from '../state/chatState';
 import { MathJax, MathJaxContext } from 'better-react-mathjax';
+import { useTranslation } from 'react-i18next';
 
 
 export const ReceiveBubble = (props) => {
+    const { t } = useTranslation();
     useSignals();
     const responseMessage = chatReceiveChatMessage.value === null ? "" : chatReceiveChatMessage.value;
     const [counter, setCounter] = useState(0);
@@ -54,7 +56,7 @@ export const ReceiveBubble = (props) => {
         <div className={`text-right mb-3 bg-[#E8FBFC] mr-auto p-2 rounded-lg w-4/5 sm:w-3/5`}>
             <div className="flex items-center">
                 <img src={require("../assets/logo.png")} alt="" className="rounded-full bg-white h-9 w-9 object-contain" />
-                <h4 className='font-bold ml-2 text-lg'>Instant Guru</h4>
+                <h4 className='font-bold ml-2 text-lg'>{t("instant_guru_bot_name")}</h4>
             </div>
             {
                 isLoading

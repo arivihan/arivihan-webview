@@ -285,7 +285,7 @@ export const chatImageRequest = (imageFile, userQuery = "") => {
   let formData = new FormData();
   formData.append("file", base64ToFile(imageFile, Math.random() + ".jpg"));
 
-  let userDetails = JSON.parse(Cookies.get("user"));
+  let userDetails = JSON.parse(Cookies.get("user") || "{}");
   const userId = userDetails.userId;
   const token = Cookies.get("token");
 
@@ -381,7 +381,7 @@ export function updateDoubtStatus(status) {
 
 export function loadSuggestedQuestions(addInChatHistory = false) {
 
-  let userDetails = JSON.parse(Cookies.get("user"));
+  let userDetails = JSON.parse(Cookies.get("user") || "{}");
 
   let uLanguage = "en";
   let uCourseId = userDetails.courseId;

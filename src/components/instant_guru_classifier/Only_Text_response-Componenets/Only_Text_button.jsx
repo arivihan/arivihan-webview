@@ -3,8 +3,10 @@ import { RiShareBoxFill } from 'react-icons/ri'
 import Global_like_dislike_response from '../Global_like_dislike_response'
 import { openAppActivity } from '../../../utils/instantGuruUtilsDev'
 import { chatHistory } from '../../../state/instantGuruState'
+import { useTranslation } from "react-i18next";
 
 const Only_Text_button = ({ chat, chatIndex }) => {
+  const { t } = useTranslation();
   return (
     <div className='w-full flex flex-col items-start'>
       <div className="flex items-center gap-2 mb-2">
@@ -14,7 +16,7 @@ const Only_Text_button = ({ chat, chatIndex }) => {
             src={require("../../../assets/icons/icon_chat_avatar.png")}
           />
         </div>
-        <p className="font-bold text-sm text-[#37D3E7]">Instant Guru</p>
+        <p className="font-bold text-sm text-[#37D3E7]">{t("instant_guru_bot_name")}</p>
       </div>
 
       <div className='text-[14px]' dangerouslySetInnerHTML={{ __html: chat.botResponse }}></div>

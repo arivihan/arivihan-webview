@@ -3,8 +3,10 @@ import { FaPlayCircle } from "react-icons/fa";
 import { LuDot } from "react-icons/lu";
 import Global_like_dislike_response from "../Global_like_dislike_response";
 import { RiShareBoxLine } from "react-icons/ri";
+import { useTranslation } from "react-i18next";
 const Multi_Model_paper_response = () => {
-  
+  const { t } = useTranslation();
+
   return (
     <div className="w-[95vw] bg-white select-none max-w-md mb-2 mx-auto  overflow-hidden p-4 rounded-lg">
       {/* Top Info */}
@@ -16,7 +18,7 @@ const Multi_Model_paper_response = () => {
             alt=""
           />
         </div>
-        <p className="font-bold text-sm text-[#37D3E7]">Instant Guru</p>
+        <p className="font-bold text-sm text-[#37D3E7]">{t("instant_guru_bot_name")}</p>
       </div>
       {/* card Info */}
      <div className="flex-col items-center justify-center">
@@ -48,7 +50,7 @@ const Multi_Model_paper_response = () => {
 <div className="bg-[#26C6DA]/10 w-full flex items-center px-3 py-1 justify-end" >
     
     <p class="underline text-[#37D3E7] text-[13px] underline-offset-4 font-bold">
-  Start Now
+  {t("model_paper_response_start_now")}
 </p>
 
 </div>
@@ -81,7 +83,7 @@ const Multi_Model_paper_response = () => {
 <div className="bg-[#26C6DA]/10 w-full flex items-center px-3 py-1 justify-end" >
     
     <p class="underline text-[#37D3E7] text-[13px] underline-offset-4 font-bold">
-  Start Now
+  {t("model_paper_response_start_now")}
 </p>
 
 </div>
@@ -114,7 +116,7 @@ const Multi_Model_paper_response = () => {
 <div className="bg-[#26C6DA]/10 w-full flex items-center px-3 py-1 justify-end" >
     
     <p class="underline text-[#37D3E7] text-[13px] underline-offset-4 font-bold">
-  Start Now
+  {t("model_paper_response_start_now")}
 </p>
 
 </div>
@@ -144,7 +146,7 @@ const Multi_Model_paper_response = () => {
        </p>
       </div>
        <button className=" bg-[#26C6DA] text-[15px] px-5 text-white flex justify-center items-center gap-2 py-3 mt-4 rounded-full">
-       <b><p> Start Test</p></b> <p><b><RiShareBoxLine /></b></p>  
+       <b><p> {t("model_paper_response_start_test")}</p></b> <p><b><RiShareBoxLine /></b></p>
        </button>
 
 

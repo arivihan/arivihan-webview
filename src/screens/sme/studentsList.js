@@ -7,9 +7,11 @@ import { smeCurrentViewCompoent, smeDoubtListUserId, smeDoubtListUserName } from
 import { ThreeCircles } from 'react-loader-spinner';
 import SMEThemeWrapper from './smeThemeWrapper';
 import { useNavigate } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 
 
 export default function StudentListScreen() {
+    const { t } = useTranslation();
     const [students, setStudents] = useState(null);
     const [searchText, setSearchText] = useState("");
     const [isLoading, setIsLoading] = useState(true);
@@ -50,21 +52,21 @@ export default function StudentListScreen() {
 
             <div className="h-full w-full flex flex-col">
                 <div className="py-1 flex items-center sticky top-0 bg-white z-10">
-                    <h2 className='font-bold'>Students With Doubts</h2>
+                    <h2 className='font-bold'>{t("students_list_title")}</h2>
                     <div className="ml-auto flex items-center">
-                        <input type="text" className='border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-72' placeholder='Search by name, phone number...' onInput={(e) => { setSearchText(e.target.value) }} onKeyDown={handleSearch} />
+                        <input type="text" className='border focus:outline-none focus:border-primary px-2 text-sm py-2 rounded w-72' placeholder={t("students_list_search_placeholder")} onInput={(e) => { setSearchText(e.target.value) }} onKeyDown={handleSearch} />
                         <div className="px-2 py-2 bg-primary/10 border border-primary ml-2 rounded cursor-pointer text-primary active:bg-primary active:text-white" onClick={getStudents}><BiSearch /></div>
                     </div>
                 </div>
                 <div className="h-5/6 ">
                     <table className='border w-full sticky top-0'>
                         <thead className='bg-primary text-white sticky top-0'>
-                            <th className='border text-start px-2 py-1'>S.No.</th>
-                            <th className='border text-start px-2 py-1'>Name</th>
-                            <th className='border text-start px-2 py-1'>Class</th>
-                            <th className='border text-start px-2 py-1'>Phone Number</th>
-                            <th className='border text-start px-2 py-1'>Doubts Sessions</th>
-                            <th className='border text-start px-2 py-1'>Actions</th>
+                            <th className='border text-start px-2 py-1'>{t("doubt_list_th_sno")}</th>
+                            <th className='border text-start px-2 py-1'>{t("students_list_th_name")}</th>
+                            <th className='border text-start px-2 py-1'>{t("students_list_th_class")}</th>
+                            <th className='border text-start px-2 py-1'>{t("students_list_th_phone")}</th>
+                            <th className='border text-start px-2 py-1'>{t("students_list_th_doubt_sessions")}</th>
+                            <th className='border text-start px-2 py-1'>{t("doubt_list_th_actions")}</th>
                         </thead>
                         <tbody>
                             {
@@ -87,7 +89,7 @@ export default function StudentListScreen() {
                                             <td colSpan={6} className="px-6 py-4 whitespace-nowrap">
                                                 <div className="w-full flex flex-col items-center justify-center h-[58vh]">
                                                     <img src={require("../../assets/chat.png")} className='h-40 w-80 object-contain' />
-                                                    <p className='text-sm text-gray-500'>Oops! no any result found.</p>
+                                                    <p className='text-sm text-gray-500'>{t("doubt_list_no_results")}</p>
                                                 </div>
                                             </td>
                                         </tr>

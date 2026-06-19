@@ -6,11 +6,13 @@ import { Document, pdfjs } from "react-pdf";
 import Only_Text_PDF from "./Only_Text_response-Componenets/Only_Text_PDF";
 import Only_Text_Discription from "./Only_Text_response-Componenets/Only_Text_Discription";
 import Global_like_dislike_response from "./Global_like_dislike_response";
+import { useTranslation } from "react-i18next";
 
 // ✅ Worker setup (use public folder, no CDN, no ?url)
 pdfjs.GlobalWorkerOptions.workerSrc = `${process.env.PUBLIC_URL}/pdf.worker.min.js`;
 
 const PDF_container_response = ({ chat }) => {
+  const { t } = useTranslation();
 
 
   // File size nikalna
@@ -43,7 +45,7 @@ const PDF_container_response = ({ chat }) => {
             alt="profile"
           />
         </div>
-        <p className="font-bold text-sm text-[#37D3E7]">Instant Guru</p>
+        <p className="font-bold text-sm text-[#37D3E7]">{t("instant_guru_bot_name")}</p>
       </div>
 
       {/* PDF Preview */}

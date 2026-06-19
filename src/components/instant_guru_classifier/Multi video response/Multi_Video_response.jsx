@@ -1,11 +1,13 @@
 import React from "react";
 import { FaYoutube } from "react-icons/fa";
 import Global_like_dislike_response from "../Global_like_dislike_response";
+import { useTranslation } from "react-i18next";
 
 
 const Multi_Video_response = () => {
+  const { t } = useTranslation();
   // Data object
-  
+
 
   const videoData = [
     {
@@ -39,22 +41,18 @@ const Multi_Video_response = () => {
             alt="profile"
           />
         </div>
-        <p className="font-bold text-sm text-[#37D3E7]">Instant Guru</p>
+        <p className="font-bold text-sm text-[#37D3E7]">{t("instant_guru_bot_name")}</p>
       </div>
 
       <p className="font-normal">
-        After 12th ke baad career choose karna thoda confusing ho sakta hai
-        kyunki options bohot zyada hain. Ye depend karta hai ki aapne 12th kis
-        stream (Science, Commerce, Arts) se ki hai aur aapki interest, skills
-        aur long-term goals kya hain. Main aapko stream-wise aur general options
-        dono bata deta hoon 👇
+        {t("multi_video_response_career_intro")}
       </p>
 
       <hr className="mt-4" />
 
       <div>
         <p className="font-semibold mt-3 text-[18px]">
-          <b>Recommended videos :</b>
+          <b>{t("multi_video_response_recommended")}</b>
         </p>
       </div>
 
@@ -81,7 +79,7 @@ const Multi_Video_response = () => {
                     <FaYoutube />
                   </p>
                   <p className="text-[#37D3E7] text-[14px] font-semibold">
-                    Watch
+                    {t("multi_video_response_watch")}
                   </p>
                 </div>
               </div>

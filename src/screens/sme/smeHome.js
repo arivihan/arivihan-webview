@@ -11,10 +11,11 @@ import { useNavigate, useParams } from 'react-router-dom';
 import { PiStudent } from 'react-icons/pi';
 import formatNumber from '../../utils/formatNumber';
 import { Line } from 'react-chartjs-2';
+import { useTranslation } from 'react-i18next';
 
 
 export default function SmeHomeScreen() {
-
+    const { t } = useTranslation();
     const [homeData, setHomeData] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
     const navigate = useNavigate();
@@ -54,7 +55,7 @@ export default function SmeHomeScreen() {
                                     :
                                     <p className='text-5xl'>{homeData && homeData.students && formatNumber(homeData.students)}</p>
                             }
-                            <span className='text-sm text-gray-500 font-bold'>Students</span>
+                            <span className='text-sm text-gray-500 font-bold'>{t("sme_sidebar_students")}</span>
                         </div>
                     </div>
 
@@ -74,7 +75,7 @@ export default function SmeHomeScreen() {
                                     :
                                     <p className='text-5xl'>{homeData && homeData.students && formatNumber(homeData.doubts)}</p>
                             }
-                            <span className='text-sm text-gray-500 font-bold'>Doubts</span>
+                            <span className='text-sm text-gray-500 font-bold'>{t("sme_home_doubts")}</span>
                         </div>
                     </div>
 
@@ -94,7 +95,7 @@ export default function SmeHomeScreen() {
                                     :
                                     <p className='text-5xl'>{homeData && homeData.students && formatNumber(homeData.board_doubts ?? 0)}</p>
                             }
-                            <span className='text-sm text-gray-500 font-bold'>Board Doubts</span>
+                            <span className='text-sm text-gray-500 font-bold'>{t("sme_home_board_doubts")}</span>
                         </div>
                     </div>
 
@@ -114,7 +115,7 @@ export default function SmeHomeScreen() {
                                     :
                                     <p className='text-5xl'>{homeData && homeData.students && formatNumber(parseInt(homeData.neet_doubts ?? 0))}</p>
                             }
-                            <span className='text-sm text-gray-500 font-bold'>JEE Doubts</span>
+                            <span className='text-sm text-gray-500 font-bold'>{t("sme_home_jee_doubts")}</span>
                         </div>
                     </div>
 
@@ -134,7 +135,7 @@ export default function SmeHomeScreen() {
                                     :
                                     <p className='text-5xl'>{homeData && homeData.students && formatNumber(parseInt(homeData.jee_doubts ?? 0))}</p>
                             }
-                            <span className='text-sm text-gray-500 font-bold'>NEET Doubts</span>
+                            <span className='text-sm text-gray-500 font-bold'>{t("sme_home_neet_doubts")}</span>
                         </div>
                     </div>
 
@@ -143,7 +144,7 @@ export default function SmeHomeScreen() {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6 mt-6">
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold mb-4">Doubt Queries Solved</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("sme_home_doubt_queries_solved")}</h3>
                         {
                             homeData === null
                                 ?
@@ -166,7 +167,7 @@ export default function SmeHomeScreen() {
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold mb-4">Student's Efficiency</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("sme_home_student_efficiency")}</h3>
                         {
                             homeData === null
                                 ?
@@ -189,7 +190,7 @@ export default function SmeHomeScreen() {
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold mb-4">Tutor's Efficiency</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("sme_home_tutor_efficiency")}</h3>
                         {
                             homeData === null
                                 ?

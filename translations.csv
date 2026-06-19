@@ -1,0 +1,256 @@
+key,english,hindi,files
+newChat,New Question,नया प्रश्न,src/components/webSidebar.js; src/screens/instantGuruDev.jsx; src/screens/instantGuruProd.jsx
+newChatForImage,Click new chat to ask doubt using image,नई चैट पर क्लिक करके इमेज से सवाल पूछें।,src/screens/instantGuruDev.jsx; src/screens/instantGuruProd.jsx; src/screens/web-instant-guru/webInstantGuru.jsx
+chooseTypeOfSolution,Apko apke doubt ka solution kaisa chahiye?,आपको आपके डाउट का समाधान कैसा चाहिए?,src/components/instant-guru/chatBubble.jsx; src/components/instant-guru/chatBubbleDev.jsx; src/components/instant-guru/websiteChatBubble.jsx
+was_this_helpful,Was this helpful?,पसंद आया?,src/components/PDF_Circle/Global_like_dislike_response.jsx; src/components/instant-guru/chatBubble.jsx; src/components/instant-guru/chatBubbleDev.jsx; src/components/instant-guru/websiteChatBubble.jsx; src/components/instant_guru_classifier/Global_like_dislike_response.jsx
+ask_anything,Ask Anything...,कुछ भी पूछें,src/screens/instantGuruProd.jsx; src/screens/web-instant-guru/webInstantGuru.jsx
+open_whatsapp,Open Whatsapp,व्हाट्सएप खोलें,src/components/openWhatsappSheet.js
+open_whatsapp_msg,Aapke sawalo ke behtar jawabo ke liye humare teachers se whatsapp pe connect karein.,आपके सवालों के बेहतर जवाबों के लिए हमारे टीचर्स से व्हाट्सएप पर जुड़ें।,src/components/openWhatsappSheet.js; src/screens/sme/doubtChat.js
+type_your_question,Apna sawal type karein!,अपना सवाल टाइप करें!,src/screens/instantGuruDev.jsx; src/screens/instantGuruProd.jsx; src/screens/web-instant-guru/webInstantGuru.jsx
+ask_question_using_image,Ya apne sawal ki photo click karein!,या अपने सवाल की फोटो क्लिक करें!,src/screens/instantGuruDev.jsx; src/screens/instantGuruProd.jsx; src/screens/web-instant-guru/webInstantGuru.jsx
+click_here_for_old_questions,Purane sawal aur solutions ke liye yahan click karein!,पुराने सवाल और सॉल्यूशंस के लिए यहां क्लिक करें!,src/screens/instantGuruDev.jsx; src/screens/instantGuruProd.jsx
+suggested_question,Suggested Questions,प्रश्न सुझाव,src/screens/instantGuruDev.jsx; src/screens/instantGuruProd.jsx
+waiting_for_response,Waiting for response,समाधान की प्रतीक्षा है,src/screens/instantGuruDev.jsx; src/screens/instantGuruProd.jsx; src/screens/web-instant-guru/webInstantGuru.jsx
+write_doubt_in_detail,Write your doubt in detail...,अपना प्रश्न विस्तार से लिखें...,src/screens/instantGuruDev.jsx; src/screens/instantGuruProd.jsx; src/screens/web-instant-guru/webInstantGuru.jsx
+one_mark_question,Important 1 marks questions,महत्वपूर्ण 1 अंक के प्रश्न,src/screens/instantGuruDev.jsx
+read_till_answer_coming,"Answer jald hi aa raha hai, tab tak ye padhein...","उत्तर जल्द ही आ रहा है, तब तक ये पढ़ें...",src/screens/instantGuruDev.jsx
+back_to_notes,Back to notes,नोट्स पर वापस जाएँ,src/screens/instantGuruDev.jsx
+login_alert_enter_credentials,Please enter username and password,कृपया यूज़रनेम और पासवर्ड दर्ज करें,src/screens/login.js
+login_heading_brand,Arivihan SME Login,एरिविहान SME लॉगिन,src/screens/login.js
+login_heading,SME Login,SME लॉगिन,src/screens/login.js
+login_welcome_subtitle,Welcome back! Let's make today productive and impactful together.,वापसी पर स्वागत है! आज के दिन को मिलकर उत्पादक और प्रभावशाली बनाते हैं।,src/screens/login.js
+login_username_label,Username,यूज़रनेम,src/screens/login.js
+login_username_placeholder,Enter username,यूज़रनेम दर्ज करें,src/screens/login.js
+login_password_label,Password,पासवर्ड,src/screens/login.js
+login_password_placeholder,Enter password,पासवर्ड दर्ज करें,src/screens/login.js
+login_button,Login,लॉगिन करें,src/screens/login.js
+chat_nav_home,Home,होम,src/screens/chatScreen.js; src/screens/smeDashboard.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_nav_contact,Contact,संपर्क करें,src/screens/chatScreen.js; src/screens/smeDashboard.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_nav_about,About,हमारे बारे में,src/screens/chatScreen.js; src/screens/smeDashboard.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_nav_ask_doubt,Ask Doubt,डाउट पूछें,src/screens/chatScreen.js; src/screens/smeDashboard.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_welcome_heading,How can I help you today?,आज मैं आपकी कैसे मदद कर सकता हूँ?,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_card_ask_doubt_title,Ask any doubt,कोई भी डाउट पूछें,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_card_ask_doubt_desc,E.g. Define 'activation energy' of a reaction.,उदाहरण: किसी अभिक्रिया की 'सक्रियण ऊर्जा' को परिभाषित करें।,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_card_clear_concepts_title,Clear your concepts,अपनी अवधारणाएँ स्पष्ट करें,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_card_clear_concepts_desc,E.g. Explain when to apply Pseudo Force,उदाहरण: समझाएं कि स्यूडो फोर्स कब लगाया जाता है,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_card_revise_title,Revise with us,हमारे साथ रिवीज़न करें,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_card_revise_desc,E.g. Which flower blooms once in 12 year,उदाहरण: कौन सा फूल 12 साल में एक बार खिलता है,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_card_insights_title,Get deep insights,गहराई से समझें,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_card_insights_desc,E.g. When to use substitution,उदाहरण: सब्स्टिट्यूशन का उपयोग कब करें,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_welcome_user,"Welcome User,","स्वागत है, उपयोगकर्ता,",src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_bot_intro_1,"I am Arivihan's Tutor Bot - Here to help you with your JEE/NEET and Board exam preparation. Consider me your personalized study companion, guiding you every step of the way.","मैं एरिविहान का ट्यूटर बॉट हूँ - आपकी JEE/NEET और बोर्ड परीक्षा की तैयारी में मदद के लिए यहाँ हूँ। मुझे अपना व्यक्तिगत स्टडी पार्टनर समझें, जो हर कदम पर आपका साथ देगा।",src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_bot_intro_2,"When you're ready, feel free to ask me any doubts to clarify your concepts. This marks the beginning of your learning journey, and the real magic is about to unfold!","जब आप तैयार हों, अपनी अवधारणाएं स्पष्ट करने के लिए मुझसे कोई भी डाउट पूछने में संकोच न करें। यह आपकी सीखने की यात्रा की शुरुआत है, और असली जादू अभी शुरू होने वाला है!",src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_bot_intro_3,Let's start by answering your first query.,आइए आपके पहले सवाल का जवाब देकर शुरुआत करते हैं।,src/screens/chatScreen.js; src/screens/web-instant-guru/webInstantGuru.jsx
+chat_input_placeholder,Ask me anything...,कुछ भी पूछें...,src/screens/chatScreen.js
+chat_user_label,You,आप,src/screens/chatScreen.js; src/screens/sme/doubtChat.js; src/screens/smeDashboard.js
+userchat_sidebar_heading,Sidebar,साइडबार,src/screens/userChat.jsx
+userchat_header_title,"Hi, I'm DeepSeek.","नमस्ते, मैं डीपसीक हूँ।",src/screens/userChat.jsx
+userchat_new_chat,New chat,नई चैट,src/screens/userChat.jsx
+userchat_bot_response,This is a bot response,यह एक बॉट प्रतिक्रिया है,src/screens/userChat.jsx
+userchat_input_placeholder,Message DeepSeek,डीपसीक को मैसेज करें,src/screens/userChat.jsx
+userchat_send,Send,भेजें,src/screens/userChat.jsx
+userchat_search,Search,खोजें,src/screens/userChat.jsx
+sidebar_chats,Chats,चैट्स,src/components/sidebar.js
+sidebar_login,Login,लॉगिन,src/components/sidebar.js
+sidebar_logout,Logout,लॉगआउट,src/components/sidebar.js
+sidebar_new_chat,New Chat,नई चैट,src/components/sidebar.js
+sidebar_guest_user,Guest User,अतिथि उपयोगकर्ता,src/components/sidebar.js
+websidebar_chats,Chats,चैट्स,src/components/webSidebar.js
+websidebar_login_prompt,Please login to ask question!,सवाल पूछने के लिए कृपया लॉगिन करें!,src/components/webSidebar.js
+websidebar_login,Login,लॉगिन,src/components/webSidebar.js
+websidebar_logout,Logout,लॉगआउट,src/components/webSidebar.js
+websidebar_guest_user,Guest User,अतिथि उपयोगकर्ता,src/components/webSidebar.js
+sme_sidebar_home,Home,होम,src/components/smeSidebar.js
+sme_sidebar_app_metrices,App Metrices,ऐप मेट्रिक्स,src/components/smeSidebar.js
+sme_sidebar_user_activity,User Activity,यूज़र एक्टिविटी,src/components/smeSidebar.js
+sme_sidebar_lectures,Lectures,लेक्चर्स,src/components/smeSidebar.js
+sme_sidebar_todo_list,Todo List,टू-डू लिस्ट,src/components/smeSidebar.js
+sme_sidebar_students,Students,स्टूडेंट्स,src/components/smeSidebar.js; src/screens/sme/smeHome.js
+sme_sidebar_all_doubts,All Doubts,सभी डाउट्स,src/components/smeSidebar.js
+sme_sidebar_logout,Logout,लॉगआउट,src/components/smeSidebar.js
+auth_dialog_invalid_phone,Please enter a valid 10 digit phone number.,कृपया एक मान्य 10 अंकों का फोन नंबर दर्ज करें।,src/components/authDialog.js
+auth_dialog_invalid_otp,Please enter a valid 6 digit OTP.,कृपया एक मान्य 6 अंकों का OTP दर्ज करें।,src/components/authDialog.js
+auth_dialog_heading,Login,लॉगिन,src/components/authDialog.js
+auth_dialog_subtitle,Enter your phone number to login,लॉगिन करने के लिए अपना फोन नंबर दर्ज करें,src/components/authDialog.js
+auth_dialog_phone_placeholder,Phone Number,फोन नंबर,src/components/authDialog.js
+auth_dialog_otp_label,Enter OTP,OTP दर्ज करें,src/components/authDialog.js
+auth_dialog_otp_placeholder,Enter OTP,OTP दर्ज करें,src/components/authDialog.js
+auth_dialog_verify_otp,Verify OTP,OTP वेरिफाई करें,src/components/authDialog.js
+auth_dialog_send_otp,Send OTP,OTP भेजें,src/components/authDialog.js
+alert_modal_heading,Alert,सूचना,src/components/alertModal.js
+alert_modal_close,Close,बंद करें,src/components/alertModal.js
+mic_listening,listening...,सुन रहा हूँ...,src/components/micListeningUi.js
+instant_guru_bot_name,Instant Guru,इंस्टेंट गुरु,src/components/PDF_Circle/Pdf_circle_mini_screen.jsx; src/components/instant_guru_classifier/Model_Paper_response/Model_Paper_response.jsx; src/components/instant_guru_classifier/Multi video response/Multi_Video_response.jsx; src/components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response.jsx; src/components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_button.jsx; src/components/instant_guru_classifier/Only_Text_response-Componenets/Only_Text_response.jsx; src/components/instant_guru_classifier/PDF_container_response.jsx; src/components/instant_guru_classifier/Question_response/Question_response.jsx; src/components/instant_guru_classifier/Subscription_response/Subscription_response.jsx; src/components/instant_guru_classifier/Video_Text_response_Component/Video_Text_response.jsx; src/components/receiveBubble.js; src/screens/instantGuruDev.jsx; src/screens/instantGuruProd.jsx
+chat_limit_exhausted_message,Oops! you have exhaused chat limit. To chat more visit our android application.,ओह! आपकी चैट लिमिट समाप्त हो गई है। और चैट करने के लिए हमारा एंड्रॉइड एप्लीकेशन विजिट करें।,src/components/chatLimitExhaustCard.js
+chat_limit_visit_application,Visit Application,एप्लीकेशन देखें,src/components/chatLimitExhaustCard.js
+instant_guru_dev_input_placeholder,Type or send a photo to ask...,टाइप करें या फोटो भेज कर पूछें...,src/screens/instantGuruDev.jsx
+web_instant_guru_no_subscription,You don't have any active subscription please download app and subscribe.,"आपकी कोई सक्रिय सदस्यता नहीं है, कृपया ऐप डाउनलोड करें और सब्सक्राइब करें।",src/screens/web-instant-guru/webInstantGuru.jsx
+web_instant_guru_message_limit_reached,Message limit reached,मैसेज की सीमा समाप्त हो गई है,src/screens/web-instant-guru/webInstantGuru.jsx
+web_instant_guru_waiting_subscription_check,Waiting for subscription check.,सदस्यता की जांच की प्रतीक्षा है।,src/screens/web-instant-guru/webInstantGuru.jsx
+doubt_chat_no_chat_found,Oops! no any chat found.,ओह! कोई चैट नहीं मिली।,src/screens/sme/doubtChat.js
+doubt_chat_send_placeholder,Send your answer...,अपना जवाब भेजें...,src/screens/sme/doubtChat.js
+doubt_chat_view_activity,View Activity,एक्टिविटी देखें,src/screens/sme/doubtChat.js
+doubt_chat_watch_now,Watch Now,अभी देखें,src/screens/sme/doubtChat.js
+doubt_chat_open,Open,खोलें,src/screens/sme/doubtChat.js
+doubt_chat_edit,Edit,एडिट करें,src/screens/sme/doubtChat.js
+doubt_chat_delete,Delete,डिलीट करें,src/screens/sme/doubtChat.js
+doubt_chat_cancel,Cancel,रद्द करें,src/screens/sme/doubtChat.js
+doubt_chat_save,Save,सेव करें,src/screens/sme/doubtChat.js
+doubt_chat_save_notify,Save & Notify,सेव करें और सूचित करें,src/screens/sme/doubtChat.js
+doubt_chat_class_label,Class: {{className}},कक्षा: {{className}},src/screens/sme/doubtChat.js
+doubt_chat_open_new_tab,Open In New Tab,नए टैब में खोलें,src/screens/sme/doubtChat.js
+doubt_list_alert_archived,Data is archived.,डेटा आर्काइव कर दिया गया है।,src/screens/sme/doubtList.js
+doubt_list_alert_invalid_range,Invalid date range.,अमान्य तारीख सीमा।,src/screens/sme/doubtList.js
+doubt_list_latest_doubts,Latest Doubts,नवीनतम डाउट्स,src/screens/sme/doubtList.js
+doubt_list_user_doubts,{{name}}'s Doubts,{{name}} के डाउट्स,src/screens/sme/doubtList.js
+doubt_list_select_subject,Select Subject,विषय चुनें,src/screens/sme/doubtList.js
+doubt_list_all_subject,ALL Subject,सभी विषय,src/screens/sme/doubtList.js
+doubt_list_subject_math,Math,गणित,src/screens/sme/doubtList.js
+doubt_list_subject_physics,Physics,भौतिकी,src/screens/sme/doubtList.js
+doubt_list_subject_biology,Biology,जीवविज्ञान,src/screens/sme/doubtList.js
+doubt_list_subject_chemistry,Chemistry,रसायन विज्ञान,src/screens/sme/doubtList.js
+doubt_list_question_type,Question Type,प्रश्न प्रकार,src/screens/sme/doubtList.js
+doubt_list_all_types,ALL Types,सभी प्रकार,src/screens/sme/doubtList.js
+doubt_list_type_text,Text,टेक्स्ट,src/screens/sme/doubtList.js
+doubt_list_type_image,Image,इमेज,src/screens/sme/doubtList.js
+doubt_list_start_date,Start Date,प्रारंभ तिथि,src/screens/sme/doubtList.js
+doubt_list_end_date,End Date,समाप्ति तिथि,src/screens/sme/doubtList.js
+doubt_list_search_label,Search By doubt text,डाउट टेक्स्ट से खोजें,src/screens/sme/doubtList.js
+doubt_list_search_placeholder,Search by doubt text...,डाउट टेक्स्ट से खोजें...,src/screens/sme/doubtList.js
+doubt_list_th_sno,S.No.,क्र.सं.,src/screens/sme/doubtList.js; src/screens/sme/studentsList.js
+doubt_list_th_title,Title,शीर्षक,src/screens/sme/doubtList.js
+doubt_list_th_subject,Subject,विषय,src/screens/sme/doubtList.js
+doubt_list_th_language,Language,भाषा,src/screens/sme/doubtList.js
+doubt_list_th_course,Course,कोर्स,src/screens/sme/doubtList.js
+doubt_list_th_question_type,Question Type,प्रश्न प्रकार,src/screens/sme/doubtList.js
+doubt_list_th_subscription,Subscription,सब्सक्रिप्शन,src/screens/sme/doubtList.js
+doubt_list_th_approved,Approved,स्वीकृत,src/screens/sme/doubtList.js
+doubt_list_th_user_feedback,User Feedback,यूज़र फीडबैक,src/screens/sme/doubtList.js
+doubt_list_th_date,Date,तारीख,src/screens/analytics/lectureMetrices.jsx; src/screens/analytics/userActivity.jsx; src/screens/sme/doubtList.js
+doubt_list_th_actions,Actions,एक्शन,src/screens/sme/doubtList.js; src/screens/sme/studentsList.js
+doubt_list_no_results,Oops! no any result found.,ओह! कोई परिणाम नहीं मिला।,src/screens/sme/doubtList.js; src/screens/sme/studentsList.js
+doubt_list_premium,PREMIUM,प्रीमियम,src/screens/sme/doubtList.js
+doubt_list_basic,BASIC,बेसिक,src/screens/sme/doubtList.js
+doubt_list_yes,Yes,हाँ,src/screens/sme/doubtList.js
+doubt_list_no,No,नहीं,src/screens/sme/doubtList.js
+doubt_list_na,N/A,लागू नहीं,src/screens/analytics/lectureMetrices.jsx; src/screens/sme/doubtList.js
+doubt_list_liked,Liked,पसंद किया,src/screens/sme/doubtList.js
+doubt_list_disliked,Disliked,नापसंद किया,src/screens/sme/doubtList.js
+students_list_title,Students With Doubts,डाउट्स वाले स्टूडेंट्स,src/screens/sme/studentsList.js
+students_list_search_placeholder,"Search by name, phone number...","नाम, फोन नंबर से खोजें...",src/screens/sme/studentsList.js
+students_list_th_name,Name,नाम,src/screens/analytics/appMetrices.jsx; src/screens/sme/studentsList.js
+students_list_th_class,Class,कक्षा,src/screens/sme/studentsList.js
+students_list_th_phone,Phone Number,फोन नंबर,src/screens/analytics/userActivity.jsx; src/screens/sme/studentsList.js
+students_list_th_doubt_sessions,Doubts Sessions,डाउट सेशंस,src/screens/sme/studentsList.js
+sme_home_doubts,Doubts,डाउट्स,src/screens/sme/smeHome.js
+sme_home_board_doubts,Board Doubts,बोर्ड डाउट्स,src/screens/sme/smeHome.js
+sme_home_jee_doubts,JEE Doubts,JEE डाउट्स,src/screens/sme/smeHome.js
+sme_home_neet_doubts,NEET Doubts,NEET डाउट्स,src/screens/sme/smeHome.js
+sme_home_doubt_queries_solved,Doubt Queries Solved,हल किए गए डाउट प्रश्न,src/screens/sme/smeHome.js
+sme_home_student_efficiency,Student's Efficiency,स्टूडेंट दक्षता,src/screens/sme/smeHome.js
+sme_home_tutor_efficiency,Tutor's Efficiency,ट्यूटर दक्षता,src/screens/sme/smeHome.js
+share_on_whatsapp,"😎 *Ask Doubt* ne mera doubt instantly solve kar diya ✅
+Tum bhi apne doubts clear karne ke liye abhi pucho
+👉 https://arivihan.com/deeplink?redirectTo=choose-doubt-subject","😎 *डाउट पूछें* ने मेरा सवाल तुरंत हल कर दिया ✅
+तुम भी अपने डाउट्स क्लियर करने के लिए अभी पूछो
+👉 https://arivihan.com/deeplink?redirectTo=choose-doubt-subject",src/components/PDF_Circle/Global_like_dislike_response.jsx; src/components/instant_guru_classifier/Global_like_dislike_response.jsx
+analytics_month_oct,Oct,अक्टू,src/screens/analytics/lectureMetrices.jsx; src/screens/analytics/userActivity.jsx
+analytics_month_nov,Nov,नव,src/screens/analytics/lectureMetrices.jsx; src/screens/analytics/userActivity.jsx
+analytics_month_dec,Dec,दिस,src/screens/analytics/lectureMetrices.jsx; src/screens/analytics/userActivity.jsx
+analytics_month_january,January,जनवरी,src/screens/analytics/appMetrices.jsx
+analytics_month_february,February,फरवरी,src/screens/analytics/appMetrices.jsx
+analytics_month_march,March,मार्च,src/screens/analytics/appMetrices.jsx
+analytics_month_april,April,अप्रैल,src/screens/analytics/appMetrices.jsx
+analytics_month_may,May,मई,src/screens/analytics/appMetrices.jsx
+analytics_day_monday,Monday,सोमवार,src/screens/analytics/appMetrices.jsx
+analytics_day_tuesday,Tuesday,मंगलवार,src/screens/analytics/appMetrices.jsx
+analytics_day_wednesday,Wednesday,बुधवार,src/screens/analytics/appMetrices.jsx
+analytics_day_thursday,Thursday,गुरुवार,src/screens/analytics/appMetrices.jsx
+analytics_day_friday,Friday,शुक्रवार,src/screens/analytics/appMetrices.jsx
+app_metrices_title_suffix,Metrices,मेट्रिसेज़,src/screens/analytics/appMetrices.jsx
+app_metrices_total_sales,Total Sales,कुल बिक्री,src/screens/analytics/appMetrices.jsx
+app_metrices_new_users,New Users,नए यूज़र्स,src/screens/analytics/appMetrices.jsx
+app_metrices_orders,Orders,ऑर्डर्स,src/screens/analytics/appMetrices.jsx
+app_metrices_revenue,Revenue,रेवेन्यू,src/screens/analytics/appMetrices.jsx
+app_metrices_sales_bar_chart,Sales Bar Chart,बिक्री बार चार्ट,src/screens/analytics/appMetrices.jsx
+app_metrices_visitors_line_chart,Visitors Line Chart,विज़िटर्स लाइन चार्ट,src/screens/analytics/appMetrices.jsx
+app_metrices_recent_transactions,Recent Transactions,हाल के ट्रांज़ैक्शन,src/screens/analytics/appMetrices.jsx
+app_metrices_th_id,ID,आईडी,src/screens/analytics/appMetrices.jsx; src/screens/analytics/lectureMetrices.jsx
+app_metrices_th_sales,Sales,बिक्री,src/screens/analytics/appMetrices.jsx
+app_metrices_th_status,Status,स्थिति,src/screens/analytics/appMetrices.jsx
+app_metrices_chart_sales,Sales,बिक्री,src/screens/analytics/appMetrices.jsx
+app_metrices_chart_visitors,Visitors,विज़िटर्स,src/screens/analytics/appMetrices.jsx
+lecture_metrices_title,Lecture Metrices,लेक्चर मेट्रिसेज़,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_total_videos_completed,Total Videos Completed,कुल पूरे किए गए वीडियो,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_board_videos_completed,Board Videos Completed,बोर्ड वीडियो पूरे हुए,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_jee_videos_completed,JEE Videos Completed,JEE वीडियो पूरे हुए,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_neet_videos_completed,NEET Videos Completed,NEET वीडियो पूरे हुए,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_interactive_input_clicked,Interactive Input Clicked,इंटरैक्टिव इनपुट क्लिक किया गया,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_course_video_overview,Course Video Overview,कोर्स वीडियो ओवरव्यू,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_micro_lecture_daily_completions,Micro lecture daily completions,माइक्रो लेक्चर की दैनिक पूर्णता,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_ai_corrections_during_lecture,AI Corrections During Lecture,लेक्चर के दौरान AI सुधार,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_views_data,Views Data,व्यूज़ डेटा,src/screens/analytics/lectureMetrices.jsx; src/screens/analytics/userActivity.jsx
+lecture_metrices_th_microlecture_name,MicroLecture Name,माइक्रोलेक्चर का नाम,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_th_chapter_name,Chapter Name,चैप्टर का नाम,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_chart_course_video_overview,Course Video Overview,कोर्स वीडियो ओवरव्यू,src/screens/analytics/lectureMetrices.jsx
+lecture_metrices_chart_view_trends,View Trends,व्यू ट्रेंड्स,src/screens/analytics/lectureMetrices.jsx
+user_activity_title,User Activity,यूज़र एक्टिविटी,src/screens/analytics/userActivity.jsx
+user_activity_monthly_active_users,Monthly Active Users,मासिक सक्रिय यूज़र्स,src/screens/analytics/userActivity.jsx
+user_activity_daily_active_users,Daily Active Users,दैनिक सक्रिय यूज़र्स,src/screens/analytics/userActivity.jsx
+user_activity_active_users_count,Active Users Count: {{count}},सक्रिय यूज़र्स की संख्या: {{count}},src/screens/analytics/userActivity.jsx
+user_activity_th_user_id,User Id,यूज़र आईडी,src/screens/analytics/userActivity.jsx
+user_activity_chart_active_users,Active Users,सक्रिय यूज़र्स,src/screens/analytics/userActivity.jsx
+user_activity_chart_month_active_users,Month Active Users,मासिक सक्रिय यूज़र्स,src/screens/analytics/userActivity.jsx
+todo_list_title,ToDo List,टू-डू लिस्ट,src/screens/analytics/todoList.jsx
+todo_list_created,Todo List Created,बनाई गई टू-डू लिस्ट,src/screens/analytics/todoList.jsx
+todo_list_completed,Todo List Completed,पूरी हुई टू-डू लिस्ट,src/screens/analytics/todoList.jsx
+test_view_great_work,Great work!,बहुत बढ़िया काम!,src/screens/Test_View/Test_view.jsx
+test_view_feedback_brilliant,Brilliant!,शानदार!,src/screens/Test_View/Test_view.jsx
+test_view_feedback_late_great,A little late but great!,थोड़ी देर हुई पर बहुत बढ़िया!,src/screens/Test_View/Test_view.jsx
+test_view_feedback_good_job,Good job!,अच्छा काम!,src/screens/Test_View/Test_view.jsx
+test_view_feedback_keep_trying,Keep trying!,कोशिश जारी रखें!,src/screens/Test_View/Test_view.jsx
+test_view_report_question,Report Question,प्रश्न की शिकायत करें,src/screens/Test_View/Test_view.jsx
+test_view_issue_incomplete_question,Incorrect or incomplete question,गलत या अधूरा प्रश्न,src/screens/Test_View/Test_view.jsx
+test_view_issue_incomplete_options,Incorrect or incomplete options,गलत या अधूरे विकल्प,src/screens/Test_View/Test_view.jsx
+test_view_issue_formatting_image,Formatting or image quality issue,फॉर्मेटिंग या इमेज क्वालिटी की समस्या,src/screens/Test_View/Test_view.jsx
+test_view_issue_other,Other,अन्य,src/screens/Test_View/Test_view.jsx
+test_view_additional_feedback,Additional Feedback,अतिरिक्त फीडबैक,src/screens/Test_View/Test_view.jsx
+test_view_feedback_placeholder,Please provide additional details...,कृपया अतिरिक्त जानकारी दें...,src/screens/Test_View/Test_view.jsx
+test_view_submit_report,Submit Report,शिकायत सबमिट करें,src/screens/Test_View/Test_view.jsx
+test_view_your_submitted_answer,Your submitted answer,आपका सबमिट किया गया उत्तर,src/screens/Test_View/Test_view.jsx
+test_view_type_answer_here,Type your answer here,अपना उत्तर यहाँ टाइप करें,src/screens/Test_View/Test_view.jsx
+test_view_answer_placeholder,Enter your answer...,अपना उत्तर दर्ज करें...,src/screens/Test_View/Test_view.jsx
+test_view_correct_answer_label,Correct Answer:,सही उत्तर:,src/screens/Test_View/Test_view.jsx
+test_view_true,True,सही,src/screens/Test_View/Test_view.jsx
+test_view_false,False,गलत,src/screens/Test_View/Test_view.jsx
+test_view_type_answer_option1,Option 1 - Type your answer here,विकल्प 1 - अपना उत्तर यहाँ टाइप करें,src/screens/Test_View/Test_view.jsx
+test_view_upload_photo_option2,Option 2 - Or click and upload a photo of your answer,विकल्प 2 - या अपने उत्तर की फोटो खींचकर अपलोड करें,src/screens/Test_View/Test_view.jsx
+test_view_upload_answer,Upload Your Answer,अपना उत्तर अपलोड करें,src/screens/Test_View/Test_view.jsx
+test_view_max_file_size,Maximum file size 10mb,अधिकतम फ़ाइल साइज़ 10mb,src/screens/Test_View/Test_view.jsx
+test_view_upload,Upload,अपलोड करें,src/screens/Test_View/Test_view.jsx
+test_view_upload_answer_expert_check,Upload your answer and get it checked by board exam experts,अपना उत्तर अपलोड करें और बोर्ड परीक्षा एक्सपर्ट्स से जाँच करवाएँ,src/screens/Test_View/Test_view.jsx
+test_view_question_type_mcq,Multiple Choice Questions,बहुविकल्पीय प्रश्न,src/screens/Test_View/Test_view.jsx
+test_view_question_type_fill_blanks,Fill in the Blanks,रिक्त स्थान भरें,src/screens/Test_View/Test_view.jsx
+test_view_question_type_true_false,True/False,सही/गलत,src/screens/Test_View/Test_view.jsx
+test_view_question_type_short_answer,Short Answer,संक्षिप्त उत्तर,src/screens/Test_View/Test_view.jsx
+test_view_question_type_long_answer,Long Answer,विस्तृत उत्तर,src/screens/Test_View/Test_view.jsx
+test_view_question_progress,Q{{number}} of {{total}},"प्रश्न {{number}}, कुल {{total}} में से",src/screens/Test_View/Test_view.jsx
+test_view_solution,Solution,समाधान,src/screens/Test_View/Test_view.jsx
+test_view_difficulty_medium,Medium,मध्यम,src/screens/Test_View/Test_view.jsx
+test_view_submit,Submit,सबमिट करें,src/screens/Test_View/Test_view.jsx
+test_view_next,Next,आगे,src/screens/Test_View/Test_view.jsx
+test_view_view_solution,view solution,समाधान देखें,src/screens/Test_View/Test_view.jsx
+pdf_circle_mini_scroll_up,Scroll up,ऊपर जाएं,src/components/PDF_Circle/Pdf_circle_mini_screen.jsx
+pdf_circle_mini_scroll_down,Scroll down,नीचे जाएं,src/components/PDF_Circle/Pdf_circle_mini_screen.jsx
+pdf_circle_mini_ask_doubt_chat,Ask in Doubt Chat,डाउट चैट में पूछें,src/components/PDF_Circle/Pdf_circle_mini_screen.jsx
+video_componenet_loading,"Please wait, video is loading...","कृपया प्रतीक्षा करें, वीडियो लोड हो रहा है...",src/components/instant_guru_classifier/Video_Text_response_Component/Video_componenet.jsx
+model_paper_response_start_now,Start Now,अभी शुरू करें,src/components/instant_guru_classifier/Model_Paper_response/Model_Paper_response.jsx; src/components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response.jsx
+model_paper_response_start_test,Start Test,टेस्ट शुरू करें,src/components/instant_guru_classifier/Model_Paper_response/Model_Paper_response.jsx; src/components/instant_guru_classifier/Multi_Model_paper_response/Multi_Model_paper_response.jsx
+multi_video_response_career_intro,"Choosing a career after 12th can be a bit confusing because there are so many options. It depends on which stream you took in 12th (Science, Commerce, Arts) and what your interests, skills, and long-term goals are. Let me tell you about stream-wise and general options 👇","12वीं के बाद करियर चुनना थोड़ा उलझन भरा हो सकता है क्योंकि बहुत सारे विकल्प होते हैं। यह इस पर निर्भर करता है कि आपने 12वीं किस स्ट्रीम (विज्ञान, वाणिज्य, कला) से की है और आपकी रुचि, कौशल तथा लक्ष्य क्या हैं। मैं आपको स्ट्रीम के अनुसार और सामान्य विकल्पों के बारे में बताता हूँ 👇",src/components/instant_guru_classifier/Multi video response/Multi_Video_response.jsx
+multi_video_response_recommended,Recommended videos :,अनुशंसित वीडियो :,src/components/instant_guru_classifier/Multi video response/Multi_Video_response.jsx
+multi_video_response_watch,Watch,देखें,src/components/instant_guru_classifier/Multi video response/Multi_Video_response.jsx
+subscription_response_for_subscription,For Subscription,सदस्यता के लिए,src/components/instant_guru_classifier/Subscription_response/Subscription_response.jsx
+subscription_response_buy_instruction,"To buy a subscription, just click on the button given below.","सदस्यता खरीदने के लिए, नीचे दिए गए बटन पर क्लिक करें।",src/components/instant_guru_classifier/Subscription_response/Subscription_response.jsx
+subscription_response_buy_now,Buy Now,अभी खरीदें,src/components/instant_guru_classifier/Subscription_response/Subscription_response.jsx
+question_response_marks_banner,Here are a few 4-mark questions for you.,यहाँ आपके लिए कुछ 4 अंकों के प्रश्न हैं।,src/components/instant_guru_classifier/Question_response/Question_response.jsx
+question_response_question_label,Question,प्रश्न,src/components/instant_guru_classifier/Question_response/Question_response.jsx

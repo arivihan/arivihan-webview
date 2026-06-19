@@ -111,7 +111,7 @@ const InstantGuruUIDev = () => {
     }
 
     if (waitingForResponse.value === true || showDoubtChatLoader.value === true || showChatLoadShimmer.value === true) {
-      showToast('Waiting for response')
+      showToast(t('waiting_for_response'))
       return;
     }
 
@@ -391,7 +391,7 @@ const InstantGuruUIDev = () => {
           style={{ backgroundColor: "#211F27", borderRadius: 10 }}
         />
         <img id="open-drawer-btn" src={require("../assets/icons/icon_menu_home.png")} className="w-7" onClick={() => { openDrawer() }} />
-        <h1 className="ml-4 mt-3 text-lg font-bold">Instant Guru</h1>
+        <h1 className="ml-4 mt-3 text-lg font-bold">{t("instant_guru_bot_name")}</h1>
 
         <div className="relative flex items-center justify-center ml-auto" onClick={handleNewChat}>
           {/* <Lottie
@@ -545,7 +545,7 @@ const InstantGuruUIDev = () => {
                 src={require("../assets/icons/icon_chat_avatar.png")}
                 className="h-[32px] w-[32px] object-contain mr-2"
               />
-              <p className=" text-[#37D3E7]"><b>Instant Guru</b></p>
+              <p className=" text-[#37D3E7]"><b>{t("instant_guru_bot_name")}</b></p>
             </div>
 
             <div className="flex gap-2 items-center">
@@ -714,7 +714,7 @@ const InstantGuruUIDev = () => {
             type="text"
             id="text-input-field"
             className="outline-none py-3 px-1 w-full text-[14px]"
-            placeholder={t("Type ya photo bhej kar pucho...")}
+            placeholder={t("instant_guru_dev_input_placeholder")}
             value={doubtText.value}
             onChange={(e) => {
               if (subscriptionExpired) {
