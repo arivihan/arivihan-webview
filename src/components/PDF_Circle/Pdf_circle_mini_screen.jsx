@@ -9,7 +9,8 @@ import "./pdf-circle-and-web-view-common.css";
 const Pdf_circle_mini_screen = () => {
   const contentRef = useRef(null);
   const containerRef = useRef(null);
-const [showScrollToTop, setShowScrollToTop] = useState(false);
+  const showAskMore = new URLSearchParams(window.location.search).get('toShowAskMoreButton') === 'true';
+  const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [showScrollToBottom, setShowScrollToBottom] = useState(true);
   const [isScrollable, setIsScrollable] = useState(false);
   const [isAtTop, setIsAtTop] = useState(true);
@@ -212,9 +213,9 @@ useEffect(() => {
           <div className='h-8' />
         </div>
 
-        {/* Ask More - fixed inside panel, visible only at scroll top */}
-        <div
-          className="absolute bottom-[20vh] right-[4vh] z-20 transition-opacity duration-300"
+        {/* Ask More - visible only when query param toShowAskMoreButton=true */}
+        {showAskMore && <div
+          className="absolute bottom-[20vh] right-[5vh] z-20 transition-opacity duration-300"
           style={{ opacity: (isAtTop || showScrollToTop) ? 1 : 0, pointerEvents: (isAtTop || showScrollToTop) ? 'auto' : 'none' }}
         >
           <div className="relative flex items-center justify-center w-[62px] h-[62px]">
@@ -227,7 +228,7 @@ useEffect(() => {
               <span className='text-white font-bold text-[15px] leading-[14px] text-center'>Ask<br />More?</span>
             </button>
           </div>
-        </div>
+        </div>}
 
         {/* Scroll to Top Button */}
         {isScrollable && showScrollToTop && (
