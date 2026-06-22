@@ -214,7 +214,7 @@ useEffect(() => {
 
         {/* Ask More - fixed inside panel, visible only at scroll top */}
         <div
-          className="absolute bottom-[10vh] right-[4vh] z-20 transition-opacity duration-300"
+          className="absolute bottom-[20vh] right-[4vh] z-20 transition-opacity duration-300"
           style={{ opacity: (isAtTop || showScrollToTop) ? 1 : 0, pointerEvents: (isAtTop || showScrollToTop) ? 'auto' : 'none' }}
         >
           <div className="relative flex items-center justify-center w-[62px] h-[62px]">
