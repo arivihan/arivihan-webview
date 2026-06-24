@@ -13,7 +13,6 @@ const Pdf_circle_mini_screen = () => {
   const [showScrollToTop, setShowScrollToTop] = useState(false);
   const [showScrollToBottom, setShowScrollToBottom] = useState(true);
   const [isScrollable, setIsScrollable] = useState(false);
-  const [isAtTop, setIsAtTop] = useState(true);
   const [response, setResponse] = useState("");
   const [title, setTitle] = useState("");
   const [responseId, setResponseId] = useState(null);
@@ -46,9 +45,7 @@ const handleScroll = () => {
   const { scrollTop, scrollHeight, clientHeight } = contentRef.current;
 
   const atBottom = scrollTop + clientHeight >= scrollHeight - 5;
-  const atTop = scrollTop < 5;
 
-  setIsAtTop(atTop);
   setShowScrollToTop(atBottom);
   setShowScrollToBottom(!atBottom);
 };
@@ -210,13 +207,12 @@ useEffect(() => {
 
           {/* Hamesha neeche render hoga */}
           <GlobalLikeDislikeResponse isPDFCircle={true} responseId={responseId} userId={userId} />
-          <div className='h-8' />
+          <div className='h-32' />
         </div>
 
         {/* Ask More - visible only when query param toShowAskMoreButton=true */}
         {showAskMore && <div
-          className="absolute bottom-[20vh] right-[5vh] z-20 transition-opacity duration-300"
-          style={{ opacity: (isAtTop || showScrollToTop) ? 1 : 0, pointerEvents: (isAtTop || showScrollToTop) ? 'auto' : 'none' }}
+          className="absolute bottom-[20vh] right-[5vh] z-20"
         >
           <div className="relative flex items-center justify-center w-[62px] h-[62px]">
             <span className="absolute inline-flex w-[62px] h-[62px] rounded-full bg-[#26C6DA] opacity-40 pulse-ring pointer-events-none" />
@@ -232,7 +228,7 @@ useEffect(() => {
 
         {/* Scroll to Top Button */}
         {isScrollable && showScrollToTop && (
-          <div className="absolute bottom-24 left-[50%] -translate-x-[50%] group">
+          <div className="absolute bottom-20 left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToTop}
               className="bg-[#000000CC]/80 hover:bg-zinc-600 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
@@ -245,7 +241,7 @@ useEffect(() => {
 
         {/* Scroll to Bottom Button */}
         {isScrollable && showScrollToBottom && (
-          <div className="absolute bottom-24 left-[50%] -translate-x-[50%] group">
+          <div className="absolute bottom-20 left-[50%] -translate-x-[50%] group">
             <button
               onClick={scrollToBottom}
               className="bg-[#000000CC]/80 text-white rounded-full p-1 py-1.5 px-3 shadow-lg transition-all duration-300 transform hover:scale-110"
