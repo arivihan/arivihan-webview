@@ -1,0 +1,21 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node -e \"require\\('./src/locales/en.json'\\); require\\('./src/locales/hi.json'\\); console.log\\('OK'\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(python3 -c ' *)",
+      "Bash(npx babel *)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\(d.get\\('scripts'\\)\\); print\\(list\\(d.get\\('dependencies',{}\\).keys\\(\\)\\)[:5]\\); print\\('react-scripts' in d.get\\('dependencies',{}\\) or 'react-scripts' in d.get\\('devDependencies',{}\\)\\)\")",
+      "Bash(node -e \"console.log\\(Object.keys\\(require\\('./src/locales/en.json'\\)\\).length, Object.keys\\(require\\('./src/locales/hi.json'\\)\\).length\\)\")",
+      "Bash(awk '!/^\\\\/\\\\// && NF' src/screens/Progresive_Path/Progresive_Path.jsx)",
+      "Bash(node /tmp/parse_check.js)",
+      "Bash(node scripts/generate-translations-csv.js)",
+      "Bash(awk -F'\",\"' 'NR>1' translations.csv)",
+      "Bash(npm run *)"
+    ],
+    "additionalDirectories": [
+      "/tmp",
+      "/private/tmp"
+    ]
+  }
+}

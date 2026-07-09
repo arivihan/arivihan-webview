@@ -19,6 +19,7 @@ import { analyticsCustomRequest } from "../../utils/smeCustomRequest";
 import moment from "moment";
 import { CgChevronLeft } from "react-icons/cg";
 import { BiChevronRight } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 
 ChartJS.register(
@@ -34,6 +35,7 @@ ChartJS.register(
 );
 
 const LectureMetricesScreen = () => {
+    const { t } = useTranslation();
     const [lectureViewsData, setLectureViewsData] = useState(null);
     const [lineGraphData, setlineGraphData] = useState(null);
     const [pieGraphData, setPieGraphData] = useState(null);
@@ -85,7 +87,7 @@ const LectureMetricesScreen = () => {
                     labels: Object.keys(res.breakdown),
                     datasets: [
                         {
-                            label: "test",
+                            label: t("lecture_metrices_chart_course_video_overview"),
                             data: Object.values(res.breakdown),
                             backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
                             hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
@@ -104,7 +106,7 @@ const LectureMetricesScreen = () => {
                     labels: res.data.map((item) => item.event_date),
                     datasets: [
                         {
-                            label: "View Trends",
+                            label: t("lecture_metrices_chart_view_trends"),
                             data: res.data.map((item) => item.event_count),
                             borderColor: "rgba(34, 197, 94, 1)",
                             backgroundColor: "rgba(34, 197, 94, 0.2)",
@@ -123,7 +125,7 @@ const LectureMetricesScreen = () => {
                     labels: Object.keys(res),
                     datasets: [
                         {
-                            label: "View Trends",
+                            label: t("lecture_metrices_chart_view_trends"),
                             data: Object.values(res),
                             borderColor: "rgba(34, 197, 94, 1)",
                             backgroundColor: "rgba(34, 197, 94, 0.2)",
@@ -160,23 +162,23 @@ const LectureMetricesScreen = () => {
         <SMEThemeWrapper>
             <div className="min-h-screen p-6">
                 <div className="flex items-center">
-                    <h2 className="text-2xl font-bold mr-auto">Lecture  Metrices</h2>
+                    <h2 className="text-2xl font-bold mr-auto">{t("lecture_metrices_title")}</h2>
                     <div className="flex gap-1">
                         <div className={`${selectedMonth === 10 ? "bg-primary text-white" : "border border-primary"}  px-4 py-1 rounded  text-sm cursor-pointer`} onClick={() => { setSelectedMonth(10) }}>
-                            <span>Oct</span>
+                            <span>{t("analytics_month_oct")}</span>
                         </div>
                         <div className={`${selectedMonth === 11 ? "bg-primary text-white" : "border border-primary"}  px-4 py-1 rounded  text-sm cursor-pointer`} onClick={() => { setSelectedMonth(11) }}>
-                            <span>Nov</span>
+                            <span>{t("analytics_month_nov")}</span>
                         </div>
                         <div className={`${selectedMonth === 12 ? "bg-primary text-white" : "border border-primary"}  px-4 py-1 rounded  text-sm cursor-pointer`} onClick={() => { setSelectedMonth(12) }}>
-                            <span>Dec</span>
+                            <span>{t("analytics_month_dec")}</span>
                         </div>
                     </div>
                 </div>
                 <hr className="my-4" />
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold">Total Videos Completed</h3>
+                        <h3 className="text-lg font-semibold">{t("lecture_metrices_total_videos_completed")}</h3>
                         {
                             lectureViewsData === null
                                 ?
@@ -188,7 +190,7 @@ const LectureMetricesScreen = () => {
                         }
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold">Board Videos Completed</h3>
+                        <h3 className="text-lg font-semibold">{t("lecture_metrices_board_videos_completed")}</h3>
                         {
                             lectureViewsData === null
                                 ?
@@ -200,7 +202,7 @@ const LectureMetricesScreen = () => {
                         }
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold">JEE Videos Completed</h3>
+                        <h3 className="text-lg font-semibold">{t("lecture_metrices_jee_videos_completed")}</h3>
                         {
                             lectureViewsData === null
                                 ?
@@ -212,7 +214,7 @@ const LectureMetricesScreen = () => {
                         }
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold">NEET Videos Completed</h3>
+                        <h3 className="text-lg font-semibold">{t("lecture_metrices_neet_videos_completed")}</h3>
                         {
                             lectureViewsData === null
                                 ?
@@ -224,7 +226,7 @@ const LectureMetricesScreen = () => {
                         }
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold">Interactive Input Clicked</h3>
+                        <h3 className="text-lg font-semibold">{t("lecture_metrices_interactive_input_clicked")}</h3>
                         {
                             lectureViewsData === null
                                 ?
@@ -239,7 +241,7 @@ const LectureMetricesScreen = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold mb-4">Course Video Overview</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("lecture_metrices_course_video_overview")}</h3>
                         {
                             pieGraphData === null
                                 ?
@@ -254,7 +256,7 @@ const LectureMetricesScreen = () => {
                         }
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold mb-4">Micro lecture daily completions</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("lecture_metrices_micro_lecture_daily_completions")}</h3>
                         {
                             lineGraphData === null
                                 ?
@@ -267,7 +269,7 @@ const LectureMetricesScreen = () => {
                     </div>
 
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold mb-4">AI Corrections During Lecture</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("lecture_metrices_ai_corrections_during_lecture")}</h3>
                         {
                             lectureQueriesSolved === null
                                 ?
@@ -281,15 +283,15 @@ const LectureMetricesScreen = () => {
                 </div>
 
                 <div className="bg-white border p-6 rounded-lg shadow">
-                    <h3 className="text-lg font-semibold mb-4">Views Data</h3>
+                    <h3 className="text-lg font-semibold mb-4">{t("lecture_metrices_views_data")}</h3>
                     <div className="overflow-x-auto flex flex-col">
                         <table className="table-auto w-full text-left border-collapse" border="1">
                             <thead>
                                 <tr>
-                                    <th className="border-b px-4 py-2">ID</th>
-                                    <th className="border-b px-4 py-2">MicroLecture Name</th>
-                                    <th className="border-b px-4 py-2">Chapter Name</th>
-                                    <th className="border-b px-4 py-2">Date</th>
+                                    <th className="border-b px-4 py-2">{t("app_metrices_th_id")}</th>
+                                    <th className="border-b px-4 py-2">{t("lecture_metrices_th_microlecture_name")}</th>
+                                    <th className="border-b px-4 py-2">{t("lecture_metrices_th_chapter_name")}</th>
+                                    <th className="border-b px-4 py-2">{t("doubt_list_th_date")}</th>
                                 </tr>
                             </thead>
 
@@ -310,7 +312,7 @@ const LectureMetricesScreen = () => {
                                                 <td className="border-b px-4 py-2">{row.phoneNumber}</td>
                                                 <td className="border-b px-4 py-2">{row.MicrolectureName}</td>
                                                 <td className="border-b px-4 py-2">{row.ChapterName}</td>
-                                                <td className="border-b px-4 py-2">{row.event_timestamp ? moment(row.event_timestamp).format("HH:MM:SS DD/MM/YYYY") : "N/A"}</td>
+                                                <td className="border-b px-4 py-2">{row.event_timestamp ? moment(row.event_timestamp).format("HH:MM:SS DD/MM/YYYY") : t("doubt_list_na")}</td>
                                             </tr>
                                         ))
                                 }

@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { ChevronLeft, AlertTriangle, MoreHorizontal, CheckCircle, Clock, Star, Flag, X } from 'lucide-react';
 import { IoIosArrowRoundDown } from "react-icons/io";
+import { useTranslation } from 'react-i18next';
 // Sample data for different question types
 const questionData = {
   mcq: [
@@ -150,6 +151,7 @@ const questionData = {
 
 // Success Popup Component
 const SuccessPopup = ({ show, message, icon, onClose }) => {
+  const { t } = useTranslation();
   useEffect(() => {
     if (show) {
       const timer = setTimeout(onClose, 2000);
@@ -166,7 +168,7 @@ const SuccessPopup = ({ show, message, icon, onClose }) => {
           {icon}
         </div>
         <h3 className="text-lg font-semibold text-gray-800 mb-2">{message}</h3>
-        <div className="text-sm text-gray-600">Great work!</div>
+        <div className="text-sm text-gray-600">{t('test_view_great_work')}</div>
       </div>
     </div>
   );
@@ -174,14 +176,15 @@ const SuccessPopup = ({ show, message, icon, onClose }) => {
 
 // Report Popup Component
 const ReportPopup = ({ show, onClose, questionId }) => {
+  const { t } = useTranslation();
   const [selectedIssue, setSelectedIssue] = useState('');
   const [feedback, setFeedback] = useState('');
 
   const issues = [
-    'Incorrect or incomplete question',
-    'Incorrect or incomplete options',
-    'Formatting or image quality issue',
-    'Other'
+    t('test_view_issue_incomplete_question'),
+    t('test_view_issue_incomplete_options'),
+    t('test_view_issue_formatting_image'),
+    t('test_view_issue_other')
   ];
 
   const handleSubmit = () => {
@@ -197,7 +200,7 @@ const ReportPopup = ({ show, onClose, questionId }) => {
     <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
       <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl">
         <div className="flex items-center justify-between p-4 border-b">
-          <h3 className="text-lg font-semibold text-gray-800">Report Question</h3>
+          <h3 className="text-lg font-semibold text-gray-800">{t('test_view_report_question')}</h3>
           <button onClick={onClose} className="p-1 hover:bg-gray-100 rounded-lg">
             <X className="w-5 h-5 text-gray-500" />
           </button>
@@ -222,12 +225,12 @@ const ReportPopup = ({ show, onClose, questionId }) => {
           
           <div>
             <label className="block text-sm font-medium text-gray-700 mb-2">
-              Additional Feedback
+              {t('test_view_additional_feedback')}
             </label>
             <textarea
               value={feedback}
               onChange={(e) => setFeedback(e.target.value)}
-              placeholder="Please provide additional details..."
+              placeholder={t('test_view_feedback_placeholder')}
               rows={4}
               className="w-full p-3 border border-gray-300 rounded-xl focus:border-cyan-400 focus:outline-none resize-none text-sm"
             />
@@ -244,7 +247,7 @@ const ReportPopup = ({ show, onClose, questionId }) => {
                 : 'bg-gray-200 text-gray-400 cursor-not-allowed'
             }`}
           >
-            Submit Report
+            {t('test_view_submit_report')}
           </button>
         </div>
       </div>
@@ -253,14 +256,16 @@ const ReportPopup = ({ show, onClose, questionId }) => {
 };
 
 // Question Type Components
-const MCQ = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => (
+const MCQ = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => {
+  const { t } = useTranslation();
+  return (
   <div className=" w-[90vw] space-y-4">
     <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
       {question.question}
     </div>
-    <div className="space-y-3"> 
+    <div className="space-y-3">
       <div className=" text-sm text-gray-500 font-medium">
-                Your submitted answer
+                {t('test_view_your_submitted_answer')}
               </div>
       {question.options.map((option) => (
         <button
@@ -283,20 +288,23 @@ const MCQ = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitt
       ))}
     </div>
   </div>
-);
+  );
+};
 
-const FillInTheBlank = ({ question, userAnswer, onAnswerChange, showSolution, isSubmitted }) => (
+const FillInTheBlank = ({ question, userAnswer, onAnswerChange, showSolution, isSubmitted }) => {
+  const { t } = useTranslation();
+  return (
   <div className="space-y-4 w-[90vw]">
     <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
       {question.question}
     </div>
     <div className="space-y-3">
-      <p className='text-[12px] text-gray-600'>Type your answer here</p>
+      <p className='text-[12px] text-gray-600'>{t('test_view_type_answer_here')}</p>
       <input
         type="text"
         value={userAnswer || ''}
         onChange={(e) => !isSubmitted && onAnswerChange(e.target.value)}
-        placeholder="Enter your answer..."
+        placeholder={t('test_view_answer_placeholder')}
         disabled={isSubmitted}
         className={`w-full px-4 py-3 border rounded-xl text-base transition-all duration-200 ${
           isSubmitted
@@ -309,25 +317,28 @@ const FillInTheBlank = ({ question, userAnswer, onAnswerChange, showSolution, is
       {isSubmitted && (
         <div className="p-3 bg-green-50 border border-green-200 rounded-xl">
           <div className="text-sm font-medium text-green-800">
-            Correct Answer: <span className="font-bold">{question.answer}</span>
+            {t('test_view_correct_answer_label')} <span className="font-bold">{question.answer}</span>
           </div>
         </div>
       )}
     </div>
   </div>
-); 
+  );
+};
 
 
 
-const TrueFalse = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => (
+const TrueFalse = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => {
+  const { t } = useTranslation();
+  return (
   <div className="space-y-4 w-[90vw]">
     <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
       {question.question}
     </div>
     <div className="space-y-3">
       {[
-        { id: 'true', text: 'True', value: true },
-        { id: 'false', text: 'False', value: false }
+        { id: 'true', text: t('test_view_true'), value: true },
+        { id: 'false', text: t('test_view_false'), value: false }
       ].map((option) => (
         <button
           key={option.id}
@@ -348,20 +359,23 @@ const TrueFalse = ({ question, selectedAnswer, onAnswerSelect, showSolution, isS
       ))}
     </div>
   </div>
-);
+  );
+};
 
-const ShortAnswer = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => (
+const ShortAnswer = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => {
+  const { t } = useTranslation();
+  return (
   <div className="space-y-4 w-[90vw]">
     <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
       {question.question}
     </div>
-    <p style={{fontWeight:600}} className='italic text-sm '>Option-1- Apna answer yha type karein</p>
+    <p style={{fontWeight:600}} className='italic text-sm '>{t('test_view_type_answer_option1')}</p>
     <div className="space-y-3">
       <input
         type="text"
         value={selectedAnswer || ''}
         onChange={(e) => !isSubmitted && onAnswerSelect(e.target.value)}
-        placeholder="Enter your answer..."
+        placeholder={t('test_view_answer_placeholder')}
         disabled={isSubmitted}
         className={`w-full p-3 border-2 rounded-md text-base transition-all duration-200 ${
           isSubmitted
@@ -374,48 +388,53 @@ const ShortAnswer = ({ question, selectedAnswer, onAnswerSelect, showSolution, i
       {isSubmitted && (
         <div className="p-3 bg-green-50 border border-green-200 rounded-xl">
           <div className="text-sm font-medium text-green-800">
-            Correct Answer: <span className="font-bold">{question.answer}</span>
+            {t('test_view_correct_answer_label')} <span className="font-bold">{question.answer}</span>
           </div>
         </div>
       )}
-        
-    </div> 
-    <p style={{fontWeight:600}} className='italic text-sm '>Option-2- ya photo click krke upload karein</p>
+
+    </div>
+    <p style={{fontWeight:600}} className='italic text-sm '>{t('test_view_upload_photo_option2')}</p>
     <div style={{border:'2px dashed gray'}} className='w-[90vw] h-[28vh] flex flex-col justify-center items-center rounded-md'>
-              <p className='text-cyan-300 text-[18px]'>Answer upload <span className='text-black'><b>Karein</b></span></p>
-               <p style={{fontWeight:400}} className='text-[15px]'>Maximum file size 10mb</p>
+              <p className='text-cyan-300 text-[18px]'>{t('test_view_upload_answer')}</p>
+               <p style={{fontWeight:400}} className='text-[15px]'>{t('test_view_max_file_size')}</p>
                <button className='bg-cyan-400 text-white px-10 py-2 mt-2 rounded-lg hover:bg-cyan-500'>
-                 <p>Upload</p>
+                 <p>{t('test_view_upload')}</p>
                </button>
     </div>
   </div>
-);
-const LongAnswer = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => (
+  );
+};
+const LongAnswer = ({ question, selectedAnswer, onAnswerSelect, showSolution, isSubmitted }) => {
+  const { t } = useTranslation();
+  return (
   <div className="space-y-4 w-[90vw]">
     <div className="text-gray-800 text-base sm:text-lg leading-relaxed font-medium">
       {question.question}
     </div>
       <div className="space-y-3">
-      
+
       <div className='text-black/50'>
-        <p style={{fontWeight:600}} className='italic text-sm '>Option-2- ya photo click krke upload karein</p>
-        <p style={{fontWeight:600}} className='italic text-sm '>Option-2- ya photo click krke upload karein</p>
+        <p style={{fontWeight:600}} className='italic text-sm '>{t('test_view_upload_photo_option2')}</p>
+        <p style={{fontWeight:600}} className='italic text-sm '>{t('test_view_upload_photo_option2')}</p>
       </div>
-        
-    </div> 
+
+    </div>
     <div style={{border:'2px dashed gray'}} className='w-[90vw] h-[28vh] flex flex-col justify-center items-center rounded-md'>
               <div className='w-[96%] h-[95%] flex flex-col justify-center items-center rounded-md bg-cyan-100/50'>
-                <p style={{fontWeight:400}} className='text-cyan-300 w-[80%] leading-5 text-center text-[18px]'>Answer upload <span style={{fontWeight:500}} className='text-black'>Karein aur board exam experts se check karwaayein</span></p>
-               <p style={{fontWeight:400}} className='text-[15px] mt-2'>Maximum file size 10mb</p>
+                <p style={{fontWeight:400}} className='text-cyan-300 w-[80%] leading-5 text-center text-[18px]'>{t('test_view_upload_answer_expert_check')}</p>
+               <p style={{fontWeight:400}} className='text-[15px] mt-2'>{t('test_view_max_file_size')}</p>
                <button className='bg-cyan-400 text-white px-10 py-2 mt-2 rounded-lg hover:bg-cyan-500'>
-                 <p>Upload</p>
+                 <p>{t('test_view_upload')}</p>
                </button>
               </div>
     </div>
   </div>
-);
+  );
+};
 
 export default function PracticeQuestionsUI() {
+  const { t } = useTranslation();
   const [currentQuestionType, setCurrentQuestionType] = useState('mcq');
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [userAnswers, setUserAnswers] = useState({});
@@ -483,25 +502,25 @@ export default function PracticeQuestionsUI() {
     
     if (isCorrect) {
       if (timeTaken <= 5) {
-        setPopupData({ 
-          message: 'Brilliant!', 
-          icon: <Star className="w-12 h-12 text-yellow-500" /> 
+        setPopupData({
+          message: t('test_view_feedback_brilliant'),
+          icon: <Star className="w-12 h-12 text-yellow-500" />
         });
       } else if (timeTaken <= 10) {
-        setPopupData({ 
-          message: 'A little late but great!', 
-          icon: <Clock className="w-12 h-12 text-orange-500" /> 
+        setPopupData({
+          message: t('test_view_feedback_late_great'),
+          icon: <Clock className="w-12 h-12 text-orange-500" />
         });
       } else {
-        setPopupData({ 
-          message: 'Good job!', 
-          icon: <CheckCircle className="w-12 h-12 text-green-500" /> 
+        setPopupData({
+          message: t('test_view_feedback_good_job'),
+          icon: <CheckCircle className="w-12 h-12 text-green-500" />
         });
       }
     } else {
-      setPopupData({ 
-        message: 'Keep trying!', 
-        icon: <CheckCircle className="w-12 h-12 text-red-500" /> 
+      setPopupData({
+        message: t('test_view_feedback_keep_trying'),
+        icon: <CheckCircle className="w-12 h-12 text-red-500" />
       });
     }
     
@@ -675,11 +694,11 @@ export default function PracticeQuestionsUI() {
           }}
           className="w-full p-3 border border-gray-300 rounded-xl text-sm focus:border-cyan-400 focus:outline-none bg-white shadow-sm transition-all duration-200"
         >
-          <option value="mcq">Multiple Choice Questions</option>
-          <option value="fillInTheBlanks">Fill in the Blanks</option>
-          <option value="trueFalse">True/False</option>
-          <option value="shortAnswer">Short Answer</option>
-          <option value="longAnswer">Long Answer</option>
+          <option value="mcq">{t('test_view_question_type_mcq')}</option>
+          <option value="fillInTheBlanks">{t('test_view_question_type_fill_blanks')}</option>
+          <option value="trueFalse">{t('test_view_question_type_true_false')}</option>
+          <option value="shortAnswer">{t('test_view_question_type_short_answer')}</option>
+          <option value="longAnswer">{t('test_view_question_type_long_answer')}</option>
         </select>
       </div>
 
@@ -741,7 +760,7 @@ export default function PracticeQuestionsUI() {
             {/* Question Content */}
              <div className="flex p-2 w-full px-6 items-center justify-between text-sm">
           <span className="text-gray-600 font-medium">
-            <p className='text-[18px]'>Q{currentQuestionIndex + 1} of {totalQuestions}</p>
+            <p className='text-[18px]'>{t('test_view_question_progress', { number: currentQuestionIndex + 1, total: totalQuestions })}</p>
           </span>
           <span className="bg-gradient-to-r from-cyan-100 to-blue-100 text-cyan-700 px-3 py-1 rounded-full text-xs font-medium">
             MP Board 2012
@@ -759,9 +778,9 @@ export default function PracticeQuestionsUI() {
                 <div className="px-2 flex items-center justify-between">
                   <div className="flex w-full justify-between gap-3">
                      <div className="flex flex-col items-center gap-1">
-                    <span className="font-semibold text-[22px] text-gray-800">Solution</span>
+                    <span className="font-semibold text-[22px] text-gray-800">{t('test_view_solution')}</span>
                     <span className="bg-cyan-100 text-orange-700 px-3 py-1 rounded-full text-xs font-medium">
-                      <p className='text-[14px] text-cyan-600'>Medium</p>
+                      <p className='text-[14px] text-cyan-600'>{t('test_view_difficulty_medium')}</p>
                     </span>
                   </div>
                     <div  onClick={() => setShowReportPopup(true)} className="p-2  rounded-lg">
@@ -790,7 +809,7 @@ export default function PracticeQuestionsUI() {
                   onClick={handleSubmit}
                   className="bg-cyan-400 max-w-[30vw] ml-auto text-white px-8 py-3 rounded-xl font-semibold text-base flex-1 transition-all duration-200 shadow-lg transform"
                 >
-                  Submit
+                  {t('test_view_submit')}
                 </button>
               ) : (
                 <button
@@ -802,7 +821,7 @@ export default function PracticeQuestionsUI() {
                       : 'bg-cyan-500'
                   }`}
                 >
-                  Next
+                  {t('test_view_next')}
                 </button>
               )}
             </>
@@ -824,7 +843,7 @@ export default function PracticeQuestionsUI() {
          
          {showSolution &&  (
             <div onClick={scrollToSolution} id='solution' className='absolute bottom-24 w-fit h-fit left-1/2 transform -translate-x-1/2  bg-black/70 text-white flex justify-center p-1 text-sm px-3 rounded-full z-10 '>
-               <p>view solution</p> 
+               <p>{t('test_view_view_solution')}</p>
                <IoIosArrowRoundDown size={18}  />
             </div>
          )}

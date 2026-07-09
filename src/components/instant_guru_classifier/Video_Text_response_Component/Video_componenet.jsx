@@ -2,7 +2,9 @@ import React, { useRef, useState } from "react";
 import { openAppActivity } from "../../../utils/instantGuruUtilsDev";
 import { GoDotFill } from "react-icons/go";
 import playbutton from "../../../assets/icons/play2.png"
+import { useTranslation } from "react-i18next";
 const Video_componenet = ({ chat }) => {
+  const { t } = useTranslation();
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -45,7 +47,7 @@ const Video_componenet = ({ chat }) => {
           className="absolute left-[50%]  translate-x-[-50%] inset-0 h-[73%] w-[95%] top-[28%] rounded-[10px] translate-y-[-33%] p-2 flex flex-col items-center justify-center cursor-pointer"
         >
           {loading ? (
-            <p className="text-white font-bold">Please wait, video is loading...</p>
+            <p className="text-white font-bold">{t("video_componenet_loading")}</p>
           ) : (
             <img className="p-2 rounded z-[999999] w-[70px]" src={playbutton} alt="play button" />
           )}

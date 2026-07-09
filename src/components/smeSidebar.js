@@ -12,11 +12,13 @@ import { CgNotes } from 'react-icons/cg';
 import { currentViewCompoent, smeCurrentViewCompoent } from '../state/smeState';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 
 
 
 const SMESidebar = ({ onCreateNewChat }) => {
+    const { t } = useTranslation();
     useSignals();
     const location = useLocation();
     const [isShowActionsCard, setIsShowActionsCard] = useState(false);
@@ -76,27 +78,27 @@ const SMESidebar = ({ onCreateNewChat }) => {
                     }
                 </div> */}
                 <div className={`flex items-center px-3 bg-white border py-2 rounded-lg mt-auto my-1 cursor-pointer ${location.pathname.includes("/sme-home") ? "border-primary/50 bg-primary/10" : ""} `} onClick={() => { navigate("/sme-home") }}>
-                    <h5 className='text-sm flex items-center'> <PiHouse className='mr-2' />Home</h5>
+                    <h5 className='text-sm flex items-center'> <PiHouse className='mr-2' />{t("sme_sidebar_home")}</h5>
                 </div>
 
                 <div className={`flex items-center px-3 bg-white border py-2 rounded-lg mt-auto my-1 cursor-pointer ${opnedSubmenu === "metrices" ? "border-primary/50 bg-primary/10" : ""} `}>
                     <div className="flex flex-col w-full">
-                        <h5 className={`text-sm flex items-center w-full ${opnedSubmenu === "metrices" ? "pb-2" : ""}`} onClick={() => { setOpenedSubmenu(opnedSubmenu == "metrices" ? null : "metrices") }}> <BiMobile className='mr-2' /><span>App Metrices</span> {opnedSubmenu !== "metrices" ? <BiChevronRight className='ml-auto text-xl' /> : <BiChevronDown className='ml-auto text-xl' />}</h5>
+                        <h5 className={`text-sm flex items-center w-full ${opnedSubmenu === "metrices" ? "pb-2" : ""}`} onClick={() => { setOpenedSubmenu(opnedSubmenu == "metrices" ? null : "metrices") }}> <BiMobile className='mr-2' /><span>{t("sme_sidebar_app_metrices")}</span> {opnedSubmenu !== "metrices" ? <BiChevronRight className='ml-auto text-xl' /> : <BiChevronDown className='ml-auto text-xl' />}</h5>
 
                         <div className={`flex flex-col overflow-hidden transition-all ${opnedSubmenu === "metrices" ? "border-t pt-2 " : " h-0"}`}>
-                            <Link to="/app-metrices/user-activity" className='text-sm flex items-center w-full ml-2 py-2'> <BiChevronRight className='mr-2' /><span>User Activity</span></Link>
-                            <Link to="/app-metrices/lecture" className='text-sm flex items-center w-full ml-2 py-2'> <BiChevronRight className='mr-2' /><span>Lectures</span></Link>
-                            <Link to="/app-metrices/todo-list" className='text-sm flex items-center w-full ml-2 py-2'> <BiChevronRight className='mr-2' /><span>Todo List</span></Link>
+                            <Link to="/app-metrices/user-activity" className='text-sm flex items-center w-full ml-2 py-2'> <BiChevronRight className='mr-2' /><span>{t("sme_sidebar_user_activity")}</span></Link>
+                            <Link to="/app-metrices/lecture" className='text-sm flex items-center w-full ml-2 py-2'> <BiChevronRight className='mr-2' /><span>{t("sme_sidebar_lectures")}</span></Link>
+                            <Link to="/app-metrices/todo-list" className='text-sm flex items-center w-full ml-2 py-2'> <BiChevronRight className='mr-2' /><span>{t("sme_sidebar_todo_list")}</span></Link>
                         </div>
                     </div>
                 </div>
 
                 <div className={`flex items-center px-3 bg-white border py-2 rounded-lg mt-auto my-1 cursor-pointer ${location.pathname.includes("/sme-student-list") ? "border-primary/50 bg-primary/10" : ""} `} onClick={() => { navigate("/sme-student-list") }}>
-                    <h5 className='text-sm flex items-center'> <PiStudent className='mr-2' />Students</h5>
+                    <h5 className='text-sm flex items-center'> <PiStudent className='mr-2' />{t("sme_sidebar_students")}</h5>
                 </div>
                 <div className="flex flex-col">
                     <div className={`flex items-center px-3 bg-white border py-2 rounded-lg mt-auto my-1 cursor-pointer ${location.pathname.includes("/sme-doubt-list") ? "border-primary/50 bg-primary/10" : ""} `} onClick={() => { navigate("/sme-doubt-list/latest") }}>
-                        <h5 className='text-sm flex items-center'> <CgNotes className='mr-2' />All Doubts</h5>
+                        <h5 className='text-sm flex items-center'> <CgNotes className='mr-2' />{t("sme_sidebar_all_doubts")}</h5>
                     </div>
                     {/* <div className={`ml-6 flex items-center px-3 bg-white border py-2 rounded-lg mt-auto my-1 cursor-pointer ${location.pathname.includes("/sme-doubt-list/new") ? "border-primary/50 bg-primary/10" : ""} `} onClick={() => { navigate("/sme-doubt-list/latest") }}>
                         <h5 className='text-sm flex items-center'> <BiSubdirectoryRight className='mr-2' />New Doubts</h5>
@@ -109,7 +111,7 @@ const SMESidebar = ({ onCreateNewChat }) => {
 
 
             <div className="flex items-center justify-center bg-white border py-2 rounded-lg mt-auto my-4 mx-4 cursor-pointer" onClick={handleLogout}>
-                <h5 className='text-sm flex items-center'> <BiLogOut className='mr-2' /> Logout </h5>
+                <h5 className='text-sm flex items-center'> <BiLogOut className='mr-2' /> {t("sme_sidebar_logout")} </h5>
             </div>
 
         </div>

@@ -23,6 +23,7 @@ import { useTranslation } from 'react-i18next';
 const messages = signal([]);
 
 const SmeDoubtChatScreen = () => {
+    const { t } = useTranslation();
     useSignals();
     // const [messages, setMessages] = useState([]);
     const [inputText, setInputText] = useState('');
@@ -93,7 +94,7 @@ const SmeDoubtChatScreen = () => {
                                                 ?
                                                 <div className="w-full flex flex-col items-center justify-center h-[58vh]">
                                                     <img src={require("../../assets/chat.png")} className='h-40 w-80 object-contain' />
-                                                    <p className='text-sm text-gray-500'>Oops! no any chat found.</p>
+                                                    <p className='text-sm text-gray-500'>{t("doubt_chat_no_chat_found")}</p>
                                                 </div>
                                                 :
 
@@ -131,7 +132,7 @@ const SmeDoubtChatScreen = () => {
                                             value={inputText}
                                             onInput={(e) => { setInputText(e.target.value) }}
                                             className="flex-1 mr-2 px-4 py-2 rounded-lg bg-transparent border-none focus:outline-none"
-                                            placeholder="Send your answer..."
+                                            placeholder={t("doubt_chat_send_placeholder")}
                                             onKeyDown={(e) => { if (e.key === "Enter") { handleSendMessage() } }}
                                         />
                                         <button
@@ -276,7 +277,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                             onClick={() => handleActivityClick(navigationParams, screenClassName)}
                             className="inline-flex items-center px-6 py-3 bg-[#26c6da] text-white text-sm font-medium rounded-lg hover:bg-[#1b7e8b] transition-colors shadow-md"
                         >
-                            {actionButtonText || "View Activity"}
+                            {actionButtonText || t("doubt_chat_view_activity")}
                         </button>
                     </div>
                 </div>
@@ -318,7 +319,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                                 className="inline-flex items-center px-4 py-2 bg-[#26c6da] text-white text-sm rounded-lg hover:bg-[#1d99a9] transition-colors"
                             >
                                 <FaPlay className="mr-2" />
-                                {actionButtonText || "Watch Now"}
+                                {actionButtonText || t("doubt_chat_watch_now")}
                             </button>
                         </div>
                     </div>
@@ -352,7 +353,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                                     className="flex items-center px-3 py-2 bg-[#26c6da] text-white text-xs rounded-lg hover:bg-[#1d99a9] transition-colors"
                                 >
                                     <FaExternalLinkAlt className="mr-1" />
-                                    Open
+                                    {t("doubt_chat_open")}
                                 </a>
                             </div>
                         </div>
@@ -426,7 +427,7 @@ const SendBubble = ({ doubt, message, userId }) => {
             <div className="flex  items-center">
                 <div className="flex items-center">
                     <img src={require("../../assets/user.png")} alt="" className="rounded-full bg-white h-9 w-9 object-contain" />
-                    <h4 className='font-bold ml-2'>You</h4>
+                    <h4 className='font-bold ml-2'>{t("chat_user_label")}</h4>
                 </div>
                     <div className='flex relative ml-auto gap-3 items-center'>
                         <div>
@@ -439,11 +440,11 @@ const SendBubble = ({ doubt, message, userId }) => {
                     <div className={showDropdown ? "absolute right-0 top-8 rounded border flex flex-col bg-white z-10" : "hidden absolute right-0 top-8 rounded border flex-col bg-white z-10"}>
                         <div className="flex items-center p-2 border-b hover:bg-primary/20 cursor-pointer" onClick={() => { setEditChat(!editChat); setShowDropdown(!showDropdown) }}>
                             <MdEdit />
-                            <span className="text-xs ml-1">Edit</span>
+                            <span className="text-xs ml-1">{t("doubt_chat_edit")}</span>
                         </div>
                         <div className="flex items-center p-2 hover:bg-primary/20 cursor-pointer" onClick={() => { deleteResponse(doubt.id) }}>
                             <MdDelete />
-                            <span className="text-xs ml-1">Delete</span>
+                            <span className="text-xs ml-1">{t("doubt_chat_delete")}</span>
                         </div>
                     </div>
                 </div>
@@ -473,7 +474,7 @@ const SendBubble = ({ doubt, message, userId }) => {
                                 <p className='mb-1'>{doubt.optionResponse[0].title}</p>
                                 <video controls height="290" width="100%" src={doubt.optionResponse[0].contentUrl}></video>
 
-                                <a href={doubt.optionResponse[0].contentUrl} target='_blank' className="px-2 py-1 rounded bg-primary text-white my-2 ml-auto">Open In New Tab</a>
+                                <a href={doubt.optionResponse[0].contentUrl} target='_blank' className="px-2 py-1 rounded bg-primary text-white my-2 ml-auto">{t("doubt_chat_open_new_tab")}</a>
                                 <p className='pt-1' dangerouslySetInnerHTML={{ __html: doubt.response == null ? "" : doubt.response.replace("(bold)<b>", "</b>") }}></p>
                             </div>
                             :
@@ -509,9 +510,9 @@ const SendBubble = ({ doubt, message, userId }) => {
                                     
                                     {editChat && (
                                         <div className="flex items-center my-2 ml-auto">
-                                            <div className="px-2 py-1 text-xs rounded-lg bg-red-500/10 text-red-500 cursor-pointer" onClick={handleCancelEdit}>Cancel</div>
-                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(false)}>Save</div>
-                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(true)}>Save & Notify</div>
+                                            <div className="px-2 py-1 text-xs rounded-lg bg-red-500/10 text-red-500 cursor-pointer" onClick={handleCancelEdit}>{t("doubt_chat_cancel")}</div>
+                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(false)}>{t("doubt_chat_save")}</div>
+                                            <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(true)}>{t("doubt_chat_save_notify")}</div>
                                         </div>
                                     )}
                                 </div>
@@ -522,9 +523,9 @@ const SendBubble = ({ doubt, message, userId }) => {
                                         editChat
                                             ?
                                             <div className="flex items-center my-2 ml-auto">
-                                                <div className="px-2 py-1 text-xs rounded-lg bg-red-500/10 text-red-500 cursor-pointer" onClick={handleCancelEdit}>Cancel</div>
-                                                <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(false)}>Save</div>
-                                                <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(true)}>Save & Notify</div>
+                                                <div className="px-2 py-1 text-xs rounded-lg bg-red-500/10 text-red-500 cursor-pointer" onClick={handleCancelEdit}>{t("doubt_chat_cancel")}</div>
+                                                <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(false)}>{t("doubt_chat_save")}</div>
+                                                <div className="px-2 py-1 text-xs text-white rounded-lg bg-primary cursor-pointer ml-2" onClick={() => handleSaveResponse(true)}>{t("doubt_chat_save_notify")}</div>
 
                                             </div>
                                             :
@@ -552,6 +553,7 @@ const SendBubble = ({ doubt, message, userId }) => {
 
 
 const SmeReceiveBubble = ({ doubt, message, doubtImage, user }) => {
+    const { t } = useTranslation();
     const containerRef = useRef(null);
 
     useEffect(() => {
@@ -592,7 +594,7 @@ const SmeReceiveBubble = ({ doubt, message, doubtImage, user }) => {
                 </div>
                 <div className="flex flex-col ml-2 items-start">
                     <h4 className='font-bold text'>{user.name}</h4>
-                    <span className="text-xs">Class: {user.className}</span>
+                    <span className="text-xs">{t("doubt_chat_class_label", { className: user.className })}</span>
                 </div>
             </div>
 

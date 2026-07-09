@@ -4,9 +4,11 @@ import { FaGoogle } from 'react-icons/fa';
 import { smeCustomRequest } from '../utils/smeCustomRequest';
 import { useNavigate } from 'react-router-dom';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 
 export default function LoginScreen() {
+    const { t } = useTranslation();
     const navigate = useNavigate()
     const [username, setUserName] = useState("");
     const [password, setPassword] = useState("");
@@ -14,7 +16,7 @@ export default function LoginScreen() {
 
     const handleLogin = () => {
         if (username === "" || password === "") {
-            alert("Please enter username and password");
+            alert(t("login_alert_enter_credentials"));
             return;
         }
         smeCustomRequest("/auth/authenticate", "POST", { username: username, password: password }).then((res) => {
@@ -35,24 +37,24 @@ export default function LoginScreen() {
                     <img src={require("../assets/logo.png")} className="" />
                 </div>
 
-                <h2 className='font-bold text-white text-3xl mt-4'>Arivihan SME Login</h2>
+                <h2 className='font-bold text-white text-3xl mt-4'>{t("login_heading_brand")}</h2>
             </div>
 
             <div className="w-1/2 h-full p-16 flex flex-col">
-                <h5 className='text-4xl'>SME Login</h5>
-                <span className='text-sm'>Welcome back! Let’s make today productive and impactful together.</span>
+                <h5 className='text-4xl'>{t("login_heading")}</h5>
+                <span className='text-sm'>{t("login_welcome_subtitle")}</span>
 
                 <div className="flex flex-col mt-6">
-                    <label htmlFor="email" className='text-sm text-gray-500 ml-1'>Username</label>
-                    <input type="text" className="px-3 py-2 border rounded-lg focus:outline-none focus:border-primary" placeholder='Enter username' onInput={(e) => { setUserName(e.target.value) }} />
+                    <label htmlFor="email" className='text-sm text-gray-500 ml-1'>{t("login_username_label")}</label>
+                    <input type="text" className="px-3 py-2 border rounded-lg focus:outline-none focus:border-primary" placeholder={t("login_username_placeholder")} onInput={(e) => { setUserName(e.target.value) }} />
                 </div>
 
                 <div className="flex flex-col mt-4">
-                    <label htmlFor="email" className='text-sm text-gray-500 ml-1'>Password</label>
-                    <input type="password" className="px-3 py-2 border rounded-lg focus:outline-none focus:border-primary" placeholder='Enter password' onInput={(e) => { setPassword(e.target.value) }} />
+                    <label htmlFor="email" className='text-sm text-gray-500 ml-1'>{t("login_password_label")}</label>
+                    <input type="password" className="px-3 py-2 border rounded-lg focus:outline-none focus:border-primary" placeholder={t("login_password_placeholder")} onInput={(e) => { setPassword(e.target.value) }} />
                 </div>
 
-                <button className="w-full px-8 py-2 bg-primary/10 border border-primary text-black transition-all rounded-lg self-center mt-6 hover:bg-primary/100 hover:text-white" onClick={handleLogin}>Login</button>
+                <button className="w-full px-8 py-2 bg-primary/10 border border-primary text-black transition-all rounded-lg self-center mt-6 hover:bg-primary/100 hover:text-white" onClick={handleLogin}>{t("login_button")}</button>
 
 
                 {/* <b className='self-center my-4'>Or</b>

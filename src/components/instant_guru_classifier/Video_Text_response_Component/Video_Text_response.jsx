@@ -5,8 +5,10 @@ import Video_description from "./Video_description";
 import { openAppActivity } from "../../../utils/instantGuruUtilsDev";
 import { RiShareBoxFill } from "react-icons/ri";
 import Global_like_dislike_response from "../Global_like_dislike_response";
+import { useTranslation } from "react-i18next";
 
 const Video_Text_response = ({ chat }) => {
+  const { t } = useTranslation();
   const videoRef = useRef(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -29,7 +31,7 @@ const Video_Text_response = ({ chat }) => {
             src={require("../../../assets/icons/icon_chat_avatar.png")}
           />
         </div>
-        <p className="font-bold text-sm text-[#37D3E7]">Instant Guru</p>
+        <p className="font-bold text-sm text-[#37D3E7]">{t("instant_guru_bot_name")}</p>
       </div>
 
       {/* Video Preview */}

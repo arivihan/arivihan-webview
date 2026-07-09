@@ -8,10 +8,12 @@ import { ReceiveBubble } from '../components/receiveBubble';
 import { chatClear, chatIsWaitingForResponse, chatLoadingMessageId, chatReceiveChatMessage, chatSessionId, chatSessions, isGuestUser, showAuthModal, showSidebarMobile, subscriptionActive, userChatsCount } from '../state/chatState';
 import { customFetchRequest } from '../utils/customRequest';
 import ChatLimtExhausted from '../components/chatLimitExhaustCard';
+import { useTranslation } from 'react-i18next';
 
 
 
 const ChatScreen = () => {
+    const { t } = useTranslation();
     useSignals();
     const [messages, setMessages] = useState([]);
     const [inputText, setInputText] = useState('');
@@ -146,16 +148,16 @@ const ChatScreen = () => {
                 <nav className='ml-auto hidden sm:flex'>
                     <ul className='flex items-center text-sm'>
                         <li className='mx-2'>
-                            <a href="https://arivihan.com/" className=''>Home</a>
+                            <a href="https://arivihan.com/" className=''>{t("chat_nav_home")}</a>
                         </li>
                         <li className='mx-2'>
-                            <a href="https://arivihan.com/contact/" className=''>Contact</a>
+                            <a href="https://arivihan.com/contact/" className=''>{t("chat_nav_contact")}</a>
                         </li>
                         <li className='mx-2'>
-                            <a href="https://arivihan.com/about/" className=''>About</a>
+                            <a href="https://arivihan.com/about/" className=''>{t("chat_nav_about")}</a>
                         </li>
                         <li className='mx-2'>
-                            <a href="#" className='text-[#26c6da] border-b-2 border-[#26c6da]'>Ask Doubt</a>
+                            <a href="#" className='text-[#26c6da] border-b-2 border-[#26c6da]'>{t("chat_nav_ask_doubt")}</a>
                         </li>
 
                     </ul>
@@ -180,7 +182,7 @@ const ChatScreen = () => {
                                             <div className="h-[60px] w-[60px] bg-[#26c6da] rounded-full">
                                                 <img src={require("../assets/logo.png")} alt="" className='h-full w-full object-contain invert brightness-0' />
                                             </div>
-                                            <p className='mt-4'>How <b>can I help</b> you <b>today?</b></p>
+                                            <p className='mt-4'>{t("chat_welcome_heading")}</p>
                                             <div className="relative flex flex-col sm:flex-row items-center justify-between w-full my-12">
                                                 <img src={require("../assets/curv.png")} alt="" className='hidden sm:block absolute top-[84%] h-12 -left-[18%] -z-10' />
                                                 <img src={require("../assets/curv.png")} alt="" className='hidden sm:block absolute -top-[42%] h-12 left-[10%] -z-10 rotate-180' />
@@ -194,13 +196,12 @@ const ChatScreen = () => {
                                                     </svg>
                                                     <div className="flex flex-col ml-2">
                                                         <div className="flex items-center justify-between">
-                                                            <b className='text-xs'>Ask any doubt</b>
+                                                            <b className='text-xs'>{t("chat_card_ask_doubt_title")}</b>
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                                             </svg>
                                                         </div>
-                                                        <p className='text-xs text-gray-500 mt-1'>E.g. Define ‘activation energy’ of a
-                                                            reaction.</p>
+                                                        <p className='text-xs text-gray-500 mt-1'>{t("chat_card_ask_doubt_desc")}</p>
                                                     </div>
                                                 </div>
                                                 <div className="flex p-3 bg-[#E8FBFC] w-full sm:w-1/4 rounded-lg  my-2 sm:my-0 mr-2">
@@ -210,12 +211,12 @@ const ChatScreen = () => {
 
                                                     <div className="flex flex-col ml-2 w-full">
                                                         <div className="flex items-center justify-between">
-                                                            <b className='text-xs'>Clear your concepts</b>
+                                                            <b className='text-xs'>{t("chat_card_clear_concepts_title")}</b>
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                                             </svg>
                                                         </div>
-                                                        <p className='text-xs text-gray-500 mt-1'>E.g. Explain when to apply Pseudo Force</p>
+                                                        <p className='text-xs text-gray-500 mt-1'>{t("chat_card_clear_concepts_desc")}</p>
                                                     </div>
                                                 </div>
 
@@ -226,12 +227,12 @@ const ChatScreen = () => {
 
                                                     <div className="flex flex-col ml-2 w-full">
                                                         <div className="flex items-center justify-between">
-                                                            <b className='text-xs'>Revise with us</b>
+                                                            <b className='text-xs'>{t("chat_card_revise_title")}</b>
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                                             </svg>
                                                         </div>
-                                                        <p className='text-xs text-gray-500 mt-1'>E.g. Which flower blooms once in 12 year</p>
+                                                        <p className='text-xs text-gray-500 mt-1'>{t("chat_card_revise_desc")}</p>
                                                     </div>
                                                 </div>
 
@@ -242,12 +243,12 @@ const ChatScreen = () => {
 
                                                     <div className="flex flex-col ml-2 w-full">
                                                         <div className="flex items-center justify-between">
-                                                            <b className='text-xs'>Get deep insights</b>
+                                                            <b className='text-xs'>{t("chat_card_insights_title")}</b>
                                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-3 h-3">
                                                                 <path strokeLinecap="round" strokeLinejoin="round" d="m8.25 4.5 7.5 7.5-7.5 7.5" />
                                                             </svg>
                                                         </div>
-                                                        <p className='text-xs text-gray-500 mt-1'>E.g. When to use substitution</p>
+                                                        <p className='text-xs text-gray-500 mt-1'>{t("chat_card_insights_desc")}</p>
                                                     </div>
                                                 </div>
 
@@ -256,10 +257,10 @@ const ChatScreen = () => {
                                             <div className="flex p-4 bg-[#F6F6F6] rounded-lg">
                                                 <img src={require("../assets/bot.png")} alt="" className='h-8 w-8 mr-4' />
                                                 <div className="flex flex-col text-xs">
-                                                    <p>Welcome User,</p>
-                                                    <p className='mt-2'>I am <b>Arivihan’s Tutor Bot</b> - Here to help you with your <b>JEE/NEET</b> and <b>Board</b> exam preparation. Consider me your personalized study companion, guiding you every step of the way.</p>
-                                                    <p className='mt-2'>When you're ready, feel free to ask me any doubts to clarify your concepts. This marks the beginning of your learning journey, and the real magic is about to unfold! </p>
-                                                    <p className='mt-2'>Let's start by answering your first query.</p>
+                                                    <p>{t("chat_welcome_user")}</p>
+                                                    <p className='mt-2'>{t("chat_bot_intro_1")}</p>
+                                                    <p className='mt-2'>{t("chat_bot_intro_2")}</p>
+                                                    <p className='mt-2'>{t("chat_bot_intro_3")}</p>
                                                 </div>
                                             </div>
                                             {/* <img src={require("../assets/chat.png")} alt="" className='h-60 w-96 object-contain' />
@@ -327,7 +328,7 @@ const ChatScreen = () => {
                                         value={inputText}
                                         onChange={(e) => setInputText(e.target.value)}
                                         className="flex-1 mr-2 px-4 py-2 rounded-lg bg-transparent border-none focus:outline-none"
-                                        placeholder="Ask me anything..."
+                                        placeholder={t("chat_input_placeholder")}
                                         onKeyUp={(e) => { if (e.key === "Enter") { handleSendMessage() } }}
                                     />
                                     <button
@@ -372,6 +373,7 @@ const ChatScreen = () => {
 }
 
 const SendBubble = (props) => {
+    const { t } = useTranslation();
 
     useEffect(() => {
         document.getElementById("message_container").scrollBy({ top: 600, behavior: "smooth" })
@@ -382,7 +384,7 @@ const SendBubble = (props) => {
         <div className={`text-right mb-3 bg-[#E8FBFC] ml-auto p-2 rounded-lg w-4/5 sm:w-3/5`}>
             <div className="flex items-center">
                 <img src={require("../assets/user.png")} alt="" className="rounded-full bg-white h-9 w-9 object-contain" />
-                <h4 className='font-bold ml-2'>You</h4>
+                <h4 className='font-bold ml-2'>{t("chat_user_label")}</h4>
             </div>
             <div className={`ml-12 text-gray-800 text-start text-sm`}>
                 {props.message}

@@ -66,7 +66,7 @@ const Global_like_dislike_response = ({ chat , isPDFCircle = false ,responseId =
       <hr className="w-full mt-2 mb-2" />
 
       <div className="flex items-center gap-3">
-        <span className="text-xs">Was this helpful?</span>
+        <span className="text-xs">{t("was_this_helpful")}</span>
 
         {/* LIKE */}
         <motion.div

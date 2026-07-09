@@ -10,9 +10,11 @@ import { checkUserSubscrition, getChatHistory, getUserChatSessions } from '../ut
 import { chatHistory, chatSessionId, showChatLoadShimmer, showDoubtChatLoader, waitingForResponse } from '../state/instantGuruState';
 import Cookies from 'js-cookie';
 import { FadeLoader } from 'react-spinners';
+import { useTranslation } from 'react-i18next';
 
 
 const WebSidebar = ({ onCreateNewChat }) => {
+    const { t } = useTranslation();
     useSignals();
     const [newChatTitle, setNewChatTitle] = useState('');
     const [isShowActionsCard, setIsShowActionsCard] = useState(false);
@@ -30,7 +32,7 @@ const WebSidebar = ({ onCreateNewChat }) => {
         if (cookieUser !== undefined && cookieUser !== null) {
             getChatHistory();
         }else{
-            alertDialogContent.value = "Please login to ask question!";
+            alertDialogContent.value = t("websidebar_login_prompt");
         }
 
     };
@@ -46,7 +48,7 @@ const WebSidebar = ({ onCreateNewChat }) => {
     }
 
     const getUser = () => {
-        if (Cookies.get("token")) {
+        if (Cookies.get("token") && Cookies.get("user")) {
             // customFetchRequest('login').then((res) => {
             loggedInUser.value = JSON.parse(Cookies.get("user"));
             isGuestUser.value = false;
@@ -105,7 +107,7 @@ const WebSidebar = ({ onCreateNewChat }) => {
                     }
                 </div> */}
                 <div className="mt-0">
-                    <h1 className="text-sm p-2 font-bold">Chats</h1>
+                    <h1 className="text-sm p-2 font-bold">{t("websidebar_chats")}</h1>
                     <hr />
                     <div className="flex flex-col overflow-y-auto  max-h-[69vh] sm:max-h-[60vh] mt-2 bg">
 
@@ -153,7 +155,7 @@ const WebSidebar = ({ onCreateNewChat }) => {
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 stroke-black rotate-180">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
                                 </svg>
-                                <p className='text-black ml-2' >Login</p>
+                                <p className='text-black ml-2' >{t("websidebar_login")}</p>
                             </div>
 
                             :
@@ -170,21 +172,21 @@ const WebSidebar = ({ onCreateNewChat }) => {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 stroke-black">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
                                     </svg>
-                                    <p className='text-black ml-2' >Logout</p>
+                                    <p className='text-black ml-2' >{t("websidebar_logout")}</p>
                                 </div>
                             </div>
                     }
                 </div>
             </div>
             <div className="flex items-center justify-center bg-white border py-2 rounded-lg mt-auto my-4 mx-4 cursor-pointer" onClick={handleCreateNewChat}>
-                <h5 className='text-sm'>New Question</h5>
+                <h5 className='text-sm'>{t("newChat")}</h5>
             </div>
             <div className="flex items-center bg-white/20 p-4" onClick={() => { setIsShowActionsCard(!isShowActionsCard) }}>
 
 
                 <img src={require("../assets/user.png")} alt="" className="h-10 w-min-10 object-cover rounded-full bg-white" />
                 <h2 className='font-bold text-lg ml-4 text-black'>
-                    {loggedInUser.value === null ? "Guest User" : !loggedInUser.value.newUser ? loggedInUser.value.username : "Guest User"}
+                    {loggedInUser.value === null ? t("websidebar_guest_user") : !loggedInUser.value.newUser ? loggedInUser.value.username : t("websidebar_guest_user")}
                 </h2>
 
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 ml-auto cursor-pointer">

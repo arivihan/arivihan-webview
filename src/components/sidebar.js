@@ -6,10 +6,12 @@ import { auth } from '../firebase';
 import { chatClear, chatSessionId, chatSessions, isGuestUser, loggedInUser, showAuthModal, showSidebarMobile, subscriptionActive } from '../state/chatState';
 import { v4 } from 'uuid';
 import { customFetchRequest } from '../utils/customRequest';
+import { useTranslation } from 'react-i18next';
 
 
 
 const Sidebar = ({ onCreateNewChat }) => {
+    const { t } = useTranslation();
     useSignals();
     const [newChatTitle, setNewChatTitle] = useState('');
     const [isShowActionsCard, setIsShowActionsCard] = useState(false);
@@ -84,7 +86,7 @@ const Sidebar = ({ onCreateNewChat }) => {
                     }
                 </div> */}
                 <div className="mt-0">
-                    <h1 className="text-sm p-2 font-bold">Chats</h1>
+                    <h1 className="text-sm p-2 font-bold">{t("sidebar_chats")}</h1>
                     <hr />
                     <div className="flex flex-col overflow-y-auto  max-h-[50vh] sm:max-h-[52vh] mt-2">
                         {
@@ -121,7 +123,7 @@ const Sidebar = ({ onCreateNewChat }) => {
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 stroke-black rotate-180">
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
                                 </svg>
-                                <p className='text-black ml-2' >Login</p>
+                                <p className='text-black ml-2' >{t("sidebar_login")}</p>
                             </div>
 
                             :
@@ -138,21 +140,21 @@ const Sidebar = ({ onCreateNewChat }) => {
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6 stroke-black">
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 9V5.25A2.25 2.25 0 0 0 13.5 3h-6a2.25 2.25 0 0 0-2.25 2.25v13.5A2.25 2.25 0 0 0 7.5 21h6a2.25 2.25 0 0 0 2.25-2.25V15M12 9l-3 3m0 0 3 3m-3-3h12.75" />
                                     </svg>
-                                    <p className='text-black ml-2' >Logout</p>
+                                    <p className='text-black ml-2' >{t("sidebar_logout")}</p>
                                 </div>
                             </div>
                     }
                 </div>
             </div>
             <div className="flex items-center justify-center bg-white border py-2 rounded-lg mt-auto my-4 mx-4 cursor-pointer" onClick={handleCreateNewChat}>
-                <h5 className='text-sm'>New Chat</h5>
+                <h5 className='text-sm'>{t("sidebar_new_chat")}</h5>
             </div>
             <div className="flex items-center bg-white/20 p-4" onClick={() => { setIsShowActionsCard(!isShowActionsCard) }}>
 
 
                 <img src={require("../assets/user.png")} alt="" className="h-10 w-min-10 object-cover rounded-full bg-white" />
                 <h2 className='font-bold text-lg ml-4 text-black'>
-                    {loggedInUser.value === null ? "Guest User" : !loggedInUser.value.newUser ? loggedInUser.value.username : "Guest User"}
+                    {loggedInUser.value === null ? t("sidebar_guest_user") : !loggedInUser.value.newUser ? loggedInUser.value.username : t("sidebar_guest_user")}
                 </h2>
 
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8 ml-auto cursor-pointer">

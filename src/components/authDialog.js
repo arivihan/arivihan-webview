@@ -6,9 +6,11 @@ import { showAuthModal } from '../state/chatState';
 import { effect } from '@preact/signals-react';
 import { customFetchRequest } from '../utils/customRequest';
 import Cookies from 'js-cookie';
+import { useTranslation } from 'react-i18next';
 
 
 export default function AuthDialog() {
+    const { t } = useTranslation();
     const [isLoading, setIsLoading] = useState();
     const [isOTPSent, setIsOTPSent] = useState(false);
     const [phoneNumber, setPhoneNumber] = useState("");
@@ -19,7 +21,7 @@ export default function AuthDialog() {
         setIsLoading(true);
 
         if (!/^\d{10}$/.test(phoneNumber)) {
-            setErr("Please enter a valid 10 digit phone number.");
+            setErr(t("auth_dialog_invalid_phone"));
             setIsLoading(false);
             return;
         }
@@ -43,7 +45,7 @@ export default function AuthDialog() {
         setIsLoading(true);
 
         if (!/^\d{6}$/.test(otp)) {
-            setErr("Please enter a valid 6 digit OTP.");
+            setErr(t("auth_dialog_invalid_otp"));
             setIsLoading(false);
             return;
         }
@@ -112,16 +114,16 @@ export default function AuthDialog() {
                         <img src={require("../assets/logo-full.png")} alt="" className='h-16 object-cover self-center' />
                     </div>
                     <hr className='my-4' />
-                    <h2 className='text-2xl font-bold ml-1'>Login</h2>
-                    <p className='ml-1 mt-2 mb-2 text-xs text-gray-500'>Enter your phone number to login</p>
-                    <input type="text" maxLength={10} value={phoneNumber} onChange={(e) => { setPhoneNumber(e.target.value.replace(/[^0-9]/g, "")); }} className='border py-2 px-2 rounded-lg  outline-none hover:border-gray-300' placeholder='Phone Number' />
+                    <h2 className='text-2xl font-bold ml-1'>{t("auth_dialog_heading")}</h2>
+                    <p className='ml-1 mt-2 mb-2 text-xs text-gray-500'>{t("auth_dialog_subtitle")}</p>
+                    <input type="text" maxLength={10} value={phoneNumber} onChange={(e) => { setPhoneNumber(e.target.value.replace(/[^0-9]/g, "")); }} className='border py-2 px-2 rounded-lg  outline-none hover:border-gray-300' placeholder={t("auth_dialog_phone_placeholder")} />
 
                     {
                         isOTPSent
                             ?
                             <div className="flex flex-col mt-2">
-                                <label htmlFor="" className='ml-1 text-xs text-gray-500 mb-2'>Enter OTP</label>
-                                <input onChange={(e) => { setOtp(e.target.value) }} minLength={6} maxLength={6} type="text" className='border py-2 px-2 rounded-lg outline-none hover:border-gray-300' placeholder='Enter OTP' />
+                                <label htmlFor="" className='ml-1 text-xs text-gray-500 mb-2'>{t("auth_dialog_otp_label")}</label>
+                                <input onChange={(e) => { setOtp(e.target.value) }} minLength={6} maxLength={6} type="text" className='border py-2 px-2 rounded-lg outline-none hover:border-gray-300' placeholder={t("auth_dialog_otp_placeholder")} />
                             </div>
                             : null
                     }
@@ -144,7 +146,7 @@ export default function AuthDialog() {
                                     wrapperClass=""
                                 />
                                 :
-                                isOTPSent ? "Verify OTP" : "Send OTP"
+                                isOTPSent ? t("auth_dialog_verify_otp") : t("auth_dialog_send_otp")
                         }
 
                     </button>

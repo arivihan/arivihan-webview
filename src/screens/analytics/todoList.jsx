@@ -19,6 +19,7 @@ import { analyticsCustomRequest } from "../../utils/smeCustomRequest";
 import moment from "moment";
 import { CgChevronLeft } from "react-icons/cg";
 import { BiChevronRight } from "react-icons/bi";
+import { useTranslation } from "react-i18next";
 
 
 ChartJS.register(
@@ -34,6 +35,7 @@ ChartJS.register(
 );
 
 const TodoListScreen = () => {
+    const { t } = useTranslation();
     const [toDoListCompleted, setToDoListCompleted] = useState(null);
     const [toDoListCreated, setToDoListCreated] = useState(null);
 
@@ -46,7 +48,7 @@ const TodoListScreen = () => {
                     labels: Object.keys(res),
                     datasets: [
                         {
-                            label: "Todo List Completed",
+                            label: t("todo_list_completed"),
                             data: Object.values(res),
                             borderColor: "rgba(34, 197, 94, 1)",
                             backgroundColor: "rgba(34, 197, 94, 0.2)",
@@ -64,7 +66,7 @@ const TodoListScreen = () => {
                     labels: Object.keys(res),
                     datasets: [
                         {
-                            label: "Todo List Created",
+                            label: t("todo_list_created"),
                             data: Object.values(res),
                             borderColor: "rgba(34, 197, 94, 1)",
                             backgroundColor: "rgba(34, 197, 94, 0.2)",
@@ -87,7 +89,7 @@ const TodoListScreen = () => {
         <SMEThemeWrapper>
             <div className="min-h-screen p-6">
                 <div className="flex items-center">
-                    <h2 className="text-2xl font-bold mr-auto">ToDo List</h2>
+                    <h2 className="text-2xl font-bold mr-auto">{t("todo_list_title")}</h2>
                     {/* <div className="flex gap-1">
                         <div className={`${selectedMonth === 10 ? "bg-primary text-white" : "border border-primary"}  px-4 py-1 rounded  text-sm cursor-pointer`} onClick={() => { setSelectedMonth(10) }}>
                             <span>Oct</span>
@@ -105,7 +107,7 @@ const TodoListScreen = () => {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
                     
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold mb-4">Todo List Created</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("todo_list_created")}</h3>
                         {
                             toDoListCreated === null
                                 ?
@@ -117,7 +119,7 @@ const TodoListScreen = () => {
                         }
                     </div>
                     <div className="bg-white p-6 rounded-lg shadow border">
-                        <h3 className="text-lg font-semibold mb-4">Todo List Completed</h3>
+                        <h3 className="text-lg font-semibold mb-4">{t("todo_list_completed")}</h3>
                         {
                             toDoListCompleted === null
                                 ?
